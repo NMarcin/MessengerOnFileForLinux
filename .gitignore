@@ -50,3 +50,7 @@
 
 # Qt Creator backups
 *.autosave
+
+# Others which I find
+*build-MessangerOnFileForLinux*
+*.txt.user*

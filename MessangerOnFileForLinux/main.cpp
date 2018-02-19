@@ -1,9 +1,16 @@
 #include <iostream>
 
-using namespace std;
 
-int main(int argc, char *argv[])
+
+constexpr unsigned fibonacci(const unsigned x)
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    return x <= 1
+            ?
+            1
+              :
+            fibonacci(x - 1) + fibonacci(x - 2);
+}
+
+int main() {
+  return fibonacci(5);
 }
