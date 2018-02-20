@@ -13,6 +13,5 @@ constexpr unsigned fibonacci(const unsigned x)
 
 int main() {
   return fibonacci(5);
-    fgdgf
 }
 
