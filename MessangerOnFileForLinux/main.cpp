@@ -12,6 +12,8 @@ constexpr unsigned fibonacci(const unsigned x)
 }
 
 int main() {
+  if (int a = 6; a < 7)
+      return 0;
   return fibonacci(5);
 }
 
