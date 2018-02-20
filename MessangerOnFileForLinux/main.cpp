@@ -14,5 +14,5 @@ constexpr unsigned fibonacci(const unsigned x)
 int main() {
   return fibonacci(5);
   std::cout <<
-      ic
+      i
 }
