@@ -1,19 +1,24 @@
 #include <iostream>
+#include <math.h>
+
+double squareRoot(const double a) {
+	double b = sqrt(a);
+	if(b != b) { // nan check
+		return -1.0;
+	}else{
+		return sqrt(a);
+	}
+}
 
 
-
-constexpr unsigned fibonacci(const unsigned x)
+double foo()
 {
-    return x <= 1
-            ?
-            1
-              :
-            fibonacci(x - 1) + fibonacci(x - 2);
+	int* x = new int(10);
+	x[10] = 0;  
 }
 
-int main() {
-  if (int a = 6; a < 7)
-      return 0;
-  return fibonacci(5);
+int main(int argc, char **argv) {
+foo();
+	std::cout<<"lol"<<std::endl;
+	return 0;
 }
-
