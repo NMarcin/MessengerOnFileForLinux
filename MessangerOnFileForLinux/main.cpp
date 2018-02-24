@@ -19,7 +19,7 @@ double foo()
 
 int main(int argc, char **argv) {
 foo();
-	//testt
+	//testtt
 	std::cout<<"lol"<<std::endl;
 	return 0;
 }
