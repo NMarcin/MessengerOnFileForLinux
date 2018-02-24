@@ -19,6 +19,7 @@ double foo()
 
 int main(int argc, char **argv) {
 foo();
+	//test
 	std::cout<<"lol"<<std::endl;
 	return 0;
 }
