@@ -74,4 +74,4 @@ Thumbs.db
 *.txt.user
 
 # buld directory
-*/build/*
+*build/*
