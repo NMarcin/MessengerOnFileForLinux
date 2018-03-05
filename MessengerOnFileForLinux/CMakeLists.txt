@@ -6,8 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
-set( EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin )
-
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
 
 # LIBRARY
@@ -20,7 +19,13 @@ find_package(GTest REQUIRED)
 
 # SRC
 add_subdirectory(main/src)
-
+message(STATUS ${SOURCES})
+add_executable(messenger_binary ${SOURCES})
 
 # TEST
-#add_subdirectory(main/test)
+add_subdirectory(main/test)
+message(STATUS ${TEST_SOURCES})
+add_executable(messenger_binary_UT ${TEST_SOURCES})
+
+target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
+add_custom_target(UT $<TARGET_FILE:messenger_binary_UT>)

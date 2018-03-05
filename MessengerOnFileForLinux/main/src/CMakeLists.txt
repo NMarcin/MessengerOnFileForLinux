@@ -1,1 +1,1 @@
-add_executable(messenger_binary main.cpp)
+set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp PARENT_SCOPE)
