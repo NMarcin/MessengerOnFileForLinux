@@ -19,11 +19,11 @@ double foo()
 TEST(squareRoot, PositiveNos) {
 	EXPECT_EQ(5,squareRoot(25));
 }
-
+/*
 TEST(squareRoot, NegativeNos) {
 	EXPECT_EQ(6,squareRoot(25));
 }
-
+*/
 int main(int argc, char **argv) {
 	foo();
 	testing::InitGoogleTest(&argc, argv);
