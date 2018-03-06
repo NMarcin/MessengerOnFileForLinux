@@ -28,4 +28,4 @@ message(STATUS ${TEST_SOURCES})
 add_executable(messenger_binary_UT ${TEST_SOURCES})
 
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-add_custom_target(UT $<TARGET_FILE:messenger_binary_UT>)
+#add_custom_target(UT $<TARGET_FILE:messenger_binary_UT>)
