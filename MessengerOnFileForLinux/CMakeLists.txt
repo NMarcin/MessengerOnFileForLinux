@@ -16,15 +16,21 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 find_package(GTest REQUIRED)
 
+# LIB
+include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
+message(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
 
 # SRC
 add_subdirectory(main/src)
-message(STATUS ${SOURCES})
+add_subdirectory(LoggerFramework/src)
+
+message(${SOURCES})
+
 add_executable(messenger_binary ${SOURCES})
 
 # TEST
 add_subdirectory(main/test)
-message(STATUS ${TEST_SOURCES})
+
 add_executable(messenger_binary_UT ${TEST_SOURCES})
 
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)

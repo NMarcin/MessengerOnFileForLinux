@@ -1,6 +1,8 @@
 #include <iostream>
 #include <math.h>
 
+#include <Logger.hpp>
+
 double squareRoot(const double a) {
 	double b = sqrt(a);
 	if(b != b) { // nan check
@@ -17,9 +19,12 @@ double foo()
 	x[10] = 0;  
 }
 
-int main(int argc, char **argv) {
-foo();
-	//testttt
+int main(int argc, char **argv) 
+{
+	foo();
+	
+	Logger(SavingMode::withConsole);
+
 	std::cout<<"lol"<<std::endl;
 	return 0;
 }
