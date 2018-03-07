@@ -4,10 +4,13 @@
 class User
 {
 public:
+    std::string getUsername() const;
+    std::string getPassword() const;
+    void setPassword(const std::string & password);
+    void setUsername(const std::string & password);
     User();
-    std::string getUsername() const {return username_;}
-    std::string getPassword() const {return password_;}
-    void setPassword(std::string password){password_ = password;}
+    ~User();
+
 private:
     std::string username_;
     std::string password_;

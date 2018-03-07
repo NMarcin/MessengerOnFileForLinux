@@ -1,15 +1,18 @@
 #pragma once
 #include <string>
+
 #include "User.hpp"
 
 class RegisterUser
 {
 public:
-    RegisterUser(){} // wyrzucic ?
-    bool registerUser(std::string password, std::string repeatedPassword);
+    bool registerNewUser() const;
+    RegisterUser();
+    ~RegisterUser();
+
 private:
-    bool isUserRegistered(std::string username);
-    bool saveUserDataInRegisteredFile(const User & user);
-    void setUsernamePassword(std::string password, std::string repeatedPassword,
-                             User & user);
+    bool isUserRegistered(const std::string & username) const;
+    bool saveUserDataInRegisteredFile(User & user) const;
+    void setUsernamePassword(const std::string & password, const std::string & repeatedPassword, User & user) const;
+    std::string enterThePassword() const;
 };

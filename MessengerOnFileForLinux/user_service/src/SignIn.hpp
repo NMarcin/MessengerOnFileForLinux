@@ -1,17 +1,20 @@
-#pragma once
-#include "User.hpp"
+#pragma
 #include <string>
 #include <memory>
+
+#include "User.hpp"
 
 class SignIn
 {
 public:
-    SignIn(){} //wyrzucic ?
-    bool signIn(std::string password);
-private:
-    bool isUserLogged(User & user);
-    bool isPasswordCorrect(std::string password, std::string correctPassword);
-    std::unique_ptr< std::string> getPasswordFromDatabase(User & user);
-    bool setUserDataInLoggedFile(User & user);
+    bool signInUser() const;
+    SignIn();
+    ~SignIn();
 
+private:
+    bool isUserLogged(const std::string & username) const;
+    bool isPasswordCorrect(const std::string & password, const std::string & correctPassword) const;
+    std::unique_ptr< std::string> getPasswordFromDatabase(User & user) const;
+    bool setUserDataInLoggedFile(User & user) const;
+    std::string enterThePassword() const;
 };

@@ -2,7 +2,17 @@
 #include "FileHandling.hpp"
 #include "GlobalVariables.hpp"
 
-bool SignOut::signOut()
+SignOut::SignOut()
+{
+    //NOOP
+}
+
+SignOut::~SignOut()
+{
+    //NOOP
+}
+
+bool SignOut::signOutUser()
 {
     User user;
     return removeUserDataFromLoggedFile(user);

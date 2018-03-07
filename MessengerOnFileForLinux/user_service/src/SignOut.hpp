@@ -4,7 +4,10 @@
 class SignOut
 {
 public:
-    bool signOut();
+    bool signOutUser();
+    SignOut();
+    ~SignOut();
+
 private:
     bool removeUserDataFromLoggedFile(User & user);
 };
