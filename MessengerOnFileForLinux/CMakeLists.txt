@@ -28,8 +28,8 @@ add_executable(messenger_binary ${SOURCES})
 
 # TEST
 add_subdirectory(main/test)
-add_subdirectory(UserService/test)
-add_subdirectory(FileHandling/test)
+# add_subdirectory(UserService/test)
+# add_subdirectory(FileHandling/test)
 message(STATUS ${TEST_SOURCES})
 add_executable(messenger_binary_UT ${TEST_SOURCES})
 

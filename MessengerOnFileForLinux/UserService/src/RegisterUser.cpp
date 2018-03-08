@@ -1,4 +1,3 @@
-#pragma once
 #include <SHA1.hpp>
 #include <memory>
 #include <vector>
