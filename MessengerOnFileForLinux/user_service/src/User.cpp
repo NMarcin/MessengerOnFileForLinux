@@ -6,6 +6,11 @@ User::User()
     //NOOP
 }
 
+User::User(std::string username) : username_(username)
+{
+    //NOOP
+}
+
 User::~User()
 {
     //NOOP

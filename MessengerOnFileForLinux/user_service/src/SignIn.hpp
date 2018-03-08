@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 
-#include "User.hpp"
+#include "LocalUser.hpp"
 
 class SignIn
 {
@@ -12,9 +12,9 @@ public:
     ~SignIn();
 
 private:
-    bool isUserLogged(const std::string & username) const;
+    bool isUserLogged(const LocalUser & user) const;
     bool isPasswordCorrect(const std::string & password, const std::string & correctPassword) const;
-    std::unique_ptr< std::string> getPasswordFromDatabase(User & user) const;
-    bool setUserDataInLoggedFile(User & user) const;
+    std::unique_ptr< std::string> getPasswordFromDatabase(const LocalUser & user) const;
+    bool setUserDataInLoggedFile(const LocalUser & user) const;
     std::string enterThePassword() const;
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "User.hpp"
+#include "LocalUser.hpp"
 
 class RegisterUser
 {
@@ -11,8 +11,8 @@ public:
     ~RegisterUser();
 
 private:
-    bool isUserRegistered(const std::string & username) const;
-    bool saveUserDataInRegisteredFile(User & user) const;
-    void setUsernamePassword(const std::string & password, const std::string & repeatedPassword, User & user) const;
+    bool isUserRegistered(const LocalUser & user) const;
     std::string enterThePassword() const;
+    bool saveUserDataInRegisteredFile(LocalUser & user) const;
+    void setUsernamePassword(const std::string & password, const std::string & repeatedPassword, LocalUser & user) const;
 };

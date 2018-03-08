@@ -8,6 +8,7 @@ public:
     std::string getPassword() const;
     void setPassword(const std::string & password);
     void setUsername(const std::string & password);
+    User(std::string username);
     User();
     ~User();
 

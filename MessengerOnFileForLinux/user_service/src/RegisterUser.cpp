@@ -23,41 +23,45 @@ std::string RegisterUser::enterThePassword() const
     std::string password;
     std::cout << "Enter the password : ";
     std::cin >> password;
-    std::cout << std::endl;
     return password;
 }
 
-bool RegisterUser::isUserRegistered(const std::string & username) const
+bool RegisterUser::isUserRegistered(const LocalUser & user) const
 {
     std::unique_ptr< std::vector< std::string>> registeredFileContent = returnFileContent(registeredFile);
 
     for (auto & x : *registeredFileContent)
     {
-        std::string usernameToCompare = *getRowField(x, usernameFieldInRegisteredFile);
+        std::string username = user.getUsername();
+        std::unique_ptr< const std::string> usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
 
-        if (!username.compare(usernameToCompare)) //0 when the same
+        if (!username.compare(*usernameToCompare)) //0 when the same
+        {
             return true;
+        }
     }
+
     return false;
 }
 
 bool RegisterUser::registerNewUser() const
 {
-    User user;
 
-    if (isUserRegistered(user.getUsername()))
+    if (isUserRegistered(LocalUser::getLocalUser()))
     {
-        return false; //uzytkownik istnieje
+        std::cerr << "You already have an account" <<std::endl;
+        return false;
     }
 
     std::string password = enterThePassword();
     std::string repeatedPassword = enterThePassword();
-    setUsernamePassword(password, repeatedPassword, user);
 
-    return saveUserDataInRegisteredFile(user);
+    setUsernamePassword(password, repeatedPassword, LocalUser::getLocalUser());
+
+    return saveUserDataInRegisteredFile(LocalUser::getLocalUser());
 }
 
-void RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword, User & user) const
+void RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword, LocalUser & user) const
 {
     if (password == repeatedPassword)
     {
@@ -71,14 +75,12 @@ void RegisterUser::setUsernamePassword(const std::string & password, const std::
     }
 }
 
-bool RegisterUser::saveUserDataInRegisteredFile(User & user) const
+bool RegisterUser::saveUserDataInRegisteredFile(LocalUser & user) const
 {
     std::string actualDateTime = getActualDateTime();
-    std::string accountInformations = "[" + user.getUsername() + "]["
+    std::string accountInformations = "[" + user.getUsername() + "][" //tu bedzie jeszcze ta funkcja ktora dodaje nawiasy
             + user.getPassword() +"]["+ actualDateTime +"]";
 
-    bool isRawWasAdded = addRow(registeredFile, accountInformations);
-    return isRawWasAdded;
-    //turn addRow(registeredFile, accountInformations);
+    return addRow(registeredFile, accountInformations);
 }
 
