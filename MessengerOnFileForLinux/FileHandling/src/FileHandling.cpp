@@ -5,13 +5,14 @@
 
 
 
-bool addRow(const  std::string & fileName, const std::string & text)
+bool addRow(const  std::string & fileName, const std::string & text, const std::string & pathToFile = "")
 {
-    if (std::unique_ptr< std::fstream> file = openFileToSave(fileName))
+    const std::string fileLocation = pathToFile + fileName;
+    if (std::unique_ptr< std::fstream> file = openFileToSave(fileLocation))
     {
         *file << text;
         *file << '\n';
-        closeFile(fileName);
+        closeFile(fileLocation);
         return true;
     }
     else
@@ -22,33 +23,22 @@ bool addRow(const  std::string & fileName, const std::string & text)
     }
 }
 
-std::unique_ptr< std::string> addBracketsToStrings(std::string obj, ...)
-{
-    std::unique_ptr< std::string> stringsWithBrackets = std::make_unique<std::string>();
-    std::va_list args;
-    va_start(args, obj);
 
-    //while (*obj != '\0')
-   // {
-
-    //}
+bool closeFile(const std::string & fileToClose, const std::string & pathToFile)
+{    
+    guard::removeFileFlag(fileToClose, FileFlagType::guardian, pathToFile);
 }
 
-bool closeFile(const std::string & fileToClose)
+bool createFile(const std::string & fileName, const std::string & pathToFile)
 {
-    guard::removeFileFlag(fileToClose, FileFlagType::guardian);
-}
-
-bool createFile(const std::string & fileName)
-{
-    std::ofstream fileToCreate(fileName);
+    std::ofstream fileToCreate(fileName, pathToFile);
     fileToCreate << " ";
-    return isFileExists(fileName);
+    return isFileExists(fileName, pathToFile);
 }
 
-bool getFileAccess(const std::string & fileName)
+bool getFileAccess(const std::string & fileName, const std::string & pathToFile)
 {
-    return guard::isGuardExist(fileName, FileFlagType::guardian);
+    return guard::isGuardExist(fileName, FileFlagType::guardian, pathToFile);
 }
 
 std::unique_ptr< std::string> getRowField(const std::string & field, const int fieldNumber)
@@ -71,70 +61,85 @@ std::unique_ptr< std::string> getRowField(const std::string & field, const int f
     return fieldToDownload;
 }
 
-bool isFileExists(const std::string & fileName)
+bool isFileExists(const std::string & fileName, const std::string & pathToFile)
 {
-    std::ifstream file(fileName);
+    const std::string fileLocation = pathToFile + fileName;
+    std::ifstream file(fileLocation);
     return file.good();
 }
 
-std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName)
+std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, const std::string & pathToFile = "")
 {
-    if (!isFileExists(fileName))
+    const std::string fileLocation = pathToFile + fileName;
+
+    if (!isFileExists(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist" << std::endl;
         return nullptr; //TODO error
     }
-    if (getFileAccess(fileName))
-        guard::setFileFlag(fileName, FileFlagType::guardian);
+    if (getFileAccess(fileName, pathToFile))
+        guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
     else
         return nullptr;
 
     std::unique_ptr <std::fstream> fileToOpen= std::make_unique< std::fstream>();
-    fileToOpen->open(fileName, std::ios::in);
+    fileToOpen->open(fileLocation, std::ios::in);
+
     if (fileToOpen->is_open())
+    {
         return fileToOpen;
+    }
     else
+    {
         return nullptr;
+    }
 }
 
-std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName)
+std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName, const std::string & pathToFile = "")
 {
-    if (!isFileExists(fileName))
+    const std::string fileLocation = pathToFile + fileName;
+
+    if (!isFileExists(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist" << std::endl;
         return nullptr; //TODO error
     }
-    if (getFileAccess(fileName))
-        guard::setFileFlag(fileName, FileFlagType::guardian);
+    if (getFileAccess(fileName, pathToFile))
+        guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
     else
         return nullptr;
 
     std::unique_ptr <std::fstream> fileToOpen= std::make_unique< std::fstream>();
-    fileToOpen->open(fileName, std::ios::out | std::ios::app);
+    fileToOpen->open(fileLocation, std::ios::out | std::ios::app);
+
     if (fileToOpen->is_open())
+    {
         return fileToOpen;
+    }
     else
+    {
         return nullptr;
+    }
 }
 
 
-bool removeFile(const std::string & fileName)
+bool removeFile(const std::string & fileName, const std::string & pathToFile)
 {
-    const char * c = fileName.c_str();
+    const std::string fileLocation = pathToFile + fileName;
+    const char * c = fileLocation.c_str();
     return ! std::remove(c); // 0 when success
 }
 
 
-std::unique_ptr< std::vector< std::string>> returnFileContent(const std::string & fileName)
+std::unique_ptr< std::vector< std::string>> returnFileContent(const std::string & fileName, const std::string & pathToFile)
 {
-    std::unique_ptr< std::vector< std::string>>
-            fileContent = std::make_unique< std::vector< std::string>>();
+    std::unique_ptr< std::vector< std::string>> fileContent = std::make_unique< std::vector< std::string>>();
 
-    if (std::unique_ptr< std::fstream> file = openFileToRead(fileName))
+    if (std::unique_ptr< std::fstream> file = openFileToRead(fileName, pathToFile))
     {
         while (!file->eof())
         {
-            std::string row; //osobna funkcja na to
+            std::string row; //osobna funkcja na to ?
             std::getline(*file, row);
             fileContent -> push_back(row);
         }
@@ -145,7 +150,7 @@ std::unique_ptr< std::vector< std::string>> returnFileContent(const std::string 
         //TODO error + removeGuard
     }
     //file juz tu nie istnieje, wiec plik zostal zamkiety
-    closeFile(fileName); //close file usuwa guardiana, jak to nazwac?
+    closeFile(fileName, pathToFile); //close file usuwa guardiana, jak to nazwac?
     return fileContent;
 }
 
@@ -169,33 +174,36 @@ std::unique_ptr<std::string> removeRowField(const std::string & row, const int f
 }
 
 
-bool removeRow(const std::string & fileName, const std::string pattern)
-{
-    if (getFileAccess(fileName))
+bool removeRow(const std::string & fileName, const std::string pattern, const std::string & pathToFile)
+{    
+    if (!getFileAccess(fileName, pathToFile))
     {
-        guard::setFileFlag(fileName, FileFlagType::guardian);
-        std::string command = "sed -i -e '/" + pattern + "/d' " + fileName;
-        std::system(command.c_str());
-        closeFile(fileName);
-        return true;
-    }
-    else
         return false;
+    }
+
+    const std::string fileLocation = pathToFile + fileName;
+    guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
+    std::string command = "sed -i -e '/" + pattern + "/d' " + fileLocation;
+    std::system(command.c_str());
+    closeFile(fileName, pathToFile);
+    return true;
+
 }
 
 
-bool updateRow(const std::string & fileName, const std::string & newRow, const std::string & where)
+bool updateRow(const std::string & fileName, const std::string & newRow, const std::string & where, const std::string & pathToFile)
 {
-    if (getFileAccess(fileName))
+    if (!getFileAccess(fileName))
     {
-        guard::setFileFlag(fileName, FileFlagType::guardian);
-        std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + fileName;
-        std::system(command.c_str());
-        closeFile(fileName);
-        return true;
+        return fasle;
     }
-    else
-        return false;
+    const std::string fileLocation = pathToFile + fileName;
+    guard::setFileFlag(fileName, FileFlagType::guardian);
+    std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + fileLocation;
+    std::system(command.c_str());
+    closeFile(fileName, pathToFile);
+    return true;
+
 }
 
 

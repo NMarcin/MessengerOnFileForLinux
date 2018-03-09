@@ -18,11 +18,7 @@ double foo()
 }
 
 int main(int argc, char **argv) {
-foo();
 
-	//test
-	//doajde tu linijke zeby sprawdzic czy pokazuje tylko diff
-	//testttt
 	std::cout<<"lol"<<std::endl;
 	return 0;
 }
