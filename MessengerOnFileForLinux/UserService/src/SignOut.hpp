@@ -1,5 +1,5 @@
 #pragma once
-#include "User.hpp"
+#include "LocalUser.hpp"
 
 class SignOut
 {
@@ -9,6 +9,6 @@ public:
     ~SignOut();
 
 private:
-    bool removeUserDataFromLoggedFile(User & user);
+    bool removeUserDataFromLoggedFile();
 };
 

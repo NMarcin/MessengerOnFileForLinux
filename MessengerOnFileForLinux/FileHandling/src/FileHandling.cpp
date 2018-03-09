@@ -5,7 +5,7 @@
 
 
 
-bool addRow(const  std::string & fileName, const std::string & text, const std::string & pathToFile = "")
+bool addRow(const  std::string & fileName, const std::string & text, const std::string & pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
     if (std::unique_ptr< std::fstream> file = openFileToSave(fileLocation))
@@ -31,7 +31,8 @@ bool closeFile(const std::string & fileToClose, const std::string & pathToFile)
 
 bool createFile(const std::string & fileName, const std::string & pathToFile)
 {
-    std::ofstream fileToCreate(fileName, pathToFile);
+    const std::string fileLocation = pathToFile + fileName;
+    std::ofstream fileToCreate(fileLocation);
     fileToCreate << " ";
     return isFileExists(fileName, pathToFile);
 }
@@ -68,13 +69,13 @@ bool isFileExists(const std::string & fileName, const std::string & pathToFile)
     return file.good();
 }
 
-std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, const std::string & pathToFile = "")
+std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, const std::string & pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
 
     if (!isFileExists(fileName, pathToFile))
     {
-        std::cerr << "File " + fileName + " does not exist" << std::endl;
+        std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
         return nullptr; //TODO error
     }
     if (getFileAccess(fileName, pathToFile))
@@ -95,13 +96,13 @@ std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, cons
     }
 }
 
-std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName, const std::string & pathToFile = "")
+std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName, const std::string & pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
 
     if (!isFileExists(fileName, pathToFile))
     {
-        std::cerr << "File " + fileName + " does not exist" << std::endl;
+        std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
         return nullptr; //TODO error
     }
     if (getFileAccess(fileName, pathToFile))
@@ -195,7 +196,7 @@ bool updateRow(const std::string & fileName, const std::string & newRow, const s
 {
     if (!getFileAccess(fileName))
     {
-        return fasle;
+        return false;
     }
     const std::string fileLocation = pathToFile + fileName;
     guard::setFileFlag(fileName, FileFlagType::guardian);

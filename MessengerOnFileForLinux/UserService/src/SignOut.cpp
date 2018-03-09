@@ -14,12 +14,11 @@ SignOut::~SignOut()
 
 bool SignOut::signOutUser()
 {
-    User user;
-    return removeUserDataFromLoggedFile(user);
+    return removeUserDataFromLoggedFile();
 }
 
 
-bool SignOut::removeUserDataFromLoggedFile(User & user)
+bool SignOut::removeUserDataFromLoggedFile()
 {
-    return removeRow(loggedFile, user.getUsername());
+    return removeRow(loggedFile, LocalUser::getLocalUser().getUsername());
 }
