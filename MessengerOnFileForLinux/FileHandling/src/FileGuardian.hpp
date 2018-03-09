@@ -5,7 +5,7 @@
 
 namespace guard
 {
-    bool isGuardExist(const std::string & fileName, FileFlagType type);
-    bool setFileFlag(const std::string & fileName, FileFlagType type);
-    bool removeFileFlag(const std::string & fileName, FileFlagType type);
+    bool isGuardExist(const std::string & fileName, FileFlagType type, const std::string & pathToFile = "");
+    bool setFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile = "");
+    bool removeFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile = "");
 }
