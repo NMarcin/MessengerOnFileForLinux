@@ -5,6 +5,7 @@
 #include "RegisterUser.hpp"
 #include "SignIn.hpp"
 #include "SignOut.hpp"
+#include <Logger.hpp>
 
 double squareRoot(const double a) {
     double b = sqrt(a);
