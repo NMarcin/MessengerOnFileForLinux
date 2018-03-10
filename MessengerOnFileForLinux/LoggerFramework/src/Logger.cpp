@@ -1,6 +1,6 @@
-#include <Logger.hpp>
-
 #include <iostream>
+
+#include <Logger.hpp>
 
 Logger::Logger(const char* logSpace, SavingMode mode)
                 : savingMode_(mode)
@@ -24,6 +24,11 @@ void Logger::info(const char* logData)
     }
 }
 
+void Logger::writeToConsole(const char* log)
+{
+    fprintf(stdout, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
+}
+
 void Logger::writeToFile(const char* log)
 {
     FILE* logFile;
@@ -37,9 +42,4 @@ void Logger::writeToFile(const char* log)
     fprintf(logFile, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
 
     fclose(logFile);
-}
-
-void Logger::writeToConsole(const char* log)
-{
-    fprintf(stdout, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
 }

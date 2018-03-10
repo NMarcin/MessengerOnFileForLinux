@@ -6,6 +6,8 @@
 #include "SignIn.hpp"
 #include "SignOut.hpp"
 #include <Logger.hpp>
+#include <ClasslessLogger.hpp>
+#include <LogSpace.hpp>
 
 double squareRoot(const double a) {
     double b = sqrt(a);
@@ -36,7 +38,7 @@ int main(int argc, char **argv)
     SignOut signOut;
     signOut.signOutUser();
 
-
+    fileLog("Witamy w logerze!", LogSpace::main);
 
     return 0;
 }
