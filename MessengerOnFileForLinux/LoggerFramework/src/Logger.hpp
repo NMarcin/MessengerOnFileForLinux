@@ -10,14 +10,12 @@ enum SavingMode
 class Logger
 {
 public:
-
     Logger(SavingMode mode);
     ~Logger();
 
     void info(const char * logData);
 
 private:
-
     SavingMode savingMode;
 
     void writeToFile(const char* log);

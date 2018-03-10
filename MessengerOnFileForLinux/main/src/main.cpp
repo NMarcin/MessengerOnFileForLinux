@@ -16,13 +16,13 @@ double squareRoot(const double a) {
 double foo()
 {
 	int* x = new int(10);
-	x[10] = 0;  
+	x[10] = 0;
 }
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
 	foo();
-	
+
 	Logger(SavingMode::withConsole);
 
 	std::cout<<"lol"<<std::endl;
