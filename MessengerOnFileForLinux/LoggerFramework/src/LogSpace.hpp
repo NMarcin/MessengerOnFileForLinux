@@ -2,8 +2,8 @@
 
 namespace LogSpace
 {   //alfabetycznie prosze!
-    static constexpr std::string Logger = "FileHandling";
-    static constexpr std::string Logger = "Logger";
-    static constexpr std::string main = "main";
-    static constexpr std::string Logger = "UserService";
+    static constexpr auto Logger = "FileHandling";
+    static constexpr auto Logger = "Logger";
+    static constexpr auto main = "main";
+    static constexpr auto Logger = "UserService";
 }

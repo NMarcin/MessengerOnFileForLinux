@@ -8,19 +8,16 @@ set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-
-# LIBRARY
-
+# OUTSIDE LIBRARIES
 include(CTest)
 include_directories(${GTEST_INCLUDE_DIRS})
-include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
-include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
-
 find_package(GTest REQUIRED)
 
+
 # LIB
+include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
+include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
 include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
-message(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
 
 # SRC
 add_subdirectory(main/src)

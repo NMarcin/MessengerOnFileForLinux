@@ -1,8 +1,8 @@
-#include "Logger.hpp"
+#include <Logger.hpp>
 
 #include <iostream>
 
-Logger::Logger(SavingMode mode, string logSpace)
+Logger::Logger(const char* logSpace, SavingMode mode)
                 : savingMode_(mode)
                 , logSpace_(logSpace)
 {
@@ -18,7 +18,7 @@ void Logger::info(const char* logData)
 {
     writeToFile(logData);
 
-	if (SavingMode::withConsole == savingMode)
+	if (SavingMode::withConsole == savingMode_)
     {
         writeToConsole(logData);
     }

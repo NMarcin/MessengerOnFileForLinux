@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 
 enum SavingMode
 {
@@ -10,14 +9,14 @@ enum SavingMode
 class Logger
 {
 public:
-    Logger(SavingMode mode=SavingMode::fileOnly, std::string logSpace);
+    Logger(const char* logSpace, SavingMode mode=SavingMode::fileOnly);
     ~Logger();
 
     void info(const char * logData);
 
 private:
     SavingMode savingMode_;
-    constexpr std::string logSpace_;
+    const char* logSpace_;
 
     void writeToFile(const char* log);
     void writeToConsole(const char* log);
