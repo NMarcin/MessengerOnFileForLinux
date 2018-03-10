@@ -19,13 +19,6 @@ double squareRoot(const double a) {
     }
 }
 
-
-double foo()
-{
-    int* x = new int(10);
-    x[10] = 0;
-}
-
 int main(int argc, char **argv)
 {
     /*

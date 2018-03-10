@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-Logger::Logger(SavingMode mode)
-                : savingMode(mode)
+Logger::Logger(SavingMode mode, string logSpace)
+                : savingMode_(mode)
+                , logSpace_(logSpace)
 {
     //NOOP
 }
@@ -33,12 +34,12 @@ void Logger::writeToFile(const char* log)
         exit(1);
     }
 
-    fprintf(logFile, "%s %s \t %s\n", __DATE__, __TIME__, log);
+    fprintf(logFile, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
 
     fclose(logFile);
 }
 
 void Logger::writeToConsole(const char* log)
 {
-    fprintf(stdout, "\n%s %s \t %s\n", __DATE__, __TIME__, log);
+    fprintf(stdout, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
 }
