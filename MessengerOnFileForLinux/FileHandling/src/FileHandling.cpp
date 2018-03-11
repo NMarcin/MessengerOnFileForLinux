@@ -2,7 +2,8 @@
 #include "FileGuardian.hpp"
 #include <iostream>
 #include <cstdlib>
-
+#include <stdio.h>
+#include <stdlib.h>
 
 
 bool addRow(const  std::string & fileName, const std::string & text, const std::string & pathToFile)
@@ -19,6 +20,7 @@ bool addRow(const  std::string & fileName, const std::string & text, const std::
     {
         return false;
         //TODO error
+        //
         //skad wiemy czy plik nieistenije czy jest guearian?
     }
 }
@@ -263,4 +265,22 @@ std::string getActualDateTime()
     dateTime += "|";
     dateTime += __TIME__;
     return dateTime;
+}
+
+std::string getStdoutFromCommand(std::string cmd)
+{
+
+    std::string data;
+    FILE * stream;
+    const int max_buffer = 256;
+    char buffer[max_buffer];
+    cmd.append(" 2>&1");
+
+    stream = popen(cmd.c_str(), "r");
+    if (stream) {
+        while (!feof(stream))
+            if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
+        pclose(stream);
+    }
+    return data;
 }

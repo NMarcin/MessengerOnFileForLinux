@@ -2,9 +2,11 @@
 #include "FileHandling.hpp"
 
 
-LocalUser::LocalUser() : User(getEnviromentalVariable("USER"))
-{
 
+LocalUser::LocalUser() :
+    User(getEnviromentalVariable("USER"))
+{
+    //NOOP
 }
 
 LocalUser::~LocalUser()

@@ -98,6 +98,7 @@ std::unique_ptr< std::string> SignIn::getPasswordFromDatabase(const LocalUser & 
 
 bool SignIn::setUserDataInLoggedFile(const LocalUser & user) const
 {
-    std::string information = "[" + user.getUsername() + "][" + userActiveStatus + "]";
+    std::string userPid = std::to_string(user.getUserProcessIdFromSystem());
+    std::string information = "[" + user.getUsername() + "][" + userActiveStatus + "][" + userPid +"]";
     return addRow(loggedFile, information); //TODO update date&&time in registered file
 }

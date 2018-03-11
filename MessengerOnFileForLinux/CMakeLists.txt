@@ -15,6 +15,7 @@ include(CTest)
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
 include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
+include_directories(${CMAKE_SOURCE_DIR}/Chat/src)
 
 find_package(GTest REQUIRED)
 
@@ -23,6 +24,7 @@ find_package(GTest REQUIRED)
 add_subdirectory(main/src)
 add_subdirectory(UserService/src)
 add_subdirectory(FileHandling/src)
+add_subdirectory(Chat/src)
 message(STATUS ${SOURCES})
 add_executable(messenger_binary ${SOURCES})
 
@@ -30,6 +32,7 @@ add_executable(messenger_binary ${SOURCES})
 add_subdirectory(main/test)
 # add_subdirectory(UserService/test)
 # add_subdirectory(FileHandling/test)
+# add_subdirectory(Chat/test)
 message(STATUS ${TEST_SOURCES})
 add_executable(messenger_binary_UT ${TEST_SOURCES})
 
