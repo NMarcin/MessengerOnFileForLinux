@@ -1,3 +1,5 @@
+#include <vector>
+
 #include <ChatFabric.hpp>
 
 bool ChatFabric::createChatStructure(std::string usernameInviter, std::string usernameGuess)
@@ -31,23 +33,29 @@ bool ChatFabric::createChatFile(std::string usernameInviter, std::string usernam
 int ChatFabric::getFreeFolderNumber()
 {
     int freeFolderNumber = -1;
-    // pobranie wektora nazw plików w danym folderze alfabetycznie (to powinno potem być w interfejsie plikow)
-    // iterator na pierwszy element
+    std::vector<std::string> filesInPath= {}; // pobranie wektora nazw plików w danym folderze alfabetycznie (to powinno potem być w interfejsie plikow)
+    auto fileIterator = filesInPath.begin();
+
     for(int folderNumber = 0; 0 <= freeFolderNumber; ++folderNumber)
     {
-        // pobranie pierwszej litery z nazwy na ktora wskazuje iterator
-        if(true) // sprawdzenie czy ta liczba jest wieksza od folderNumber
+        int fileNumber = (*fileIterator)[0];
+        if(fileNumber > folderNumber)
         {
             freeFolderNumber = folderNumber;
         }
-        else if(true) // iterator wskazuje na ostatni element
+        else if(filesInPath.end() == fileIterator)
         {
             freeFolderNumber = folderNumber + 1;
         }
         else
         {
-            // iterator++;
+            ++fileIterator;
         }
     }
     return freeFolderNumber;
+}
+
+int ChatFabric::getNumberFromName()
+{
+    return 0;
 }

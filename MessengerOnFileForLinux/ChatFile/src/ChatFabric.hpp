@@ -10,4 +10,5 @@ private:
     bool createChatFolder(std::string usernameInviter, std::string usernameGuess);
     bool createChatFile(std::string usernameInviter, std::string usernameGuess);
     int getFreeFolderNumber();
+    int getNumberFromName();
 };
