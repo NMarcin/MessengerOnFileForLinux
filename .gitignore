@@ -55,3 +55,7 @@
 *build-MessangerOnFileForLinux*
 *.txt.user*
 *MessengerOnFileForLinux-build*
+
+# diff / patch
+*.diff
+*.patch
