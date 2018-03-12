@@ -22,7 +22,7 @@ std::unique_ptr<std::string> updateRowField(const std::string & row, const std::
 std::unique_ptr< std::vector< std::string>> getFilesNames(const std::string& pathToDir = "");
 
 /** wrzucic to gdzie indzie*/
-std::string getEnviromentalVariable( const std::string & var ); //DONE
+std::string getEnviromentVariable( const std::string & var ); //DONE
 std::string getActualDateTime();//DONE
 std::string getStdoutFromCommand(std::string cmd);
 

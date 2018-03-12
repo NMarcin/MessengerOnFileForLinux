@@ -4,7 +4,7 @@
 #include <iostream>
 
 LocalUser::LocalUser()
-        : User(getEnviromentalVariable("USER"))
+        : User(getEnviromentVariable("USER"))
 {
     //NOOP
 }
@@ -24,7 +24,7 @@ std::string LocalUser::getUsername() const
 {
     if (User::getUsername().empty())
     {
-        std::string username = getEnviromentalVariable("USER");
+        std::string username = getEnviromentVariable("USER");
         return username;
     }
 

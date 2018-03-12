@@ -1,7 +1,9 @@
 #include "FileGuardian.hpp"
 #include "FileHandling.hpp"
 
-bool guard::setFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
+
+
+bool Guard::setFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
 {    
     if (FileFlagType::guardian == type)
     {
@@ -13,7 +15,7 @@ bool guard::setFileFlag(const std::string & fileName, FileFlagType type, const s
     }
 }
 
-bool guard::removeFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
+bool Guard::removeFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
 {
     if (FileFlagType::guardian == type)
     {
@@ -25,7 +27,7 @@ bool guard::removeFileFlag(const std::string & fileName, FileFlagType type, cons
     }
 }
 
-bool guard::isGuardExist(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
+bool Guard::isGuardExist(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
 {
     if (FileFlagType::guardian == type)
     {

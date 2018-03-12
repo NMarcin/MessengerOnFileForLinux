@@ -28,7 +28,7 @@ bool addRow(const  std::string & fileName, const std::string & text, const std::
 
 bool closeFile(const std::string & fileToClose, const std::string & pathToFile)
 {    
-    guard::removeFileFlag(fileToClose, FileFlagType::guardian, pathToFile);
+    Guard::removeFileFlag(fileToClose, FileFlagType::guardian, pathToFile);
 }
 
 bool createFile(const std::string & fileName, const std::string & pathToFile)
@@ -41,7 +41,7 @@ bool createFile(const std::string & fileName, const std::string & pathToFile)
 
 bool getFileAccess(const std::string & fileName, const std::string & pathToFile)
 {
-    return guard::isGuardExist(fileName, FileFlagType::guardian, pathToFile);
+    return Guard::isGuardExist(fileName, FileFlagType::guardian, pathToFile);
 }
 
 std::unique_ptr< std::vector< std::string>> getFilesNames(const std::string& pathToDir)
@@ -106,7 +106,7 @@ std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, cons
         return nullptr; //TODO error
     }
     if (getFileAccess(fileName, pathToFile))
-        guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
+        Guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
     else
         return nullptr;
 
@@ -133,7 +133,7 @@ std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName, cons
         return nullptr; //TODO error
     }
     if (getFileAccess(fileName, pathToFile))
-        guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
+        Guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
     else
         return nullptr;
 
@@ -210,7 +210,7 @@ bool removeRow(const std::string & fileName, const std::string pattern, const st
     }
 
     const std::string fileLocation = pathToFile + fileName;
-    guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
+    Guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
     std::string command = "sed -i -e '/" + pattern + "/d' " + fileLocation;
     std::system(command.c_str());
     closeFile(fileName, pathToFile);
@@ -226,7 +226,7 @@ bool updateRow(const std::string & fileName, const std::string & newRow, const s
         return false;
     }
     const std::string fileLocation = pathToFile + fileName;
-    guard::setFileFlag(fileName, FileFlagType::guardian);
+    Guard::setFileFlag(fileName, FileFlagType::guardian);
     std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + fileLocation;
     std::system(command.c_str());
     closeFile(fileName, pathToFile);
@@ -273,7 +273,7 @@ std::unique_ptr<std::string> updateRowField(const std::string & row, const std::
 
 /** TO NIZEJ GDIZE INDZIEJ*/
 
-std::string getEnviromentalVariable( const std::string & var ) //gdzie indziej to dac
+std::string getEnviromentVariable( const std::string & var ) //gdzie indziej to dac
 {
     const char * val = ::getenv( var.c_str() );
     if ( val == 0 ) {
