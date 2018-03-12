@@ -52,6 +52,7 @@ static void initSigusr1Action()
 
     sigaction(SIGUSR1, &act, NULL);
 }
+
 /** **********************************************************/
 
 
@@ -60,6 +61,3 @@ enum class FileFlagType
     guardian,
     newFlag
 };
-
-
-

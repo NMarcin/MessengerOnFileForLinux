@@ -11,6 +11,10 @@
 #include "LocalUser.hpp"
 #include "ChatRequest.hpp"
 
+#include <Logger.hpp>
+#include <ClasslessLogger.hpp>
+#include <LogSpace.hpp>
+
 double squareRoot(const double a) {
     double b = sqrt(a);
     if(b != b)
@@ -22,17 +26,6 @@ double squareRoot(const double a) {
         return sqrt(a);
     }
 }
-
-
-double foo()
-{
-    int* x = new int(10);
-    x[10] = 0;
-}
-
-
-
-
 
 int main(int argc, char **argv)
 {
@@ -62,6 +55,7 @@ int main(int argc, char **argv)
     SignOut signOut;
     signOut.signOutUser();
 
+    fileLog("Witamy w logerze!", LogSpace::main);
 
     return 0;
 }

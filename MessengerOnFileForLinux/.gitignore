@@ -75,3 +75,5 @@ Thumbs.db
 
 # buld directory
 *build/*
+*cmake-build-debug/*
+*.idea*

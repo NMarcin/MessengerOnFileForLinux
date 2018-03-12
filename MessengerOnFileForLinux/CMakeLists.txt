@@ -8,24 +8,27 @@ set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-
-# LIBRARY
-
+# OUTSIDE LIBRARIES
 include(CTest)
 include_directories(${GTEST_INCLUDE_DIRS})
-include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
-include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
-include_directories(${CMAKE_SOURCE_DIR}/Chat/src)
-
 find_package(GTest REQUIRED)
 
+
+# LIB
+include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
+include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
+include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
+include_directories(${CMAKE_SOURCE_DIR}/Chat/src)
 
 # SRC
 add_subdirectory(main/src)
 add_subdirectory(UserService/src)
 add_subdirectory(FileHandling/src)
+add_subdirectory(LoggerFramework/src)
 add_subdirectory(Chat/src)
+
 message(STATUS ${SOURCES})
+
 add_executable(messenger_binary ${SOURCES})
 
 # TEST
@@ -34,6 +37,7 @@ add_subdirectory(main/test)
 # add_subdirectory(FileHandling/test)
 # add_subdirectory(Chat/test)
 message(STATUS ${TEST_SOURCES})
+
 add_executable(messenger_binary_UT ${TEST_SOURCES})
 
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
