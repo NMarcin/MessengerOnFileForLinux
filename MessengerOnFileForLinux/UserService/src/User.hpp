@@ -4,13 +4,11 @@
 class User
 {
 public:
-    std::string getUsername() const;
+    virtual std::string getUsername() const;
     std::string getPassword() const;
-    int getUserProcessID() const;
-    void setPassword(const std::string & password);
-    void setUsername(const std::string & password);
-    void setUserPorcessID(const int userProcessID);
     int getUserProcessIdFromSystem() const;
+    void setPassword(const std::string & password);
+    void setUsername(const std::string & username);
 
     User(std::string username);
     User();
@@ -19,6 +17,4 @@ public:
 private:
     std::string username_;
     std::string password_;
-    int userProcessID_;
 };
-

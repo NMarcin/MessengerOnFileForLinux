@@ -3,9 +3,9 @@
 #include <vector>
 #include <iostream>
 
-#include "RegisterUser.hpp"
-#include "FileHandling.hpp"
-#include "GlobalVariables.hpp"
+#include <RegisterUser.hpp>
+#include <FileHandling.hpp>
+#include <GlobalVariables.hpp>
 
 RegisterUser::RegisterUser()
 {
@@ -25,14 +25,19 @@ std::string RegisterUser::enterThePassword() const
     return password;
 }
 
-bool RegisterUser::isUserRegistered(const LocalUser & user) const
+bool RegisterUser::isUserRegistered() const
 {
-    std::unique_ptr< std::vector< std::string>> registeredFileContent = returnFileContent(registeredFile);
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = returnFileContent(registeredFile);
 
     for (auto & x : *registeredFileContent)
     {
-        std::string username = user.getUsername();
-        std::unique_ptr< const std::string> usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
+        std::string username = LocalUser::getLocalUser().getUsername();
+        std::unique_ptr<std::string> usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
+        //TODO
+        //Nie da się zrobić tego w jednej lini z make_unique. Trzeba to rozbić tak jak poniżej.
+        //To porobić wszedzie tą wersje z make_unique czy zostawić tak jak jest ?
+        //std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>();
+        //usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
 
         if (!username.compare(*usernameToCompare)) //0 when the same
         {
@@ -45,41 +50,55 @@ bool RegisterUser::isUserRegistered(const LocalUser & user) const
 
 bool RegisterUser::registerNewUser() const
 {
-
-    if (isUserRegistered(LocalUser::getLocalUser()))
+    if (isUserRegistered())
     {
         std::cerr << "You already have an account" <<std::endl;
         return false;
     }
 
-    std::string password = enterThePassword();
-    std::string repeatedPassword = enterThePassword();
+    bool isPasswordSetCorrectly = false;
 
-    setUsernamePassword(password, repeatedPassword, LocalUser::getLocalUser());
+    while (!isPasswordSetCorrectly)
+    {
+        std::string password = enterThePassword();
+        std::cout << "Enter the password again. ";
+        std::string repeatedPassword = enterThePassword();
+        isPasswordSetCorrectly =  setUsernamePassword(password, repeatedPassword);
+    }
 
-    return saveUserDataInRegisteredFile(LocalUser::getLocalUser());
+    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
+
+    while (!isUserDataSavedCorrectly)
+    {
+        //czekamy az zwolni sie plik. Dac jakiegos sleepa moze ?
+        isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
+    }
+
+    return true;
 }
 
-void RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword, LocalUser & user) const
+bool RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword) const
 {
     if (password == repeatedPassword)
     {
         SHA1 hashObject;
         hashObject.update(password);
-        user.setPassword(hashObject.final());
+        LocalUser::getLocalUser().setPassword(hashObject.final());
+        return true;
     }
     else
     {
         std::cerr << "The passwords are differnet" << std::endl;
+        return false;
     }
 }
 
-bool RegisterUser::saveUserDataInRegisteredFile(LocalUser & user) const
+bool RegisterUser::saveUserDataInRegisteredFile() const
 {
     std::string actualDateTime = getActualDateTime();
-    std::string accountInformations = "[" + user.getUsername() + "][" //tu bedzie jeszcze ta funkcja ktora dodaje nawiasy
-            + user.getPassword() +"]["+ actualDateTime +"]";
+    std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
+            + LocalUser::getLocalUser().getPassword() +"]["+ actualDateTime +"]";
+    //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
 
     return addRow(registeredFile, accountInformations);
 }
-

@@ -1,9 +1,10 @@
 #pragma once
-#include "User.hpp"
+#include <User.hpp>
 
 class LocalUser : public User
 {
 public:
+    virtual std::string getUsername() const override;
     static LocalUser & getLocalUser();
 
 private:

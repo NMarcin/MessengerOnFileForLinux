@@ -19,6 +19,7 @@ bool removeFile(const std::string & fileName, const std::string & pathToFile = "
 bool updateRow(const std::string & fileName, const std::string & newRow, const std::string & where, const std::string & pathToFile = "");
 std::unique_ptr<std::string> updateRowField(const std::string & row, const std::string & newField, const int fieldNumber);
 
+std::unique_ptr< std::vector< std::string>> getFilesNames(const std::string& pathToDir = "");
 
 /** wrzucic to gdzie indzie*/
 std::string getEnviromentalVariable( const std::string & var ); //DONE

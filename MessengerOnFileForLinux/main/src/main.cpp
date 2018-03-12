@@ -49,6 +49,9 @@ int main(int argc, char **argv)
     createFile("registered.txt");
     RegisterUser registerUser;
     registerUser.registerNewUser();
+
+    std::cin >> h;
+
     std::cout << "LOGOWANIE" << std::endl;
     SignIn signIn;
     signIn.signInUser();

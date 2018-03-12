@@ -1,6 +1,6 @@
-#include "SignOut.hpp"
-#include "FileHandling.hpp"
-#include "GlobalVariables.hpp"
+#include <SignOut.hpp>
+#include <FileHandling.hpp>
+#include <GlobalVariables.hpp>
 
 SignOut::SignOut()
 {
@@ -12,13 +12,13 @@ SignOut::~SignOut()
     //NOOP
 }
 
-bool SignOut::signOutUser()
+bool SignOut::signOutUser() const
 {
     return removeUserDataFromLoggedFile();
 }
 
 
-bool SignOut::removeUserDataFromLoggedFile()
+bool SignOut::removeUserDataFromLoggedFile() const
 {
     return removeRow(loggedFile, LocalUser::getLocalUser().getUsername());
 }

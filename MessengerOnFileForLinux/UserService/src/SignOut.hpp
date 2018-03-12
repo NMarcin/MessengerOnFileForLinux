@@ -1,14 +1,15 @@
 #pragma once
-#include "LocalUser.hpp"
+#include <LocalUser.hpp>
 
 class SignOut
 {
 public:
-    bool signOutUser();
+    bool signOutUser() const;
+
     SignOut();
     ~SignOut();
 
 private:
-    bool removeUserDataFromLoggedFile();
+    bool removeUserDataFromLoggedFile() const;
 };
 

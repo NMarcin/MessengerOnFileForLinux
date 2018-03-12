@@ -44,6 +44,31 @@ bool getFileAccess(const std::string & fileName, const std::string & pathToFile)
     return guard::isGuardExist(fileName, FileFlagType::guardian, pathToFile);
 }
 
+std::unique_ptr< std::vector< std::string>> getFilesNames(const std::string& pathToDir)
+{
+    std::string command = "ls " + pathToDir;
+    std::string commandOutput = getStdoutFromCommand(command);
+
+    std::unique_ptr< std::vector< std::string>> filesNames = std::make_unique<std::vector< std::string>>();
+    std::string fileName;
+
+    for (auto& x : commandOutput)
+    {
+
+        if (20 < x ) //ASCI bo byl problem z ' '
+        {
+            fileName += x;
+        }
+        else
+        {
+            filesNames->push_back(fileName);
+            fileName.clear();
+        }
+    }
+    return filesNames;
+
+}
+
 std::unique_ptr< std::string> getRowField(const std::string & field, const int fieldNumber)
 {
     int actualFieldNumber = -1;

@@ -50,11 +50,12 @@ bool ChatRequest::changeUserStatus(const User & user, const std::string& newStat
     for (auto& x : *loggedFileContent)
     {
         std::unique_ptr< const std::string> usernameToComapre = getRowField(x, usernameFieldInLoggedFile);
+        std::string username = user.getUsername();
 
-        if (!user.getUsername().compare(*usernameToComapre)) //0 when succes
+        if (!username.compare(*usernameToComapre)) //0 when succes
         {
             std::string updatedRow = *updateRowField(x, newStatus, statusFieldInLoggedFile);
-            updateRow(loggedFile, updatedRow, user.getUsername());
+            updateRow(loggedFile, updatedRow, username);
 
             return true;
         }
