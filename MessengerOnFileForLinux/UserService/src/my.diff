@@ -1,0 +1,493 @@
+diff --git a/MessengerOnFileForLinux/UserService/src/LocalUser.cpp b/MessengerOnFileForLinux/UserService/src/LocalUser.cpp
+index 54ea6015d66442e2abd647948f98c19996e84824..28a994c2df4c13febc57fd63d4558ddefd45343e 100644
+--- a/MessengerOnFileForLinux/UserService/src/LocalUser.cpp
++++ b/MessengerOnFileForLinux/UserService/src/LocalUser.cpp
+@@ -1,10 +1,12 @@
+-#include "LocalUser.hpp"
+-#include "FileHandling.hpp"
++#include <LocalUser.hpp>
++#include <FileHandling.hpp>
+ 
++#include <iostream>
+ 
+-LocalUser::LocalUser() : User(getEnviromentalVariable("USER"))
++LocalUser::LocalUser()
++        : User(getEnviromentalVariable("USER"))
+ {
+-
++    //NOOP
+ }
+ 
+ LocalUser::~LocalUser()
+@@ -17,3 +19,14 @@ LocalUser & LocalUser::getLocalUser()
+     static LocalUser localUser;
+     return localUser;
+ }
++
++std::string LocalUser::getUsername() const
++{
++    if (User::getUsername().empty())
++    {
++        std::string username = getEnviromentalVariable("USER");
++        return username;
++    }
++
++    return User::getUsername();
++}
+diff --git a/MessengerOnFileForLinux/UserService/src/LocalUser.hpp b/MessengerOnFileForLinux/UserService/src/LocalUser.hpp
+index 07b9e95f445a18cc89a1f758e439a60ce30f4a47..9f05dc1f9b03a6295c9fd9a009f2578b488d969e 100644
+--- a/MessengerOnFileForLinux/UserService/src/LocalUser.hpp
++++ b/MessengerOnFileForLinux/UserService/src/LocalUser.hpp
+@@ -1,9 +1,10 @@
+ #pragma once
+-#include "User.hpp"
++#include <User.hpp>
+ 
+ class LocalUser : public User
+ {
+ public:
++    virtual std::string getUsername() const override;
+     static LocalUser & getLocalUser();
+ 
+ private:
+diff --git a/MessengerOnFileForLinux/UserService/src/RegisterUser.cpp b/MessengerOnFileForLinux/UserService/src/RegisterUser.cpp
+index 68447f97e798cd267d9bccfe482a84b8289771d2..f9571f1668102c306efff27b2de3fd3088d9f442 100644
+--- a/MessengerOnFileForLinux/UserService/src/RegisterUser.cpp
++++ b/MessengerOnFileForLinux/UserService/src/RegisterUser.cpp
+@@ -3,9 +3,9 @@
+ #include <vector>
+ #include <iostream>
+ 
+-#include "RegisterUser.hpp"
+-#include "FileHandling.hpp"
+-#include "GlobalVariables.hpp"
++#include <RegisterUser.hpp>
++#include <FileHandling.hpp>
++#include <GlobalVariables.hpp>
+ 
+ RegisterUser::RegisterUser()
+ {
+@@ -25,14 +25,19 @@ std::string RegisterUser::enterThePassword() const
+     return password;
+ }
+ 
+-bool RegisterUser::isUserRegistered(const LocalUser & user) const
++bool RegisterUser::isUserRegistered() const
+ {
+-    std::unique_ptr< std::vector< std::string>> registeredFileContent = returnFileContent(registeredFile);
++    std::unique_ptr<std::vector<std::string>> registeredFileContent = returnFileContent(registeredFile);
+ 
+     for (auto & x : *registeredFileContent)
+     {
+-        std::string username = user.getUsername();
+-        std::unique_ptr< const std::string> usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
++        std::string username = LocalUser::getLocalUser().getUsername();
++        std::unique_ptr<std::string> usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
++        //TODO
++        //Nie da się zrobić tego w jednej lini z make_unique. Trzeba to rozbić tak jak poniżej.
++        //To porobić wszedzie tą wersje z make_unique czy zostawić tak jak jest ?
++        //std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>();
++        //usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
+ 
+         if (!username.compare(*usernameToCompare)) //0 when the same
+         {
+@@ -45,41 +50,55 @@ bool RegisterUser::isUserRegistered(const LocalUser & user) const
+ 
+ bool RegisterUser::registerNewUser() const
+ {
+-
+-    if (isUserRegistered(LocalUser::getLocalUser()))
++    if (isUserRegistered())
+     {
+         std::cerr << "You already have an account" <<std::endl;
+         return false;
+     }
+ 
+-    std::string password = enterThePassword();
+-    std::string repeatedPassword = enterThePassword();
++    bool isPasswordSetCorrectly = false;
+ 
+-    setUsernamePassword(password, repeatedPassword, LocalUser::getLocalUser());
++    while (!isPasswordSetCorrectly)
++    {
++        std::string password = enterThePassword();
++        std::cout << "Enter the password again. ";
++        std::string repeatedPassword = enterThePassword();
++        isPasswordSetCorrectly =  setUsernamePassword(password, repeatedPassword);
++    }
+ 
+-    return saveUserDataInRegisteredFile(LocalUser::getLocalUser());
++    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
++
++    while (!isUserDataSavedCorrectly)
++    {
++        //czekamy az zwolni sie plik. Dac jakiegos sleepa moze ?
++        isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
++    }
++
++    return true;
+ }
+ 
+-void RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword, LocalUser & user) const
++bool RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword) const
+ {
+     if (password == repeatedPassword)
+     {
+         SHA1 hashObject;
+         hashObject.update(password);
+-        user.setPassword(hashObject.final());
++        LocalUser::getLocalUser().setPassword(hashObject.final());
++        return true;
+     }
+     else
+     {
+         std::cerr << "The passwords are differnet" << std::endl;
++        return false;
+     }
+ }
+ 
+-bool RegisterUser::saveUserDataInRegisteredFile(LocalUser & user) const
++bool RegisterUser::saveUserDataInRegisteredFile() const
+ {
+     std::string actualDateTime = getActualDateTime();
+-    std::string accountInformations = "[" + user.getUsername() + "][" //tu bedzie jeszcze ta funkcja ktora dodaje nawiasy
+-            + user.getPassword() +"]["+ actualDateTime +"]";
++    std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
++            + LocalUser::getLocalUser().getPassword() +"]["+ actualDateTime +"]";
++    //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
+ 
+     return addRow(registeredFile, accountInformations);
+ }
+-
+diff --git a/MessengerOnFileForLinux/UserService/src/RegisterUser.hpp b/MessengerOnFileForLinux/UserService/src/RegisterUser.hpp
+index 90d7a1fbf8c2f9b43577a2029be86f34dd2f4cf3..e846792ed711d0933cadc609b2db35cc7023dca5 100644
+--- a/MessengerOnFileForLinux/UserService/src/RegisterUser.hpp
++++ b/MessengerOnFileForLinux/UserService/src/RegisterUser.hpp
+@@ -1,18 +1,19 @@
+ #pragma once
+ #include <string>
+ 
+-#include "LocalUser.hpp"
++#include <LocalUser.hpp>
+ 
+ class RegisterUser
+ {
+ public:
+     bool registerNewUser() const;
++
+     RegisterUser();
+     ~RegisterUser();
+ 
+ private:
+-    bool isUserRegistered(const LocalUser & user) const;
++    bool isUserRegistered() const;
+     std::string enterThePassword() const;
+-    bool saveUserDataInRegisteredFile(LocalUser & user) const;
+-    void setUsernamePassword(const std::string & password, const std::string & repeatedPassword, LocalUser & user) const;
++    bool saveUserDataInRegisteredFile() const;
++    bool setUsernamePassword(const std::string & password, const std::string & repeatedPassword) const;
+ };
+diff --git a/MessengerOnFileForLinux/UserService/src/SignIn.cpp b/MessengerOnFileForLinux/UserService/src/SignIn.cpp
+index b3d1855444672a1599732244630d7846498d6dad..9d57e0ac4e42930e8dd2b752f4555df85d29acbe 100644
+--- a/MessengerOnFileForLinux/UserService/src/SignIn.cpp
++++ b/MessengerOnFileForLinux/UserService/src/SignIn.cpp
+@@ -1,9 +1,9 @@
+ #include <vector>
+ 
+-#include "SHA1.hpp"
+-#include "SignIn.hpp"
+-#include "FileHandling.hpp"
+-#include "GlobalVariables.hpp"
++#include <SHA1.hpp>
++#include <SignIn.hpp>
++#include <FileHandling.hpp>
++#include <GlobalVariables.hpp>
+ 
+ SignIn::SignIn()
+ {
+@@ -26,18 +26,35 @@ std::string SignIn::enterThePassword() const
+ 
+ bool SignIn::signInUser() const
+ {
+-    if (isUserLogged(LocalUser::getLocalUser()))
++    if (isUserLogged())
+     {
+         std::cerr << "You are already logged in !" << std::endl;
+         return false;
+     }
+ 
++    std::unique_ptr<std::string> passwordFromDatabase = getPasswordFromDatabase();
++
++    if (nullptr == passwordFromDatabase)
++    {
++        //trzeba sie zastanowic jakby to tutaj zalatwic
++        //odpalamy od razu rejestracje czy dajemy mozliwsoc rejestracja/zakonczenie programu?
++        std::cerr << " You are not registered " <<std::endl;
++        return false;
++    }
++
+     std::string password = enterThePassword();
+-    std::unique_ptr< std::string> passwordFromDatabase = getPasswordFromDatabase(LocalUser::getLocalUser());
+ 
+     if (isPasswordCorrect(password, *passwordFromDatabase))
+     {
+-        return setUserDataInLoggedFile(LocalUser::getLocalUser());
++        bool isUserDataSetCorrectly = setUserDataInLoggedFile();
++
++        while (!isUserDataSetCorrectly)
++        {
++            //czekamy az zwolni sie plik. Dac jakiegos sleepa moze ?
++            isUserDataSetCorrectly = setUserDataInLoggedFile();
++        }
++
++        return true;
+     }
+     else
+     {
+@@ -47,15 +64,16 @@ bool SignIn::signInUser() const
+ }
+ 
+ 
+-bool SignIn::isUserLogged(const LocalUser & user) const
++bool SignIn::isUserLogged() const
+ {
+-    std::unique_ptr< std::vector< std::string>>loggedFileContent = returnFileContent(loggedFile);
++    std::unique_ptr<std::vector<std::string>>loggedFileContent = returnFileContent(loggedFile);
+ 
+-    for (auto &x : *loggedFileContent)
++    for (auto& x : *loggedFileContent)
+     {
+-        std::unique_ptr< const std::string> usernameToComapre = getRowField(x, usernameFieldInLoggedFile);
++        std::unique_ptr<std::string> usernameToComapre = getRowField(x, usernameFieldInLoggedFile);
++        std::string username = LocalUser::getLocalUser().getUsername();
+ 
+-        if (!user.getUsername().compare(*usernameToComapre)) //0 when succes
++        if (!username.compare(*usernameToComapre)) //0 when succes
+         {
+             return true;
+         }
+@@ -64,40 +82,43 @@ bool SignIn::isUserLogged(const LocalUser & user) const
+     return false;
+ }
+ 
+-bool SignIn::isPasswordCorrect(const std::string & password, const std::string & correctPassword) const
++bool SignIn::isPasswordCorrect(const std::string& password, const std::string& correctPassword) const
+ {
+     SHA1 hashObject;
+     hashObject.update(password);
+ 
+-    if (0 == hashObject.final().compare(correctPassword))
++    if (!hashObject.final().compare(correctPassword)) //0 when succes
+     {
+         return true;
+     }
+-    else
+-    {
+-        return false;
+-    }
++
++    return false;
++
+ }
+ 
+-std::unique_ptr< std::string> SignIn::getPasswordFromDatabase(const LocalUser & user) const
++std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
+ {
+-    std::unique_ptr< std::vector< std::string>> registeredFileContent = returnFileContent(registeredFile);
++    std::unique_ptr<std::vector<std::string>> registeredFileContent = returnFileContent(registeredFile);
+ 
+-    for (auto &x : *registeredFileContent)
++    for (auto& x : *registeredFileContent)
+     {
+-        std::unique_ptr< std::string> usernameToComapre = getRowField(x, usernameFieldInRegisteredFile);
++        std::unique_ptr<std::string> usernameToComapre = getRowField(x, usernameFieldInRegisteredFile);
++        std::string username = LocalUser::getLocalUser().getUsername();
+ 
+-        if (0 == user.getUsername().compare(*usernameToComapre))
++        if (!username.compare(*usernameToComapre)) //0 when succes
++        {
+             return getRowField(x, passwordFieldInRegisteredFile);
++        }
+     }
+ 
+-    std::cerr << " You are not registered " <<std::endl;
+     return nullptr;
+ }
+ 
+ 
+-bool SignIn::setUserDataInLoggedFile(const LocalUser & user) const
++bool SignIn::setUserDataInLoggedFile() const
+ {
+-    std::string information = "[" + user.getUsername() + "][" + userActiveStatus + "]";
++    std::string userPid = std::to_string(LocalUser::getLocalUser().getUserProcessIdFromSystem());
++    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + userActiveStatus + "][" + userPid +"]";
++
+     return addRow(loggedFile, information); //TODO update date&&time in registered file
+ }
+diff --git a/MessengerOnFileForLinux/UserService/src/SignIn.hpp b/MessengerOnFileForLinux/UserService/src/SignIn.hpp
+index 7507b9ea4765790f871bbdec9b17f2c8183c1462..3d0e1cff35678a1987ad7af56d49c3f9db84ca13 100644
+--- a/MessengerOnFileForLinux/UserService/src/SignIn.hpp
++++ b/MessengerOnFileForLinux/UserService/src/SignIn.hpp
+@@ -2,7 +2,7 @@
+ #include <string>
+ #include <memory>
+ 
+-#include "LocalUser.hpp"
++#include <LocalUser.hpp>
+ 
+ class SignIn
+ {
+@@ -12,9 +12,9 @@ public:
+     ~SignIn();
+ 
+ private:
+-    bool isUserLogged(const LocalUser & user) const;
+-    bool isPasswordCorrect(const std::string & password, const std::string & correctPassword) const;
+-    std::unique_ptr< std::string> getPasswordFromDatabase(const LocalUser & user) const;
+-    bool setUserDataInLoggedFile(const LocalUser & user) const;
++    bool isUserLogged() const;
++    bool isPasswordCorrect(const std::string& password, const std::string& correctPassword) const;
++    std::unique_ptr<std::string> getPasswordFromDatabase() const;
++    bool setUserDataInLoggedFile() const;
+     std::string enterThePassword() const;
+ };
+diff --git a/MessengerOnFileForLinux/UserService/src/SignOut.cpp b/MessengerOnFileForLinux/UserService/src/SignOut.cpp
+index ed47e288d322846c631ea2917e290a5049059f8b..a621f124f552f27921e2c9b99a7913b6f99173f0 100644
+--- a/MessengerOnFileForLinux/UserService/src/SignOut.cpp
++++ b/MessengerOnFileForLinux/UserService/src/SignOut.cpp
+@@ -1,6 +1,6 @@
+-#include "SignOut.hpp"
+-#include "FileHandling.hpp"
+-#include "GlobalVariables.hpp"
++#include <SignOut.hpp>
++#include <FileHandling.hpp>
++#include <GlobalVariables.hpp>
+ 
+ SignOut::SignOut()
+ {
+@@ -12,14 +12,13 @@ SignOut::~SignOut()
+     //NOOP
+ }
+ 
+-bool SignOut::signOutUser()
++bool SignOut::signOutUser() const
+ {
+-    User user;
+-    return removeUserDataFromLoggedFile(user);
++    return removeUserDataFromLoggedFile();
+ }
+ 
+ 
+-bool SignOut::removeUserDataFromLoggedFile(User & user)
++bool SignOut::removeUserDataFromLoggedFile() const
+ {
+-    return removeRow(loggedFile, user.getUsername());
++    return removeRow(loggedFile, LocalUser::getLocalUser().getUsername());
+ }
+diff --git a/MessengerOnFileForLinux/UserService/src/SignOut.hpp b/MessengerOnFileForLinux/UserService/src/SignOut.hpp
+index 359c1bc580db5abece415aff2ee6b06a13140613..d65f79d18a1cc4c7f8e79876929f45d28c90fa8e 100644
+--- a/MessengerOnFileForLinux/UserService/src/SignOut.hpp
++++ b/MessengerOnFileForLinux/UserService/src/SignOut.hpp
+@@ -1,14 +1,15 @@
+ #pragma once
+-#include "User.hpp"
++#include <LocalUser.hpp>
+ 
+ class SignOut
+ {
+ public:
+-    bool signOutUser();
++    bool signOutUser() const;
++
+     SignOut();
+     ~SignOut();
+ 
+ private:
+-    bool removeUserDataFromLoggedFile(User & user);
++    bool removeUserDataFromLoggedFile() const;
+ };
+ 
+diff --git a/MessengerOnFileForLinux/UserService/src/User.cpp b/MessengerOnFileForLinux/UserService/src/User.cpp
+index da858d7622b1b82a1474ea0bc8b4af232e6bb999..3780a9707b429117446b2ad9edc6fc48ed0acfd6 100644
+--- a/MessengerOnFileForLinux/UserService/src/User.cpp
++++ b/MessengerOnFileForLinux/UserService/src/User.cpp
+@@ -1,12 +1,15 @@
+-#include "User.hpp"
+-#include "FileHandling.hpp"
++#include <User.hpp>
++#include <FileHandling.hpp>
++
++#include <iostream>
+ 
+ User::User()
+ {
+     //NOOP
+ }
+ 
+-User::User(std::string username) : username_(username)
++User::User(std::string username)
++        : username_(username)
+ {
+     //NOOP
+ }
+@@ -26,12 +29,33 @@ std::string User::getUsername() const
+     return username_;
+ }
+ 
+-void User::setPassword(const std::string & password)
++int User::getUserProcessIdFromSystem() const
+ {
+-    password_ = password;
++    //TODO czemu nazwa procesu jest skrocona?
++    std::string command = "ps -u " + getUsername() + " | grep 'messenger_binar'";
++    std::string commandOutput = getStdoutFromCommand(command);
++    std::string userProcessId;
++
++    for (auto& x : commandOutput)
++    {
++        if (' ' == x)
++        {
++            return std::atoi(userProcessId.c_str());
++        }
++
++        userProcessId += x;
++    }
++
++    return std::atoi(userProcessId.c_str());
+ }
+ 
+-void User::setUsername(const std::string & password)
++
++void User::setPassword(const std::string& password)
+ {
+     password_ = password;
+ }
++
++void User::setUsername(const std::string& username)
++{
++    username_ = username;
++}
+diff --git a/MessengerOnFileForLinux/UserService/src/User.hpp b/MessengerOnFileForLinux/UserService/src/User.hpp
+index 51302241368e5c9f1bd790962e47fb152c5c52cc..ee2e2669873a4bc88ec2aa95c3a1a89a0f2b6729 100644
+--- a/MessengerOnFileForLinux/UserService/src/User.hpp
++++ b/MessengerOnFileForLinux/UserService/src/User.hpp
+@@ -4,10 +4,12 @@
+ class User
+ {
+ public:
+-    std::string getUsername() const;
++    virtual std::string getUsername() const;
+     std::string getPassword() const;
++    int getUserProcessIdFromSystem() const;
+     void setPassword(const std::string & password);
+-    void setUsername(const std::string & password);
++    void setUsername(const std::string & username);
++
+     User(std::string username);
+     User();
+     ~User();
+@@ -16,4 +18,3 @@ private:
+     std::string username_;
+     std::string password_;
+ };
+-

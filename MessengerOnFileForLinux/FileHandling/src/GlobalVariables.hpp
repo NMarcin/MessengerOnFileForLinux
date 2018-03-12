@@ -9,6 +9,10 @@
 
 static constexpr char registeredFile[] = "registered.txt";
 static constexpr char loggedFile[] = "logged.txt";
+static constexpr char registeredFilePath[] = "/home/messenger/configuration/";
+static constexpr char loggedFilePath[] = "/home/messenger/configuration/";
+static constexpr char chatFilePath[] = "/home/messenger/chat/";
+
 
 static const std::string userActiveStatus = "0";
 static const std::string userBussyStatus = "1";
@@ -19,6 +23,8 @@ static constexpr int pidFieldInLoggedFile = 2;
 
 static constexpr int usernameFieldInRegisteredFile = 0;
 static constexpr int passwordFieldInRegisteredFile = 1;
+static constexpr int dateTimeFieldInRegisteredFile = 2;
+
 
 static constexpr int timeToWaitForAnswer = 20;
 
