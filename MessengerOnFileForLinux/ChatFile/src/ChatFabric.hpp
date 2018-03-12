@@ -4,10 +4,13 @@
 class ChatFabric
 {
 public:
-    bool createChatStructure(std::string usernameInviter, std::string usernameGuess);
+    ChatFabric();
+    ~ChatFabric();
+    
+    bool createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const;
 
 private:
-    std::string createChatFolder(std::string usernameInviter, std::string usernameGuess);
-    bool createChatFile(std::string chatFolderName, std::string usernameInviter, std::string usernameGuess);
-    int getFreeFolderNumber(std::string folderPath);
+    std::string createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const;
+    bool createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const;
+    int getFreeFolderNumber(const std::string& folderPath) const;
 };

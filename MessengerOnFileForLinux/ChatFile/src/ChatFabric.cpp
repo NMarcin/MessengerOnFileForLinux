@@ -3,7 +3,17 @@
 
 #include <ChatFabric.hpp>
 
-bool ChatFabric::createChatStructure(std::string usernameInviter, std::string usernameGuess)
+ChatFabric::ChatFabric()
+{
+    //NOOP
+}
+
+ChatFabric::~ChatFabric()
+{
+    //NOOP
+}
+
+bool ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     std::string chatFolderName = createChatFolder("a", "b");
     if("" == chatFolderName)
@@ -16,8 +26,7 @@ bool ChatFabric::createChatStructure(std::string usernameInviter, std::string us
     return false;
 }
 
-
-std::string ChatFabric::createChatFolder(std::string usernameInviter, std::string usernameGuess)
+std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     int folderNumber = getFreeFolderNumber("/home/messenger/chats/");        // podmienic na zmienna srodowiskowa
     std::string newFolderName = std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess;
@@ -31,16 +40,16 @@ std::string ChatFabric::createChatFolder(std::string usernameInviter, std::strin
     return {};
 }
 
-bool ChatFabric::createChatFile(std::string chatFolderName, std::string usernameInviter, std::string usernameGuess)
+bool ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     std::string newFileName = usernameInviter + "_" + usernameGuess;
-    std::string systemCommand = "touch /home/messenger/chats/" + chatFolderName + newFileName; // jw
+    std::string systemCommand = "touch /home/messenger/chats/" + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
     bool commandStatus = system(systemCommand.c_str());
-    
+
     return commandStatus;
 }
 
-int ChatFabric::getFreeFolderNumber(std::string folderPath)
+int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
 {
     int freeFolderNumber = -1;
     std::vector<std::string> filesInPath= {}; // pobranie wektora nazw plików w danym folderze alfabetycznie (to powinno potem być w interfejsie plikow)
@@ -48,7 +57,7 @@ int ChatFabric::getFreeFolderNumber(std::string folderPath)
 
     for(int folderNumber = 0; 0 <= freeFolderNumber; ++folderNumber)    // aktualna funkcjonalnosc dziala tylko dla 10 rozmow jednoczesnie, TODO mnurzyns dla wiekszej ilosci
     {
-        int fileNumber = atoi((*fileIterator).c_str());
+        int fileNumber = (*fileIterator)[0];                            // atoi((*fileIterator).c_str()); gdy zadziala na wiecej niz 10 rozmow
         if(fileNumber > folderNumber)
         {
             freeFolderNumber = folderNumber;
