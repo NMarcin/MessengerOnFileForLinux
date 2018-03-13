@@ -8,8 +8,8 @@
 #include "RegisterUser.hpp"
 #include "SignIn.hpp"
 #include "SignOut.hpp"
-#include "LocalUser.hpp"
-#include "ChatRequest.hpp"
+#include <LocalUser.hpp>
+#include <ChatRequest.hpp>
 
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
@@ -38,8 +38,8 @@ int main(int argc, char **argv)
         {
         }
 
-    createFile("logged.txt");
-    createFile("registered.txt");
+    FileInterface::createFile("logged.txt");
+    FileInterface::createFile("registered.txt");
     RegisterUser registerUser;
     registerUser.registerNewUser();
 

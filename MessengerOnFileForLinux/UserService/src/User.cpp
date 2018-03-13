@@ -1,7 +1,7 @@
+#include <iostream>
+
 #include <User.hpp>
 #include <FileHandling.hpp>
-
-#include <iostream>
 
 User::User()
 {
@@ -31,14 +31,14 @@ std::string User::getUsername() const
 
 int User::getUserProcessIdFromSystem() const
 {
-    //TODO czemu nazwa procesu jest skrocona?
+    //TODO mwozniak czemu nazwa procesu jest skrocona?
     std::string command = "ps -u " + getUsername() + " | grep 'messenger_binar'";
-    std::string commandOutput = getStdoutFromCommand(command);
+    std::string commandOutput = System::getStdoutFromCommand(command);
     std::string userProcessId;
 
     for (auto& x : commandOutput)
     {
-        if (' ' == x)
+        if (' ' == x && !userProcessId.empty())
         {
             return std::atoi(userProcessId.c_str());
         }

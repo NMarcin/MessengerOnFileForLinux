@@ -4,7 +4,7 @@
 class User
 {
 public:
-    virtual std::string getUsername() const;
+    std::string getUsername() const;
     std::string getPassword() const;
     int getUserProcessIdFromSystem() const;
     void setPassword(const std::string & password);

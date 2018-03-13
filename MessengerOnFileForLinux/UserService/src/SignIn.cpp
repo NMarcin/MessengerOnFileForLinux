@@ -50,7 +50,7 @@ bool SignIn::signInUser() const
 
         while (!isUserDataSetCorrectly)
         {
-            //czekamy az zwolni sie plik. Dac jakiegos sleepa moze ?
+            sleep(1);
             isUserDataSetCorrectly = setUserDataInLoggedFile();
         }
 
@@ -66,11 +66,11 @@ bool SignIn::signInUser() const
 
 bool SignIn::isUserLogged() const
 {
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = returnFileContent(loggedFile);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::returnFileContent(loggedFile);
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = getRowField(x, usernameFieldInLoggedFile);
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::getRowField(x, usernameFieldInLoggedFile);
         std::string username = LocalUser::getLocalUser().getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
@@ -98,16 +98,16 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
 
 std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 {
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = returnFileContent(registeredFile);
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::returnFileContent(registeredFile);
 
     for (auto& x : *registeredFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = getRowField(x, usernameFieldInRegisteredFile);
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::getRowField(x, usernameFieldInRegisteredFile);
         std::string username = LocalUser::getLocalUser().getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            return getRowField(x, passwordFieldInRegisteredFile);
+            return FileInterface::getRowField(x, passwordFieldInRegisteredFile);
         }
     }
 
@@ -120,5 +120,5 @@ bool SignIn::setUserDataInLoggedFile() const
     std::string userPid = std::to_string(LocalUser::getLocalUser().getUserProcessIdFromSystem());
     std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + userActiveStatus + "][" + userPid +"]";
 
-    return addRow(loggedFile, information); //TODO update date&&time in registered file
+    return FileInterface::addRow(loggedFile, information); //TODO update date&&time in registered file
 }

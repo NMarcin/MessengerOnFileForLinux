@@ -4,7 +4,6 @@
 class LocalUser : public User
 {
 public:
-    virtual std::string getUsername() const override;
     static LocalUser & getLocalUser();
 
 private:

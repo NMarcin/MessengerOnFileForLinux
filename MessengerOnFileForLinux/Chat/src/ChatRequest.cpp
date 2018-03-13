@@ -1,11 +1,12 @@
+#include <iostream>
+#include <signal.h>
+
 #include <ChatRequest.hpp>
 #include <User.hpp>
 #include <FileHandling.hpp>
+#include <FileGuardian.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
-
-#include <iostream>
-#include <signal.h>
 
 ChatRequest::ChatRequest()
 {
@@ -17,45 +18,59 @@ ChatRequest::~ChatRequest()
     //NOOP
 }
 
-bool ChatRequest::answerForChatRequest(const int usernamePid) const
+void ChatRequest::showInvitation(const std::string& senderUsername) const
 {
-    std::unique_ptr< std::string> senderUsername = getUsernameByProcessId(usernamePid);
-
-    std::cout << "Dostales zaproszenie na chat od " + *senderUsername << std::endl;
-    std::cout << "Czy chcesz z nim rozmowaiac (tak/nie)? " << std::endl;
-
-    std::string decision;
-    std::cin >> decision;
-
-    if ("tak" == decision)
-    {
-        //createChatFile()
-        createFile("chat.txt");
-        std::cout << "Nawiazales kontakt z " + *senderUsername << std::endl;
-        return true;
-    }
-    else if ("nie" == decision)
-    {
-        //tworze jakis plik, do przemyslenia. Albo flage ?
-        createFile("NOchat.txt");
-        //TODO ogarnac to na syngale
-        return false;
-    }
+    std::cout << "You get an invitation to chat form " + senderUsername << std::endl;
+    std::cout << "Do you want to chat with this user (yes/no)? " << std::endl;
 }
 
-bool ChatRequest::changeUserStatus(const User & user, const std::string& newStatus) const
+bool ChatRequest::makeDecision() const
 {
-    std::unique_ptr< std::vector< std::string>>loggedFileContent = returnFileContent(loggedFile);
+    std::string decision;
+    std::cin >> decision;
+    if ("yes" == decision)
+    {
+        return true;
+    }
+    else if ("no" == decision)
+    {
+        return false;
+    }
+
+    return false; //TODO mwozniak co jest wprawdzi inna odpwiedz
+    // poki co powoduje odrzucenie
+}
+
+bool ChatRequest::answerForChatRequest(const int usernamePid) const
+{
+    std::unique_ptr<std::string> senderUsername = getUsernameByProcessId(usernamePid);
+
+    showInvitation(*senderUsername);
+    bool decision = makeDecision();
+
+    if (true == decision)
+    {
+        //createChatFile() //TODO mwozniak createchatfile od mnurzyn
+        return true;
+    }
+
+    FileFlag::setFileFlag(FileFlagType::refuseChatInvitation, ""); //TODO mwozniak sciezka do pliku, ogarnac odmowe na syngale
+    return false;
+}
+
+bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
+{
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::returnFileContent(loggedFile);
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr< const std::string> usernameToComapre = getRowField(x, usernameFieldInLoggedFile);
+        std::unique_ptr< const std::string> usernameToComapre = FileInterface::getRowField(x, usernameFieldInLoggedFile);
         std::string username = user.getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            std::string updatedRow = *updateRowField(x, newStatus, statusFieldInLoggedFile);
-            updateRow(loggedFile, updatedRow, username);
+            std::string updatedRow = *FileInterface::updateRowField(x, newStatus, statusFieldInLoggedFile);
+            FileInterface::updateRow(loggedFile, updatedRow, username);
 
             return true;
         }
@@ -64,18 +79,18 @@ bool ChatRequest::changeUserStatus(const User & user, const std::string& newStat
     return false;
 }
 
-std::unique_ptr< std::string> ChatRequest::getUsernameByProcessId(const int userPid) const
+std::unique_ptr<std::string> ChatRequest::getUsernameByProcessId(const int userPid) const
 {
-    std::unique_ptr< std::vector< std::string>>loggedFileContent = returnFileContent(loggedFile);
+    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::returnFileContent(loggedFile);
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr< std::string> pidToComapre = getRowField(x, pidFieldInLoggedFile);
+        std::unique_ptr< std::string> pidToComapre = FileInterface::getRowField(x, pidFieldInLoggedFile);
         int pid = std::atoi(pidToComapre->c_str());
 
         if (userPid == pid)
         {
-            std::unique_ptr< std::string> username = getRowField(x, usernameFieldInLoggedFile);
+            std::unique_ptr<std::string> username = FileInterface::getRowField(x, usernameFieldInLoggedFile);
             return username;
         }
     }
@@ -84,17 +99,17 @@ std::unique_ptr< std::string> ChatRequest::getUsernameByProcessId(const int user
 }
 
 
-bool ChatRequest::isUserActive(const User & user) const
+bool ChatRequest::isUserActive(const User& user) const
 {
-    std::unique_ptr< std::vector< std::string>>loggedFileContent = returnFileContent(loggedFile);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::returnFileContent(loggedFile);
 
     for (auto &x : *loggedFileContent)
     {
-        std::unique_ptr< const std::string> usernameToComapre = getRowField(x, usernameFieldInLoggedFile);
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::getRowField(x, usernameFieldInLoggedFile);
 
         if (!user.getUsername().compare(*usernameToComapre)) //0 when succes
         {
-            std::unique_ptr< const std::string> userStatusToCompare = getRowField(x, statusFieldInLoggedFile);
+            std::unique_ptr<std::string> userStatusToCompare = FileInterface::getRowField(x, statusFieldInLoggedFile);
 
             if (!userActiveStatus.compare(*userStatusToCompare)) //0 when succes
             {
@@ -129,17 +144,18 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {
-        if (isFileExists("chat.txt"))
+        if (FileInterface::isFileExists("chat.txt")) //TODO mwozniak chatfile name
         {
             std::cout <<"Udalo sie nawiazac kontakt. Możesz teraz chatowac z " + username << std::endl;
             return true;
         }
-        else if (isFileExists("NOchat.txt"))
+        else if (FileFlag::isFlagExist(FileFlagType::refuseChatInvitation, "")) //TODO mwonziak sciezka do pliku
         {
             std::cout <<"Nie nawiazano kontaktu z " + username << std::endl;
-            removeFile("NOchat.txt");
+            FileFlag::removeFileFlag(FileFlagType::refuseChatInvitation, ""); //TODO mwonziak sciezka do pliku
             return false;
         }
+
         sleep(1);
     }
 

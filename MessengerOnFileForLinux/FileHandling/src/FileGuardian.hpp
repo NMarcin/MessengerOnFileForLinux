@@ -1,17 +1,16 @@
 #pragma once
 #include <string>
 
-#include "GlobalVariables.hpp"
-
 enum class FileFlagType
 {
     guardian,
-    newFlag
+    newMessage,
+    refuseChatInvitation
 };
 
-namespace Guard
+namespace FileFlag
 {
-    bool isGuardExist(const std::string & fileName, FileFlagType type, const std::string & pathToFile = "");
-    bool setFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile = "");
-    bool removeFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile = "");
+    bool isFlagExist(FileFlagType type, const std::string& pathToFile = "", const std::string& fileName = "");
+    bool setFileFlag(FileFlagType type, const std::string& pathToFile = "", const std::string& fileName = "");
+    bool removeFileFlag(FileFlagType type, const std::string& pathToFile = "", const std::string& fileName = "");
 }

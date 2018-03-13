@@ -15,5 +15,5 @@ private:
     bool isUserRegistered() const;
     std::string enterThePassword() const;
     bool saveUserDataInRegisteredFile() const;
-    bool setUsernamePassword(const std::string & password, const std::string & repeatedPassword) const;
+    bool setUserPassword(const std::string & password, const std::string & repeatedPassword) const;
 };

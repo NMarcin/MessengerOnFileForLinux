@@ -7,10 +7,9 @@
 #include <iostream>
 
 #include <ChatRequest.hpp>
-#include <FileHandling.hpp> //getEnv -> tutaj mam chwilowo funkcje getEnviromentVariabel
 
-static const std::string localUsername = getEnviromentVariable("USER");
-static const std::string homePath = getEnviromentVariable("HOME");
+static const std::string localUsername = getenv("USER");
+static const std::string homePath = getenv("HOME");
 static const std::string userPath = homePath + "/messenger/";
 static const std::string userActiveStatus = "0";
 static const std::string userBussyStatus = "1";

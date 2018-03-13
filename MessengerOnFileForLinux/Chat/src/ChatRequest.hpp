@@ -14,11 +14,10 @@ public:
     ~ChatRequest();
 
 private:
-    bool changeUserStatus(const User & user, const std::string& newStatus) const;
-    bool isUserActive(const User & user) const;
-    std::unique_ptr< std::string> getUsernameByProcessId(const int userPid) const;
+    bool changeUserStatus(const User& user, const std::string& newStatus) const;
+    bool isUserActive(const User& user) const;
+    std::unique_ptr<std::string> getUsernameByProcessId(const int userPid) const;
     void sendSigusr1Signal(const int userPid) const;
-
-
+    void showInvitation(const std::string& senderUsername) const;
+    bool makeDecision() const;
 };
-
