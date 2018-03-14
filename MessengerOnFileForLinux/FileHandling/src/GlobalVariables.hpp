@@ -8,18 +8,24 @@
 
 #include <ChatRequest.hpp>
 
-static const std::string localUsername = getenv("USER");
 static const std::string homePath = getenv("HOME");
-static const std::string userPath = homePath + "/messenger/";
+static const std::string USER_PATH = homePath + "/messenger/";
+
+static constexpr auto REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
+static constexpr auto LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
+static constexpr auto CHATS_PATH = "/home/messenger/chats/";
+static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
+static constexpr auto REGISTERED_GUARD= "/home/messenger/configuration/REGISTERED.txt";
+static constexpr auto LOGGED_GUARD = "/home/messenger/configuration/LOGGED.txt";
+
+// CHAT_PATH sciezka do aktualnie prowadzonej rozmowy
+// CHAT_GUARD
+
+
+
 static const std::string userActiveStatus = "0";
 static const std::string userBussyStatus = "1";
 
-static constexpr auto registeredFilePath = "/home/messenger/configuration/";
-static constexpr auto loggedFilePath = "/home/messenger/configuration/";
-static constexpr auto chatsFilePath = "/home/messenger/chats/";
-static constexpr auto installationFilePath = "/home/messenger/installation/";
-static constexpr auto registeredFile = "registered.txt";
-static constexpr auto loggedFile = "logged.txt";
 
 static constexpr int usernameFieldInLoggedFile = 0;
 static constexpr int statusFieldInLoggedFile = 1;

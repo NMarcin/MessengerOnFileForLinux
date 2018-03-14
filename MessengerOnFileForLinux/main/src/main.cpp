@@ -38,12 +38,10 @@ int main(int argc, char **argv)
         {
         }
 
-    FileInterface::createFile("logged.txt");
-    FileInterface::createFile("registered.txt");
     RegisterUser registerUser;
     registerUser.registerNewUser();
 
-    std::cin >> h;
+    std::cerr << "h";
 
     std::cout << "LOGOWANIE" << std::endl;
     SignIn signIn;

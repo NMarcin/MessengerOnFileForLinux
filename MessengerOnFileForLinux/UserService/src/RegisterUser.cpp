@@ -17,6 +17,16 @@ RegisterUser::~RegisterUser()
     //NOOP
 }
 
+std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() const
+{
+    std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
+    passwords->front() = enterThePassword();
+    std::cout << "Enter the password again. ";
+    passwords->back() = enterThePassword();
+
+    return passwords;
+}
+
 std::string RegisterUser::enterThePassword() const
 {
     std::string password;
@@ -25,19 +35,27 @@ std::string RegisterUser::enterThePassword() const
     return password;
 }
 
+
+bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
+{
+    if(passwords.front() == passwords.back())
+    {
+        return true;
+    }
+
+    std::cerr << "The passwords are differnet" << std::endl;
+    return false;
+}
+
+
 bool RegisterUser::isUserRegistered() const
 {
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::returnFileContent(registeredFile);
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::getFileContent(REGISTERED_FILE);
 
     for (auto & x : *registeredFileContent)
     {
         std::string username = LocalUser::getLocalUser().getUsername();
-        std::unique_ptr<std::string> usernameToCompare = FileInterface::getRowField(x, usernameFieldInRegisteredFile);
-        //TODO mwozniak
-        //Nie da się zrobić tego w jednej lini z make_unique. Trzeba to rozbić tak jak poniżej.
-        //To porobić wszedzie tą wersje z make_unique czy zostawić tak jak jest ?
-        //std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>();
-        //usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
+        std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>(*FileInterface::getRowField(x, usernameFieldInRegisteredFile));
 
         if (!username.compare(*usernameToCompare)) //0 when the same
         {
@@ -47,6 +65,7 @@ bool RegisterUser::isUserRegistered() const
 
     return false;
 }
+
 
 bool RegisterUser::registerNewUser() const
 {
@@ -60,10 +79,12 @@ bool RegisterUser::registerNewUser() const
 
     while (!isPasswordSetCorrectly)
     {
-        std::string password = enterThePassword();
-        std::cout << "Enter the password again. ";
-        std::string repeatedPassword = enterThePassword();
-        isPasswordSetCorrectly =  setUserPassword(password, repeatedPassword);
+        std::array<std::string, 2> passwords = *askUserForPassword();
+
+        if (comparePasswords(passwords))
+        {
+            isPasswordSetCorrectly = setUserPassword(passwords.front());
+        }
     }
 
     bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
@@ -77,20 +98,13 @@ bool RegisterUser::registerNewUser() const
     return true;
 }
 
-bool RegisterUser::setUserPassword(const std::string & password, const std::string & repeatedPassword) const
+bool RegisterUser::setUserPassword(const std::string& password) const
 {
-    if (password == repeatedPassword)
-    {
         SHA1 hashObject;
         hashObject.update(password);
         LocalUser::getLocalUser().setPassword(hashObject.final());
+
         return true;
-    }
-    else
-    {
-        std::cerr << "The passwords are differnet" << std::endl;
-        return false;
-    }
 }
 
 bool RegisterUser::saveUserDataInRegisteredFile() const
@@ -101,5 +115,5 @@ bool RegisterUser::saveUserDataInRegisteredFile() const
     //TODO mwozniak
     //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
 
-    return FileInterface::addRow(registeredFile, accountInformations);
+    return FileInterface::addRow(REGISTERED_FILE, accountInformations);
 }

@@ -9,7 +9,6 @@
 bool FileInterface::addRow(const std::string& fileName, const std::string& text, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
-
     if (std::unique_ptr<std::fstream> file = openFileToSave(fileLocation))
     {
         *file << text;
@@ -169,7 +168,7 @@ bool FileInterface::removeFile(const std::string& fileName, const std::string& p
 }
 
 
-std::unique_ptr<std::vector<std::string>> FileInterface::returnFileContent(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::vector<std::string>> FileInterface::getFileContent(const std::string& fileName, const std::string& pathToFile)
 {
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
 

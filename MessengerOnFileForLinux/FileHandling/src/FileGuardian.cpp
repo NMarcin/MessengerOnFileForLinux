@@ -5,7 +5,7 @@ bool FileFlag::setFileFlag(FileFlagType type, const std::string & pathToFile, co
 {    
     if (FileFlagType::guardian == type)
     {
-        return FileInterface::createFile("GUARDIAN_" + fileName, pathToFile);
+        return FileInterface::createFile(fileName + "_GUARDIAN", pathToFile);
     }
     else if (FileFlagType::newMessage == type)
     {
@@ -21,7 +21,7 @@ bool FileFlag::removeFileFlag(FileFlagType type, const std::string & pathToFile,
 {
     if (FileFlagType::guardian == type)
     {
-        return FileInterface::removeFile("GUARDIAN_" + fileName, pathToFile);
+        return FileInterface::removeFile(fileName + "_GUARDIAN", pathToFile);
     }
     else if (FileFlagType::newMessage == type)
     {
@@ -37,7 +37,7 @@ bool FileFlag::isFlagExist(FileFlagType type, const std::string & pathToFile, co
 {
     if (FileFlagType::guardian == type)
     {
-        return FileInterface::isFileExists("GUARDIAN_" + fileName, pathToFile);
+        return FileInterface::isFileExists(fileName + "_GUARDIAN", pathToFile);
     }
     else if (FileFlagType::newMessage == type)
     {

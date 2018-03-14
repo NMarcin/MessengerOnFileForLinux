@@ -60,7 +60,7 @@ bool ChatRequest::answerForChatRequest(const int usernamePid) const
 
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
 {
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::returnFileContent(loggedFile);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::getFileContent(LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
@@ -70,7 +70,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
             std::string updatedRow = *FileInterface::updateRowField(x, newStatus, statusFieldInLoggedFile);
-            FileInterface::updateRow(loggedFile, updatedRow, username);
+            FileInterface::updateRow(LOGGED_FILE, updatedRow, username);
 
             return true;
         }
@@ -81,7 +81,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
 std::unique_ptr<std::string> ChatRequest::getUsernameByProcessId(const int userPid) const
 {
-    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::returnFileContent(loggedFile);
+    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::getFileContent(LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
@@ -101,7 +101,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameByProcessId(const int userP
 
 bool ChatRequest::isUserActive(const User& user) const
 {
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::returnFileContent(loggedFile);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::getFileContent(LOGGED_FILE);
 
     for (auto &x : *loggedFileContent)
     {
@@ -139,7 +139,7 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
 
     changeUserStatus(receiver.getUsername(), userBussyStatus);
 
-    int pid = receiver.getUserProcessIdFromSystem();
+    int pid = receiver.getUserPid();
     sendSigusr1Signal(pid);
 
     for (int i = 0; i < timeToWaitForAnswer; i++)

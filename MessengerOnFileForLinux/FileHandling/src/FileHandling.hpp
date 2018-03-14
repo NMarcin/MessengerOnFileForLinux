@@ -16,7 +16,7 @@ namespace FileInterface
     std::unique_ptr<std::fstream> openFileToRead(const std::string& fileName, const std::string& pathToFile = "");
     std::unique_ptr<std::fstream> openFileToSave(const std::string& fileName, const std::string& pathToFile = "");
     std::unique_ptr<std::string> removeRowField(const std::string& row, const int fieldNumber);
-    std::unique_ptr<std::vector<std::string>> returnFileContent(const std::string& fileName, const std::string& pathToFile = "");
+    std::unique_ptr<std::vector<std::string>> getFileContent(const std::string& fileName, const std::string& pathToFile = "");
     bool removeRow(const std::string& fileName, const std::string& pattern, const std::string& pathToFile = "");
     bool removeFile(const std::string& fileName, const std::string& pathToFile = "");
     bool updateRow(const std::string& fileName, const std::string& newRow, const std::string& where, const std::string& pathToFile = "");

@@ -6,7 +6,7 @@ class User
 public:
     std::string getUsername() const;
     std::string getPassword() const;
-    int getUserProcessIdFromSystem() const;
+    int getUserPid() const;
     void setPassword(const std::string & password);
     void setUsername(const std::string & username);
 
@@ -15,6 +15,8 @@ public:
     ~User();
 
 private:
+    int getPidFormString(const std::string& commandOutput) const;
+
     std::string username_;
     std::string password_;
 };
