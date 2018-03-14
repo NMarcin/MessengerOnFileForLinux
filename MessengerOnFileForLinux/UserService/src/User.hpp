@@ -15,7 +15,6 @@ public:
     ~User();
 
 private:
-    int getPidFormString(const std::string& commandOutput) const;
 
     std::string username_;
     std::string password_;

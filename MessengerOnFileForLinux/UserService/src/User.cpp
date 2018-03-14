@@ -19,23 +19,6 @@ User::~User()
     //NOOP
 }
 
-int User::getPidFormString(const std::string& commandOutput) const
-{
-    std::string pid;
-
-    for (auto& x : commandOutput)
-    {
-        if (' ' == x && !pid.empty())
-        {
-            return std::atoi(pid.c_str());
-        }
-
-        pid += x;
-    }
-
-    return 0; //TODO mwozniak error
-}
-
 std::string User::getPassword() const
 {
     return password_;
@@ -51,7 +34,12 @@ int User::getUserPid() const
     //TODO mwozniak czemu nazwa procesu jest skrocona?
     std::string command = "ps -u " + getUsername() + " | grep 'messenger_binar'";
     std::string commandOutput = System::getStdoutFromCommand(command);
-    int userPid = getPidFormString(commandOutput);
+    int userPid = atoi(commandOutput.c_str());
+
+    if (0 == userPid)
+    {
+        return 0;
+    }
 
     return userPid;
 }

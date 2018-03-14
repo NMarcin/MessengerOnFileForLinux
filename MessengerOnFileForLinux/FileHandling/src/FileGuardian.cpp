@@ -13,7 +13,11 @@ bool FileFlag::setFileFlag(FileFlagType type, const std::string & pathToFile, co
     }
     else if (FileFlagType::refuseChatInvitation == type)
     {
-        return FileInterface::createFile("refusal", pathToFile);
+        return FileInterface::createFile(fileName + "_REFUSE", pathToFile);
+    }
+    else if (FileFlagType::acceptChatInvitation == type)
+    {
+        return FileInterface::createFile(fileName + "_ACCEPT", pathToFile);
     }
 }
 
@@ -29,7 +33,11 @@ bool FileFlag::removeFileFlag(FileFlagType type, const std::string & pathToFile,
     }
     else if (FileFlagType::refuseChatInvitation == type)
     {
-        return FileInterface::removeFile("refusal", pathToFile);
+        return FileInterface::removeFile(fileName + "_REFUSE", pathToFile);
+    }
+    else if (FileFlagType::acceptChatInvitation == type)
+    {
+        return FileInterface::removeFile(fileName + "_ACCEPT", pathToFile);
     }
 }
 
@@ -45,7 +53,11 @@ bool FileFlag::isFlagExist(FileFlagType type, const std::string & pathToFile, co
     }
     else if (FileFlagType::refuseChatInvitation == type)
     {
-        return FileInterface::isFileExists("refusal", pathToFile);
+        return FileInterface::isFileExists(fileName + "_REFUSE", pathToFile);
+    }
+    else if (FileFlagType::acceptChatInvitation == type)
+    {
+        return FileInterface::isFileExists(fileName + "_ACCEPT", pathToFile);
     }
 }
 
