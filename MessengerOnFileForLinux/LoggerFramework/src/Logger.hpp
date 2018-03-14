@@ -12,12 +12,12 @@ public:
     Logger(const char* logSpace, SavingMode mode=SavingMode::fileOnly);
     ~Logger();
 
-    void info(const char * logData);
+    void info(const char * logData) const;
 
 private:
     SavingMode savingMode_;
     const char* logSpace_;
 
-    void writeToFile(const char* log);
-    void writeToConsole(const char* log);
+    void writeToFile(const char* log) const;
+    void writeToConsole(const char* log) const;
 };

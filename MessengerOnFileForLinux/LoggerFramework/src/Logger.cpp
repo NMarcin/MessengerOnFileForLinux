@@ -14,7 +14,7 @@ Logger::~Logger()
     //NOOP
 }
 
-void Logger::info(const char* logData)
+void Logger::info(const char* logData) const
 {
     writeToFile(logData);
 
@@ -24,12 +24,12 @@ void Logger::info(const char* logData)
     }
 }
 
-void Logger::writeToConsole(const char* log)
+void Logger::writeToConsole(const char* log) const
 {
     fprintf(stdout, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
 }
 
-void Logger::writeToFile(const char* log)
+void Logger::writeToFile(const char* log) const
 {
     FILE* logFile;
     logFile = fopen("Logger_default.txt", "a");

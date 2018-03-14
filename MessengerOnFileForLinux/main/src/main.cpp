@@ -15,29 +15,31 @@
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
 
-double squareRoot(const double a) {
-    double b = sqrt(a);
-    if(b != b)
-    {
-        return -1.0;
-    }
-    else
-    {
-        return sqrt(a);
-    }
+void mnurzyns()
+{
+    std::cout << "mnurzyns:\n\n";
+    fileLog("Witamy w logerze!", LogSpace::main);
 }
 
-int main(int argc, char **argv)
+void mwozniak()
 {
-    initSigusr1Action();
+  initSigusr1Action();
 
-    int h;
-    std::cin >> h;
-    if (h==0)
-        while (true)
-        {
-        }
+  int h;
+  std::cin >> h;
+  if (h==0)
+      while (true)
+      {
+      }
 
+    std::cout << "mwozniak:\n\n";
+    /*
+    createFile("plik.txt", "../");
+    createFile("tmp.txt");
+    addRow("plik.txt","costamcostam");
+    addRow("plik.txt","costamcostam", "../");
+    addRow("tmp.txt","wwwwwmcostam");
+    */
     RegisterUser registerUser;
     registerUser.registerNewUser();
 
@@ -52,8 +54,34 @@ int main(int argc, char **argv)
 
     SignOut signOut;
     signOut.signOutUser();
+}
 
-    fileLog("Witamy w logerze!", LogSpace::main);
+enum class Run
+{
+    mnurzyns,
+    mwozniak,
+    both
+};
+
+int main(int argc, char **argv)
+{
+    Run version = Run::mnurzyns;
+
+    if (Run::mnurzyns == version)
+    {
+        mnurzyns();
+    }
+    else if (Run::mwozniak == version)
+    {
+        mwozniak();
+    }
+    else if (Run::both == version)
+    {
+        mnurzyns();
+        std::cout << std::endl << std::endl << std::endl;
+        mwozniak();
+    }
+
 
     return 0;
 }
