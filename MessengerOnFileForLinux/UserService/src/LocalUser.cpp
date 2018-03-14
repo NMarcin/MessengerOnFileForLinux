@@ -1,10 +1,12 @@
-#include "LocalUser.hpp"
-#include "FileHandling.hpp"
+#include <iostream>
 
+#include <LocalUser.hpp>
+#include <FileHandling.hpp>
 
-LocalUser::LocalUser() : User(getEnviromentalVariable("USER"))
+LocalUser::LocalUser()
+        : User(getenv("USER"))
 {
-
+    //NOOP
 }
 
 LocalUser::~LocalUser()

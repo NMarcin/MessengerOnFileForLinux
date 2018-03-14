@@ -1,12 +1,15 @@
-#include "User.hpp"
-#include "FileHandling.hpp"
+#include <iostream>
+
+#include <User.hpp>
+#include <FileHandling.hpp>
 
 User::User()
 {
     //NOOP
 }
 
-User::User(std::string username) : username_(username)
+User::User(std::string username)
+        : username_(username)
 {
     //NOOP
 }
@@ -26,12 +29,28 @@ std::string User::getUsername() const
     return username_;
 }
 
-void User::setPassword(const std::string & password)
+int User::getUserPid() const
+{
+    //TODO mwozniak czemu nazwa procesu jest skrocona?
+    std::string command = "ps -u " + getUsername() + " | grep 'messenger_binar'";
+    std::string commandOutput = System::getStdoutFromCommand(command);
+    int userPid = atoi(commandOutput.c_str());
+
+    if (0 == userPid)
+    {
+        return 0;
+    }
+
+    return userPid;
+}
+
+
+void User::setPassword(const std::string& password)
 {
     password_ = password;
 }
 
-void User::setUsername(const std::string & password)
+void User::setUsername(const std::string& username)
 {
-    password_ = password;
+    username_ = username;
 }

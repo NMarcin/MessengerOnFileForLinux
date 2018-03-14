@@ -1,11 +1,11 @@
-#include <SHA1.hpp>
 #include <memory>
 #include <vector>
 #include <iostream>
 
-#include "RegisterUser.hpp"
-#include "FileHandling.hpp"
-#include "GlobalVariables.hpp"
+#include <RegisterUser.hpp>
+#include <FileHandling.hpp>
+#include <GlobalVariables.hpp>
+#include <SHA1.hpp>
 
 RegisterUser::RegisterUser()
 {
@@ -17,6 +17,16 @@ RegisterUser::~RegisterUser()
     //NOOP
 }
 
+std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() const
+{
+    std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
+    passwords->front() = enterThePassword();
+    std::cout << "Enter the password again. ";
+    passwords->back() = enterThePassword();
+
+    return passwords;
+}
+
 std::string RegisterUser::enterThePassword() const
 {
     std::string password;
@@ -25,14 +35,27 @@ std::string RegisterUser::enterThePassword() const
     return password;
 }
 
-bool RegisterUser::isUserRegistered(const LocalUser & user) const
+
+bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 {
-    std::unique_ptr< std::vector< std::string>> registeredFileContent = returnFileContent(registeredFile);
+    if(passwords.front() == passwords.back())
+    {
+        return true;
+    }
+
+    std::cerr << "The passwords are differnet" << std::endl;
+    return false;
+}
+
+
+bool RegisterUser::isUserRegistered() const
+{
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::getFileContent(REGISTERED_FILE);
 
     for (auto & x : *registeredFileContent)
     {
-        std::string username = user.getUsername();
-        std::unique_ptr< const std::string> usernameToCompare = getRowField(x, usernameFieldInRegisteredFile);
+        std::string username = LocalUser::getLocalUser().getUsername();
+        std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>(*FileInterface::getRowField(x, usernameFieldInRegisteredFile));
 
         if (!username.compare(*usernameToCompare)) //0 when the same
         {
@@ -43,43 +66,54 @@ bool RegisterUser::isUserRegistered(const LocalUser & user) const
     return false;
 }
 
+
 bool RegisterUser::registerNewUser() const
 {
-
-    if (isUserRegistered(LocalUser::getLocalUser()))
+    if (isUserRegistered())
     {
         std::cerr << "You already have an account" <<std::endl;
         return false;
     }
 
-    std::string password = enterThePassword();
-    std::string repeatedPassword = enterThePassword();
+    bool isPasswordSetCorrectly = false;
 
-    setUsernamePassword(password, repeatedPassword, LocalUser::getLocalUser());
+    while (!isPasswordSetCorrectly)
+    {
+        std::array<std::string, 2> passwords = *askUserForPassword();
 
-    return saveUserDataInRegisteredFile(LocalUser::getLocalUser());
+        if (comparePasswords(passwords))
+        {
+            isPasswordSetCorrectly = setUserPassword(passwords.front());
+        }
+    }
+
+    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
+
+    while (!isUserDataSavedCorrectly)
+    {
+        sleep(1);
+        isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
+    }
+
+    return true;
 }
 
-void RegisterUser::setUsernamePassword(const std::string & password, const std::string & repeatedPassword, LocalUser & user) const
+bool RegisterUser::setUserPassword(const std::string& password) const
 {
-    if (password == repeatedPassword)
-    {
         SHA1 hashObject;
         hashObject.update(password);
-        user.setPassword(hashObject.final());
-    }
-    else
-    {
-        std::cerr << "The passwords are differnet" << std::endl;
-    }
+        LocalUser::getLocalUser().setPassword(hashObject.final());
+
+        return true;
 }
 
-bool RegisterUser::saveUserDataInRegisteredFile(LocalUser & user) const
+bool RegisterUser::saveUserDataInRegisteredFile() const
 {
-    std::string actualDateTime = getActualDateTime();
-    std::string accountInformations = "[" + user.getUsername() + "][" //tu bedzie jeszcze ta funkcja ktora dodaje nawiasy
-            + user.getPassword() +"]["+ actualDateTime +"]";
+    std::string actualDateTime = System::getActualDateTime();
+    std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
+            + LocalUser::getLocalUser().getPassword() +"]["+ actualDateTime +"]";
+    //TODO mwozniak
+    //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
 
-    return addRow(registeredFile, accountInformations);
+    return FileInterface::addRow(REGISTERED_FILE, accountInformations);
 }
-
