@@ -5,16 +5,17 @@
 
 ChatFabric::ChatFabric()
 {
-    //NOOP
+    log.info("ChatFabric C-TOR");
 }
 
 ChatFabric::~ChatFabric()
 {
-    //NOOP
+    log.info("ChatFabric D-TOR");
 }
 
 bool ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
+    log.info("ChatFabric::createChatStructure started");
     std::string chatFolderName = createChatFolder("a", "b");
     if("" == chatFolderName)
     {
@@ -22,7 +23,10 @@ bool ChatFabric::createChatStructure(const std::string& usernameInviter, const s
         {
             return true;
         }
+        log.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
+        return false;
     }
+    log.info("ChatFabric::createChatStructure ERROR: createChatFolder failed");
     return false;
 }
 
@@ -35,8 +39,10 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
 
     if(commandStatus)
     {
+        log.info("ChatFabric::createChatFolder commandStatus = true");
         return newFolderName;
     }
+    log.info("ChatFabric::createChatFolder commandStatus == false");
     return {};
 }
 
