@@ -14,7 +14,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GTest REQUIRED)
 
 
-# LIB
+# LIB_SRC
 include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
 include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
 include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
@@ -29,13 +29,18 @@ add_subdirectory(ChatFile/src)
 
 message(STATUS ${SOURCES})
 
-add_executable(messenger_binary ${SOURCES})
+add_executable(messenger_binary ${SOURCES} ${MAIN})
+
+#LIB_TEST
+include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/test)
 
 # TEST
 add_subdirectory(main/test)
+add_subdirectory(LoggerFramework/test)
 
 message(STATUS ${TEST_SOURCES})
 
+set(TEST_SOURCES ${TEST_SOURCES} ${SOURCES})
 add_executable(messenger_binary_UT ${TEST_SOURCES})
 
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)

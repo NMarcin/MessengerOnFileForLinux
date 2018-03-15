@@ -11,7 +11,7 @@ void fileLog(const char * logData, const char * logSpace)
         exit(1);
     }
 
-    fprintf(logFile, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace, logData);
+    fprintf(logFile, "%s %s %s \t %s\n", __DATE__, __TIME__, logSpace, logData);
 
     fclose(logFile);
 }

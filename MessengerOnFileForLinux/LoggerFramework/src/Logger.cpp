@@ -14,6 +14,11 @@ Logger::~Logger()
     //NOOP
 }
 
+void Logger::info(std::string& logData) const
+{
+    info(logData.c_str());
+}
+
 void Logger::info(const char* logData) const
 {
     writeToFile(logData);
@@ -39,7 +44,7 @@ void Logger::writeToFile(const char* log) const
         exit(1);
     }
 
-    fprintf(logFile, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
+    fprintf(logFile, "%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
 
     fclose(logFile);
 }
