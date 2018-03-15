@@ -6,7 +6,7 @@
 #include <ctime>
 #include <iostream>
 
-#include <ChatRequest.hpp>
+//#include <ChatRequest.hpp>
 
 static const std::string homePath = getenv("HOME");
 static const std::string USER_PATH = homePath + "/messenger/";
@@ -37,7 +37,7 @@ static constexpr int timeToWaitForAnswer = 20;
 
 
 /** To do jakiegos inita ***********************************/
-
+/*
 static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
 {
     if (NULL == info)
@@ -60,7 +60,7 @@ static void initSigusr1Action()
 
     sigaction(SIGUSR1, &act, NULL);
 }
-
+*/
 /** **********************************************************/
 
 
