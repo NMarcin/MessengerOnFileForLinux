@@ -1,14 +1,15 @@
-#include "FileHandling.hpp"
-#include "FileGuardian.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 
+#include <FileHandling.hpp>
+#include <FileGuardian.hpp>
 
-
-bool addRow(const  std::string & fileName, const std::string & text, const std::string & pathToFile)
+bool FileInterface::addRow(const std::string& fileName, const std::string& text, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
-    if (std::unique_ptr< std::fstream> file = openFileToSave(fileLocation))
+    if (std::unique_ptr<std::fstream> file = openFileToSave(fileLocation))
     {
         *file << text;
         *file << '\n';
@@ -18,43 +19,67 @@ bool addRow(const  std::string & fileName, const std::string & text, const std::
     else
     {
         return false;
-        //TODO error
+        //TODO mwozniak error
         //skad wiemy czy plik nieistenije czy jest guearian?
     }
 }
 
 
-bool closeFile(const std::string & fileToClose, const std::string & pathToFile)
+bool FileInterface::closeFile(const std::string& fileName, const std::string& pathToFile)
 {    
-    guard::removeFileFlag(fileToClose, FileFlagType::guardian, pathToFile);
+    FileFlag::removeFileFlag(FileFlagType::guardian, pathToFile, fileName);
 }
 
-bool createFile(const std::string & fileName, const std::string & pathToFile)
+bool FileInterface::createFile(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
-    std::ofstream fileToCreate(fileLocation);
-    fileToCreate << " ";
+    std::string systemCommand = "touch " + fileLocation;
+    system(systemCommand.c_str());
+
     return isFileExists(fileName, pathToFile);
 }
 
-bool getFileAccess(const std::string & fileName, const std::string & pathToFile)
+bool FileInterface::getFileAccess(const std::string& fileName, const std::string& pathToFile)
 {
-    return guard::isGuardExist(fileName, FileFlagType::guardian, pathToFile);
+    return !FileFlag::isFlagExist(FileFlagType::guardian, pathToFile, fileName);
 }
 
-std::unique_ptr< std::string> getRowField(const std::string & field, const int fieldNumber)
+std::unique_ptr<std::vector<std::string>> FileInterface::getFilesNames(const std::string& pathToDir)
+{
+    std::string command = "ls " + pathToDir;
+    std::string commandOutput = System::getStdoutFromCommand(command);
+
+    std::unique_ptr<std::vector<std::string>> filesNames = std::make_unique<std::vector< std::string>>();
+    std::string fileName;
+
+    for (auto& x : commandOutput)
+    {
+        if (20 < x ) //ASCI bo byl problem z ' '
+        {
+            fileName += x;
+        }
+        else
+        {
+            filesNames->push_back(fileName);
+            fileName.clear();
+        }
+    }
+    return filesNames;
+
+}
+
+std::unique_ptr<std::string> FileInterface::getRowField(const std::string& field, const int fieldNumber)
 {
     int actualFieldNumber = -1;
-    std::unique_ptr< std::string> fieldToDownload = std::make_unique<std::string>();
-    for (auto &x : field)
+    std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
+
+    for (auto& x : field)
     {
         if ('[' == x)
         {
             ++actualFieldNumber;
-            continue;
         }
-
-        if (actualFieldNumber == fieldNumber && ']' != x)
+        else if (actualFieldNumber == fieldNumber && ']' != x)
         {
             fieldToDownload -> push_back(x);
         }
@@ -62,28 +87,33 @@ std::unique_ptr< std::string> getRowField(const std::string & field, const int f
     return fieldToDownload;
 }
 
-bool isFileExists(const std::string & fileName, const std::string & pathToFile)
+bool FileInterface::isFileExists(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
     std::ifstream file(fileLocation);
     return file.good();
 }
 
-std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, const std::string & pathToFile)
+std::unique_ptr<std::fstream> FileInterface::openFileToRead(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
 
     if (!isFileExists(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
-        return nullptr; //TODO error
+        return nullptr; //TODO mwozniak error
     }
-    if (getFileAccess(fileName, pathToFile))
-        guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
-    else
-        return nullptr;
 
-    std::unique_ptr <std::fstream> fileToOpen= std::make_unique< std::fstream>();
+    if (getFileAccess(fileName, pathToFile))
+    {
+        FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
+    }
+    else
+    {
+        return nullptr; //TODO mwozniak errror
+    }
+
+    std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
     fileToOpen->open(fileLocation, std::ios::in);
 
     if (fileToOpen->is_open())
@@ -92,25 +122,30 @@ std::unique_ptr <std::fstream> openFileToRead(const std::string & fileName, cons
     }
     else
     {
-        return nullptr;
+        return nullptr; //TODO mwozniak errror
     }
 }
 
-std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName, const std::string & pathToFile)
+std::unique_ptr<std::fstream> FileInterface::openFileToSave(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
 
     if (!isFileExists(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
-        return nullptr; //TODO error
+        return nullptr; //TODO mwozniak errror
     }
-    if (getFileAccess(fileName, pathToFile))
-        guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
-    else
-        return nullptr;
 
-    std::unique_ptr <std::fstream> fileToOpen= std::make_unique< std::fstream>();
+    if (getFileAccess(fileName, pathToFile))
+    {
+        FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
+    }
+    else
+    {
+        return nullptr; //TODO mwozniak errror
+    }
+
+    std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
     fileToOpen->open(fileLocation, std::ios::out | std::ios::app);
 
     if (fileToOpen->is_open())
@@ -119,28 +154,29 @@ std::unique_ptr <std::fstream> openFileToSave(const std::string & fileName, cons
     }
     else
     {
-        return nullptr;
+        return nullptr; //TODO mwozniak errror
     }
 }
 
 
-bool removeFile(const std::string & fileName, const std::string & pathToFile)
+bool FileInterface::removeFile(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
     const char * c = fileLocation.c_str();
     return ! std::remove(c); // 0 when success
+    //TODO mwozniak mnurzynski czy moze usuwac systemowo przez rm ?
 }
 
 
-std::unique_ptr< std::vector< std::string>> returnFileContent(const std::string & fileName, const std::string & pathToFile)
+std::unique_ptr<std::vector<std::string>> FileInterface::getFileContent(const std::string& fileName, const std::string& pathToFile)
 {
-    std::unique_ptr< std::vector< std::string>> fileContent = std::make_unique< std::vector< std::string>>();
+    std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
 
-    if (std::unique_ptr< std::fstream> file = openFileToRead(fileName, pathToFile))
+    if (std::unique_ptr<std::fstream> file = openFileToRead(fileName, pathToFile))
     {
         while (!file->eof())
         {
-            std::string row; //osobna funkcja na to ?
+            std::string row;
             std::getline(*file, row);
             fileContent -> push_back(row);
         }
@@ -148,17 +184,19 @@ std::unique_ptr< std::vector< std::string>> returnFileContent(const std::string 
     else
     {
         return nullptr;
-        //TODO error + removeGuard
+        //TODO mwozniak error + removeGuard
     }
-    //file juz tu nie istnieje, wiec plik zostal zamkiety
-    closeFile(fileName, pathToFile); //close file usuwa guardiana, jak to nazwac?
+                                      //TODO mwozniak mnurzyn
+    closeFile(fileName, pathToFile); //close file usuwa guardiana, moze jednak jakas nazwa na to?
+    //nie potrzebujemy funkcji ktora wykonuje operacje zamykania bo wykonuje sie to w memencie destrukcji obiektu fstream
     return fileContent;
 }
 
-std::unique_ptr<std::string> removeRowField(const std::string & row, const int fieldNumber)
+std::unique_ptr<std::string> FileInterface::removeRowField(const std::string& row, const int fieldNumber)
 {
     int actualFieldNumber = -1;
-    std::unique_ptr< std::string> rowWithoutRemovedField = std::make_unique<std::string>();
+    std::unique_ptr<std::string> rowWithoutRemovedField = std::make_unique<std::string>();
+
     for (auto &x : row)
     {
         if ('[' == x)
@@ -171,48 +209,53 @@ std::unique_ptr<std::string> removeRowField(const std::string & row, const int f
             rowWithoutRemovedField -> push_back(x);
         }
     }
+
     return rowWithoutRemovedField;
 }
 
 
-bool removeRow(const std::string & fileName, const std::string pattern, const std::string & pathToFile)
+bool FileInterface::removeRow(const std::string& fileName, const std::string& pattern, const std::string& pathToFile)
 {    
     if (!getFileAccess(fileName, pathToFile))
     {
         return false;
     }
 
+    FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
     const std::string fileLocation = pathToFile + fileName;
-    guard::setFileFlag(fileName, FileFlagType::guardian, pathToFile);
     std::string command = "sed -i -e '/" + pattern + "/d' " + fileLocation;
     std::system(command.c_str());
-    closeFile(fileName, pathToFile);
-    return true;
 
+    bool isFileClosed = closeFile(fileName, pathToFile);
+
+    return isFileClosed;
 }
 
 
-bool updateRow(const std::string & fileName, const std::string & newRow, const std::string & where, const std::string & pathToFile)
+bool FileInterface::updateRow(const std::string & fileName, const std::string & newRow, const std::string & where, const std::string & pathToFile)
 {
     if (!getFileAccess(fileName))
     {
         return false;
     }
     const std::string fileLocation = pathToFile + fileName;
-    guard::setFileFlag(fileName, FileFlagType::guardian);
+    FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
     std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + fileLocation;
+    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
     std::system(command.c_str());
-    closeFile(fileName, pathToFile);
-    return true;
 
+    bool isFileClosed = closeFile(fileName, pathToFile);
+
+    return isFileClosed;
 }
 
 
-std::unique_ptr<std::string> updateRowField(const std::string & row, const std::string & newField, const int fieldNumber)
+std::unique_ptr<std::string> FileInterface::updateRowField(const std::string& row, const std::string& newField, const int fieldNumber)
 {
     int actualFieldNumber = -1;
     bool flag = false;
     std::unique_ptr< std::string> rowToUpdate = std::make_unique<std::string>();
+    //TODO mwozniak jest to bardzo brzydkie, poprawic ! Ale dziala ;p
     for (auto &x : row)
     {
         if ('[' == x)
@@ -231,7 +274,7 @@ std::unique_ptr<std::string> updateRowField(const std::string & row, const std::
 
             rowToUpdate -> push_back('[');
 
-            for (auto &y : newField)
+            for (auto& y : newField)
             {
                 rowToUpdate -> push_back(y);
             }
@@ -246,21 +289,36 @@ std::unique_ptr<std::string> updateRowField(const std::string & row, const std::
 
 /** TO NIZEJ GDIZE INDZIEJ*/
 
-std::string getEnviromentalVariable( const std::string & var ) //gdzie indziej to dac
-{
-    const char * val = ::getenv( var.c_str() );
-    if ( val == 0 ) {
-        return "";
-    }
-    else {
-        return val;
-    }
-}
 
-std::string getActualDateTime()
+std::string System::getActualDateTime()
 {
     std::string dateTime = __DATE__;
     dateTime += "|";
     dateTime += __TIME__;
     return dateTime;
+}
+
+std::string System::getStdoutFromCommand(std::string cmd)
+{
+    std::string data;
+    FILE * stream;
+    const int max_buffer = 256;
+    char buffer[max_buffer];
+    cmd.append(" 2>&1");
+    stream = popen(cmd.c_str(), "r");
+
+    if (stream)
+    {
+        while (!feof(stream))
+        {
+            if (fgets(buffer, max_buffer, stream) != NULL)
+            {
+                data.append(buffer);
+            }
+        }
+
+        pclose(stream);
+    }
+
+    return data;
 }

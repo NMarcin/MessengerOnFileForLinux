@@ -1,39 +1,63 @@
-#include "FileGuardian.hpp"
-#include "FileHandling.hpp"
+#include <FileGuardian.hpp>
+#include <FileHandling.hpp>
 
-bool guard::setFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
+bool FileFlag::setFileFlag(FileFlagType type, const std::string & pathToFile, const std::string & fileName)
 {    
     if (FileFlagType::guardian == type)
     {
-        return createFile("GUARDIAN_" + fileName, pathToFile);
+        return FileInterface::createFile(fileName + "_GUARDIAN", pathToFile);
     }
-    else if (FileFlagType::newFlag == type)
+    else if (FileFlagType::newMessage == type)
     {
-        return createFile("newMessage", pathToFile);
+        return FileInterface::createFile("newMessage", pathToFile);
     }
-}
-
-bool guard::removeFileFlag(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
-{
-    if (FileFlagType::guardian == type)
+    else if (FileFlagType::refuseChatInvitation == type)
     {
-        return removeFile("GUARDIAN_" + fileName, pathToFile);
+        return FileInterface::createFile(fileName + "_REFUSE", pathToFile);
     }
-    else if (FileFlagType::newFlag == type)
+    else if (FileFlagType::acceptChatInvitation == type)
     {
-        return removeFile("newMessage", pathToFile);
+        return FileInterface::createFile(fileName + "_ACCEPT", pathToFile);
     }
 }
 
-bool guard::isGuardExist(const std::string & fileName, FileFlagType type, const std::string & pathToFile)
+bool FileFlag::removeFileFlag(FileFlagType type, const std::string & pathToFile, const std::string & fileName)
 {
     if (FileFlagType::guardian == type)
     {
-        return !isFileExists("GUARDIAN_" + fileName, pathToFile);
+        return FileInterface::removeFile(fileName + "_GUARDIAN", pathToFile);
     }
-    else if (FileFlagType::newFlag == type)
+    else if (FileFlagType::newMessage == type)
     {
-        return removeFile("newMessage", pathToFile);
+        return FileInterface::removeFile("newMessage", pathToFile);
+    }
+    else if (FileFlagType::refuseChatInvitation == type)
+    {
+        return FileInterface::removeFile(fileName + "_REFUSE", pathToFile);
+    }
+    else if (FileFlagType::acceptChatInvitation == type)
+    {
+        return FileInterface::removeFile(fileName + "_ACCEPT", pathToFile);
+    }
+}
+
+bool FileFlag::isFlagExist(FileFlagType type, const std::string & pathToFile, const std::string & fileName)
+{
+    if (FileFlagType::guardian == type)
+    {
+        return FileInterface::isFileExists(fileName + "_GUARDIAN", pathToFile);
+    }
+    else if (FileFlagType::newMessage == type)
+    {
+        return FileInterface::isFileExists("newMessage", pathToFile);
+    }
+    else if (FileFlagType::refuseChatInvitation == type)
+    {
+        return FileInterface::isFileExists(fileName + "_REFUSE", pathToFile);
+    }
+    else if (FileFlagType::acceptChatInvitation == type)
+    {
+        return FileInterface::isFileExists(fileName + "_ACCEPT", pathToFile);
     }
 }
 
