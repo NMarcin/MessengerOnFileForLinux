@@ -7,7 +7,7 @@
 
 enum class AnswerType
 {
-    disapproved,
+    disaccepted,
     accepted
 };
 
@@ -25,7 +25,7 @@ private:
     std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
     std::unique_ptr<std::string> getUserStatus(const std::string& username) const;
     bool isUserActive(const User& user) const;
-    bool makeDecision() const;
+    bool doYouWantChat() const;
     bool sendAnswer(const std::string& senderUsername, AnswerType type) const;
     void sendSigusr1Signal(const int userPid) const;
     void showInvitation(const std::string& senderUsername) const;

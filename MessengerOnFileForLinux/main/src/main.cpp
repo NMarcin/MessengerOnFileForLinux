@@ -4,12 +4,13 @@
 
 
 #include <GlobalVariables.hpp>
-#include "FileHandling.hpp"
-#include "RegisterUser.hpp"
-#include "SignIn.hpp"
-#include "SignOut.hpp"
+#include <FileHandling.hpp>
+#include <RegisterUser.hpp>
+#include <SignIn.hpp>
+#include <SignOut.hpp>
 #include <LocalUser.hpp>
 #include <ChatRequest.hpp>
+#include <Sender.hpp>
 
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
@@ -50,6 +51,9 @@ void mwozniak()
 
     ChatRequest chat;
     chat.sendChatRequest("marcin1008");
+
+    Sender sender;
+    sender.sendMessage("marcin1008");
 
     SignOut signOut;
     signOut.signOutUser();

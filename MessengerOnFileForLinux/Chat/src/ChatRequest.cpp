@@ -1,5 +1,6 @@
 #include <iostream>
 #include <signal.h>
+#include <algorithm>
 
 #include <ChatRequest.hpp>
 #include <User.hpp>
@@ -24,15 +25,15 @@ bool ChatRequest::answerForChatRequest(const int usernamePid) const
     std::unique_ptr<std::string> senderUsername = std::make_unique<std::string>(*getUsernameThroughPid(usernamePid));
 
     showInvitation(*senderUsername);
-    bool decision = makeDecision();
+    bool decision = doYouWantChat();
 
-    if (true == decision)
+    if (decision)
     {
         sendAnswer(*senderUsername, AnswerType::accepted);
         return true;
     }
 
-    return sendAnswer(*senderUsername, AnswerType::disapproved);
+    return sendAnswer(*senderUsername, AnswerType::disaccepted);
 }
 
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
@@ -119,16 +120,17 @@ bool ChatRequest::isUserActive(const User& user) const
 
 }
 
-bool ChatRequest::makeDecision() const
+bool ChatRequest::doYouWantChat() const
 {
     std::string decision;
     std::cin >> decision;
+    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
 
-    if ("yes" == decision)
+    if ("y" == decision || "yes" == decision)
     {
         return true;
     }
-    else if ("no" == decision)
+    else if ("n" == decision || "no" == decision)
     {
         return false;
     }
@@ -141,7 +143,7 @@ bool ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type)
 {
     std::string flagName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
 
-    if (AnswerType::disapproved == type)
+    if (AnswerType::disaccepted == type)
     {
         FileInterface::createFile(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH);
     }
@@ -195,7 +197,7 @@ void ChatRequest::sendSigusr1Signal(const int userPid) const
 void ChatRequest::showInvitation(const std::string& senderUsername) const
 {
     std::cout << "You get an invitation to chat form " + senderUsername << std::endl;
-    std::cout << "Do you want to chat with this user (yes/no)? " << std::endl;
+    std::cout << "Do you want to chat with this user (y/n)? " << std::endl;
 }
 
 bool ChatRequest::waitForAnswer(const std::string& username) const
