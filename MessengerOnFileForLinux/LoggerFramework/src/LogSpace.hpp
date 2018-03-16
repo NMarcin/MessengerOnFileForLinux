@@ -1,3 +1,5 @@
+#pragma once
+
 namespace LogSpace
 {   //alfabetycznie prosze!
     static constexpr auto ChatFile = "ChatFile";

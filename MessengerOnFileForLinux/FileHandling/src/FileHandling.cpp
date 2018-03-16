@@ -36,15 +36,15 @@ bool FileInterface::createFile(const std::string& fileName, const std::string& p
     std::string systemCommand = "touch " + fileLocation;
     system(systemCommand.c_str());
 
-    return isFileExists(fileName, pathToFile);
+    return isFileExist(fileName, pathToFile);
 }
 
-bool FileInterface::getFileAccess(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::isGuardExist(const std::string& fileName, const std::string& pathToFile)
 {
     return !FileFlag::isFlagExist(FileFlagType::guardian, pathToFile, fileName);
 }
 
-std::unique_ptr<std::vector<std::string>> FileInterface::getFilesNames(const std::string& pathToDir)
+std::unique_ptr<std::vector<std::string>> FileInterface::getFilenamesFromFolder(const std::string& pathToDir)
 {
     std::string command = "ls " + pathToDir;
     std::string commandOutput = System::getStdoutFromCommand(command);
@@ -87,7 +87,7 @@ std::unique_ptr<std::string> FileInterface::getRowField(const std::string& field
     return fieldToDownload;
 }
 
-bool FileInterface::isFileExists(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::isFileExist(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
     std::ifstream file(fileLocation);
@@ -98,13 +98,13 @@ std::unique_ptr<std::fstream> FileInterface::openFileToRead(const std::string& f
 {
     const std::string fileLocation = pathToFile + fileName;
 
-    if (!isFileExists(fileName, pathToFile))
+    if (!isFileExist(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
         return nullptr; //TODO mwozniak error
     }
 
-    if (getFileAccess(fileName, pathToFile))
+    if (isGuardExist(fileName, pathToFile))
     {
         FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
     }
@@ -130,13 +130,13 @@ std::unique_ptr<std::fstream> FileInterface::openFileToSave(const std::string& f
 {
     const std::string fileLocation = pathToFile + fileName;
 
-    if (!isFileExists(fileName, pathToFile))
+    if (!isFileExist(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
         return nullptr; //TODO mwozniak errror
     }
 
-    if (getFileAccess(fileName, pathToFile))
+    if (isGuardExist(fileName, pathToFile))
     {
         FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
     }
@@ -146,7 +146,7 @@ std::unique_ptr<std::fstream> FileInterface::openFileToSave(const std::string& f
     }
 
     std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-    fileToOpen->open(fileLocation, std::ios::out | std::ios::app);
+    fileToOpen->open(fileLocation, std::ios::out | std::ios::ate);
 
     if (fileToOpen->is_open())
     {
@@ -216,7 +216,7 @@ std::unique_ptr<std::string> FileInterface::removeRowField(const std::string& ro
 
 bool FileInterface::removeRow(const std::string& fileName, const std::string& pattern, const std::string& pathToFile)
 {    
-    if (!getFileAccess(fileName, pathToFile))
+    if (!isGuardExist(fileName, pathToFile))
     {
         return false;
     }
@@ -234,7 +234,7 @@ bool FileInterface::removeRow(const std::string& fileName, const std::string& pa
 
 bool FileInterface::updateRow(const std::string & fileName, const std::string & newRow, const std::string & where, const std::string & pathToFile)
 {
-    if (!getFileAccess(fileName))
+    if (!isGuardExist(fileName))
     {
         return false;
     }

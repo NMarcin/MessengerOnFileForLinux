@@ -45,19 +45,19 @@ bool FileFlag::isFlagExist(FileFlagType type, const std::string & pathToFile, co
 {
     if (FileFlagType::guardian == type)
     {
-        return FileInterface::isFileExists(fileName + "_GUARDIAN", pathToFile);
+        return FileInterface::isFileExist(fileName + "_GUARDIAN", pathToFile);
     }
     else if (FileFlagType::newMessage == type)
     {
-        return FileInterface::isFileExists("newMessage", pathToFile);
+        return FileInterface::isFileExist("newMessage", pathToFile);
     }
     else if (FileFlagType::refuseChatInvitation == type)
     {
-        return FileInterface::isFileExists(fileName + "_REFUSE", pathToFile);
+        return FileInterface::isFileExist(fileName + "_REFUSE", pathToFile);
     }
     else if (FileFlagType::acceptChatInvitation == type)
     {
-        return FileInterface::isFileExists(fileName + "_ACCEPT", pathToFile);
+        return FileInterface::isFileExist(fileName + "_ACCEPT", pathToFile);
     }
 }
 

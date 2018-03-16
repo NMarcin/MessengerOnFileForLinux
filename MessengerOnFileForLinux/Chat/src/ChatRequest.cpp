@@ -31,6 +31,7 @@ bool ChatRequest::answerForChatRequest(const int usernamePid) const
         sendAnswer(*senderUsername, AnswerType::accepted);
         return true;
     }
+
     return sendAnswer(*senderUsername, AnswerType::disapproved);
 }
 
@@ -204,13 +205,13 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {
-        if (FileInterface::isFileExists(flagName + "_ACCEPTED", FILE_::PATH::CHATS_PATH))
+        if (FileInterface::isFileExist(flagName + "_ACCEPTED", FILE_::PATH::CHATS_PATH))
         {
             std::cout << username + " has accepted the invitation. You can start chat" << std::endl;
             FileInterface::removeFile(flagName + "_ACCEPTED", FILE_::PATH::CHATS_PATH);
             return true;
         }
-        else if (FileInterface::isFileExists(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH))
+        else if (FileInterface::isFileExist(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH))
         {
             std::cout << "User has not accepted the invitation" << std::endl;
             FileInterface::removeFile(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH);
