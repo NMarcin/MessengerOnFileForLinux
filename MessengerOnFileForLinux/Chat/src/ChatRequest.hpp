@@ -5,6 +5,12 @@
 #include <User.hpp>
 #include <FileGuardian.hpp>
 
+enum class AnswerType
+{
+    disapproved,
+    accepted
+};
+
 class ChatRequest
 {
 public:
@@ -15,13 +21,13 @@ public:
     ~ChatRequest();
 
 private:
-    bool isUserLogged(const std::string& username) const;
     bool changeUserStatus(const User& user, const std::string& newStatus) const;
+    std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
+    std::unique_ptr<std::string> getUserStatus(const std::string& username) const;
     bool isUserActive(const User& user) const;
-    std::unique_ptr<std::string> getUsernameByProcessId(const int userPid) const;
     bool makeDecision() const;
+    bool sendAnswer(const std::string& senderUsername, AnswerType type) const;
     void sendSigusr1Signal(const int userPid) const;
     void showInvitation(const std::string& senderUsername) const;
-    bool sendAnswer(const std::string& senderUsername, FileFlagType type) const;
     bool waitForAnswer(const std::string& username) const;
 };

@@ -8,32 +8,37 @@
 
 #include <ChatRequest.hpp>
 
-static const std::string homePath = getenv("HOME");
-static const std::string USER_PATH = homePath + "/messenger/";
+namespace FILE_
+{
+    static constexpr auto REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
+    static constexpr auto LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
+    static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
+    static constexpr auto CONFIGURATION_GUARD= "/home/messenger/configuration/GUARD";
 
-static constexpr auto REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
-static constexpr auto LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
-static constexpr auto CHATS_PATH = "/home/messenger/chats/";
-static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
-static constexpr auto REGISTERED_GUARD= "/home/messenger/configuration/REGISTERED.txt";
-static constexpr auto LOGGED_GUARD = "/home/messenger/configuration/LOGGED.txt";
+    namespace PATH
+    {
+        static const std::string homePath = getenv("HOME");
+        static const std::string USER_PATH = homePath + "/messenger/";
+        static constexpr auto CHATS_PATH = "/home/messenger/chats/";
+        static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
+    }
+}
 
-// CHAT_PATH sciezka do aktualnie prowadzonej rozmowy
-// CHAT_GUARD
+namespace FileField
+{
+    static constexpr int usernameFieldInLoggedFile = 0;
+    static constexpr int statusFieldInLoggedFile = 1;
+    static constexpr int pidFieldInLoggedFile = 2;
+    static constexpr int usernameFieldInRegisteredFile = 0;
+    static constexpr int passwordFieldInRegisteredFile = 1;
+    static constexpr int dateTimeFieldInRegisteredFile = 2;
 
-
-
-static const std::string userActiveStatus = "0";
-static const std::string userBussyStatus = "1";
-
-
-static constexpr int usernameFieldInLoggedFile = 0;
-static constexpr int statusFieldInLoggedFile = 1;
-static constexpr int pidFieldInLoggedFile = 2;
-static constexpr int usernameFieldInRegisteredFile = 0;
-static constexpr int passwordFieldInRegisteredFile = 1;
-static constexpr int dateTimeFieldInRegisteredFile = 2;
-static constexpr int timeToWaitForAnswer = 20;
+    namespace FieldValue
+    {
+        static const std::string userActiveStatus = "0";
+        static const std::string userBussyStatus = "1";
+    }
+}
 
 
 /** To do jakiegos inita ***********************************/

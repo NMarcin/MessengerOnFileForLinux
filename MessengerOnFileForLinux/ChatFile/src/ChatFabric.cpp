@@ -1,5 +1,6 @@
 #include <vector>
 #include <stdlib.h>
+#include <iostream>
 
 #include <ChatFabric.hpp>
 
@@ -16,16 +17,16 @@ ChatFabric::~ChatFabric()
 bool ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     log.info("ChatFabric::createChatStructure started");
-    std::string chatFolderName = createChatFolder("a", "b");
+    std::string chatFolderName = createChatFolder(usernameInviter, usernameGuess);
     if("" == chatFolderName)
     {
-        if(createChatFile("0a_b", "a", "b"))
+        if(createChatFile(chatFolderName, usernameInviter, usernameGuess))
         {
             return true;
         }
         log.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
         return false;
-    }
+   }
     log.info("ChatFabric::createChatStructure ERROR: createChatFolder failed");
     return false;
 }

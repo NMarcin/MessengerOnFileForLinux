@@ -63,11 +63,11 @@ bool SignIn::signInUser() const
 
 bool SignIn::isUserLogged() const
 {
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::getFileContent(LOGGED_FILE));
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::getFileContent(FILE_::LOGGED_FILE));
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::getRowField(x, usernameFieldInLoggedFile));
+        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::getRowField(x, FileField::usernameFieldInLoggedFile));
         std::string username = LocalUser::getLocalUser().getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
@@ -94,16 +94,16 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
 
 std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 {
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::getFileContent(REGISTERED_FILE));
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::getFileContent(FILE_::REGISTERED_FILE));
 
     for (auto& x : *registeredFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::getRowField(x, usernameFieldInRegisteredFile));
+        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::getRowField(x, FileField::usernameFieldInRegisteredFile));
         std::string username = LocalUser::getLocalUser().getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            return FileInterface::getRowField(x, passwordFieldInRegisteredFile);
+            return FileInterface::getRowField(x, FileField::passwordFieldInRegisteredFile);
         }
     }
 
@@ -114,7 +114,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     std::string userPid = std::to_string(LocalUser::getLocalUser().getUserPid());
-    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + userActiveStatus + "][" + userPid +"]";
+    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + FileField::FieldValue::userActiveStatus + "][" + userPid +"]";
 
-    return FileInterface::addRow(LOGGED_FILE, information); //TODO update date&&time in registered file
+    return FileInterface::addRow(FILE_::LOGGED_FILE, information); //TODO update date&&time in registered file
 }

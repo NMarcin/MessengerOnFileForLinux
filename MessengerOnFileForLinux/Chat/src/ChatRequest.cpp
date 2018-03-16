@@ -7,6 +7,7 @@
 #include <FileGuardian.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
+#include <ChatFabric.hpp>
 
 ChatRequest::ChatRequest()
 {
@@ -18,16 +19,110 @@ ChatRequest::~ChatRequest()
     //NOOP
 }
 
-void ChatRequest::showInvitation(const std::string& senderUsername) const
+bool ChatRequest::answerForChatRequest(const int usernamePid) const
 {
-    std::cout << "You get an invitation to chat form " + senderUsername << std::endl;
-    std::cout << "Do you want to chat with this user (yes/no)? " << std::endl;
+    std::unique_ptr<std::string> senderUsername = std::make_unique<std::string>(*getUsernameThroughPid(usernamePid));
+
+    showInvitation(*senderUsername);
+    bool decision = makeDecision();
+
+    if (true == decision)
+    {
+        sendAnswer(*senderUsername, AnswerType::accepted);
+        return true;
+    }
+    return sendAnswer(*senderUsername, AnswerType::disapproved);
+}
+
+bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
+{
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::getFileContent(FILE_::LOGGED_FILE);
+
+    for (auto& x : *loggedFileContent)
+    {
+        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::getRowField(x, FileField::usernameFieldInLoggedFile));
+        std::string username = user.getUsername();
+
+        if (!username.compare(*usernameToComapre)) //0 when succes
+        {
+            std::string changedRow = *FileInterface::updateRowField(x, newStatus, FileField::statusFieldInLoggedFile);
+            FileInterface::updateRow(FILE_::LOGGED_FILE, changedRow, username);
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPid) const
+{
+    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::getFileContent(FILE_::LOGGED_FILE);
+
+    for (auto& x : *loggedFileContent)
+    {
+        std::unique_ptr< std::string> pidToComapre = FileInterface::getRowField(x, FileField::pidFieldInLoggedFile);
+        int pid = std::atoi(pidToComapre->c_str());
+
+        if (0 == pid)
+        {
+            return nullptr; //error nie skonwertowalo
+        }
+        if (userPid == pid)
+        {
+            std::unique_ptr<std::string> username = FileInterface::getRowField(x, FileField::usernameFieldInLoggedFile);
+            return username;
+        }
+    }
+
+    return nullptr; //error
+}
+
+
+std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
+{
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::getFileContent(FILE_::LOGGED_FILE);
+
+    for (auto& x : *loggedFileContent)
+    {
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::getRowField(x, FileField::usernameFieldInLoggedFile);
+        if (!username.compare(*usernameToComapre)) //0 when succes
+        {
+            std::unique_ptr<std::string> userStatusToCompare = FileInterface::getRowField(x, FileField::statusFieldInLoggedFile);
+            return userStatusToCompare;
+        }
+    }
+
+    std::cerr << "User is offline or does not exist" << std::endl;
+    return nullptr;
+}
+
+
+bool ChatRequest::isUserActive(const User& user) const
+{
+
+    std::unique_ptr<std::string> userStatusToCompare = getUserStatus(user.getUsername());
+
+    if (nullptr == userStatusToCompare)
+    {
+        return false;
+    }
+
+    if (!FileField::FieldValue::userActiveStatus.compare(*userStatusToCompare)) //0 when succes
+    {
+        return true;
+    }
+
+    std::cerr << "User is bussy" << std::endl;
+    return false;
+
 }
 
 bool ChatRequest::makeDecision() const
 {
     std::string decision;
     std::cin >> decision;
+
     if ("yes" == decision)
     {
         return true;
@@ -41,109 +136,18 @@ bool ChatRequest::makeDecision() const
     // poki co powoduje odrzucenie
 }
 
-bool ChatRequest::sendAnswer(const std::string& senderUsername, FileFlagType type) const
+bool ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
     std::string flagName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
 
-    if (FileFlagType::refuseChatInvitation == type)
+    if (AnswerType::disapproved == type)
     {
-        FileFlag::setFileFlag(FileFlagType::refuseChatInvitation, CHATS_PATH, flagName); //TODO mwozniakogarnac odmowe na syngale
+        FileInterface::createFile(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH);
     }
-    else if (FileFlagType::acceptChatInvitation == type)
+    else if (AnswerType::accepted == type)
     {
-        FileFlag::setFileFlag(FileFlagType::acceptChatInvitation, CHATS_PATH, flagName);
+        FileInterface::createFile(flagName + "_ACCEPTED", FILE_::PATH::CHATS_PATH);
     }
-    return false;
-}
-
-bool ChatRequest::answerForChatRequest(const int usernamePid) const
-{
-    std::unique_ptr<std::string> senderUsername = std::make_unique<std::string>(*getUsernameByProcessId(usernamePid));
-
-    showInvitation(*senderUsername);
-    bool decision = makeDecision();
-
-    if (true == decision)
-    {
-        sendAnswer(*senderUsername, FileFlagType::acceptChatInvitation);
-        return true;
-    }
-    return sendAnswer(*senderUsername, FileFlagType::refuseChatInvitation);
-}
-
-bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
-{
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::getFileContent(LOGGED_FILE);
-
-    for (auto& x : *loggedFileContent)
-    {
-        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::getRowField(x, usernameFieldInLoggedFile));
-        std::string username = user.getUsername();
-
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            std::string newRow = *FileInterface::updateRowField(x, newStatus, statusFieldInLoggedFile);
-            FileInterface::updateRow(LOGGED_FILE, newRow, username);
-
-            return true;
-        }
-    }
-
-    return false;
-}
-
-std::unique_ptr<std::string> ChatRequest::getUsernameByProcessId(const int userPid) const
-{
-    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::getFileContent(LOGGED_FILE);
-
-    for (auto& x : *loggedFileContent)
-    {
-        std::unique_ptr< std::string> pidToComapre = FileInterface::getRowField(x, pidFieldInLoggedFile);
-        int pid = std::atoi(pidToComapre->c_str());
-
-        if (0 == pid)
-        {
-            return nullptr; //error nie skonwertowalo
-        }
-        if (userPid == pid)
-        {
-            std::unique_ptr<std::string> username = FileInterface::getRowField(x, usernameFieldInLoggedFile);
-            return username;
-        }
-    }
-
-    return nullptr; //error
-}
-
-
-bool ChatRequest::isUserLogged(const std::string& username) const
-{
-
-}
-
-bool ChatRequest::isUserActive(const User& user) const
-{
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::getFileContent(LOGGED_FILE);
-
-    for (auto& x : *loggedFileContent)
-    {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::getRowField(x, usernameFieldInLoggedFile);
-
-        if (!user.getUsername().compare(*usernameToComapre)) //0 when succes
-        {
-            std::unique_ptr<std::string> userStatusToCompare = FileInterface::getRowField(x, statusFieldInLoggedFile);
-
-            if (!userActiveStatus.compare(*userStatusToCompare)) //0 when succes
-            {
-                return true;
-            }
-
-            std::cerr << "User is bussy" << std::endl;
-            return false;
-        }
-    }
-
-    std::cerr << "User is offline or does not exist" << std::endl;
     return false;
 }
 
@@ -151,7 +155,7 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
 {
     User receiver(username);
 
-    //changeUserStatus(LocalUser::getLocalUser().getUsername(), userBussyStatus);
+    //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileField::FieldValue::userBussyStatus);
     //to ma byc tutaj, dla testow zakomentowane
 
     if (!isUserActive(receiver.getUsername()))
@@ -159,40 +163,57 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
         return false;
     }
 
-    changeUserStatus(receiver.getUsername(), userBussyStatus);
+    changeUserStatus(receiver.getUsername(), FileField::FieldValue::userBussyStatus);
 
     int pid = receiver.getUserPid();
-    sendSigusr1Signal(pid);
-
-
-    if (!waitForAnswer(receiver.getUsername()))
+    if (0 == pid)
     {
-        changeUserStatus(LocalUser::getLocalUser().getUsername(), userActiveStatus);
-        changeUserStatus(receiver.getUsername(), userActiveStatus);
         return false;
     }
 
-    //createChatFile(); TODO mwozniak
+    sendSigusr1Signal(pid);
+
+    if (!waitForAnswer(receiver.getUsername()))
+    {
+        changeUserStatus(LocalUser::getLocalUser().getUsername(), FileField::FieldValue::userActiveStatus);
+        changeUserStatus(receiver.getUsername(), FileField::FieldValue::userActiveStatus);
+        return false;
+    }
+
+    ChatFabric newChat;
+    newChat.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
+
     return true;
+}
+
+void ChatRequest::sendSigusr1Signal(const int userPid) const
+{
+    kill(userPid, SIGUSR1);
+}
+
+void ChatRequest::showInvitation(const std::string& senderUsername) const
+{
+    std::cout << "You get an invitation to chat form " + senderUsername << std::endl;
+    std::cout << "Do you want to chat with this user (yes/no)? " << std::endl;
 }
 
 bool ChatRequest::waitForAnswer(const std::string& username) const
 {
     std::string flagName = LocalUser::getLocalUser().getUsername() + "_" + username;
+    static constexpr int timeToWaitForAnswer = 20;
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {
-
-        if (FileFlag::isFlagExist(FileFlagType::acceptChatInvitation, CHATS_PATH, flagName))
+        if (FileInterface::isFileExists(flagName + "_ACCEPTED", FILE_::PATH::CHATS_PATH))
         {
             std::cout << username + " has accepted the invitation. You can start chat" << std::endl;
-            FileFlag::removeFileFlag(FileFlagType::acceptChatInvitation, CHATS_PATH, flagName);
+            FileInterface::removeFile(flagName + "_ACCEPTED", FILE_::PATH::CHATS_PATH);
             return true;
         }
-        else if (FileFlag::isFlagExist(FileFlagType::refuseChatInvitation, CHATS_PATH, flagName))
+        else if (FileInterface::isFileExists(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH))
         {
             std::cout << "User has not accepted the invitation" << std::endl;
-            FileFlag::removeFileFlag(FileFlagType::refuseChatInvitation, CHATS_PATH, flagName);
+            FileInterface::removeFile(flagName + "_DISAPRPROVED", FILE_::PATH::CHATS_PATH);
             return false;
         }
 
@@ -202,10 +223,3 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
     std::cout << "User has not accepted the invitation" << std::endl;
     return false;
 }
-
-void ChatRequest::sendSigusr1Signal(const int userPid) const
-{
-    kill(userPid, SIGUSR1);
-}
-
-

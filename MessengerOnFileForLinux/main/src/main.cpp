@@ -31,7 +31,6 @@ void mwozniak()
       while (true)
       {
       }
-
     std::cout << "mwozniak:\n\n";
     /*
     createFile("plik.txt", "../");
@@ -65,7 +64,8 @@ enum class Run
 
 int main(int argc, char **argv)
 {
-    Run version = Run::mnurzyns;
+    //Run version = Run::mnurzyns;
+    Run version = Run::mwozniak;
 
     if (Run::mnurzyns == version)
     {
