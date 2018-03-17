@@ -33,9 +33,9 @@ bool Sender::sendMessage(const std::string& username) const
     }
 
     std::unique_ptr<std::string> rawMessage = enterMessage();
-    std::unique_ptr<std::string> message = prepearMessageToSend(rawMessage);
-
-    FileInterface::addRow("marcin1008_marcin1008", *message, static_cast<std::string>(FILE_::PATH::CHATS_PATH) ); //+ *folderName + "/");
+    //std::unique_ptr<std::string> message = prepearMessageToSend(*rawMessage);
+    std::string tmp = *folderName + "/marcin1008_marcin1008";
+    FileInterface::Modification::addRow(tmp,  static_cast<std::string>(FILE_::PATH::CHATS_PATH), *rawMessage); //+ *folderName + "/");
 
     return true;
 }
@@ -51,6 +51,7 @@ std::unique_ptr<std::string> Sender::findChatFolder(const std::string& username)
 
      if (!folderName->empty())
      {
+         folderName->pop_back(); //usuwanie znaku konca lini
          return folderName;
      }
 
@@ -58,11 +59,18 @@ std::unique_ptr<std::string> Sender::findChatFolder(const std::string& username)
 
      if (!folderName->empty())
      {
+         folderName->pop_back();
          return folderName;
      }
 
      return nullptr;
 }
+
+std::unique_ptr<std::string> Sender::findChatFile(const std::string& folderName) const
+{
+    std::unique_ptr<std::string> fileName = std::make_unique<std::string>();
+}
+
 
 std::unique_ptr<std::string> Sender::prepearMessageToSend(const std::string& message) const
 {

@@ -50,12 +50,12 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 
 bool RegisterUser::isUserRegistered() const
 {
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::getFileContent(FILE_::REGISTERED_FILE);
-
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(FILE_::REGISTERED_FILE, FILE_::PATH::REGISTERED_PATH);
+    std::cerr << "tutaj " << std::endl;
     for (auto & x : *registeredFileContent)
     {
         std::string username = LocalUser::getLocalUser().getUsername();
-        std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>(*FileInterface::getRowField(x, FileField::usernameFieldInRegisteredFile));
+        std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileField::usernameFieldInRegisteredFile));
 
         if (!username.compare(*usernameToCompare)) //0 when the same
         {
@@ -115,5 +115,5 @@ bool RegisterUser::saveUserDataInRegisteredFile() const
     //TODO mwozniak
     //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
 
-    return FileInterface::addRow(FILE_::REGISTERED_FILE, accountInformations);
+    return FileInterface::Modification::addRow(FILE_::REGISTERED_FILE, FILE_::PATH::REGISTERED_PATH, accountInformations);
 }

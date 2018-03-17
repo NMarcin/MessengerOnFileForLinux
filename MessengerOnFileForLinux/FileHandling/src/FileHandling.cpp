@@ -4,33 +4,26 @@
 #include <stdlib.h>
 
 #include <FileHandling.hpp>
-#include <FileGuardian.hpp>
 
-bool FileInterface::addRow(const std::string& fileName, const std::string& text, const std::string& pathToFile)
+bool FileInterface::Modification::addRow(const std::string& fileName, const std::string& pathToFile, const std::string& text)
 {
-    const std::string fileLocation = pathToFile + fileName;
-    if (std::unique_ptr<std::fstream> file = openFileToSave(fileLocation))
+    if (std::unique_ptr<std::fstream> file = Managment::openFileToSave(fileName, pathToFile))
     {
         *file << text;
         *file << '\n';
-        closeFile(fileLocation);
+        Managment::removeFile("GUARD", pathToFile);
         return true;
     }
     else
     {
         return false;
         //TODO mwozniak error
-        //skad wiemy czy plik nieistenije czy jest guearian?
+        //skad wiemy czy plik nie istenije czy jest guardian?
     }
 }
 
 
-bool FileInterface::closeFile(const std::string& fileName, const std::string& pathToFile)
-{    
-    FileFlag::removeFileFlag(FileFlagType::guardian, pathToFile, fileName);
-}
-
-bool FileInterface::createFile(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::Managment::createFile(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
     std::string systemCommand = "touch " + fileLocation;
@@ -39,12 +32,31 @@ bool FileInterface::createFile(const std::string& fileName, const std::string& p
     return isFileExist(fileName, pathToFile);
 }
 
-bool FileInterface::isGuardExist(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& fileName, const std::string& pathToFile)
 {
-    return !FileFlag::isFlagExist(FileFlagType::guardian, pathToFile, fileName);
+    std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
+
+    if (std::unique_ptr<std::fstream> file = Managment::openFileToRead(fileName, pathToFile))
+    {
+        while (!file->eof())
+        {
+            std::string row;
+            std::getline(*file, row);
+            fileContent -> push_back(row);
+        }
+    }
+    else
+    {
+        return nullptr;
+        //TODO mwozniak error + removeGuard
+    }
+
+    Managment::removeFile("GUARD", pathToFile);
+
+    return fileContent;
 }
 
-std::unique_ptr<std::vector<std::string>> FileInterface::getFilenamesFromFolder(const std::string& pathToDir)
+std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFromFolder(const std::string& pathToDir)
 {
     std::string command = "ls " + pathToDir;
     std::string commandOutput = System::getStdoutFromCommand(command);
@@ -68,7 +80,7 @@ std::unique_ptr<std::vector<std::string>> FileInterface::getFilenamesFromFolder(
 
 }
 
-std::unique_ptr<std::string> FileInterface::getRowField(const std::string& field, const int fieldNumber)
+std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::string& field, const int fieldNumber)
 {
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
@@ -87,14 +99,14 @@ std::unique_ptr<std::string> FileInterface::getRowField(const std::string& field
     return fieldToDownload;
 }
 
-bool FileInterface::isFileExist(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::Managment::isFileExist(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
     std::ifstream file(fileLocation);
     return file.good();
 }
 
-std::unique_ptr<std::fstream> FileInterface::openFileToRead(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::fstream> FileInterface::Managment::openFileToRead(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
 
@@ -104,9 +116,9 @@ std::unique_ptr<std::fstream> FileInterface::openFileToRead(const std::string& f
         return nullptr; //TODO mwozniak error
     }
 
-    if (isGuardExist(fileName, pathToFile))
+    if (!isFileExist("GUARD", pathToFile))
     {
-        FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
+        createFile("GUARD", pathToFile);
     }
     else
     {
@@ -115,7 +127,6 @@ std::unique_ptr<std::fstream> FileInterface::openFileToRead(const std::string& f
 
     std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
     fileToOpen->open(fileLocation, std::ios::in);
-
     if (fileToOpen->is_open())
     {
         return fileToOpen;
@@ -126,25 +137,24 @@ std::unique_ptr<std::fstream> FileInterface::openFileToRead(const std::string& f
     }
 }
 
-std::unique_ptr<std::fstream> FileInterface::openFileToSave(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::fstream> FileInterface::Managment::openFileToSave(const std::string& fileName, const std::string& pathToFile)
 {
-    const std::string fileLocation = pathToFile + fileName;
-
     if (!isFileExist(fileName, pathToFile))
     {
         std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
         return nullptr; //TODO mwozniak errror
     }
 
-    if (isGuardExist(fileName, pathToFile))
+    if (!isFileExist("GUARD", pathToFile))
     {
-        FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
+        createFile("GUARD", pathToFile);
     }
     else
     {
         return nullptr; //TODO mwozniak errror
     }
 
+    std::string fileLocation = pathToFile + fileName;
     std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
     fileToOpen->open(fileLocation, std::ios::out | std::ios::ate);
 
@@ -159,40 +169,18 @@ std::unique_ptr<std::fstream> FileInterface::openFileToSave(const std::string& f
 }
 
 
-bool FileInterface::removeFile(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::Managment::removeFile(const std::string& fileName, const std::string& pathToFile)
 {
     const std::string fileLocation = pathToFile + fileName;
+    std::cout << "Usuwam : " << fileLocation << std::endl;
     const char * c = fileLocation.c_str();
     return ! std::remove(c); // 0 when success
     //TODO mwozniak mnurzynski czy moze usuwac systemowo przez rm ?
 }
 
 
-std::unique_ptr<std::vector<std::string>> FileInterface::getFileContent(const std::string& fileName, const std::string& pathToFile)
-{
-    std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
 
-    if (std::unique_ptr<std::fstream> file = openFileToRead(fileName, pathToFile))
-    {
-        while (!file->eof())
-        {
-            std::string row;
-            std::getline(*file, row);
-            fileContent -> push_back(row);
-        }
-    }
-    else
-    {
-        return nullptr;
-        //TODO mwozniak error + removeGuard
-    }
-                                      //TODO mwozniak mnurzyn
-    closeFile(fileName, pathToFile); //close file usuwa guardiana, moze jednak jakas nazwa na to?
-    //nie potrzebujemy funkcji ktora wykonuje operacje zamykania bo wykonuje sie to w memencie destrukcji obiektu fstream
-    return fileContent;
-}
-
-std::unique_ptr<std::string> FileInterface::removeRowField(const std::string& row, const int fieldNumber)
+std::unique_ptr<std::string> FileInterface::Modification::removeRowField(const std::string& row, const int fieldNumber)
 {
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> rowWithoutRemovedField = std::make_unique<std::string>();
@@ -214,43 +202,46 @@ std::unique_ptr<std::string> FileInterface::removeRowField(const std::string& ro
 }
 
 
-bool FileInterface::removeRow(const std::string& fileName, const std::string& pattern, const std::string& pathToFile)
+bool FileInterface::Modification::removeRow(const std::string& fileName, const std::string& pathToFile, const std::string& pattern)
 {    
-    if (!isGuardExist(fileName, pathToFile))
+    if (Managment::isFileExist("GUARD", pathToFile))
     {
         return false;
     }
 
-    FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
+    Managment::createFile("GUARD", pathToFile);
+
     const std::string fileLocation = pathToFile + fileName;
     std::string command = "sed -i -e '/" + pattern + "/d' " + fileLocation;
     std::system(command.c_str());
 
-    bool isFileClosed = closeFile(fileName, pathToFile);
+    bool isGuardRemoved = Managment::removeFile("GUARD", pathToFile);
 
-    return isFileClosed;
+    return isGuardRemoved;
 }
 
 
-bool FileInterface::updateRow(const std::string & fileName, const std::string & newRow, const std::string & where, const std::string & pathToFile)
+bool FileInterface::Modification::updateRow(const std::string & fileName, const std::string & pathToFile, const std::string & newRow, const std::string & where)
 {
-    if (!isGuardExist(fileName))
+    if (Managment::isFileExist("GUARD", pathToFile))
     {
         return false;
     }
+
+    Managment::createFile("GUARD", pathToFile);
+
     const std::string fileLocation = pathToFile + fileName;
-    FileFlag::setFileFlag(FileFlagType::guardian, pathToFile, fileName);
     std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + fileLocation;
     //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
     std::system(command.c_str());
 
-    bool isFileClosed = closeFile(fileName, pathToFile);
+    bool isGuardRemoved = Managment::removeFile("GUARD", pathToFile);
 
-    return isFileClosed;
+    return isGuardRemoved;
 }
 
 
-std::unique_ptr<std::string> FileInterface::updateRowField(const std::string& row, const std::string& newField, const int fieldNumber)
+std::unique_ptr<std::string> FileInterface::Modification::updateRowField(const std::string& row, const std::string& newField, const int fieldNumber)
 {
     int actualFieldNumber = -1;
     bool flag = false;

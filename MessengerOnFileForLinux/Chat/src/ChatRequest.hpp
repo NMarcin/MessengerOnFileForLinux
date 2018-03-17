@@ -3,7 +3,6 @@
 #include <memory>
 
 #include <User.hpp>
-#include <FileGuardian.hpp>
 
 enum class AnswerType
 {
@@ -22,10 +21,11 @@ public:
 
 private:
     bool changeUserStatus(const User& user, const std::string& newStatus) const;
+    std::unique_ptr<std::string> getChatFolderName(const std::string& folderName) const;
     std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
     std::unique_ptr<std::string> getUserStatus(const std::string& username) const;
     bool isUserActive(const User& user) const;
-    bool doYouWantChat() const;
+    bool respondToInvitation() const;
     bool sendAnswer(const std::string& senderUsername, AnswerType type) const;
     void sendSigusr1Signal(const int userPid) const;
     void showInvitation(const std::string& senderUsername) const;

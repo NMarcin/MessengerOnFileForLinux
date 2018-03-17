@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <ChatFabric.hpp>
+#include <FileHandling.hpp>
 
 ChatFabric::ChatFabric()
 {
@@ -18,7 +19,8 @@ bool ChatFabric::createChatStructure(const std::string& usernameInviter, const s
 {
     log.info("ChatFabric::createChatStructure started");
     std::string chatFolderName = createChatFolder(usernameInviter, usernameGuess);
-    if("" == chatFolderName)
+    //if("" == chatFolderName)
+    if (!chatFolderName.empty())
     {
         if(createChatFile(chatFolderName, usernameInviter, usernameGuess))
         {
@@ -49,8 +51,9 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
 
 bool ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
+    std::cout << "tworze plik" ;
     std::string newFileName = usernameInviter + "_" + usernameGuess;
-    std::string systemCommand = "touch /home/messenger/chats/" + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
+    std::string systemCommand = "touch /home/messenger/chats/" + chatFolderName + "/" + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
     bool commandStatus = system(systemCommand.c_str());
 
     return commandStatus;
@@ -78,5 +81,6 @@ int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
             ++fileIterator;
         }
     }
-    return freeFolderNumber;
+    //return freeFolderNumber;
+    return 1;
 }

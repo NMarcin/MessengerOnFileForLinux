@@ -43,7 +43,7 @@ void mwozniak()
     RegisterUser registerUser;
     registerUser.registerNewUser();
 
-    std::cerr << "h";
+
 
     std::cout << "LOGOWANIE" << std::endl;
     SignIn signIn;
