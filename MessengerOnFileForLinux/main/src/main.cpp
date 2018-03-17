@@ -24,6 +24,16 @@ void mnurzyns()
 
 void mwozniak()
 {
+
+    std::unique_ptr<std::string> fileName = std::make_unique<std::string>("125Dupaasd23");
+    auto it = fileName->begin();
+    while (isdigit(*it))
+    {
+        fileName->erase(it);
+
+    }
+    std::cout << *fileName;
+
   initSigusr1Action();
 
   int h;

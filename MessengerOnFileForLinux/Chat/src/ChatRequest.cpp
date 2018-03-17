@@ -223,24 +223,25 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
 
     const int timeToWaitForAnswer = 20;
     const std::string flagPath = FILE_::PATH::CHATS_PATH + folderFullName;
+
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {
-        if (FileInterface::Managment::isFileExist("/ACCEPTED", FILE_::PATH::CHATS_PATH + folderFullName ))
+        if (FileInterface::Managment::isFileExist("/ACCEPTED", flagPath))
         {
-            std::cout << username + " has accepted the invitation. You can start chat" << std::endl;
-            FileInterface::Managment::removeFile("/ACCEPTED", FILE_::PATH::CHATS_PATH + folderFullName );
+            std::cout << username + " has accepted the invitation. Send Hello!" << std::endl;
+            FileInterface::Managment::removeFile("/ACCEPTED", flagPath);
             return true;
         }
-        else if (FileInterface::Managment::isFileExist("/DISACCEPTED", FILE_::PATH::CHATS_PATH + folderFullName ))
+        else if (FileInterface::Managment::isFileExist("/DISACCEPTED", flagPath))
         {
             std::cout << "User has not accepted the invitation" << std::endl;
-            FileInterface::Managment::removeFile("/DISACCEPTED", FILE_::PATH::CHATS_PATH + folderFullName);
+            FileInterface::Managment::removeFile("/DISACCEPTED", flagPath);
             return false;
         }
 
         sleep(1);
     }
 
-    std::cout << "User has not accepted the invitation" << std::endl;
+    std::cout << "User has not accepted the invitation." << std::endl;
     return false;
 }

@@ -9,3 +9,4 @@ ChatControler::~ChatControler()
 {
     //NOOP
 }
+

@@ -4,6 +4,12 @@
 #include <Sender.hpp>
 #include <Reciver.hpp>
 
+enum class UserType
+{
+    sender,
+    reciver
+};
+
 class ChatControler
 {
 public:
@@ -11,7 +17,6 @@ public:
     ~ChatControler();
 
 private:
-
 
     std::unique_ptr<Sender> sender_;
     std::unique_ptr<Reciver> reciver_;

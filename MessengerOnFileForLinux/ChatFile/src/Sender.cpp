@@ -5,7 +5,7 @@
 
 Sender::Sender()
 {
-//NOOP
+    //NOOP
 }
 
 Sender::~Sender()
@@ -49,27 +49,36 @@ std::unique_ptr<std::string> Sender::findChatFolder(const std::string& username)
 
     std::unique_ptr<std::string> folderName = std::make_unique<std::string>(System::getStdoutFromCommand(command_1));
 
-     if (!folderName->empty())
-     {
-         folderName->pop_back(); //usuwanie znaku konca lini
-         return folderName;
-     }
+    if (!folderName->empty())
+    {
+        folderName->pop_back(); //usuwanie znaku konca lini
+        return folderName;
+    }
 
-     folderName = std::make_unique<std::string>(System::getStdoutFromCommand(command_2));
+    folderName = std::make_unique<std::string>(System::getStdoutFromCommand(command_2));
 
-     if (!folderName->empty())
-     {
-         folderName->pop_back();
-         return folderName;
-     }
+    if (!folderName->empty())
+    {
+        folderName->pop_back();
 
-     return nullptr;
+        return folderName;
+    }
+
+    return nullptr;
 }
 
 std::unique_ptr<std::string> Sender::findChatFile(const std::string& folderName) const
 {
-    std::unique_ptr<std::string> fileName = std::make_unique<std::string>();
+    std::unique_ptr<std::string> fileName = std::make_unique<std::string>(folderName);
+    auto it = fileName->begin();
+    while (isdigit(*it))
+    {
+        fileName->erase(it);
+    }
+
+    return fileName;
 }
+
 
 
 std::unique_ptr<std::string> Sender::prepearMessageToSend(const std::string& message) const
