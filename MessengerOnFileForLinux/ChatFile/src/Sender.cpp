@@ -35,7 +35,7 @@ bool Sender::sendMessage(const std::string& username) const
     std::unique_ptr<std::string> rawMessage = enterMessage();
     //std::unique_ptr<std::string> message = prepearMessageToSend(*rawMessage);
     std::string tmp = *folderName + "/marcin1008_marcin1008";
-    FileInterface::Modification::addRow(tmp,  static_cast<std::string>(FILE_::PATH::CHATS_PATH), *rawMessage); //+ *folderName + "/");
+    FileInterface::Modification::addRow(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH + tmp, *rawMessage); //+ *folderName + "/");
 
     return true;
 }
@@ -44,8 +44,8 @@ std::unique_ptr<std::string> Sender::findChatFolder(const std::string& username)
 {
     std::string possibleFolderName_1 = username + "_" + LocalUser::getLocalUser().getUsername();
     std::string possibleFolderName_2 = LocalUser::getLocalUser().getUsername() + "_" + username;
-    std::string command_1 = "ls " + static_cast<std::string>(FILE_::PATH::CHATS_PATH) + " | grep " + possibleFolderName_1;
-    std::string command_2 = "ls " + static_cast<std::string>(FILE_::PATH::CHATS_PATH) + " | grep " + possibleFolderName_2;
+    std::string command_1 = "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH) + " | grep " + possibleFolderName_1;
+    std::string command_2 = "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH) + " | grep " + possibleFolderName_2;
 
     std::unique_ptr<std::string> folderName = std::make_unique<std::string>(System::getStdoutFromCommand(command_1));
 

@@ -5,13 +5,14 @@
 
 #include <FileHandling.hpp>
 
-bool FileInterface::Modification::addRow(const std::string& fileName, const std::string& pathToFile, const std::string& text)
+bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
-    if (std::unique_ptr<std::fstream> file = Managment::openFileToSave(fileName, pathToFile))
+    if (std::unique_ptr<std::fstream> file = Managment::openFileToSave(pathToFile))
     {
         *file << text;
         *file << '\n';
-        Managment::removeFile("GUARD", pathToFile);
+        std::string folderName = *Accesor::getFolderName(pathToFile);
+        Managment::removeFile(folderName + "/GUARD");
         return true;
     }
     else
@@ -23,20 +24,19 @@ bool FileInterface::Modification::addRow(const std::string& fileName, const std:
 }
 
 
-bool FileInterface::Managment::createFile(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::Managment::createFile(const std::string& pathToFile)
 {
-    const std::string fileLocation = pathToFile + fileName;
-    std::string systemCommand = "touch " + fileLocation;
+    std::string systemCommand = "touch " + pathToFile;
     system(systemCommand.c_str());
 
-    return isFileExist(fileName, pathToFile);
+    return isFileExist(pathToFile);
 }
 
-std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile)
 {
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
 
-    if (std::unique_ptr<std::fstream> file = Managment::openFileToRead(fileName, pathToFile))
+    if (std::unique_ptr<std::fstream> file = Managment::openFileToRead(pathToFile))
     {
         while (!file->eof())
         {
@@ -51,7 +51,8 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
         //TODO mwozniak error + removeGuard
     }
 
-    Managment::removeFile("GUARD", pathToFile);
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+    Managment::removeFile(folderName + "/GUARD");
 
     return fileContent;
 }
@@ -80,6 +81,21 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
 
 }
 
+std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::string& pathToFile)
+{
+    auto it = pathToFile.end();
+
+    while ('/' != *it)
+    {
+        --it;
+    }
+
+    std::unique_ptr<std::string> folderName = std::make_unique<std::string>(pathToFile.begin(), it);
+
+    return folderName;
+}
+
+
 std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::string& field, const int fieldNumber)
 {
     int actualFieldNumber = -1;
@@ -99,26 +115,25 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
     return fieldToDownload;
 }
 
-bool FileInterface::Managment::isFileExist(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 {
-    const std::string fileLocation = pathToFile + fileName;
-    std::ifstream file(fileLocation);
+    std::ifstream file(pathToFile);
     return file.good();
 }
 
-std::unique_ptr<std::fstream> FileInterface::Managment::openFileToRead(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::fstream> FileInterface::Managment::openFileToRead(const std::string& pathToFile)
 {
-    const std::string fileLocation = pathToFile + fileName;
-
-    if (!isFileExist(fileName, pathToFile))
+    if (!isFileExist(pathToFile))
     {
-        std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
+        std::cerr << pathToFile + " does not exist. " << std::endl;
         return nullptr; //TODO mwozniak error
     }
 
-    if (!isFileExist("GUARD", pathToFile))
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+
+    if (!isFileExist(folderName + "/GUARD"))
     {
-        createFile("GUARD", pathToFile);
+        createFile(folderName + "/GUARD");
     }
     else
     {
@@ -126,7 +141,7 @@ std::unique_ptr<std::fstream> FileInterface::Managment::openFileToRead(const std
     }
 
     std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-    fileToOpen->open(fileLocation, std::ios::in);
+    fileToOpen->open(pathToFile, std::ios::in);
     if (fileToOpen->is_open())
     {
         return fileToOpen;
@@ -137,26 +152,28 @@ std::unique_ptr<std::fstream> FileInterface::Managment::openFileToRead(const std
     }
 }
 
-std::unique_ptr<std::fstream> FileInterface::Managment::openFileToSave(const std::string& fileName, const std::string& pathToFile)
+std::unique_ptr<std::fstream> FileInterface::Managment::openFileToSave(const std::string& pathToFile)
 {
-    if (!isFileExist(fileName, pathToFile))
+    if (!isFileExist(pathToFile))
     {
-        std::cerr << "File " + fileName + " does not exist in the selected location. " << std::endl;
+        std::cerr << pathToFile + " does not exist. " << std::endl;
         return nullptr; //TODO mwozniak errror
     }
 
-    if (!isFileExist("GUARD", pathToFile))
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+
+    if (!isFileExist(folderName + "/GUARD"))
     {
-        createFile("GUARD", pathToFile);
+        createFile(folderName + "/GUARD");
     }
     else
     {
         return nullptr; //TODO mwozniak errror
     }
 
-    std::string fileLocation = pathToFile + fileName;
+
     std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-    fileToOpen->open(fileLocation, std::ios::out | std::ios::ate);
+    fileToOpen->open(pathToFile, std::ios::out | std::ios::ate);
 
     if (fileToOpen->is_open())
     {
@@ -169,11 +186,9 @@ std::unique_ptr<std::fstream> FileInterface::Managment::openFileToSave(const std
 }
 
 
-bool FileInterface::Managment::removeFile(const std::string& fileName, const std::string& pathToFile)
+bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
-    const std::string fileLocation = pathToFile + fileName;
-    std::cout << "Usuwam : " << fileLocation << std::endl;
-    const char * c = fileLocation.c_str();
+    const char * c = pathToFile.c_str();
     return ! std::remove(c); // 0 when success
     //TODO mwozniak mnurzynski czy moze usuwac systemowo przez rm ?
 }
@@ -202,40 +217,42 @@ std::unique_ptr<std::string> FileInterface::Modification::removeRowField(const s
 }
 
 
-bool FileInterface::Modification::removeRow(const std::string& fileName, const std::string& pathToFile, const std::string& pattern)
+bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
 {    
-    if (Managment::isFileExist("GUARD", pathToFile))
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+
+    if (Managment::isFileExist(folderName + "/GUARD"))
     {
         return false;
     }
 
-    Managment::createFile("GUARD", pathToFile);
+    Managment::createFile(folderName + "/GUARD");
 
-    const std::string fileLocation = pathToFile + fileName;
-    std::string command = "sed -i -e '/" + pattern + "/d' " + fileLocation;
+    std::string command = "sed -i -e '/" + pattern + "/d' " + pathToFile;
     std::system(command.c_str());
 
-    bool isGuardRemoved = Managment::removeFile("GUARD", pathToFile);
+    bool isGuardRemoved = Managment::removeFile(folderName + "/GUARD");
 
     return isGuardRemoved;
 }
 
 
-bool FileInterface::Modification::updateRow(const std::string & fileName, const std::string & pathToFile, const std::string & newRow, const std::string & where)
+bool FileInterface::Modification::updateRow(const std::string & pathToFile, const std::string & newRow, const std::string & where)
 {
-    if (Managment::isFileExist("GUARD", pathToFile))
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+
+    if (Managment::isFileExist(folderName + "/GUARD"))
     {
         return false;
     }
 
-    Managment::createFile("GUARD", pathToFile);
+    Managment::createFile(folderName + "/GUARD");
 
-    const std::string fileLocation = pathToFile + fileName;
-    std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + fileLocation;
+    std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
     //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
     std::system(command.c_str());
 
-    bool isGuardRemoved = Managment::removeFile("GUARD", pathToFile);
+    bool isGuardRemoved = Managment::removeFile(folderName + "/GUARD");
 
     return isGuardRemoved;
 }

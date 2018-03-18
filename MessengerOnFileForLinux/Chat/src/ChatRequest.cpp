@@ -37,17 +37,17 @@ bool ChatRequest::answerForChatRequest(const int usernamePid) const
 
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
 {
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(FILE_::LOGGED_FILE, FILE_::PATH::LOGGED_PATH);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENTAL_PATH::PATH_TO_FILE::LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileField::usernameFieldInLoggedFile));
+        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile));
         std::string username = user.getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            std::string changedRow = *FileInterface::Modification::updateRowField(x, newStatus, FileField::statusFieldInLoggedFile);
-            FileInterface::Modification::updateRow(FILE_::LOGGED_FILE, FILE_::PATH::LOGGED_PATH, changedRow, username);
+            std::string changedRow = *FileInterface::Modification::updateRowField(x, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
+            FileInterface::Modification::updateRow(ENIVRONMENTAL_PATH::PATH_TO_FILE::LOGGED_FILE, changedRow, username);
 
             return true;
         }
@@ -58,7 +58,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
-    std::string command= "ls " + static_cast<std::string>(FILE_::PATH::CHATS_PATH) + " | grep " + folderName;
+    std::string command= "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH) + " | grep " + folderName;
 
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(System::getStdoutFromCommand(command));
 
@@ -73,11 +73,11 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 
 std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPid) const
 {
-    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(FILE_::LOGGED_FILE, FILE_::PATH::LOGGED_PATH);
+    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENTAL_PATH::PATH_TO_FILE::LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr< std::string> pidToComapre = FileInterface::Accesor::getRowField(x, FileField::pidFieldInLoggedFile);
+        std::unique_ptr< std::string> pidToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::pidFieldInLoggedFile);
         int pid = std::atoi(pidToComapre->c_str());
 
         if (0 == pid)
@@ -86,7 +86,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
         }
         if (userPid == pid)
         {
-            std::unique_ptr<std::string> username = FileInterface::Accesor::getRowField(x, FileField::usernameFieldInLoggedFile);
+            std::unique_ptr<std::string> username = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile);
             return username;
         }
     }
@@ -97,14 +97,14 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
 
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(FILE_::LOGGED_FILE, FILE_::PATH::LOGGED_PATH);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENTAL_PATH::PATH_TO_FILE::LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileField::usernameFieldInLoggedFile);
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile);
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileField::statusFieldInLoggedFile);
+            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileStructure::FileField::statusFieldInLoggedFile);
             return userStatusToCompare;
         }
     }
@@ -124,7 +124,7 @@ bool ChatRequest::isUserActive(const User& user) const
         return false;
     }
 
-    if (!FileField::FieldValue::userActiveStatus.compare(*userStatusToCompare)) //0 when succes
+    if (!FileStructure::FieldValue::userActiveStatus.compare(*userStatusToCompare)) //0 when succes
     {
         return true;
     }
@@ -155,16 +155,17 @@ bool ChatRequest::respondToInvitation() const
 
 bool ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
-    std::string folderName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
-    std::string folderFullName = *getChatFolderName(folderName);
+    std::string partOfFolderName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
+    std::string folderFullName = *getChatFolderName(partOfFolderName);
+    std::string flagPath = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH + folderFullName;
 
     if (AnswerType::disaccepted == type)
     {
-        FileInterface::Managment::createFile("/DISACCEPTED", FILE_::PATH::CHATS_PATH + folderFullName);
+        FileInterface::Managment::createFile(flagPath + "/DISACCEPTED");
     }
     else if (AnswerType::accepted == type)
     {
-        FileInterface::Managment::createFile("/ACCEPTED", FILE_::PATH::CHATS_PATH + folderFullName);
+        FileInterface::Managment::createFile(flagPath + "/ACCEPTED");
     }
     return false;
 }
@@ -184,7 +185,7 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
     {
         return false;
     }
-    changeUserStatus(receiver.getUsername(), FileField::FieldValue::userBussyStatus);
+    changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userBussyStatus);
 
     int pid = receiver.getUserPid();
     if (0 == pid)
@@ -197,8 +198,8 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
     if (!waitForAnswer(receiver.getUsername()))
     {
         //TODO mwozniak usuwanie folderu rozmowy
-        changeUserStatus(LocalUser::getLocalUser().getUsername(), FileField::FieldValue::userActiveStatus);
-        changeUserStatus(receiver.getUsername(), FileField::FieldValue::userActiveStatus);
+        changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
+        changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
         return false;
     }
 
@@ -222,20 +223,20 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
     std::string folderFullName = *getChatFolderName(folderName);
 
     const int timeToWaitForAnswer = 20;
-    const std::string flagPath = FILE_::PATH::CHATS_PATH + folderFullName;
+    const std::string flagPath = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH + folderFullName;
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {
-        if (FileInterface::Managment::isFileExist("/ACCEPTED", flagPath))
+        if (FileInterface::Managment::isFileExist(flagPath + "/ACCEPTED"))
         {
             std::cout << username + " has accepted the invitation. Send Hello!" << std::endl;
-            FileInterface::Managment::removeFile("/ACCEPTED", flagPath);
+            FileInterface::Managment::removeFile(flagPath + "/ACCEPTED");
             return true;
         }
-        else if (FileInterface::Managment::isFileExist("/DISACCEPTED", flagPath))
+        else if (FileInterface::Managment::isFileExist(flagPath + "/DISACCEPTED"))
         {
             std::cout << "User has not accepted the invitation" << std::endl;
-            FileInterface::Managment::removeFile("/DISACCEPTED", flagPath);
+            FileInterface::Managment::removeFile(flagPath + "/DISACCEPTED");
             return false;
         }
 

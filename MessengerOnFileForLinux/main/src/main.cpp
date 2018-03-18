@@ -32,6 +32,10 @@ void mwozniak()
         fileName->erase(it);
 
     }
+
+
+    std::cout << *FileInterface::Accesor::getFolderName("/home/marcin/plik/dupa.txt") << std::endl;
+
     std::cout << *fileName;
 
   initSigusr1Action();

@@ -8,14 +8,17 @@
 
 #include <ChatRequest.hpp>
 
-namespace FILE_
+namespace ENIVRONMENTAL_PATH
 {
-    static constexpr auto REGISTERED_FILE= "REGISTERED.txt";
-    static constexpr auto LOGGED_FILE = "LOGGED.txt";
-    static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
-    static constexpr auto CONFIGURATION_GUARD= "/home/messenger/configuration/GUARD";
+    namespace PATH_TO_FILE
+    {
+        static constexpr auto REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
+        static constexpr auto LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
+        static constexpr auto CONFIGURATION_GUARD= "/home/messenger/configuration/GUARD";
+    }
 
-    namespace PATH
+
+    namespace PATH_TO_FOLDER
     {
         static const std::string homePath = getenv("HOME");
         static const std::string USER_PATH = homePath + "/messenger/";
@@ -26,14 +29,17 @@ namespace FILE_
     }
 }
 
-namespace FileField
-{
-    static constexpr int usernameFieldInLoggedFile = 0;
-    static constexpr int statusFieldInLoggedFile = 1;
-    static constexpr int pidFieldInLoggedFile = 2;
-    static constexpr int usernameFieldInRegisteredFile = 0;
-    static constexpr int passwordFieldInRegisteredFile = 1;
-    static constexpr int dateTimeFieldInRegisteredFile = 2;
+namespace FileStructure {
+
+    namespace FileField
+    {
+        static constexpr int usernameFieldInLoggedFile = 0;
+        static constexpr int statusFieldInLoggedFile = 1;
+        static constexpr int pidFieldInLoggedFile = 2;
+        static constexpr int usernameFieldInRegisteredFile = 0;
+        static constexpr int passwordFieldInRegisteredFile = 1;
+        static constexpr int dateTimeFieldInRegisteredFile = 2;
+    }
 
     namespace FieldValue
     {
