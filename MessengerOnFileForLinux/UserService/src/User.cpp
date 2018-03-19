@@ -36,7 +36,7 @@ int User::getUserPid() const
     log.info("User::getUserPid() started");
     //TODO mwozniak czemu nazwa procesu jest skrocona?
     std::string command = "ps -u " + getUsername() + " | grep 'messenger_binar'";
-    std::string commandOutput = System::getStdoutFromCommand(command);
+    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
     int userPid = atoi(commandOutput.c_str());
 
     if (0 == userPid)

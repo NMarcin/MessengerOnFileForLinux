@@ -36,7 +36,7 @@ namespace FileInterface
 
 /** wrzucic to gdzie indzie*/
 //TODO mwozniak mnurzyn jaka nazwa ?
-namespace System
+namespace ConsolControl
 {
 std::string getActualDateTime();//DONE
 std::string getStdoutFromCommand(std::string cmd);

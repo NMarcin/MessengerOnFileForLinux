@@ -60,7 +60,7 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFromFolder(const std::string& pathToDir)
 {
     std::string command = "ls " + pathToDir;
-    std::string commandOutput = System::getStdoutFromCommand(command);
+    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
 
     std::unique_ptr<std::vector<std::string>> filesNames = std::make_unique<std::vector< std::string>>();
     std::string fileName;
@@ -298,7 +298,7 @@ std::unique_ptr<std::string> FileInterface::Modification::updateRowField(const s
 /** TO NIZEJ GDIZE INDZIEJ*/
 
 
-std::string System::getActualDateTime()
+std::string ConsolControl::getActualDateTime()
 {
     std::string dateTime = __DATE__;
     dateTime += "|";
@@ -306,7 +306,7 @@ std::string System::getActualDateTime()
     return dateTime;
 }
 
-std::string System::getStdoutFromCommand(std::string cmd)
+std::string ConsolControl::getStdoutFromCommand(std::string cmd)
 {
     std::string data;
     FILE * stream;

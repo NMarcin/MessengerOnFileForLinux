@@ -25,18 +25,18 @@ void mnurzyns()
 void mwozniak()
 {
 
-    std::unique_ptr<std::string> fileName = std::make_unique<std::string>("125Dupaasd23");
-    auto it = fileName->begin();
+    std::string fileName("125Dupaasd23");
+    auto it = fileName.begin();
     while (isdigit(*it))
     {
-        fileName->erase(it);
+        --it;
 
     }
-
+    std::string tmp(it, fileName.end());
+    std::cout << tmp;
 
     std::cout << *FileInterface::Accesor::getFolderName("/home/marcin/plik/dupa.txt") << std::endl;
 
-    std::cout << *fileName;
 
   initSigusr1Action();
 
@@ -66,8 +66,8 @@ void mwozniak()
     ChatRequest chat;
     chat.sendChatRequest("marcin1008");
 
-    Sender sender;
-    sender.sendMessage("marcin1008");
+    //Sender sender;
+    //sender.sendMessage("marcin1008");
 
     SignOut signOut;
     signOut.signOutUser();

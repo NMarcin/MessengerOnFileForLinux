@@ -24,7 +24,7 @@ bool ChatRequest::answerForChatRequest(const int usernamePid) const
     std::unique_ptr<std::string> senderUsername = std::make_unique<std::string>(*getUsernameThroughPid(usernamePid));
 
     showInvitation(*senderUsername);
-    bool decision = respondToInvitation();
+    bool decision = respondOnInvitation();
 
     if (decision)
     {
@@ -60,7 +60,7 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 {
     std::string command= "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH) + " | grep " + folderName;
 
-    std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(System::getStdoutFromCommand(command));
+    std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
 
      if (!folderFullName->empty())
      {
@@ -134,7 +134,7 @@ bool ChatRequest::isUserActive(const User& user) const
 
 }
 
-bool ChatRequest::respondToInvitation() const
+bool ChatRequest::respondOnInvitation() const
 {
     std::string decision;
     std::cin >> decision;

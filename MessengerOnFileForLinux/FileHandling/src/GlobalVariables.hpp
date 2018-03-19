@@ -14,9 +14,7 @@ namespace ENIVRONMENTAL_PATH
     {
         static constexpr auto REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
         static constexpr auto LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
-        static constexpr auto CONFIGURATION_GUARD= "/home/messenger/configuration/GUARD";
     }
-
 
     namespace PATH_TO_FOLDER
     {
@@ -24,8 +22,6 @@ namespace ENIVRONMENTAL_PATH
         static const std::string USER_PATH = homePath + "/messenger/";
         static constexpr auto CHATS_PATH = "/home/messenger/chats/";
         static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
-        static constexpr auto REGISTERED_PATH= "/home/messenger/configuration/";
-        static constexpr auto LOGGED_PATH = "/home/messenger/configuration/";
     }
 }
 
