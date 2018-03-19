@@ -7,6 +7,7 @@
 
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
+    //log.info("FileInterface::Modification::addRow started");
     if (std::unique_ptr<std::fstream> file = Managment::openFileToSave(pathToFile))
     {
         *file << text;
@@ -17,24 +18,30 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
     }
     else
     {
+        //log.info("FileInterface::Modification::addRow ERROR Cannot get file acces");
         return false;
-        //TODO mwozniak error
-        //skad wiemy czy plik nie istenije czy jest guardian?
     }
 }
 
 
 bool FileInterface::Managment::createFile(const std::string& pathToFile)
 {
+    //log.info("FileInterface::Managment::createFile started");
     std::string systemCommand = "touch " + pathToFile;
     system(systemCommand.c_str());
 
-    return isFileExist(pathToFile);
+    if (!isFileExist(pathToFile))
+    {
+        //log.info("FileInterface::Managment::createFile ERROR: File was not creat");
+        return false;
+    }
 }
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile)
 {
+    //log.info("FileInterface::Accesor::getFileContent started");
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
+    std::string folderName = *Accesor::getFolderName(pathToFile);
 
     if (std::unique_ptr<std::fstream> file = Managment::openFileToRead(pathToFile))
     {
@@ -47,11 +54,11 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
     }
     else
     {
+        //log.info("FileInterface::Accesor::getFileContent ERROR: Cannot get file acces");
+        Managment::removeFile(folderName + "/GUARD");
         return nullptr;
-        //TODO mwozniak error + removeGuard
     }
 
-    std::string folderName = *Accesor::getFolderName(pathToFile);
     Managment::removeFile(folderName + "/GUARD");
 
     return fileContent;

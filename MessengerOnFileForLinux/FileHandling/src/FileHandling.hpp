@@ -4,6 +4,9 @@
 #include<string>
 #include<fstream>
 
+#include <Logger.hpp>
+#include <LogSpace.hpp>
+
 namespace FileInterface
 {
     namespace Modification
@@ -31,6 +34,8 @@ namespace FileInterface
         std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile);
         std::unique_ptr<std::fstream> openFileToSave(const std::string& pathToFile);
     }
+
+    //Logger log {LogSpace::FileHandling};
 
 }
 

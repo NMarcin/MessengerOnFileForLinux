@@ -5,8 +5,8 @@
 
 ChatControl::ChatControl(const std::string& username)
 {
-    std::string folderName = *findChatFolder(username);
-    std::string fileName = *findChatFile(folderName);
+    std::string folderName = *getChatFolderName(username);
+    std::string fileName = *getChatFileName(folderName);
     pathToChatFile_ = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderName + "/" + fileName;
     sender_ = std::make_unique<Sender>();
     reciver_ = std::make_unique<Reciver>();
@@ -17,7 +17,7 @@ ChatControl::~ChatControl()
     //NOOP
 }
 
-std::unique_ptr<std::string> ChatControl::findChatFolder(const std::string& username)
+std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& username)
 {
     std::string possibleFolderName_1 = username + "_" + LocalUser::getLocalUser().getUsername();
     std::string possibleFolderName_2 = LocalUser::getLocalUser().getUsername() + "_" + username;
@@ -45,7 +45,7 @@ std::unique_ptr<std::string> ChatControl::findChatFolder(const std::string& user
     return nullptr;
 }
 
-std::unique_ptr<std::string> ChatControl::findChatFile(const std::string& folderName)
+std::unique_ptr<std::string> ChatControl::getChatFileName(const std::string& folderName)
 {
     std::unique_ptr<std::string> fileName = std::make_unique<std::string>(folderName);
     auto it = fileName->begin();
