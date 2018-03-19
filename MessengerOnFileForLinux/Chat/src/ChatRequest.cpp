@@ -58,7 +58,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
-    std::string command= "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH) + " | grep " + folderName;
+    std::string command= "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER) + " | grep " + folderName;
 
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
 
@@ -157,7 +157,7 @@ bool ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type)
 {
     std::string partOfFolderName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
     std::string folderFullName = *getChatFolderName(partOfFolderName);
-    std::string flagPath = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH + folderFullName;
+    std::string flagPath = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderFullName;
 
     if (AnswerType::disaccepted == type)
     {
@@ -223,7 +223,7 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
     std::string folderFullName = *getChatFolderName(folderName);
 
     const int timeToWaitForAnswer = 20;
-    const std::string flagPath = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_PATH + folderFullName;
+    const std::string flagPath = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderFullName;
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {

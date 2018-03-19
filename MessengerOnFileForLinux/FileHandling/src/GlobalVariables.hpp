@@ -18,10 +18,10 @@ namespace ENIVRONMENTAL_PATH
 
     namespace PATH_TO_FOLDER
     {
-        static const std::string homePath = getenv("HOME");
-        static const std::string USER_PATH = homePath + "/messenger/";
-        static constexpr auto CHATS_PATH = "/home/messenger/chats/";
-        static constexpr auto INSTALL_PATH = "/home/messenger/installation/";
+        static const std::string HOME_FOLDER = getenv("HOME");
+        static const std::string USER_FOLDER = HOME_FOLDER + "/messenger/";
+        static constexpr auto CHATS_FOLDER = "/home/messenger/chats/";
+        static constexpr auto INSTALL_FOLDER = "/home/messenger/installation/";
     }
 }
 
