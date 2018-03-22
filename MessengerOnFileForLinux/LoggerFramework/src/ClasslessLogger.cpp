@@ -1,5 +1,6 @@
-#pragma once
-#include <iostream>
+
+/*
+ * #include <ClasslessLogger.hpp>
 
 void fileLog(const char * logData, const char * logSpace)
 {
@@ -15,4 +16,4 @@ void fileLog(const char * logData, const char * logSpace)
 
     fclose(logFile);
 }
-
+*/

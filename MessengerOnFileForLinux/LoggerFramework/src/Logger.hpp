@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum SavingMode
 {
     fileOnly,
@@ -12,6 +14,7 @@ public:
     Logger(const char* logSpace, SavingMode mode=SavingMode::fileOnly);
     ~Logger();
 
+    void info(std::string& logData) const;
     void info(const char * logData) const;
 
 private:
