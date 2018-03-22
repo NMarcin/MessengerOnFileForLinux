@@ -45,6 +45,21 @@ TEST(ChatFileTest, canWeWriteToFile)
     EXPECT_TRUE(writingToFile);
 }
 
+TEST(ChatFileTest, canWeReadFromFile)
+{
+    folderDeleter();
+    ChatFabric chatFabric;
+    chatFabric.createChatStructure("inviterU", "receiver");
+
+    bool writingToFile = FileInterface::addRow(chatPath + fileName, "Test row");
+
+    ASSERT_TRUE(writingToFile);
+
+    bool readingFromFile = !FileInterface::getFileContent(chatPath + fileName)->empty();
+
+    EXPECT_TRUE(readingFromFile);
+}
+
 TEST(ChatFileTest, canWeCreateFilesInFolder)
 {
     folderDeleter();
