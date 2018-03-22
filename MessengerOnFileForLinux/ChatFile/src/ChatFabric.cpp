@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <ChatFabric.hpp>
+#include <GlobalVariables.hpp>
 
 ChatFabric::ChatFabric()
 {
@@ -16,11 +17,14 @@ ChatFabric::~ChatFabric()
 bool ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     log.info("ChatFabric::createChatStructure started");
-    std::string chatFolderName = createChatFolder("a", "b");
-    if("" == chatFolderName)
+    std::string chatFolderName = createChatFolder(usernameInviter, usernameGuess);
+    if("" != chatFolderName)
     {
-        if(createChatFile("0a_b", "a", "b"))
+        std::string chatFileName = createChatFile(chatFolderName, usernameInviter, usernameGuess);
+        if("" != chatFileName)
         {
+            std::string chatFileWithPath = chatFolderName + chatFileName;
+            log.info(("ChatFabric::createChatStructure succes, chatFileWithPath:" + chatFileWithPath).c_str());
             return true;
         }
         log.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
@@ -32,27 +36,32 @@ bool ChatFabric::createChatStructure(const std::string& usernameInviter, const s
 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    int folderNumber = getFreeFolderNumber("/home/messenger/chats/");        // podmienic na zmienna srodowiskowa
-    std::string newFolderName = std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess;
-    std::string systemCommand = "mkdir /home/messenger/chats/" + newFolderName; // jw
+    int folderNumber = getFreeFolderNumber(CHATS_PATH);
+    std::string newFolderName = static_cast<std::string>(CHATS_PATH) + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
+    std::string systemCommand = "mkdir " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
-
-    if(commandStatus)
+    if(!commandStatus)
     {
-        log.info("ChatFabric::createChatFolder commandStatus = true");
+        log.info(("ChatFabric::createChatFolder succes, folderName: " + newFolderName).c_str());
         return newFolderName;
     }
-    log.info("ChatFabric::createChatFolder commandStatus == false");
+    log.info("ChatFabric::createChatFolder commandStatus failure");
     return {};
 }
 
-bool ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
+std::string ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     std::string newFileName = usernameInviter + "_" + usernameGuess;
-    std::string systemCommand = "touch /home/messenger/chats/" + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
+    std::string systemCommand = "touch " + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
     bool commandStatus = system(systemCommand.c_str());
 
-    return commandStatus;
+    if(!commandStatus)
+    {
+        log.info("ChatFabric::createChatFile commandStatus done");
+        return newFileName;
+    }
+    log.info("ChatFabric::createChatFile commandStatus failure");
+    return {};
 }
 
 int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
@@ -60,6 +69,12 @@ int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
     int freeFolderNumber = -1;
     std::vector<std::string> filesInPath= {}; // pobranie wektora nazw plików w danym folderze alfabetycznie (to powinno potem być w interfejsie plikow)
     auto fileIterator = filesInPath.begin();
+
+    if(filesInPath.empty())
+    {
+        freeFolderNumber = 0;
+        return freeFolderNumber;
+    }
 
     for(int folderNumber = 0; 0 <= freeFolderNumber; ++folderNumber)    // aktualna funkcjonalnosc dziala tylko dla 10 rozmow jednoczesnie, TODO mnurzyns dla wiekszej ilosci
     {

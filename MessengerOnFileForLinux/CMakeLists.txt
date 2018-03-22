@@ -37,6 +37,7 @@ include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/test)
 # TEST
 add_subdirectory(main/test)
 add_subdirectory(LoggerFramework/test)
+add_subdirectory(ChatFile/test)
 
 message(STATUS ${TEST_SOURCES})
 
