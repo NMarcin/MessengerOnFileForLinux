@@ -4,20 +4,22 @@
 
 SignOut::SignOut()
 {
-    //NOOP
+    log.info("SignOut C-TOR");
 }
 
 SignOut::~SignOut()
 {
-    //NOOP
+    log.info("SignOut D-TOR");
 }
 
 bool SignOut::signOutUser() const
 {
+    log.info("SignOut::signOutUser started");
     return removeUserDataFromLoggedFile();
 }
 
 bool SignOut::removeUserDataFromLoggedFile() const
 {
-    return FileInterface::Modification::removeRow(ENIVRONMENTAL_PATH::PATH_TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
+    log.info("SignOut::removeUserDataFromLoggedFile started");
+    return FileInterface::Modification::removeRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
 }

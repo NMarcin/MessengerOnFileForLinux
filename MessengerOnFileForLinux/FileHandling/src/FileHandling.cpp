@@ -3,12 +3,91 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <ClasslessLogger.hpp>
+#include <LogSpace.hpp>
 #include <FileHandling.hpp>
+
+namespace
+{
+    std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile)
+    {
+        fileLog("FileInterface::openFileToRead started", LogSpace::FileHandling);
+        if (!FileInterface::Managment::isFileExist(pathToFile))
+        {
+            std::string logInfo = "FileInterface::openFileToRead ERROR: " + pathToFile + " does not exist";
+            fileLog(logInfo.c_str(), LogSpace::FileHandling);
+            return nullptr;
+        }
+
+        std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
+
+        if (!FileInterface::Managment::isFileExist(folderName + "/GUARD"))
+        {
+            FileInterface::Managment::createFile(folderName + "/GUARD");
+        }
+        else
+        {
+            std::string logInfo = "FileInterface::openFileToRead ERROR: cannot get access to" + pathToFile;
+            fileLog(logInfo.c_str(), LogSpace::FileHandling);
+            return nullptr;
+        }
+
+        std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
+        fileToOpen->open(pathToFile, std::ios::in);
+
+        if (fileToOpen->is_open())
+        {
+            return fileToOpen;
+        }
+        else
+        {
+            fileLog("FileInterface::openFileToRead ERROR: is_open() failed", LogSpace::FileHandling);
+            return nullptr;
+        }
+    }
+
+    std::unique_ptr<std::fstream> openFileToWrite(const std::string& pathToFile)
+    {
+        fileLog("FileInterface::openFileToWrite started", LogSpace::FileHandling);
+        if (!FileInterface::Managment::isFileExist(pathToFile))
+        {
+            std::string logInfo = "FileInterface::openFileToWrite ERROR: " + pathToFile + " does not exist";
+            fileLog(logInfo.c_str(), LogSpace::FileHandling);
+            return nullptr;
+        }
+
+        std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
+
+        if (!FileInterface::Managment::isFileExist(folderName + "/GUARD"))
+        {
+            FileInterface::Managment::createFile(folderName + "/GUARD");
+        }
+        else
+        {
+            std::string logInfo = "FileInterface::openFileToWrite ERROR: cannot get access to" + pathToFile;
+            fileLog(logInfo.c_str(), LogSpace::FileHandling);
+            return nullptr;
+        }
+
+        std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
+        fileToOpen->open(pathToFile, std::ios::out | std::ios::ate);
+
+        if (fileToOpen->is_open())
+        {
+            return fileToOpen;
+        }
+        else
+        {
+            fileLog("FileInterface::openFileToWrite ERROR: is_open() failed", LogSpace::FileHandling);
+            return nullptr;
+        }
+    }
+}
 
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
-    //log.info("FileInterface::Modification::addRow started");
-    if (std::unique_ptr<std::fstream> file = Managment::openFileToSave(pathToFile))
+    fileLog("FileInterface::Modification::addRow started", LogSpace::FileHandling);
+    if (std::unique_ptr<std::fstream> file = openFileToWrite(pathToFile))
     {
         *file << text;
         *file << '\n';
@@ -18,7 +97,7 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
     }
     else
     {
-        //log.info("FileInterface::Modification::addRow ERROR Cannot get file acces");
+        fileLog("FileInterface::Modification::addRow ERROR: Cannot get file acces", LogSpace::FileHandling);
         return false;
     }
 }
@@ -26,24 +105,27 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
 
 bool FileInterface::Managment::createFile(const std::string& pathToFile)
 {
-    //log.info("FileInterface::Managment::createFile started");
+    std::string logInfo = "FileInterface::Managment::createFile " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string systemCommand = "touch " + pathToFile;
     system(systemCommand.c_str());
 
     if (!isFileExist(pathToFile))
     {
-        //log.info("FileInterface::Managment::createFile ERROR: File was not creat");
+        std::string logInfo = "FileInterface::Managment::createFile started ERROR: " + pathToFile + "was not create";
+        fileLog(logInfo.c_str(), LogSpace::FileHandling);
         return false;
     }
 }
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile)
 {
-    //log.info("FileInterface::Accesor::getFileContent started");
+    std::string logInfo = "FileInterface::Accesor::getFileContent " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
-    if (std::unique_ptr<std::fstream> file = Managment::openFileToRead(pathToFile))
+    if (std::unique_ptr<std::fstream> file = openFileToRead(pathToFile))
     {
         while (!file->eof())
         {
@@ -54,7 +136,8 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
     }
     else
     {
-        //log.info("FileInterface::Accesor::getFileContent ERROR: Cannot get file acces");
+        std::string logInfo = "FileInterface::Accesor::getFileContent ERROR: Cannot get acces to "  + pathToFile;
+        fileLog(logInfo.c_str(), LogSpace::FileHandling);
         Managment::removeFile(folderName + "/GUARD");
         return nullptr;
     }
@@ -66,15 +149,18 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFromFolder(const std::string& pathToDir)
 {
+    std::string logInfo = "FileInterface::Accesor::getFilenamesFromFolder from " + pathToDir;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string command = "ls " + pathToDir;
     std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
 
     std::unique_ptr<std::vector<std::string>> filesNames = std::make_unique<std::vector< std::string>>();
     std::string fileName;
 
+    const int lastWhitespaceCharacterASCII = 32;
     for (auto& x : commandOutput)
     {
-        if (20 < x ) //ASCI bo byl problem z ' '
+        if (lastWhitespaceCharacterASCII < x )
         {
             fileName += x;
         }
@@ -90,6 +176,8 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
 
 std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::string& pathToFile)
 {
+    std::string logInfo = "FileInterface::Accesor::getFolderName  from " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     auto it = pathToFile.end();
 
     while ('/' != *it)
@@ -102,12 +190,13 @@ std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::st
     return folderName;
 }
 
-
 std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::string& field, const int fieldNumber)
 {
+    fileLog("FileInterface::Accesor::getRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
 
+    std::string::iterator it;
     for (auto& x : field)
     {
         if ('[' == x)
@@ -116,7 +205,7 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
         }
         else if (actualFieldNumber == fieldNumber && ']' != x)
         {
-            fieldToDownload -> push_back(x);
+            *fieldToDownload += x;
         }
     }
     return fieldToDownload;
@@ -124,86 +213,25 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
 
 bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 {
+    std::string logInfo = "FileInterface::Managment::isFileExist " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::ifstream file(pathToFile);
     return file.good();
 }
 
-std::unique_ptr<std::fstream> FileInterface::Managment::openFileToRead(const std::string& pathToFile)
-{
-    if (!isFileExist(pathToFile))
-    {
-        std::cerr << pathToFile + " does not exist. " << std::endl;
-        return nullptr; //TODO mwozniak error
-    }
-
-    std::string folderName = *Accesor::getFolderName(pathToFile);
-
-    if (!isFileExist(folderName + "/GUARD"))
-    {
-        createFile(folderName + "/GUARD");
-    }
-    else
-    {
-        return nullptr; //TODO mwozniak errror
-    }
-
-    std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-    fileToOpen->open(pathToFile, std::ios::in);
-    if (fileToOpen->is_open())
-    {
-        return fileToOpen;
-    }
-    else
-    {
-        return nullptr; //TODO mwozniak errror
-    }
-}
-
-std::unique_ptr<std::fstream> FileInterface::Managment::openFileToSave(const std::string& pathToFile)
-{
-    if (!isFileExist(pathToFile))
-    {
-        std::cerr << pathToFile + " does not exist. " << std::endl;
-        return nullptr; //TODO mwozniak errror
-    }
-
-    std::string folderName = *Accesor::getFolderName(pathToFile);
-
-    if (!isFileExist(folderName + "/GUARD"))
-    {
-        createFile(folderName + "/GUARD");
-    }
-    else
-    {
-        return nullptr; //TODO mwozniak errror
-    }
-
-
-    std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-    fileToOpen->open(pathToFile, std::ios::out | std::ios::ate);
-
-    if (fileToOpen->is_open())
-    {
-        return fileToOpen;
-    }
-    else
-    {
-        return nullptr; //TODO mwozniak errror
-    }
-}
-
-
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
+    std::string logInfo = "FileInterface::Managment::removeFile " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     const char * c = pathToFile.c_str();
     return ! std::remove(c); // 0 when success
-    //TODO mwozniak mnurzynski czy moze usuwac systemowo przez rm ?
 }
 
 
 
 std::unique_ptr<std::string> FileInterface::Modification::removeRowField(const std::string& row, const int fieldNumber)
 {
+    fileLog("FileInterface::Modification::removeRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> rowWithoutRemovedField = std::make_unique<std::string>();
 
@@ -225,7 +253,8 @@ std::unique_ptr<std::string> FileInterface::Modification::removeRowField(const s
 
 
 bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
-{    
+{
+    fileLog("FileInterface::Modification::removeRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
     if (Managment::isFileExist(folderName + "/GUARD"))
@@ -246,10 +275,12 @@ bool FileInterface::Modification::removeRow(const std::string& pathToFile, const
 
 bool FileInterface::Modification::updateRow(const std::string & pathToFile, const std::string & newRow, const std::string & where)
 {
+    fileLog("FileInterface::Modification::updateRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
     if (Managment::isFileExist(folderName + "/GUARD"))
     {
+        fileLog("FileInterface::Modification::updateRow ERROR: File does not exist", LogSpace::FileHandling);
         return false;
     }
 
@@ -267,6 +298,7 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
 
 std::unique_ptr<std::string> FileInterface::Modification::updateRowField(const std::string& row, const std::string& newField, const int fieldNumber)
 {
+    fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     bool flag = false;
     std::unique_ptr< std::string> rowToUpdate = std::make_unique<std::string>();
@@ -304,20 +336,12 @@ std::unique_ptr<std::string> FileInterface::Modification::updateRowField(const s
 
 /** TO NIZEJ GDIZE INDZIEJ*/
 
-
-std::string ConsolControl::getActualDateTime()
-{
-    std::string dateTime = __DATE__;
-    dateTime += "|";
-    dateTime += __TIME__;
-    return dateTime;
-}
-
 std::string ConsolControl::getStdoutFromCommand(std::string cmd)
 {
+    fileLog("ConsolControl::getStdoutFromCommand  started", LogSpace::FileHandling);
     std::string data;
     FILE * stream;
-    const int max_buffer = 256;
+    const int max_buffer = 1024;
     char buffer[max_buffer];
     cmd.append(" 2>&1");
     stream = popen(cmd.c_str(), "r");

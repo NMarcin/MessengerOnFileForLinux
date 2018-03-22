@@ -4,9 +4,6 @@
 #include<string>
 #include<fstream>
 
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-
 namespace FileInterface
 {
     namespace Modification
@@ -31,20 +28,13 @@ namespace FileInterface
         bool createFile(const std::string& pathToFile);
         bool removeFile(const std::string& pathToFile);
         bool isFileExist(const std::string& pathToFile);
-        std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile);
-        std::unique_ptr<std::fstream> openFileToSave(const std::string& pathToFile);
     }
-
-    //Logger log {LogSpace::FileHandling};
-
 }
 
 /** wrzucic to gdzie indzie*/
-//TODO mwozniak mnurzyn jaka nazwa ?
 namespace ConsolControl
 {
-std::string getActualDateTime();//DONE
-std::string getStdoutFromCommand(std::string cmd);
+    std::string getStdoutFromCommand(std::string cmd);
 }
 
 

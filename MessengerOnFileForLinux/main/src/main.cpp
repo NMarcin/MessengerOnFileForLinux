@@ -12,19 +12,18 @@
 #include <ChatRequest.hpp>
 #include <Sender.hpp>
 
-#include <Logger.hpp>
-#include <ClasslessLogger.hpp>
-#include <LogSpace.hpp>
+//#include <Logger.hpp>
+//#include <ClasslessLogger.hpp>
+//#include <LogSpace.hpp>
 
 void mnurzyns()
 {
     std::cout << "mnurzyns:\n\n";
-    fileLog("Witamy w logerze!", LogSpace::main);
+    //fileLog("Witamy w logerze!", LogSpace::main);
 }
 
 void mwozniak()
 {
-
     std::string fileName("125Dupaasd23");
     auto it = fileName.begin();
     while (isdigit(*it))

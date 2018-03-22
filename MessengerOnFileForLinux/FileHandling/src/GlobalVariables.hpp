@@ -8,26 +8,26 @@
 
 #include <ChatRequest.hpp>
 
-namespace ENIVRONMENTAL_PATH
+namespace ENIVRONMENT_PATH
 {
     namespace PATH_TO_FILE
     {
-        static constexpr auto REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
-        static constexpr auto LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
+        static const std::string REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
+        static const std::string LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
     }
 
     namespace PATH_TO_FOLDER
     {
         static const std::string HOME_FOLDER = getenv("HOME");
         static const std::string USER_FOLDER = HOME_FOLDER + "/messenger/";
-        static constexpr auto CHATS_FOLDER = "/home/messenger/chats/";
-        static constexpr auto INSTALL_FOLDER = "/home/messenger/installation/";
+        static const std::string CHATS_FOLDER = "/home/messenger/chats/";
+        static const std::string INSTALL_FOLDER = "/home/messenger/installation/";
     }
 }
 
 namespace FileStructure {
 
-    namespace FileField
+    namespace FileField //TODO mwozniak rozbic na mniejsze
     {
         static constexpr int usernameFieldInLoggedFile = 0;
         static constexpr int statusFieldInLoggedFile = 1;
@@ -37,7 +37,7 @@ namespace FileStructure {
         static constexpr int dateTimeFieldInRegisteredFile = 2;
     }
 
-    namespace FieldValue
+    namespace FieldValue //TODO do wyrzucania jak napisze ChatControl i poprawie ChatRequest
     {
         static const std::string userActiveStatus = "0";
         static const std::string userBussyStatus = "1";

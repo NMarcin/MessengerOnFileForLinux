@@ -56,7 +56,7 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 bool RegisterUser::isUserRegistered() const
 {
     log.info("RegisterUser::isUserRegistered started");
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENTAL_PATH::PATH_TO_FILE::REGISTERED_FILE);
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENT_PATH::PATH_TO_FILE::REGISTERED_FILE);
     for (auto & x : *registeredFileContent)
     {
         std::string username = LocalUser::getLocalUser().getUsername();
@@ -121,11 +121,10 @@ bool RegisterUser::setUserPassword(const std::string& password) const
 bool RegisterUser::saveUserDataInRegisteredFile() const
 {
     log.info("RegisterUser::saveUserDataInRegisteredFile started");
-    std::string actualDateTime = ConsolControl::getActualDateTime();
     std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
-            + LocalUser::getLocalUser().getPassword() +"]["+ actualDateTime +"]";
+            + LocalUser::getLocalUser().getPassword() +"]";//TODO DATE&&TIME mwozniak
     //TODO mwozniak
     //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
 
-    return FileInterface::Modification::addRow(ENIVRONMENTAL_PATH::PATH_TO_FILE::REGISTERED_FILE, accountInformations);
+    return FileInterface::Modification::addRow(ENIVRONMENT_PATH::PATH_TO_FILE::REGISTERED_FILE, accountInformations);
 }

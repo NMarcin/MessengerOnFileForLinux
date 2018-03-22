@@ -7,7 +7,7 @@ ChatControl::ChatControl(const std::string& username)
 {
     std::string folderName = *getChatFolderName(username);
     std::string fileName = *getChatFileName(folderName);
-    pathToChatFile_ = ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderName + "/" + fileName;
+    pathToChatFile_ = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderName + "/" + fileName;
     sender_ = std::make_unique<Sender>();
     reciver_ = std::make_unique<Reciver>();
 }
@@ -21,8 +21,8 @@ std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& u
 {
     std::string possibleFolderName_1 = username + "_" + LocalUser::getLocalUser().getUsername();
     std::string possibleFolderName_2 = LocalUser::getLocalUser().getUsername() + "_" + username;
-    std::string command_1 = "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER) + " | grep " + possibleFolderName_1;
-    std::string command_2 = "ls " + static_cast<std::string>(ENIVRONMENTAL_PATH::PATH_TO_FOLDER::CHATS_FOLDER) + " | grep " + possibleFolderName_2;
+    std::string command_1 = "ls " + static_cast<std::string>(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER) + " | grep " + possibleFolderName_1;
+    std::string command_2 = "ls " + static_cast<std::string>(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER) + " | grep " + possibleFolderName_2;
 
     std::unique_ptr<std::string> folderName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command_1));
 
