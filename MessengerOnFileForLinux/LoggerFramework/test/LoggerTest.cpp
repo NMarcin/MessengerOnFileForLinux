@@ -16,8 +16,6 @@ TEST(LoggerFrameworkTest, logFileCreation)
     Logger log(LogSpace::Logger);
     log.info("Test log");
     EXPECT_TRUE(FileInterface::Managment::isFileExist("Logger_default.txt"));
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, logFileCreationWithoutClass)
@@ -27,8 +25,6 @@ TEST(LoggerFrameworkTest, logFileCreationWithoutClass)
     //EXPECT_FALSE(FileInterface::Managment::isFileExist("Logger_default.txt"));
     fileLog("Test log", LogSpace::Logger);
     EXPECT_TRUE(FileInterface::Managment::isFileExist("Logger_default.txt"));
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, writingToLogFile)
@@ -39,10 +35,7 @@ TEST(LoggerFrameworkTest, writingToLogFile)
     log.info("Test log");
     std::ifstream logFile("Logger_default.txt", std::ifstream::ate);
     int fileSize = logFile.tellg();
-
     EXPECT_TRUE(fileSize);
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, writingToLogFileWithoutClass)
@@ -52,10 +45,7 @@ TEST(LoggerFrameworkTest, writingToLogFileWithoutClass)
     fileLog("Test log", LogSpace::Logger);
     std::ifstream logFile("Logger_default.txt", std::ifstream::ate);
     int fileSize = logFile.tellg();
-
     EXPECT_TRUE(fileSize);
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, isLogCorrectlyAdded)
@@ -75,8 +65,6 @@ TEST(LoggerFrameworkTest, isLogCorrectlyAdded)
     logInFile.erase(logInFile.begin(), logInFile.begin() + DateTimeSize);
 
     EXPECT_EQ(expectedLog, logInFile);
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, isLogCorrectlyAddedWithoutClass)
@@ -95,8 +83,6 @@ TEST(LoggerFrameworkTest, isLogCorrectlyAddedWithoutClass)
     logInFile.erase(logInFile.begin(), logInFile.begin() + DateTimeSize);
 
     EXPECT_EQ(expectedLog, logInFile);
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, isLogNotOverwritten)
@@ -115,6 +101,4 @@ TEST(LoggerFrameworkTest, isLogNotOverwritten)
 
 
     EXPECT_TRUE(newFileSize > fileSize);
-
-    FileInterface::Managment::removeFile("Logger_default.txt");
 }
