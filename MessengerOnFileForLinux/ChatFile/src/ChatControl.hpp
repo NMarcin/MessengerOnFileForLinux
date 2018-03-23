@@ -8,10 +8,10 @@
 #include <Reciver.hpp>
 #include <User.hpp>
 
-enum class ChatRole
+enum class MessageFlag
 {
     inviter = 1,
-    respondent = 2
+    recipient = 2
 };
 
 class ChatControl
@@ -21,19 +21,18 @@ public:
     ~ChatControl();
 
     void startConversationAsInviter(const std::string& username);
-    void startConversationAsRespondent(const int pid);
+    void startConversationAsRecipient(const int pid);
     void endConversation();
 
 private:
-    void setChatPathWithFile(const std::string& username);
     void conversationControl();
     std::unique_ptr<std::string> getChatFolderName(const std::string& username);
     std::unique_ptr<std::string> getChatFileName(const std::string& folderName);
+    void setChatPathWithFile(const std::string& username);
 
-    std::thread senderThread;
-    std::thread reciverThread;
+    std::vector<std::thread> threads_;
     std::string pathToChatFile_;
-    ChatRole chatRole_;
-    bool isChatRunning = true;
+    MessageFlag messageFlag_;
+    bool isChatRunning_ = true;
 
 };

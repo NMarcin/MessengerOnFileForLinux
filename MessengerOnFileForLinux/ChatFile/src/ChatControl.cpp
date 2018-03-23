@@ -11,8 +11,14 @@ ChatControl::ChatControl()
 
 ChatControl::~ChatControl()
 {
-    senderThread.join();
-    reciverThread.join();
+    if (!threads_.empty())
+    {
+        std::cout << "HERE" << std::endl;
+        for (auto& x : threads_)
+        {
+            x.join();
+        }
+    }
 }
 
 std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& username)
@@ -26,7 +32,6 @@ std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& u
 
     if (!folderName->empty())
     {
-        chatRole_ = ChatRole::inviter;
         folderName->pop_back(); //usuwanie znaku konca lini
         return folderName;
     }
@@ -35,7 +40,6 @@ std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& u
 
     if (!folderName->empty())
     {
-        chatRole_ = ChatRole::respondent;
         folderName->pop_back();
         return folderName;
     }
@@ -71,11 +75,12 @@ void ChatControl::startConversationAsInviter(const std::string& username)
     if(isInviteAccepted)
     {
         setChatPathWithFile(username);
+        messageFlag_ = MessageFlag::inviter;
         conversationControl();
     }
 }
 
-void ChatControl::startConversationAsRespondent(const int pid)
+void ChatControl::startConversationAsRecipient(const int pid)
 {
     ChatRequest chatRequest;
     bool isInviteAccepted = chatRequest.answerForChatRequest(pid);
@@ -83,41 +88,39 @@ void ChatControl::startConversationAsRespondent(const int pid)
     {
         std::unique_ptr<std::string> username = chatRequest.getUsernameThroughPid(pid);
         setChatPathWithFile(*username);
+        messageFlag_ = MessageFlag::recipient;
         conversationControl();
     }
 }
 
 void ChatControl::conversationControl()
 {
-    senderThread = std::thread([&](){
-        std::unique_ptr<Sender> sender_ = std::make_unique<Sender>();
-
-        while(isChatRunning)
+    threads_.push_back(std::thread([&](){
+        std::unique_ptr<Sender> sender_ = std::make_unique<Sender>(pathToChatFile_, static_cast<int>(messageFlag_));
+        while(isChatRunning_)
         {
-            sender_->sendMessage(pathToChatFile_, 1);
-            std::cout << " T1 " << std::endl;
-            sleep(1);
+            sender_->sendMessage();
         }
-    });
+    }));
 
-    reciverThread = std::thread([&](){
+
+    threads_.push_back(std::thread([&](){
         int k = 0;
         std::unique_ptr<Reciver> reciver_ = std::make_unique<Reciver>();
-        while(isChatRunning)
+        while(isChatRunning_)
         {
             //reciver_->recive()
-            std::cout << " T2 " << std::endl;
             sleep(1);
         }
-    });
+    }));
 
 
 }
 
 void ChatControl::endConversation()
 {
-    isChatRunning = false;
-    //TODO mwozniak mozliwosc pobrania histori rozmowy
+    isChatRunning_ = false;
+    //TODO mnurzyn pobieranie historii
     std::cout << "KONCZE CZAT" << std::endl;
 }
 
