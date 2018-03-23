@@ -15,6 +15,7 @@ class ChatRequest
 public:
     bool answerForChatRequest(const int usernamePid) const;
     bool sendChatRequest(const std::string& username) const;
+    std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
 
     ChatRequest();
     ~ChatRequest();
@@ -22,7 +23,6 @@ public:
 private:
     bool changeUserStatus(const User& user, const std::string& newStatus) const;
     std::unique_ptr<std::string> getChatFolderName(const std::string& folderName) const;
-    std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
     std::unique_ptr<std::string> getUserStatus(const std::string& username) const;
     bool isUserActive(const User& user) const;
     bool respondOnInvitation() const;

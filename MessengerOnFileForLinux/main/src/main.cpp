@@ -11,6 +11,7 @@
 #include <LocalUser.hpp>
 #include <ChatRequest.hpp>
 #include <Sender.hpp>
+#include <ChatControl.hpp>
 
 //#include <Logger.hpp>
 //#include <ClasslessLogger.hpp>
@@ -24,19 +25,6 @@ void mnurzyns()
 
 void mwozniak()
 {
-    std::string fileName("125Dupaasd23");
-    auto it = fileName.begin();
-    while (isdigit(*it))
-    {
-        --it;
-
-    }
-    std::string tmp(it, fileName.end());
-    std::cout << tmp;
-
-    std::cout << *FileInterface::Accesor::getFolderName("/home/marcin/plik/dupa.txt") << std::endl;
-
-
   initSigusr1Action();
 
   int h;
@@ -46,13 +34,6 @@ void mwozniak()
       {
       }
     std::cout << "mwozniak:\n\n";
-    /*
-    createFile("plik.txt", "../");
-    createFile("tmp.txt");
-    addRow("plik.txt","costamcostam");
-    addRow("plik.txt","costamcostam", "../");
-    addRow("tmp.txt","wwwwwmcostam");
-    */
     RegisterUser registerUser;
     registerUser.registerNewUser();
 
@@ -62,14 +43,24 @@ void mwozniak()
     SignIn signIn;
     signIn.signInUser();
 
-    ChatRequest chat;
-    chat.sendChatRequest("marcin1008");
+    ChatControl control;
+    control.startConversationAsInviter("marcin1008");
+    //ChatRequest chat;
+    //chat.sendChatRequest("marcin1008");
 
     //Sender sender;
     //sender.sendMessage("marcin1008");
 
+    for (int i = 0; i < 6; i++)
+    {
+        sleep(1);
+    }
+
+    control.endConversation();
+
     SignOut signOut;
     signOut.signOutUser();
+
 }
 
 enum class Run

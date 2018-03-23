@@ -16,14 +16,23 @@ Sender::~Sender()
 std::unique_ptr<std::string> Sender::enterMessage() const
 {
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    std::cout << "Enter message : ";
-    std::cin >> *message;
-    return message;
+
+    std::cout << " JESTEM TU" << std::endl;
+
+    getline(std::cin, *message);
+
+    if (message->empty()) {
+        /* ... nothing entered ... */
+        std::cout << " NIC NIE PODALISMY" << std::endl;
+    }
+
+        return message;
+
 }
 
 bool Sender::sendMessage(const std::string& pathToChatFile, int flag) const
 {
-
+    std::cout << " sendMessage" << std::endl;
     std::unique_ptr<std::string> rawMessage = enterMessage();
     std::unique_ptr<std::string> message = prepearMessageToSend(*rawMessage, flag);
 

@@ -1,20 +1,18 @@
 #include <ChatControl.hpp>
 #include <FileHandling.hpp>
+#include <ChatRequest.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 
-ChatControl::ChatControl(const std::string& username)
+ChatControl::ChatControl()
 {
-    std::string folderName = *getChatFolderName(username);
-    std::string fileName = *getChatFileName(folderName);
-    pathToChatFile_ = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderName + "/" + fileName;
-    sender_ = std::make_unique<Sender>();
-    reciver_ = std::make_unique<Reciver>();
+    //NOOP
 }
 
 ChatControl::~ChatControl()
 {
-    //NOOP
+    senderThread.join();
+    reciverThread.join();
 }
 
 std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& username)
@@ -28,7 +26,7 @@ std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& u
 
     if (!folderName->empty())
     {
-        chatRole_ = ChatRole::inviting;
+        chatRole_ = ChatRole::inviter;
         folderName->pop_back(); //usuwanie znaku konca lini
         return folderName;
     }
@@ -57,13 +55,83 @@ std::unique_ptr<std::string> ChatControl::getChatFileName(const std::string& fol
     return fileName;
 }
 
-bool ChatControl::sendMessage() const
+void ChatControl::setChatPathWithFile(const std::string& username)
 {
-    return sender_->sendMessage(pathToChatFile_, static_cast<int>(chatRole_));
+    std::string folderName = *getChatFolderName(username);
+    std::string fileName = *getChatFileName(folderName);
+    std::string chatPathWithFile = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderName + "/" + fileName;
+    pathToChatFile_ = chatPathWithFile;
 }
 
-bool ChatControl::reciveMessage() const
+
+void ChatControl::startConversationAsInviter(const std::string& username)
 {
-    //return reciver_->reciveMesage(pathToChatFile_);
-    return true;
+    ChatRequest chatRequest;
+    bool isInviteAccepted = chatRequest.sendChatRequest(username);
+    if(isInviteAccepted)
+    {
+        setChatPathWithFile(username);
+        conversationControl();
+    }
 }
+
+void ChatControl::startConversationAsRespondent(const int pid)
+{
+    ChatRequest chatRequest;
+    bool isInviteAccepted = chatRequest.answerForChatRequest(pid);
+    if(isInviteAccepted)
+    {
+        std::unique_ptr<std::string> username = chatRequest.getUsernameThroughPid(pid);
+        setChatPathWithFile(*username);
+        conversationControl();
+    }
+}
+
+void ChatControl::conversationControl()
+{
+    senderThread = std::thread([&](){
+        std::unique_ptr<Sender> sender_ = std::make_unique<Sender>();
+
+        while(isChatRunning)
+        {
+            sender_->sendMessage(pathToChatFile_, 1);
+            std::cout << " T1 " << std::endl;
+            sleep(1);
+        }
+    });
+
+    reciverThread = std::thread([&](){
+        int k = 0;
+        std::unique_ptr<Reciver> reciver_ = std::make_unique<Reciver>();
+        while(isChatRunning)
+        {
+            //reciver_->recive()
+            std::cout << " T2 " << std::endl;
+            sleep(1);
+        }
+    });
+
+
+}
+
+void ChatControl::endConversation()
+{
+    isChatRunning = false;
+    //TODO mwozniak mozliwosc pobrania histori rozmowy
+    std::cout << "KONCZE CZAT" << std::endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
