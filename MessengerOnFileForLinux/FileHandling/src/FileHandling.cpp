@@ -70,7 +70,7 @@ namespace
         }
 
         std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-        fileToOpen->open(pathToFile, std::ios::out | std::ios::ate);
+        fileToOpen->open(pathToFile, std::ios::out | std::ios::app);
 
         if (fileToOpen->is_open())
         {
@@ -332,6 +332,8 @@ std::unique_ptr<std::string> FileInterface::Modification::updateRowField(const s
     }
     return rowToUpdate;
 }
+
+
 
 
 /** TO NIZEJ GDIZE INDZIEJ*/
