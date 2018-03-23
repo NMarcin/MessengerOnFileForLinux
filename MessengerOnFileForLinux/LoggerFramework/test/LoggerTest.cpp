@@ -6,50 +6,52 @@
 #include <FileHandling.hpp>
 #include <fstream>
 
+
+
 TEST(LoggerFrameworkTest, logFileCreation)
 {
-    EXPECT_FALSE(FileInterface::isFileExists("Logger_default.txt"));
+    FileInterface::Managment::removeFile("Logger_default.txt");
+    //TODO mnurzyn
+    //EXPECT_FALSE(FileInterface::Managment::isFileExist("Logger_default.txt"));
     Logger log(LogSpace::Logger);
     log.info("Test log");
-    EXPECT_TRUE(FileInterface::isFileExists("Logger_default.txt"));
-
-    FileInterface::removeFile("Logger_default.txt");
+    EXPECT_TRUE(FileInterface::Managment::isFileExist("Logger_default.txt"));
 }
 
 TEST(LoggerFrameworkTest, logFileCreationWithoutClass)
 {
-    EXPECT_FALSE(FileInterface::isFileExists("Logger_default.txt"));
-    fileLog("Test log", LogSpace::Logger);
-    EXPECT_TRUE(FileInterface::isFileExists("Logger_default.txt"));
+    FileInterface::Managment::removeFile("Logger_default.txt");
 
-    FileInterface::removeFile("Logger_default.txt");
+    //EXPECT_FALSE(FileInterface::Managment::isFileExist("Logger_default.txt"));
+    fileLog("Test log", LogSpace::Logger);
+    EXPECT_TRUE(FileInterface::Managment::isFileExist("Logger_default.txt"));
 }
 
 TEST(LoggerFrameworkTest, writingToLogFile)
 {
+    FileInterface::Managment::removeFile("Logger_default.txt");
+
     Logger log(LogSpace::Logger);
     log.info("Test log");
     std::ifstream logFile("Logger_default.txt", std::ifstream::ate);
     int fileSize = logFile.tellg();
-
     EXPECT_TRUE(fileSize);
-
-    FileInterface::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, writingToLogFileWithoutClass)
 {
+    FileInterface::Managment::removeFile("Logger_default.txt");
+
     fileLog("Test log", LogSpace::Logger);
     std::ifstream logFile("Logger_default.txt", std::ifstream::ate);
     int fileSize = logFile.tellg();
-
     EXPECT_TRUE(fileSize);
-
-    FileInterface::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, isLogCorrectlyAdded)
 {
+    FileInterface::Managment::removeFile("Logger_default.txt");
+
     Logger log(LogSpace::Logger);
     std::string logInfo = "Test log";
     log.info(logInfo);
@@ -63,12 +65,12 @@ TEST(LoggerFrameworkTest, isLogCorrectlyAdded)
     logInFile.erase(logInFile.begin(), logInFile.begin() + DateTimeSize);
 
     EXPECT_EQ(expectedLog, logInFile);
-
-    FileInterface::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, isLogCorrectlyAddedWithoutClass)
 {
+    FileInterface::Managment::removeFile("Logger_default.txt");
+
     std::string logInfo = "Test log";
     fileLog(logInfo.c_str(), LogSpace::Logger);
     std::string expectedLog = "Logger \t " + logInfo;
@@ -81,12 +83,12 @@ TEST(LoggerFrameworkTest, isLogCorrectlyAddedWithoutClass)
     logInFile.erase(logInFile.begin(), logInFile.begin() + DateTimeSize);
 
     EXPECT_EQ(expectedLog, logInFile);
-
-    FileInterface::removeFile("Logger_default.txt");
 }
 
 TEST(LoggerFrameworkTest, isLogNotOverwritten)
 {
+    FileInterface::Managment::removeFile("Logger_default.txt");
+
     Logger log(LogSpace::Logger);
     log.info("Test log");
     std::ifstream logFile("Logger_default.txt", std::ifstream::ate);
@@ -99,6 +101,4 @@ TEST(LoggerFrameworkTest, isLogNotOverwritten)
 
 
     EXPECT_TRUE(newFileSize > fileSize);
-
-    FileInterface::removeFile("Logger_default.txt");
 }

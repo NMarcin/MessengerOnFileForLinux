@@ -12,6 +12,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 include(CTest)
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GTest REQUIRED)
+find_package (Threads REQUIRED)
 
 
 # LIB_SRC
@@ -30,10 +31,11 @@ add_subdirectory(ChatFile/src)
 message(STATUS ${SOURCES})
 
 add_executable(messenger_binary ${SOURCES} ${MAIN})
+target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
 
 #LIB_TEST
 include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/test)
-
+include_directories(${CMAKE_SOURCE_DIR}/ChatFile/test)
 # TEST
 add_subdirectory(main/test)
 add_subdirectory(LoggerFramework/test)

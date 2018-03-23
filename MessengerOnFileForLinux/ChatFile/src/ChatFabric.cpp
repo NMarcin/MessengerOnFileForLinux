@@ -1,8 +1,10 @@
 #include <vector>
 #include <stdlib.h>
+#include <iostream>
 
 #include <ChatFabric.hpp>
 #include <GlobalVariables.hpp>
+#include <FileHandling.hpp>
 
 ChatFabric::ChatFabric()
 {
@@ -29,15 +31,15 @@ bool ChatFabric::createChatStructure(const std::string& usernameInviter, const s
         }
         log.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
         return false;
-    }
+   }
     log.info("ChatFabric::createChatStructure ERROR: createChatFolder failed");
     return false;
 }
 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    int folderNumber = getFreeFolderNumber(CHATS_PATH);
-    std::string newFolderName = static_cast<std::string>(CHATS_PATH) + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
+    int folderNumber = getFreeFolderNumber(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER);
+    std::string newFolderName = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
     if(!commandStatus)
@@ -51,6 +53,7 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
 
 std::string ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
+    std::cout << "tworze plik" ;
     std::string newFileName = usernameInviter + "_" + usernameGuess;
     std::string systemCommand = "touch " + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
     bool commandStatus = system(systemCommand.c_str());
@@ -92,5 +95,6 @@ int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
             ++fileIterator;
         }
     }
-    return freeFolderNumber;
+    //return freeFolderNumber;
+    return 1;
 }

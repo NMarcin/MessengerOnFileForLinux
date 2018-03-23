@@ -11,5 +11,5 @@ private:
     ~LocalUser();
     LocalUser(const LocalUser &) = delete;
     LocalUser& operator=(const LocalUser &) = delete;
-};
 
+};

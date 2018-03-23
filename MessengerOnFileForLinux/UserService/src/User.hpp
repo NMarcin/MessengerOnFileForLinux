@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 
+#include <Logger.hpp>
+#include <LogSpace.hpp>
+
 class User
 {
 public:
@@ -15,7 +18,8 @@ public:
     ~User();
 
 private:
-
     std::string username_;
     std::string password_;
+
+    Logger log {LogSpace::UserService};
 };

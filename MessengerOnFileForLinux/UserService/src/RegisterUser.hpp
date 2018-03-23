@@ -3,6 +3,8 @@
 #include <memory>
 
 #include <LocalUser.hpp>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 class RegisterUser
 {
@@ -19,4 +21,6 @@ private:
     std::string enterThePassword() const;
     bool saveUserDataInRegisteredFile() const;
     bool setUserPassword(const std::string & password) const;
+
+    Logger log {LogSpace::UserService};
 };

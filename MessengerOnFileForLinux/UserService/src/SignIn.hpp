@@ -3,6 +3,8 @@
 #include <memory>
 
 #include <LocalUser.hpp>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 class SignIn
 {
@@ -17,4 +19,6 @@ private:
     std::unique_ptr<std::string> getPasswordFromDatabase() const;
     bool setUserDataInLoggedFile() const;
     std::string enterThePassword() const;
+
+    Logger log {LogSpace::UserService};
 };

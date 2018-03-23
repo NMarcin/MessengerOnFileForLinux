@@ -1,8 +1,7 @@
-#pragma once
-#include <iostream>
+#include <ClasslessLogger.hpp>
 
-void fileLog(const char * logData, const char * logSpace); //TODO mwozniak multiple definition error
-/*{
+void fileLog(const char * logData, const char * logSpace)
+{
     FILE* logFile;
     logFile = fopen("Logger_default.txt", "a");
     if (!logFile)
@@ -15,4 +14,4 @@ void fileLog(const char * logData, const char * logSpace); //TODO mwozniak multi
 
     fclose(logFile);
 }
-*/
+
