@@ -1,7 +1,10 @@
 #include <ChatRequestTest.hpp>
+
 #include <SignIn.hpp>
 #include <SignOut.hpp>
 #include <RegisterUser.hpp>
+#include <FileHandling.hpp>
+#include <GlobalVariables.hpp>
 
 ChatRequestFixture::ChatRequestFixture()
 {
@@ -10,7 +13,6 @@ ChatRequestFixture::ChatRequestFixture()
 
 void ChatRequestFixture::SetUp()
 {
-
     std::istringstream stream("3\n3\n3");
     std::cin.rdbuf(stream.rdbuf());
     RegisterUser registerUser;
@@ -18,7 +20,6 @@ void ChatRequestFixture::SetUp()
 
     SignIn signIn;
     signIn.signInUser();
-
 }
 
 void ChatRequestFixture::TearDown()
