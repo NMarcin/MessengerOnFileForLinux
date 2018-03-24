@@ -28,9 +28,9 @@ private:
     void conversationControl();
     std::unique_ptr<std::string> getChatFolderName(const std::string& username);
     std::unique_ptr<std::string> getChatFileName(const std::string& folderName);
-    void setChatPathWithFile(const std::string& username);
+    void setPathToChatFile(const std::string& username);
 
-    std::vector<std::thread> threads_;
+    std::vector<std::thread> communicationThreads_;
     std::string pathToChatFile_;
     MessageFlag messageFlag_;
     bool isChatRunning_ = true;

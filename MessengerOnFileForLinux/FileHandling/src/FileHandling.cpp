@@ -334,6 +334,53 @@ std::unique_ptr<std::string> FileInterface::Modification::updateRowField(const s
 }
 
 
+bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber)
+{
+    fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
+    int actualFieldNumber = -1;
+    bool flag = false;
+
+
+    //TODO moze tutaj guardy?
+
+    std::string command = "grep '" + where + "' " + pathToFile;
+    std::string row = ConsolControl::getStdoutFromCommand(command.c_str());
+    row.pop_back(); //usuwanie znaku konca lini
+
+    std::unique_ptr< std::string> rowToUpdate = std::make_unique<std::string>();
+    //TODO mwozniak jest to bardzo brzydkie, poprawic ! Ale dziala ;p
+    for (auto &x : row)
+    {
+        if ('[' == x)
+        {
+            ++actualFieldNumber;
+        }
+
+        if (actualFieldNumber != fieldNumber)
+        {
+            rowToUpdate -> push_back(x);
+        }
+        else
+        {
+            if (true == flag)
+                continue;
+
+            rowToUpdate -> push_back('[');
+
+            for (auto& y : newField)
+            {
+                rowToUpdate -> push_back(y);
+            }
+
+            flag = true;
+            rowToUpdate -> push_back(']');
+        }
+    }
+
+
+    return updateRow(pathToFile,*rowToUpdate,where);
+
+}
 
 
 /** TO NIZEJ GDIZE INDZIEJ*/

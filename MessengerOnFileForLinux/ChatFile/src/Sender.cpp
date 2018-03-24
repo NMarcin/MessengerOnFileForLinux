@@ -10,7 +10,7 @@ Sender::Sender(const std::string& pathToChatFile, int chatFlag)
     : pathToChatFile_(pathToChatFile),
       chatFlag_(chatFlag)
 {
-    //NOOP
+    trySendMessage_ = std::thread(&Sender::trySendMessage, this);
 }
 
 Sender::~Sender()

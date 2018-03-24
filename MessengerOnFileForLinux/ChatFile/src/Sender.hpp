@@ -20,10 +20,10 @@ private:
     bool setNewMessageFlag(const std::string& folderName) const;
     void trySendMessage();
 
+    std::thread trySendMessage_ ;
     std::queue<std::unique_ptr<std::string>> messageWaitngRoom_;
     bool isMessageWaitngRoomEmpty_ = false;
     std::string pathToChatFile_;
     int chatFlag_;
 
-    std::thread trySendMessage_ = std::thread(&Sender::trySendMessage, this);
 };

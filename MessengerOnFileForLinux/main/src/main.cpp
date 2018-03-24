@@ -25,6 +25,9 @@ void mnurzyns()
 
 void mwozniak()
 {
+
+
+
   initSigusr1Action();
 
   int h;
