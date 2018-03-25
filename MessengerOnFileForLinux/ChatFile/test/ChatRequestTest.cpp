@@ -8,6 +8,7 @@
 ChatRequestFixture::ChatRequestFixture()
 {
     //NOOP
+    initSigusr1Action();
 }
 
 void ChatRequestFixture::SetUp()
