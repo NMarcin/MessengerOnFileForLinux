@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <ctime>
+#include <string.h>
 #include <iostream>
 
 #include <ChatRequest.hpp>
@@ -66,6 +67,8 @@ static void initSigusr1Action()
     act.sa_sigaction = sigusr1Handler;
     act.sa_mask = iset;
     act.sa_flags |= SA_SIGINFO;
+
+    memset(&act, 0, sizeof(act));
 
     sigaction(SIGUSR1, &act, NULL);
 }

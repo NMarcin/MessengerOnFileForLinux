@@ -4,6 +4,9 @@
 #include <ChatRequest.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
+#include <sys/types.h>
+#include <unistd.h>
+#include <signal.h>
 
 class ChatRequestFixture : public ::testing::Test
 {
@@ -64,12 +67,10 @@ TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_1)
 TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_2)
 {
     //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
     std::istringstream stream("yes");
     std::cin.rdbuf(stream.rdbuf());
 
     EXPECT_TRUE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
 }
 
 TEST_F(ChatRequestFixture, isUserActiveAfterChatStart)
