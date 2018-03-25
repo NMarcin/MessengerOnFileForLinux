@@ -46,9 +46,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            std::string changedRow = *FileInterface::Modification::updateRowField(x, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
-            FileInterface::Modification::updateRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, changedRow, username);
-
+            FileInterface::Modification::updateRowField(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, x, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
             return true;
         }
     }

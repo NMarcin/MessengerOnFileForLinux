@@ -1,6 +1,7 @@
 #pragma once
 #include <gtest/gtest.h>
 
+
 #include <ChatRequest.hpp>
 
 class ChatRequestFixture : public ::testing::Test
@@ -13,6 +14,4 @@ public:
 
     ChatRequest chatRequest;
     std::string user = getenv("USER");
-
 };
-
