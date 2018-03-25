@@ -78,7 +78,7 @@ TEST_F(ChatRequestFixture, isUserActiveAfterChatStart)
     std::istringstream stream("y");
     std::cin.rdbuf(stream.rdbuf());
     EXPECT_TRUE(chatRequest.sendChatRequest(user));
-
+    sleep(1);
     EXPECT_FALSE(chatRequest.sendChatRequest(user));
 }
 
