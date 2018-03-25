@@ -184,7 +184,6 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
         return false;
     }
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userBussyStatus);
-
     int pid = receiver.getUserPid();
     if (0 == pid)
     {

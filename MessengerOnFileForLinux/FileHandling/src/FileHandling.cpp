@@ -63,13 +63,13 @@ namespace
     std::unique_ptr<std::fstream> openFileToWrite(const std::string& pathToFile)
     {
         fileLog("FileInterface::openFileToWrite started", LogSpace::FileHandling);
-        openFile(pathToFile, FileMode::toWrite);
+        return openFile(pathToFile, FileMode::toWrite);
     }
 
     std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile)
     {
         fileLog("FileInterface::openFileToRead started", LogSpace::FileHandling);
-        openFile(pathToFile, FileMode::toRead);
+        return openFile(pathToFile, FileMode::toRead);
     }
 }
 
@@ -275,7 +275,7 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
         fileLog("FileInterface::Modification::updateRow ERROR: File does not exist", LogSpace::FileHandling);
         return false;
     }
-    
+
     Managment::createFile(folderName + "/GUARD");
     
     std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
@@ -294,13 +294,23 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     int actualFieldNumber = -1;
     bool flag = false;
     
-    
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+    if (Managment::isFileExist(folderName + "/GUARD"))
+    {
+        return false;
+    }
+
+    Managment::createFile(folderName + "/GUARD");
     //TODO moze tutaj guardy?
     
     std::string command = "grep '" + where + "' " + pathToFile;
     std::string row = ConsolControl::getStdoutFromCommand(command.c_str());
-    row.pop_back(); //usuwanie znaku konca lini
-    
+
+    if (!row.empty())
+    {
+     row.pop_back(); //usuwanie znaku konca lini
+    }
+
     std::unique_ptr< std::string> rowToUpdate = std::make_unique<std::string>();
     //TODO mwozniak jest to bardzo brzydkie, poprawic ! Ale dziala ;p
     for (auto &x : row)
@@ -330,7 +340,10 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
             rowToUpdate -> push_back(']');
         }
     }
-    
+
+
+    Managment::removeFile(folderName + "/GUARD");
+
     
     return updateRow(pathToFile,*rowToUpdate,where);
     

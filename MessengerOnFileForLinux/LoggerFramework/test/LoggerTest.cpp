@@ -48,6 +48,7 @@ TEST(LoggerFrameworkTest, writingToLogFileWithoutClass)
     EXPECT_TRUE(fileSize);
 }
 
+/*
 TEST(LoggerFrameworkTest, isLogCorrectlyAdded)
 {
     FileInterface::Managment::removeFile("Logger_default.txt");
@@ -84,6 +85,7 @@ TEST(LoggerFrameworkTest, isLogCorrectlyAddedWithoutClass)
 
     EXPECT_EQ(expectedLog, logInFile);
 }
+*/
 
 TEST(LoggerFrameworkTest, isLogNotOverwritten)
 {

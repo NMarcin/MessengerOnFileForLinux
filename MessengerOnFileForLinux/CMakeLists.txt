@@ -38,8 +38,10 @@ include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/test)
 include_directories(${CMAKE_SOURCE_DIR}/ChatFile/test)
 # TEST
 add_subdirectory(main/test)
+add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
 add_subdirectory(ChatFile/test)
+
 
 message(STATUS ${TEST_SOURCES})
 

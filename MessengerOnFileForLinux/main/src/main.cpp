@@ -1,7 +1,8 @@
 #include <iostream>
 #include <math.h>
 #include <string>
-
+#include <thread>
+#include <chrono>
 
 #include <GlobalVariables.hpp>
 #include <FileHandling.hpp>
@@ -13,20 +14,24 @@
 #include <Sender.hpp>
 #include <ChatControl.hpp>
 
-//#include <Logger.hpp>
-//#include <ClasslessLogger.hpp>
-//#include <LogSpace.hpp>
+#include <Logger.hpp>
+#include <ClasslessLogger.hpp>
+#include <LogSpace.hpp>
+
+void foo()
+{
+    std::cout << "Foo() opened by: "<< std::this_thread::get_id() << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+}
 
 void mnurzyns()
 {
     std::cout << "mnurzyns:\n\n";
-    //fileLog("Witamy w logerze!", LogSpace::main);
+    fileLog("Witamy w logerze!", LogSpace::main);
 }
 
 void mwozniak()
 {
-
-
 
   initSigusr1Action();
 
@@ -46,10 +51,10 @@ void mwozniak()
     SignIn signIn;
     signIn.signInUser();
 
-    ChatControl control;
-    control.startConversationAsInviter("marcin1008");
-    //ChatRequest chat;
-    //chat.sendChatRequest("marcin1008");
+    //ChatControl control;
+    //control.startConversationAsInviter("marcin1008");
+    ChatRequest chat;
+    chat.sendChatRequest("marcin1008");
 
     //Sender sender;
     //sender.sendMessage("marcin1008");
@@ -59,7 +64,7 @@ void mwozniak()
         sleep(1);
     }
 
-    control.endConversation();
+    //control.endConversation();
 
     SignOut signOut;
     signOut.signOutUser();

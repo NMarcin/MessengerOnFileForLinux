@@ -3,8 +3,7 @@
 #include <SignIn.hpp>
 #include <SignOut.hpp>
 #include <RegisterUser.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
+
 
 ChatRequestFixture::ChatRequestFixture()
 {
@@ -13,7 +12,6 @@ ChatRequestFixture::ChatRequestFixture()
 
 void ChatRequestFixture::SetUp()
 {
-    std::streambuf* orig = std::cin.rdbuf();
     std::istringstream stream("3\n3\n3");
     std::cin.rdbuf(stream.rdbuf());
     RegisterUser registerUser;
@@ -22,10 +20,7 @@ void ChatRequestFixture::SetUp()
     SignIn signIn;
     signIn.signInUser();
 
-    std::cin.rdbuf(orig);
 
-
-    initSigusr1Action();
 }
 
 void ChatRequestFixture::TearDown()
@@ -42,97 +37,3 @@ ChatRequestFixture::~ChatRequestFixture()
     //NOOP
 }
 
-TEST_F(ChatRequestFixture, inviteInactiveUser)
-{
-    FileInterface::Modification::removeRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, user);
-
-    EXPECT_FALSE(chatRequest.sendChatRequest(user));
-}
-
-TEST_F(ChatRequestFixture, inviteBussyUser)
-{
-    FileInterface::Modification::updateRowField(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, user,
-                                                FileStructure::FieldValue::userBussyStatus,
-                                                FileStructure::FileField::statusFieldInLoggedFile);
-
-    EXPECT_FALSE(chatRequest.sendChatRequest(user));
-
-}
-
-TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_1)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("y");
-    std::cin.rdbuf(stream.rdbuf());
-
-    EXPECT_TRUE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
-
-TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_2)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("yes");
-    std::cin.rdbuf(stream.rdbuf());
-
-    EXPECT_TRUE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
-
-TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_1)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("n");
-    std::cin.rdbuf(stream.rdbuf());
-
-    EXPECT_FALSE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
-
-TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_2)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("no");
-    std::cin.rdbuf(stream.rdbuf());
-
-    EXPECT_FALSE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
-
-TEST_F(ChatRequestFixture, isUserActiveAfterChatStart)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("y");
-    std::cin.rdbuf(stream.rdbuf());
-    chatRequest.sendChatRequest(user);
-
-    EXPECT_FALSE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
-
-TEST_F(ChatRequestFixture, isToLowerWorking)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("YES");
-    std::cin.rdbuf(stream.rdbuf());
-
-    EXPECT_TRUE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
-
-TEST_F(ChatRequestFixture, inviteActiveUserWithUndefinedResponse)
-{
-    //initSigusr1Action();
-    std::streambuf* orig = std::cin.rdbuf();
-    std::istringstream stream("somethigElseThanYesOrNo");
-    std::cin.rdbuf(stream.rdbuf());
-
-    EXPECT_FALSE(chatRequest.sendChatRequest(user));
-    std::cin.rdbuf(orig);
-}
