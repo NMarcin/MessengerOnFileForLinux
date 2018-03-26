@@ -53,7 +53,6 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
 
 std::string ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    std::cout << "tworze plik" ;
     std::string newFileName = usernameInviter + "_" + usernameGuess;
     std::string systemCommand = "touch " + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
     bool commandStatus = system(systemCommand.c_str());
