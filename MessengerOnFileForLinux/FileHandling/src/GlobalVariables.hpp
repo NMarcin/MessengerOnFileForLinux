@@ -68,7 +68,7 @@ static void initSigusr1Action()
     act.sa_mask = iset;
     act.sa_flags |= SA_SIGINFO;
 
-    memset(&act, 0, sizeof(act));
+    //memset(&act, 0, sizeof(act));
 
     sigaction(SIGUSR1, &act, NULL);
 }

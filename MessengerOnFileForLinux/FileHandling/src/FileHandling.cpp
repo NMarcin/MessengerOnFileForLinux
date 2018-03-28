@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
@@ -205,8 +207,8 @@ bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 {
     std::string logInfo = "FileInterface::Managment::isFileExist " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
-    std::ifstream file(pathToFile);
-    return file.good();
+    bool isFileExist = (-1 != access(pathToFile.c_str(), F_OK ));
+    return isFileExist;
 }
 
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
