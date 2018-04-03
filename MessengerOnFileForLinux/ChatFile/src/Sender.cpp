@@ -10,26 +10,20 @@ Sender::Sender(const std::string& pathToChatFile, int chatFlag)
     : pathToChatFile_(pathToChatFile),
       chatFlag_(chatFlag)
 {
-    trySendMessage_ = std::thread(&Sender::trySendMessage, this);
+    log.info("Sender C-TOR");
+    sendMessage_ = std::thread(&Sender::sendMessageFromWaitingRoom, this);
 }
 
 Sender::~Sender()
 {
+    log.info("Sender D-TOR");
     while (!messageWaitngRoom_.empty())
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
     isMessageWaitngRoomEmpty_ = true;
-    trySendMessage_.join();
-}
-
-std::unique_ptr<std::string> Sender::getMessageFromStdin() const
-{
-    std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    std::cin >> std::ws;
-    getline(std::cin, *message);
-    return message;
+    sendMessage_.join();
 }
 
 bool Sender::sendMessage()
@@ -39,6 +33,17 @@ bool Sender::sendMessage()
 
     return isMessagePreapeared;
 }
+
+std::unique_ptr<std::string> Sender::getMessageFromStdin() const
+{
+    log.info("Sender::getMessageFromStdin started");
+    std::unique_ptr<std::string> message = std::make_unique<std::string>();
+    std::cin >> std::ws;
+    getline(std::cin, *message);
+    return message;
+}
+
+
 
 bool Sender::prepearMessageToSend(const std::string& rowMessage)
 {
@@ -62,7 +67,7 @@ std::unique_ptr<std::string> Sender::getActualDateTime() const
     return dateTime;
 }
 
-void Sender::trySendMessage()
+void Sender::sendMessageFromWaitingRoom()
 {
     while (!isMessageWaitngRoomEmpty_)
     {

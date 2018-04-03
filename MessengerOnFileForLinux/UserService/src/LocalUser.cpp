@@ -6,16 +6,17 @@
 LocalUser::LocalUser()
         : User(getenv("USER"))
 {
-    //NOOP
+    log.info("LoclaUser C-TOR");
 }
 
 LocalUser::~LocalUser()
 {
-    //NOOP
+    log.info("LoclaUser D-TOR");
 }
 
 LocalUser & LocalUser::getLocalUser()
 {
+    //log.info("LocalUser::getLocalUser started");
     static LocalUser localUser;
     return localUser;
 }

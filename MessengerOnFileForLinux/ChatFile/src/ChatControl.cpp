@@ -40,8 +40,8 @@ void ChatControl::startConversationAsRecipient(const int pid)
     bool isInviteAccepted = chatRequest.answerForChatRequest(pid);
     if(isInviteAccepted)
     {
-        std::unique_ptr<std::string> username = chatRequest.getUsernameThroughPid(pid);
-        setPathToChatFile(*username);
+        //std::unique_ptr<std::string> username = chatRequest.getUsernameThroughPid(pid);
+        //setPathToChatFile(*username);
         messageFlag_ = MessageFlag::recipient;
         conversationControl();
     }

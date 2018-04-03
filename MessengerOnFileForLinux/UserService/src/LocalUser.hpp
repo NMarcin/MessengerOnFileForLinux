@@ -1,5 +1,7 @@
 #pragma once
 #include <User.hpp>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 class LocalUser : public User
 {
@@ -12,4 +14,5 @@ private:
     LocalUser(const LocalUser &) = delete;
     LocalUser& operator=(const LocalUser &) = delete;
 
+    Logger log {LogSpace::UserService};
 };

@@ -23,6 +23,7 @@ namespace ENIVRONMENT_PATH
         static const std::string USER_FOLDER = HOME_FOLDER + "/messenger/";
         static const std::string CHATS_FOLDER = "/home/messenger/chats/";
         static const std::string INSTALL_FOLDER = "/home/messenger/installation/";
+        static const std::string TEST_FOLDER = "/home/messenger/TEST/";
     }
 }
 

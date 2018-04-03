@@ -3,7 +3,10 @@
 #include <string>
 #include <queue>
 #include <thread>
+
 #include <FileHandling.hpp>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 class Sender
 {
@@ -18,12 +21,14 @@ private:
     std::unique_ptr<std::string> getActualDateTime() const;
     bool prepearMessageToSend(const std::string& rowMessage);
     bool setNewMessageFlag(const std::string& folderName) const;
-    void trySendMessage();
+    void sendMessageFromWaitingRoom();
 
-    std::thread trySendMessage_ ;
+    std::thread sendMessage_ ;
+    //bez tego unique ?
     std::queue<std::unique_ptr<std::string>> messageWaitngRoom_;
     bool isMessageWaitngRoomEmpty_ = false;
     std::string pathToChatFile_;
     int chatFlag_;
 
+    Logger log {LogSpace::ChatFile};
 };

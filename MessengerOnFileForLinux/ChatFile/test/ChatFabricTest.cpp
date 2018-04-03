@@ -68,6 +68,5 @@ TEST(ChatFileTest, canWeCreateFilesInFolder)
     chatFabric.createChatStructure("inviterU", "receiver");
 
     bool createFileSucces = FileInterface::Managment::createFile(chatPath + "test_file");
-
     EXPECT_TRUE(createFileSucces);
 }
