@@ -58,7 +58,7 @@ void ChatControl::conversationControl()
         std::unique_ptr<Sender> sender = std::make_unique<Sender>(pathToChatFile_, static_cast<int>(messageFlag_));
         while(isChatRunning_)
         {
-            sender->sendMessage();
+            //sender->sendMessage();
         }
     }));
 
@@ -120,10 +120,31 @@ void ChatControl::setPathToChatFile(const std::string& username)
 }
 
 
+/*
+void Sender::sendMessageFromWaitingRoom()
+{
+    while (!isMessageWaitngRoomEmpty_)
+    {
+        if (messageWaitngRoom_.empty())
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        }
+        else
+        {
+            std::unique_ptr<std::string> messageToSend = std::move(messageWaitngRoom_.front());
+            bool isMessageSent = FileInterface::Modification::addRow(pathToChatFile_, *messageToSend);
 
+            if (isMessageSent)
+            {
+                std::unique_ptr<std::string> folderName = FileInterface::Accesor::getFolderName(pathToChatFile_);
+                setNewMessageFlag(*folderName);
+                messageWaitngRoom_.pop();
+            }
+        }
+    }
+}
 
-
-
+*/
 
 
 

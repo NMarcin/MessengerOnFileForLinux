@@ -1,40 +1,81 @@
-#include <ChatRequestTest.hpp>
-
-#include <SignIn.hpp>
-#include <SignOut.hpp>
-#include <RegisterUser.hpp>
+#include <ChatRequestTestCore.hpp>
 
 
-ChatRequestFixture::ChatRequestFixture()
+TEST_F(ChatRequestFixture, inviteInactiveUser)
 {
-    //NOOP
-    initSigusr1Action();
+    FileInterface::Modification::removeRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, user);
+
+    EXPECT_FALSE(chatRequest.sendChatRequest(user));
 }
 
-void ChatRequestFixture::SetUp()
+TEST_F(ChatRequestFixture, inviteBussyUser)
 {
-    std::istringstream stream("3\n3\n3");
+    FileInterface::Modification::updateRowField(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, user,
+                                                FileStructure::FieldValue::userBussyStatus,
+                                                FileStructure::FileField::statusFieldInLoggedFile);
+
+    EXPECT_FALSE(chatRequest.sendChatRequest(user));
+
+}
+
+TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_1)
+{
+    std::istringstream stream("n");
     std::cin.rdbuf(stream.rdbuf());
-    RegisterUser registerUser;
-    registerUser.registerNewUser();
 
-    SignIn signIn;
-    signIn.signInUser();
-
-
+    EXPECT_FALSE(chatRequest.sendChatRequest(user));
 }
 
-void ChatRequestFixture::TearDown()
+TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_2)
 {
-    SignOut signOut;
-    signOut.signOutUser();
-    //TODO usunac jak bedzie napisane konczenie rozmowy
-    std::string command = "rm -r " + ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + "*" + user + "*";
-    system(command.c_str());
+    std::istringstream stream("no");
+    std::cin.rdbuf(stream.rdbuf());
+
+    EXPECT_FALSE(chatRequest.sendChatRequest(user));
+}
+/*
+TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_1)
+{
+    std::istringstream stream("y");
+    std::cin.rdbuf(stream.rdbuf());
+
+    EXPECT_TRUE(chatRequest.sendChatRequest(user));
+
 }
 
-ChatRequestFixture::~ChatRequestFixture()
+TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_2)
 {
-    //NOOP
+    std::streambuf* orig = std::cin.rdbuf();
+    std::istringstream stream("yes");
+    std::cin.rdbuf(stream.rdbuf());
+
+    EXPECT_TRUE(chatRequest.sendChatRequest(user));
+    std::cin.rdbuf(orig);
 }
+
+TEST_F(ChatRequestFixture, isUserActiveAfterChatStart)
+{
+    std::istringstream stream("y");
+    std::cin.rdbuf(stream.rdbuf());
+    EXPECT_TRUE(chatRequest.sendChatRequest(user));
+    //sleep(1);
+    EXPECT_FALSE(chatRequest.sendChatRequest(user));
+}
+
+TEST_F(ChatRequestFixture, isToLowerWorking)
+{
+    std::istringstream stream("YES");
+    std::cin.rdbuf(stream.rdbuf());
+
+    EXPECT_TRUE(chatRequest.sendChatRequest(user));
+}
+*/
+TEST_F(ChatRequestFixture, inviteActiveUserWithUndefinedResponse)
+{
+    std::istringstream stream("somethigElseThanYesOrNo");
+    std::cin.rdbuf(stream.rdbuf());
+
+    EXPECT_FALSE(chatRequest.sendChatRequest(user));
+}
+
 

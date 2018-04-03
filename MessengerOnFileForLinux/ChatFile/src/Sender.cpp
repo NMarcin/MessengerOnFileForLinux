@@ -7,31 +7,37 @@
 
 
 Sender::Sender(const std::string& pathToChatFile, int chatFlag)
-    : pathToChatFile_(pathToChatFile),
+    : chatFilenameWithPath_(pathToChatFile),
       chatFlag_(chatFlag)
 {
     log.info("Sender C-TOR");
-    sendMessage_ = std::thread(&Sender::sendMessageFromWaitingRoom, this);
 }
 
 Sender::~Sender()
 {
     log.info("Sender D-TOR");
-    while (!messageWaitngRoom_.empty())
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-
-    isMessageWaitngRoomEmpty_ = true;
-    sendMessage_.join();
 }
 
-bool Sender::sendMessage()
+std::unique_ptr<std::string> Sender::getMessageToSend()
 {
+    log.info("Sender::getMessageToSend started");
     std::unique_ptr<std::string> rawMessage = getMessageFromStdin();
-    bool isMessagePreapeared = prepearMessageToSend(*rawMessage);
+    std::unique_ptr<std::string> messageToSend = prepearMessageToSend(*rawMessage);
+    return messageToSend;
+}
 
-    return isMessagePreapeared;
+bool Sender::sendMessage(const std::string& message)
+{
+    log.info("Sender::sendMessage started");
+    bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message);
+
+    if (isMessageSend)
+    {
+        setNewMessageFlag();
+        return true;
+    }
+
+    return false;
 }
 
 std::unique_ptr<std::string> Sender::getMessageFromStdin() const
@@ -43,23 +49,25 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
     return message;
 }
 
-
-
-bool Sender::prepearMessageToSend(const std::string& rowMessage)
+std::unique_ptr<std::string> Sender::prepearMessageToSend(const std::string& rowMessage)
 {
+    log.info("Sender::prepearMessageToSend started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
     *message = "[" + std::to_string(chatFlag_) + "][" + *getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
-    messageWaitngRoom_.push(std::move(message));
-    return true;
+    return message;
 }
 
-bool Sender::setNewMessageFlag(const std::string& folderName) const
+bool Sender::setNewMessageFlag() const
 {
-    return FileInterface::Managment::createFile(folderName + "/NEW");
+    log.info("Sender::setNewMessageFlag started");
+    std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
+    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");
+    return isNewFlagCreated;
 }
 
 std::unique_ptr<std::string> Sender::getActualDateTime() const
 {
+    log.info("Sender::getActualDateTime started");
     std::unique_ptr<std::string> dateTime = std::make_unique<std::string>();
     *dateTime = __DATE__;
     *dateTime += " | " ;
@@ -67,26 +75,5 @@ std::unique_ptr<std::string> Sender::getActualDateTime() const
     return dateTime;
 }
 
-void Sender::sendMessageFromWaitingRoom()
-{
-    while (!isMessageWaitngRoomEmpty_)
-    {
-        if (messageWaitngRoom_.empty())
-        {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        }
-        else
-        {
-            std::unique_ptr<std::string> messageToSend = std::move(messageWaitngRoom_.front());
-            bool isMessageSent = FileInterface::Modification::addRow(pathToChatFile_, *messageToSend);
 
-            if (isMessageSent)
-            {
-                std::unique_ptr<std::string> folderName = FileInterface::Accesor::getFolderName(pathToChatFile_);
-                setNewMessageFlag(*folderName);
-                messageWaitngRoom_.pop();
-            }
-        }
-    }
-}
 

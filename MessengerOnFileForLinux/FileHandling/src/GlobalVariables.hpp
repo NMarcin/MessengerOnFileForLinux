@@ -62,7 +62,7 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
 static void initSigusr1Action()
 {
     sigset_t iset;
-    struct sigaction act;
+    struct sigaction act = {0};
     sigemptyset(&iset);
 
     act.sa_sigaction = sigusr1Handler;
@@ -72,6 +72,9 @@ static void initSigusr1Action()
     //memset(&act, 0, sizeof(act));
 
     sigaction(SIGUSR1, &act, NULL);
+
+
+
 }
 
 /** **********************************************************/
