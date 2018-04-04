@@ -36,16 +36,13 @@ public:
 
 private:
     void conversationControl();
-
     void startConversationAsInviter(const std::string& username);
     void startConversationAsRecipient(const int pid);
-    //std::unique_ptr<std::string> getChatFoldername(const std::string& username);
-    //std::unique_ptr<std::string> getChatFilename(const std::string& folderName);
     void stopThreads();
 
-    std::unique_ptr<std::thread> senderThread_;
+    std::unique_ptr<std::thread> getMessageThread_;
+    std::unique_ptr<std::thread> sendMessageThread_;
     std::unique_ptr<std::thread> reciverThread_;
-    std::unique_ptr<std::thread> sendMessage_;
     std::queue<std::unique_ptr<std::string>> messageWaitingRoom_;
     std::string chatFilenameWithPath_;
     MessageFlag messageFlag_;
