@@ -14,6 +14,8 @@ public:
     void TearDown();
     ~ChatRequestFixture();
 
+    static void testSigusr1Handler(int sig_num, siginfo_t *info, void *context);
+    static void initSigusr1Action();
     ChatRequest chatRequest;
     std::string user = getenv("USER");
 };

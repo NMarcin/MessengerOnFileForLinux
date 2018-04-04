@@ -4,35 +4,51 @@
 #include <vector>
 #include <signal.h>
 #include <iostream>
+#include <queue>
+
 #include <Sender.hpp>
 #include <Reciver.hpp>
 #include <User.hpp>
 
 enum class MessageFlag
 {
-    inviter = 1,
-    recipient = 2
+    readMessage,
+    inviterMessage,
+    recipientMessage
 };
+
+enum class ChatRole
+{
+    inviter,
+    recipient
+};
+
 
 class ChatControl
 {
 public:
     ChatControl();
     ~ChatControl();
-
-    void startConversationAsInviter(const std::string& username);
-    void startConversationAsRecipient(const int pid);
+    //TODO zmienic chatFile i ChatRequest zeby zwracaly sciezke do pliku rozmowy.
+    //Bedzie sie to odbywalo w startAsInviter/Reciptnet
+    void startConversation(const std::string& username, ChatRole chatRole);
     void endConversation();
 
 private:
     void conversationControl();
-    std::unique_ptr<std::string> getChatFolderName(const std::string& username);
-    std::unique_ptr<std::string> getChatFileName(const std::string& folderName);
-    void setPathToChatFile(const std::string& username);
 
-    std::vector<std::thread> communicationThreads_;
-    std::string pathToChatFile_;
+    void startConversationAsInviter(const std::string& username);
+    void startConversationAsRecipient(const int pid);
+    //std::unique_ptr<std::string> getChatFoldername(const std::string& username);
+    //std::unique_ptr<std::string> getChatFilename(const std::string& folderName);
+    void stopThreads();
+
+    std::unique_ptr<std::thread> senderThread_;
+    std::unique_ptr<std::thread> reciverThread_;
+    std::unique_ptr<std::thread> sendMessage_;
+    std::queue<std::unique_ptr<std::string>> messageWaitingRoom_;
+    std::string chatFilenameWithPath_;
     MessageFlag messageFlag_;
-    bool isChatRunning_ = true;
+    bool isThreadsRunning_;
 
 };

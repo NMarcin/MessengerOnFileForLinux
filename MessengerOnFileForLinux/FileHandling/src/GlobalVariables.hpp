@@ -7,7 +7,7 @@
 #include <string.h>
 #include <iostream>
 
-#include <ChatRequest.hpp>
+#include <ChatControl.hpp>
 
 namespace ENIVRONMENT_PATH
 {
@@ -23,6 +23,7 @@ namespace ENIVRONMENT_PATH
         static const std::string USER_FOLDER = HOME_FOLDER + "/messenger/";
         static const std::string CHATS_FOLDER = "/home/messenger/chats/";
         static const std::string INSTALL_FOLDER = "/home/messenger/installation/";
+
         static const std::string TEST_FOLDER = "/home/messenger/TEST/";
     }
 }
@@ -55,8 +56,9 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
     {
         std::cerr << "WARNING: info = NULL" << std::endl;
     }
-    ChatRequest chatRequest;
-    chatRequest.answerForChatRequest(info -> si_pid);
+    ChatControl chatControl;
+    chatControl.startConversation(std::to_string(info -> si_pid), ChatRole::recipient);
+    //TODO mwozniak potestowac. Wczesniej na chatRequest dzialolo dobrze
 }
 
 static void initSigusr1Action()
@@ -72,8 +74,6 @@ static void initSigusr1Action()
     //memset(&act, 0, sizeof(act));
 
     sigaction(SIGUSR1, &act, NULL);
-
-
 
 }
 

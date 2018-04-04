@@ -12,9 +12,12 @@ const std::string testPath = ENIVRONMENT_PATH::PATH_TO_FOLDER::TEST_FOLDER;
 
 TEST(FileHandlingTest, createFile)
 {
-    FileInterface::Managment::createFile(filename);
     int isFileExist = access(filename.c_str(), F_OK );
+    ASSERT_FALSE(-1 != isFileExist);
 
+    FileInterface::Managment::createFile(filename);
+
+    isFileExist = access(filename.c_str(), F_OK );
     ASSERT_TRUE(-1 != isFileExist);
 
     std::string command = "rm " + filename;
@@ -49,13 +52,17 @@ TEST(FileHandlingTest, getFileContent)
 {
     std::string testFile = testPath + filename;
     FileInterface::Managment::createFile(testFile);
+    auto  fileContent = FileInterface::Accesor::getFileContent(testFile);
+
+    EXPECT_EQ(fileContent->at(0), "");
+
     std::string firstRow = "[marcin][13][323]";
     std::string secondRow = "[nurzyn][4][23aa]";
     std::string command_1 = "echo " + firstRow + " >> " + testFile;
     std::string command_2 = "echo " + secondRow + " >> " + testFile;
     system(command_1.c_str());
     system(command_2.c_str());
-    auto  fileContent = FileInterface::Accesor::getFileContent(testFile);
+    fileContent = FileInterface::Accesor::getFileContent(testFile);
 
     EXPECT_EQ(fileContent->at(0), firstRow);
     EXPECT_EQ(fileContent->at(1), secondRow);
@@ -66,9 +73,13 @@ TEST(FileHandlingTest, getFileContent)
 TEST(FileHandlingTest, getRowField)
 {
     std::string row = "[marcin][3][ddd]";
-    std::string rowField_1 = *FileInterface::Accesor::getRowField(row,0);
-    std::string rowField_2 = *FileInterface::Accesor::getRowField(row,1);
-    std::string rowField_3 = *FileInterface::Accesor::getRowField(row,2);
+    std::string rowField_1;
+    std::string rowField_2;
+    std::string rowField_3;
+
+    rowField_1 = *FileInterface::Accesor::getRowField(row,0);
+    rowField_2 = *FileInterface::Accesor::getRowField(row,1);
+    rowField_3 = *FileInterface::Accesor::getRowField(row,2);
 
     EXPECT_EQ(rowField_1, "marcin");
     EXPECT_EQ(rowField_2, "3");
@@ -86,9 +97,12 @@ TEST(FileHandlingTest, getFolderName)
 
 TEST(FileHandlingTest, getFilenamesFromFolder)
 {
+    auto filenamesFormFolder = FileInterface::Accesor::getFilenamesFromFolder(testPath);
+    EXPECT_TRUE(filenamesFormFolder->empty());
+
     FileInterface::Managment::createFile(testPath + "3mwoznia_mnurzyn");
     FileInterface::Managment::createFile(testPath + "0tkogu_mnurzyn");
-    auto filenamesFormFolder = FileInterface::Accesor::getFilenamesFromFolder(testPath);
+    filenamesFormFolder = FileInterface::Accesor::getFilenamesFromFolder(testPath);
 
     EXPECT_EQ(filenamesFormFolder->at(0), "0tkogu_mnurzyn");
     EXPECT_EQ(filenamesFormFolder->at(1), "3mwoznia_mnurzyn");
@@ -107,6 +121,7 @@ TEST(FileHandlingTest, getFilenamesFromEmptyFolder)
 TEST(FileHandlingTest, addRow)
 {
     FileInterface::Managment::createFile(testPath + filename);
+
     std::string row = "[mwoznia][3][33]";
     FileInterface::Modification::addRow(testPath + filename, row);
 
@@ -181,8 +196,8 @@ TEST(FileHandlingTest, isCorrectlyRowWasRemoved)
 
     std::fstream file(testPath + filename);
     std::string row;
-
     getline(file, row);
+
     EXPECT_EQ(secondRow, row);
 
     FileInterface::Managment::removeFile(testPath + filename);
@@ -198,8 +213,8 @@ TEST(FileHandlingTest, updateRowField)
 
     std::fstream file(testPath + filename);
     std::string updatedRow;
-
     getline(file, updatedRow);
+
     EXPECT_EQ("[mwoznia][77][33]", updatedRow);
 
     FileInterface::Managment::removeFile(testPath + filename);

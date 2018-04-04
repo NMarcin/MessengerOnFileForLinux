@@ -1,4 +1,5 @@
 #include <chrono>
+#include <thread>
 
 #include <ChatControl.hpp>
 #include <FileHandling.hpp>
@@ -8,18 +9,43 @@
 
 ChatControl::ChatControl()
 {
-    //NOOP
+    senderThread_ = nullptr;
+    reciverThread_ = nullptr;
+    sendMessage_ = nullptr;
 }
 
 ChatControl::~ChatControl()
 {
-    if (!communicationThreads_.empty())
+    //NOOP
+}
+
+void ChatControl::startConversation(const std::string& username, ChatRole chatRole)
+{
+    if (ChatRole::inviter == chatRole)
     {
-        for (auto& x : communicationThreads_)
-        {
-            x.join();
-        }
+        startConversationAsInviter(username);
     }
+    else if (ChatRole::recipient == chatRole)
+    {
+        int usernamePid = std::atoi(username.c_str());
+        startConversationAsRecipient(usernamePid);
+    }
+}
+
+void ChatControl::endConversation()
+{//TODO czy to sie nie posypie ?
+    if (senderThread_ && reciverThread_)
+    {
+        senderThread_->join();
+        reciverThread_->join();
+        sendMessage_->join();
+    }
+
+}
+
+void ChatControl::stopThreads()
+{
+    isThreadsRunning_ = false;
 }
 
 void ChatControl::startConversationAsInviter(const std::string& username)
@@ -28,8 +54,8 @@ void ChatControl::startConversationAsInviter(const std::string& username)
     bool isInviteAccepted = chatRequest.sendChatRequest(username);
     if(isInviteAccepted)
     {
-        setPathToChatFile(username);
-        messageFlag_ = MessageFlag::inviter;
+        //setPathToChatFile(username);
+        messageFlag_ = MessageFlag::inviterMessage;
         conversationControl();
     }
 }
@@ -40,40 +66,53 @@ void ChatControl::startConversationAsRecipient(const int pid)
     bool isInviteAccepted = chatRequest.answerForChatRequest(pid);
     if(isInviteAccepted)
     {
-        //std::unique_ptr<std::string> username = chatRequest.getUsernameThroughPid(pid);
-        //setPathToChatFile(*username);
-        messageFlag_ = MessageFlag::recipient;
+        messageFlag_ = MessageFlag::recipientMessage;
         conversationControl();
     }
 }
 
-void ChatControl::endConversation()
-{
-    isChatRunning_ = false;
-}
 
 void ChatControl::conversationControl()
 {
-    communicationThreads_.push_back(std::thread([&](){
-        std::unique_ptr<Sender> sender = std::make_unique<Sender>(pathToChatFile_, static_cast<int>(messageFlag_));
-        while(isChatRunning_)
+    *senderThread_ = std::thread([&](){
+        std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFilenameWithPath_, static_cast<int>(messageFlag_));
+        while(isThreadsRunning_)
         {
-            //sender->sendMessage();
+            //TODO jestli cos wysle to koniec rozmowy
+            messageWaitingRoom_.push(sender->getMessageToSend());
         }
-    }));
+    });
 
-    communicationThreads_.push_back(std::thread([&](){
+    *reciverThread_ = std::thread([&](){
         std::unique_ptr<Reciver> reciver = std::make_unique<Reciver>();
-        while(isChatRunning_)
+        while(isThreadsRunning_)
         {
             //reciver_->recive()
+            //TODO jesli cos odczyta to koniec rozmowy
             sleep(1);
         }
-    }));
+    });
+
+    *sendMessage_ = std::thread([&](){
+        std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFilenameWithPath_, static_cast<int>(messageFlag_));
+        while(isThreadsRunning_ || !messageWaitingRoom_.empty())
+        {
+            if (messageWaitingRoom_.empty())
+            {
+                sleep(1);
+            }
+            else
+            {
+                sender->sendMessage(*messageWaitingRoom_.front());
+                messageWaitingRoom_.pop();
+            }
+        }
+    });
 
 }
 
-std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& username)
+/*
+std::unique_ptr<std::string> ChatControl::getChatFoldername(const std::string& username)
 {
     std::string possibleFolderName_1 = username + "_" + LocalUser::getLocalUser().getUsername();
     std::string possibleFolderName_2 = LocalUser::getLocalUser().getUsername() + "_" + username;
@@ -99,7 +138,7 @@ std::unique_ptr<std::string> ChatControl::getChatFolderName(const std::string& u
     return nullptr;
 }
 
-std::unique_ptr<std::string> ChatControl::getChatFileName(const std::string& folderName)
+std::unique_ptr<std::string> ChatControl::getChatFilename(const std::string& folderName)
 {
     std::unique_ptr<std::string> fileName = std::make_unique<std::string>(folderName);
     auto it = fileName->begin();
@@ -110,15 +149,7 @@ std::unique_ptr<std::string> ChatControl::getChatFileName(const std::string& fol
 
     return fileName;
 }
-
-void ChatControl::setPathToChatFile(const std::string& username)
-{
-    std::string folderName = *getChatFolderName(username);
-    std::string fileName = *getChatFileName(folderName);
-    std::string chatPathWithFile = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderName + "/" + fileName;
-    pathToChatFile_ = chatPathWithFile;
-}
-
+*/
 
 /*
 void Sender::sendMessageFromWaitingRoom()
@@ -143,8 +174,8 @@ void Sender::sendMessageFromWaitingRoom()
         }
     }
 }
-
 */
+
 
 
 
