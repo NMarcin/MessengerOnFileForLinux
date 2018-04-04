@@ -20,6 +20,7 @@ include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
 include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
 include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
 include_directories(${CMAKE_SOURCE_DIR}/ChatFile/src)
+include_directories(${CMAKE_SOURCE_DIR}/TerminalFunctionality/src)
 
 # SRC
 add_subdirectory(main/src)
@@ -27,6 +28,7 @@ add_subdirectory(UserService/src)
 add_subdirectory(FileHandling/src)
 add_subdirectory(LoggerFramework/src)
 add_subdirectory(ChatFile/src)
+add_subdirectory(TerminalFunctionality/src)
 
 message(STATUS ${SOURCES})
 
