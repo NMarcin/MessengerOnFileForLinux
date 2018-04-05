@@ -11,8 +11,8 @@ http://ci-messengeronfileforlinux.bitnamiapp.com/jenkins/
 TBC
 
 <b>UT coverage:</b>
-ChatFile - 30%
-FileHandling - 100%
-LoggerFramework - 100%
-TerminalFunctionality - 0%
-UserService - 0%
+ChatFile - 30% <br>
+FileHandling - 100% <br>
+LoggerFramework - 100% <br>
+TerminalFunctionality - 0% <br>
+UserService - 0% 
