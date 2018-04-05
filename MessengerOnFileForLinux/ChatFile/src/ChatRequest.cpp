@@ -19,7 +19,7 @@ ChatRequest::~ChatRequest()
     log.info("ChatRequest D-TOR");
 }
 
-bool ChatRequest::answerForChatRequest(const int usernamePid) const
+std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // TODO mwozniak string przez sygnal lub gdzies jakos pobierany tutaj
 {
     log.info("ChatRequest::answerForChatRequest started");
     std::unique_ptr<std::string> senderUsername = std::make_unique<std::string>(*getUsernameThroughPid(usernamePid));
@@ -30,10 +30,10 @@ bool ChatRequest::answerForChatRequest(const int usernamePid) const
     if (decision)
     {
         sendAnswer(*senderUsername, AnswerType::accepted);
-        return true;
+        return "true";  // TODO mwozniak: sciezka szybko ogarnac, bo testy jebna
     }
-
-    return sendAnswer(*senderUsername, AnswerType::disaccepted);
+    sendAnswer(*senderUsername, AnswerType::disaccepted);
+    return "false";
 }
 
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
@@ -145,7 +145,7 @@ bool ChatRequest::respondOnInvitation() const
     log.info("ChatRequest::respondOnInvitation started");
     std::string decision;
     std::cin >> decision;
-    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);  // TODO mwozniak check tolower on string
 
     if ("y" == decision || "yes" == decision)
     {
@@ -181,7 +181,7 @@ bool ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type)
     return false;
 }
 
-bool ChatRequest::sendChatRequest(const std::string& username) const
+std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
@@ -190,17 +190,17 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
     //to ma byc tutaj, dla testow zakomentowane
 
     ChatFabric newChat;
-    newChat.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
+    std::string chatFileWithPath = newChat.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
 
     if (!isUserActive(receiver.getUsername()))
     {
-        return false;
+        return {};
     }
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userBussyStatus);
     int pid = receiver.getUserPid();
     if (0 == pid)
     {
-        return false;
+        return {};
     }
 
     sendSigusr1Signal(pid);
@@ -210,10 +210,10 @@ bool ChatRequest::sendChatRequest(const std::string& username) const
         //TODO mwozniak usuwanie folderu rozmowy
         changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
         changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
-        return false;
+        return {};
     }
 
-    return true;
+    return chatFileWithPath;
 }
 
 void ChatRequest::sendSigusr1Signal(const int userPid) const

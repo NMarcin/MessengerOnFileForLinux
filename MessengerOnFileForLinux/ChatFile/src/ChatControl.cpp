@@ -54,8 +54,8 @@ void ChatControl::stopThreads()
 void ChatControl::startConversationAsInviter(const std::string& username)
 {
     ChatRequest chatRequest;
-    bool isInviteAccepted = chatRequest.sendChatRequest(username);
-    if(isInviteAccepted)
+    chatFileWithPath_ = chatRequest.sendChatRequest(username);
+    if(!chatFileWithPath_.empty())
     {
         messageFlag_ = MessageFlag::inviterMessage;
         conversationControl();
@@ -65,8 +65,8 @@ void ChatControl::startConversationAsInviter(const std::string& username)
 void ChatControl::startConversationAsRecipient(const int pid)
 {
     ChatRequest chatRequest;
-    bool isInviteAccepted = chatRequest.answerForChatRequest(pid);
-    if(isInviteAccepted)
+    chatFileWithPath_ = chatRequest.answerForChatRequest(pid);
+    if(!chatFileWithPath_.empty())
     {
         messageFlag_ = MessageFlag::recipientMessage;
         conversationControl();
@@ -74,11 +74,12 @@ void ChatControl::startConversationAsRecipient(const int pid)
 }
 
 
-void ChatControl::conversationControl()
+void ChatControl::conversationControl() // TODO mwozniak lambdy -> funkcje
 {
     //TODO mwozniak zmienic na make_unique
-    *getMessageThread_ = std::thread([&](){
-        std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFilenameWithPath_, static_cast<int>(messageFlag_));
+    *getMessageThread_ = std::thread([&]()
+    {
+        std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
         while(isThreadsRunning_)
         {
             //TODO jestli cos wysle to koniec rozmowy
@@ -86,7 +87,8 @@ void ChatControl::conversationControl()
         }
     });
 
-    *reciverThread_ = std::thread([&](){
+    *reciverThread_ = std::thread([&]()
+    {
         std::unique_ptr<Reciver> reciver = std::make_unique<Reciver>();
         while(isThreadsRunning_)
         {
@@ -96,8 +98,9 @@ void ChatControl::conversationControl()
         }
     });
 
-    *sendMessageThread_ = std::thread([&](){
-        std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFilenameWithPath_, static_cast<int>(messageFlag_));
+    *sendMessageThread_ = std::thread([&]()
+    {
+        std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
         while(isThreadsRunning_ || !messageWaitingRoom_.empty())
         {
             if (messageWaitingRoom_.empty())

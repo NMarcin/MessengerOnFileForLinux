@@ -9,9 +9,9 @@
 
 #include <ChatControl.hpp>
 
-namespace ENIVRONMENT_PATH
+namespace ENIVRONMENT_PATH // TODO mwozniak spell checking
 {
-    namespace PATH_TO_FILE
+    namespace PATH_TO_FILE  // TODO mwozniak usunac PATH_
     {
         static const std::string REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
         static const std::string LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
@@ -78,5 +78,3 @@ static void initSigusr1Action()
 }
 
 /** **********************************************************/
-
-

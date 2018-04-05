@@ -3,7 +3,6 @@
 #include <thread>
 #include <vector>
 #include <signal.h>
-#include <iostream>
 #include <queue>
 
 #include <Sender.hpp>
@@ -30,7 +29,7 @@ public:
     ChatControl();
     ~ChatControl();
     //TODO zmienic chatFile i ChatRequest zeby zwracaly sciezke do pliku rozmowy.
-    //Bedzie sie to odbywalo w startAsInviter/Reciptnet
+    //Bedzie sie to odbywalo w startAsInviter/Reciptnet -> pierwsze kroki sa, trzeba doimplementować
     void startConversation(const std::string& username, ChatRole chatRole);
     void endConversation();
 
@@ -44,7 +43,7 @@ private:
     std::unique_ptr<std::thread> sendMessageThread_;
     std::unique_ptr<std::thread> reciverThread_;
     std::queue<std::unique_ptr<std::string>> messageWaitingRoom_;
-    std::string chatFilenameWithPath_;
+    std::string chatFileWithPath_;
     MessageFlag messageFlag_;
     bool isThreadsRunning_;
 

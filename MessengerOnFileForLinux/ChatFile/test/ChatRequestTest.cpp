@@ -1,6 +1,6 @@
 #include <ChatRequestTestCore.hpp>
 
-
+/*
 TEST_F(ChatRequestFixture, inviteInactiveUser)
 {
     FileInterface::Modification::removeRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, user);
@@ -32,7 +32,7 @@ TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_2)
     std::cin.rdbuf(stream.rdbuf());
 
     EXPECT_FALSE(chatRequest.sendChatRequest(user));
-}
+}*/
 /*
 TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_1)
 {
@@ -69,13 +69,11 @@ TEST_F(ChatRequestFixture, isToLowerWorking)
 
     EXPECT_TRUE(chatRequest.sendChatRequest(user));
 }
-*/
+*//*
 TEST_F(ChatRequestFixture, inviteActiveUserWithUndefinedResponse)
 {
     std::istringstream stream("somethigElseThanYesOrNo");
     std::cin.rdbuf(stream.rdbuf());
 
     EXPECT_FALSE(chatRequest.sendChatRequest(user));
-}
-
-
+}*/

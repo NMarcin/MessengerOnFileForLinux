@@ -10,7 +10,7 @@ public:
     ChatFabric();
     ~ChatFabric();
 
-    bool createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const;
+    std::string createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const;
 
 private:
     std::string createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const;

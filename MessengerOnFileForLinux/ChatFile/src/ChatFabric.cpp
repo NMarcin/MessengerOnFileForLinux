@@ -16,24 +16,23 @@ ChatFabric::~ChatFabric()
     log.info("ChatFabric D-TOR");
 }
 
-bool ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
+std::string ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     log.info("ChatFabric::createChatStructure started");
     std::string chatFolderName = createChatFolder(usernameInviter, usernameGuess);
-    if("" != chatFolderName)
+    if(!chatFolderName.empty())
     {
-        std::string chatFileName = createChatFile(chatFolderName, usernameInviter, usernameGuess);
-        if("" != chatFileName)
+        std::string chatFileWithPath = createChatFile(chatFolderName, usernameInviter, usernameGuess);
+        if(!chatFileWithPath.empty())
         {
-            std::string chatFileWithPath = chatFolderName + chatFileName;
             log.info(("ChatFabric::createChatStructure succes, chatFileWithPath:" + chatFileWithPath).c_str());
-            return true;
+            return chatFileWithPath;
         }
         log.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
-        return false;
+        return {};
    }
     log.info("ChatFabric::createChatStructure ERROR: createChatFolder failed");
-    return false;
+    return {};
 }
 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
@@ -53,23 +52,22 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
 
 std::string ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    std::string newFileName = usernameInviter + "_" + usernameGuess;
-    std::string systemCommand = "touch " + chatFolderName + newFileName; // jw, TODO mwozniak zrobic w interfejcie plikow
-    bool commandStatus = system(systemCommand.c_str());
+    std::string newChatFileWithPath = chatFolderName + usernameInviter + "_" + usernameGuess;
+    bool folderCreating = FileInterface::Managment::createFile(newChatFileWithPath);
 
-    if(!commandStatus)
+    if(!folderCreating)
     {
-        log.info("ChatFabric::createChatFile commandStatus done");
-        return newFileName;
+        log.info("ChatFabric::createChatFile folderCreating done");
+        return newChatFileWithPath;
     }
-    log.info("ChatFabric::createChatFile commandStatus failure");
+    log.info("ChatFabric::createChatFile folderCreating failure");
     return {};
 }
 
 int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
 {
     int freeFolderNumber = -1;
-    std::vector<std::string> filesInPath= {}; // pobranie wektora nazw plików w danym folderze alfabetycznie (to powinno potem być w interfejsie plikow)
+    std::vector<std::string> filesInPath= *FileInterface::Accesor::getFilenamesFromFolder(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER); //TODO mnurzyns jakis move czy swap
     auto fileIterator = filesInPath.begin();
 
     if(filesInPath.empty())
@@ -93,7 +91,7 @@ int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
         {
             ++fileIterator;
         }
-    }
+    }   // TODO mnurzyns -> ogarnac to funkcje i dodac logi
     //return freeFolderNumber;
     return 1;
 }
