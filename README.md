@@ -1,11 +1,18 @@
 # MessengerOnFileForLinux
 Here will be more information, but first lets code!
 
-Jenkins status:
+<b>Jenkins status:</b>
 http://ci-messengeronfileforlinux.bitnamiapp.com/jenkins/
 
-New Release next date:
+<b>New Release next date:</b>
 01.06.2018
 
-Released featured:
+<b>Released features:</b>
 TBC
+
+<b>UT coverage:</b> <br>
+ChatFile - 30% <br>
+FileHandling - 100% <br>
+LoggerFramework - 100% <br>
+TerminalFunctionality - 0% <br>
+UserService - 0% 
