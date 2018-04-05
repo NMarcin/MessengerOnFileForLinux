@@ -10,7 +10,7 @@ http://ci-messengeronfileforlinux.bitnamiapp.com/jenkins/
 <b>Released featured:</b>
 TBC
 
-<b>UT coverage:</b>
+<b>UT coverage:</b> <br>
 ChatFile - 30% <br>
 FileHandling - 100% <br>
 LoggerFramework - 100% <br>
