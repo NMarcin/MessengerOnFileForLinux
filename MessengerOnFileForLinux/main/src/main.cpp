@@ -45,6 +45,7 @@ void mwozniak()
     int i = 1;
     do
     {
+
         int j = 0;
         std::cout << "Wybierz opcje: ";
         std::cin >> j;

@@ -63,6 +63,7 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
 
 static void initSigusr1Action()
 {
+    std::cerr << "INIT" << std::endl;
     sigset_t iset;
     struct sigaction act = {0};
     sigemptyset(&iset);

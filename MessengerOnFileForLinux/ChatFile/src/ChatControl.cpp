@@ -23,10 +23,12 @@ void ChatControl::startConversation(const std::string& username, ChatRole chatRo
 {
     if (ChatRole::inviter == chatRole)
     {
+        std::cout << "inviter" << std::endl;
         startConversationAsInviter(username);
     }
     else if (ChatRole::recipient == chatRole)
     {
+        std::cout << "recipent" << std::endl;
         int usernamePid = std::atoi(username.c_str());
         startConversationAsRecipient(usernamePid);
     }
@@ -93,6 +95,7 @@ void ChatControl::startConversationAsInviter(const std::string& username)
 {
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
+    std::cout << chatFileWithPath_ << std::endl;
     if(!chatFileWithPath_.empty())
     {
         messageFlag_ = MessageFlag::inviterMessage;
@@ -104,6 +107,7 @@ void ChatControl::startConversationAsRecipient(const int pid)
 {
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.answerForChatRequest(pid);
+    std::cout << "Recipent: " << chatFileWithPath_ << std::endl;
     if(!chatFileWithPath_.empty())
     {
         messageFlag_ = MessageFlag::recipientMessage;
