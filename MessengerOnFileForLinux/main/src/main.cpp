@@ -35,24 +35,39 @@ void mwozniak()
 
     initSigusr1Action();
 
+    std::cout << "REJETRACJA" << std::endl;
     RegisterUser registerUser;
     registerUser.registerNewUser();
+
     std::cout << "LOGOWANIE" << std::endl;
     SignIn signIn;
     signIn.signInUser();
-
-    int h;
-    std::cin >>h;
-    if(h)
+    int i = 1;
+    do
     {
-        ChatControl control;
-        control.startConversation("marcin1008", ChatRole::inviter);
-    }
+        int j = 0;
+        std::cout << "Wybierz opcje: ";
+        std::cin >> j;
 
-    for (int i = 0; i < 6; i++)
-    {
+        switch (j) {
+        case 1:
+        {
+            std::cout << " Kogo chcesz zaprosic ? ";
+            std::string who;
+            std::cin >> who;
+            ChatControl control;
+            control.startConversation(who, ChatRole::inviter);
+        }
+            break;
+
+        case 2:
+            i = 0;
+            break;
+        default:
+            break;
+        }
         sleep(1);
-    }
+    }while(i);
 
 
     SignOut signOut;
