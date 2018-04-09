@@ -68,6 +68,7 @@ void mwozniak()
             break;
         }
         sleep(1);
+
     }while(i);
 
 
