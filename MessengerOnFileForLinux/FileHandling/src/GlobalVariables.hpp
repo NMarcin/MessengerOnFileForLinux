@@ -9,15 +9,15 @@
 
 #include <ChatControl.hpp>
 
-namespace ENIVRONMENT_PATH // TODO mwozniak spell checking
+namespace ENVIRONMENT_PATH
 {
-    namespace PATH_TO_FILE  // TODO mwozniak usunac PATH_
+    namespace TO_FILE
     {
         static const std::string REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
         static const std::string LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
     }
 
-    namespace PATH_TO_FOLDER
+    namespace TO_FOLDER
     {
         static const std::string HOME_FOLDER = getenv("HOME");
         static const std::string USER_FOLDER = HOME_FOLDER + "/messenger/";
@@ -40,7 +40,7 @@ namespace FileStructure {
         static constexpr int dateTimeFieldInRegisteredFile = 2;
     }
 
-    namespace FieldValue //TODO do wyrzucania jak napisze ChatControl i poprawie ChatRequest
+    namespace FieldValue
     {
         static const std::string userActiveStatus = "0";
         static const std::string userBussyStatus = "1";

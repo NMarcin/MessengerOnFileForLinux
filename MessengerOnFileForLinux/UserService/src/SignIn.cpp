@@ -71,7 +71,7 @@ bool SignIn::signInUser() const
 bool SignIn::isUserLogged() const
 {
     log.info("SignIn::isUserLogged started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::Accesor::getFileContent(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE));
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE));
 
     for (auto& x : *loggedFileContent)
     {
@@ -106,7 +106,7 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
 std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 {
     log.info("SignIn::getPasswordFromDatabase started");
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::Accesor::getFileContent(ENIVRONMENT_PATH::PATH_TO_FILE::REGISTERED_FILE));
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE));
 
     for (auto& x : *registeredFileContent)
     {
@@ -130,5 +130,5 @@ bool SignIn::setUserDataInLoggedFile() const
     std::string userPid = std::to_string(LocalUser::getLocalUser().getUserPid());
     std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + FileStructure::FieldValue::userActiveStatus + "][" + userPid +"]";
 
-    return FileInterface::Modification::addRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, information); //TODO update date&&time in registered file
+    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, information); //TODO update date&&time in registered file
 }

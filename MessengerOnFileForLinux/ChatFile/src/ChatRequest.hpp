@@ -28,7 +28,7 @@ private:
     std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
     bool isUserActive(const User& user) const;
     bool respondOnInvitation() const;
-    bool sendAnswer(const std::string& senderUsername, AnswerType type) const;
+    std::string sendAnswer(const std::string& senderUsername, AnswerType type) const;
     void sendSigusr1Signal(const int userPid) const;
     void showInvitation(const std::string& senderUsername) const;
     bool waitForAnswer(const std::string& username) const;

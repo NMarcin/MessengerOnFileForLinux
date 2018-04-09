@@ -32,6 +32,7 @@ std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // T
         sendAnswer(*senderUsername, AnswerType::accepted);
         return "true";  // TODO mwozniak: sciezka szybko ogarnac, bo testy jebna
     }
+
     sendAnswer(*senderUsername, AnswerType::disaccepted);
     return "false";
 }
@@ -39,7 +40,7 @@ std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // T
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
 {
     log.info("ChatRequest::changeUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
@@ -48,7 +49,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            FileInterface::Modification::updateRowField(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, x, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
+            FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, x, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
             return true;
         }
     }
@@ -59,7 +60,7 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
     log.info("ChatRequest::getChatFolderName started");
-    std::string command= "ls " + static_cast<std::string>(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER) + " | grep " + folderName;
+    std::string command= "ls " + static_cast<std::string>(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER) + " | grep " + folderName;
 
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
 
@@ -75,7 +76,7 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPid) const
 {
     log.info("ChatRequest::getUsernameThroughPid started");
-    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE);
+    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
@@ -102,7 +103,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
     log.info("ChatRequest::getUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
     for (auto& x : *loggedFileContent)
     {
@@ -163,22 +164,23 @@ bool ChatRequest::respondOnInvitation() const
     // poki co powoduje odrzucenie
 }
 
-bool ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
+std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
     log.info("ChatRequest::sendAnswer started");
     std::string partOfFolderName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
     std::string folderFullName = *getChatFolderName(partOfFolderName);
-    std::string flagPath = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderFullName;
+    std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + folderFullName;
 
     if (AnswerType::disaccepted == type)
     {
         FileInterface::Managment::createFile(flagPath + "/DISACCEPTED");
+        return flagPath + "/" + partOfFolderName;
     }
     else if (AnswerType::accepted == type)
     {
         FileInterface::Managment::createFile(flagPath + "/ACCEPTED");
     }
-    return false;
+    return "";
 }
 
 std::string ChatRequest::sendChatRequest(const std::string& username) const
@@ -236,7 +238,7 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
     std::string folderFullName = *getChatFolderName(folderName);
 
     const int timeToWaitForAnswer = 20;
-    const std::string flagPath = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + folderFullName;
+    const std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + folderFullName;
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {

@@ -29,7 +29,7 @@ void ChatRequestFixture::TearDown()
     SignOut signOut;
     signOut.signOutUser();
     //TODO usunac jak bedzie napisane konczenie rozmowy
-    std::string command = "rm -r " + ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + "*" + user + "*";
+    std::string command = "rm -r " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "*" + user + "*";
     system(command.c_str());
 }
 

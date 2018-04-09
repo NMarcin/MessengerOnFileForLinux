@@ -33,38 +33,27 @@ void mnurzyns()
 void mwozniak()
 {
 
-  initSigusr1Action();
+    initSigusr1Action();
 
-  int h;
-  std::cin >> h;
-  if (h==0)
-      while (true)
-      {
-      }
-    std::cout << "mwozniak:\n\n";
     RegisterUser registerUser;
     registerUser.registerNewUser();
-
-
-
     std::cout << "LOGOWANIE" << std::endl;
     SignIn signIn;
     signIn.signInUser();
 
-    //ChatControl control;
-    //control.startConversationAsInviter("marcin1008");
-    ChatRequest chat;
-    chat.sendChatRequest("marcin1008");
-
-    //Sender sender;
-    //sender.sendMessage("marcin1008");
+    int h;
+    std::cin >>h;
+    if(h)
+    {
+        ChatControl control;
+        control.startConversation("marcin1008", ChatRole::inviter);
+    }
 
     for (int i = 0; i < 6; i++)
     {
         sleep(1);
     }
 
-    //control.endConversation();
 
     SignOut signOut;
     signOut.signOutUser();

@@ -37,8 +37,8 @@ std::string ChatFabric::createChatStructure(const std::string& usernameInviter, 
 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    int folderNumber = getFreeFolderNumber(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER);
-    std::string newFolderName = ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
+    int folderNumber = getFreeFolderNumber(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER);
+    std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
     if(!commandStatus)
@@ -67,7 +67,7 @@ std::string ChatFabric::createChatFile(const std::string& chatFolderName, const 
 int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
 {
     int freeFolderNumber = -1;
-    std::vector<std::string> filesInPath= *FileInterface::Accesor::getFilenamesFromFolder(ENIVRONMENT_PATH::PATH_TO_FOLDER::CHATS_FOLDER); //TODO mnurzyns jakis move czy swap
+    std::vector<std::string> filesInPath= *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER); //TODO mnurzyns jakis move czy swap
     auto fileIterator = filesInPath.begin();
 
     if(filesInPath.empty())

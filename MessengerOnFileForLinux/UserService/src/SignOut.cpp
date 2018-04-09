@@ -21,5 +21,5 @@ bool SignOut::signOutUser() const
 bool SignOut::removeUserDataFromLoggedFile() const
 {
     log.info("SignOut::removeUserDataFromLoggedFile started");
-    return FileInterface::Modification::removeRow(ENIVRONMENT_PATH::PATH_TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
+    return FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
 }

@@ -28,13 +28,15 @@ class ChatControl
 public:
     ChatControl();
     ~ChatControl();
-    //TODO zmienic chatFile i ChatRequest zeby zwracaly sciezke do pliku rozmowy.
-    //Bedzie sie to odbywalo w startAsInviter/Reciptnet -> pierwsze kroki sa, trzeba doimplementować
+    //TODO przetestwoac czy chatFileWithPath_ jest dobrze ustawiany
     void startConversation(const std::string& username, ChatRole chatRole);
     void endConversation();
 
 private:
     void conversationControl();
+    void getMessage();
+    void reciveMessage();
+    void sendMessage();
     void startConversationAsInviter(const std::string& username);
     void startConversationAsRecipient(const int pid);
     void stopThreads();
