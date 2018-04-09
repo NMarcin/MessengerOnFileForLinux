@@ -23,12 +23,10 @@ void ChatControl::startConversation(const std::string& username, ChatRole chatRo
 {
     if (ChatRole::inviter == chatRole)
     {
-        std::cout << "inviter" << std::endl;
         startConversationAsInviter(username);
     }
     else if (ChatRole::recipient == chatRole)
     {
-        std::cout << "recipent" << std::endl;
         int usernamePid = std::atoi(username.c_str());
         startConversationAsRecipient(usernamePid);
     }
