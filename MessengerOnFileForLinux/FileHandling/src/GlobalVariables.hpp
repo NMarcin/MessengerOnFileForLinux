@@ -57,11 +57,11 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
     {
         std::cerr << "WARNING: info = NULL" << std::endl;
     }
-    kill(info -> si_pid, SIGKILL);
+    //kill(info -> si_pid, SIGKILL);
     //ChatRequest request;
     //request.answerForChatRequest(info -> si_pid);
-    //ChatControl chatControl;
-    //chatControl.startConversation(std::to_string(info -> si_pid), ChatRole::recipient);
+    ChatControl chatControl;
+    chatControl.startConversation(std::to_string(info -> si_pid), ChatRole::recipient);
     //TODO mwozniak potestowac. Wczesniej na chatRequest dzialolo dobrze
 }
 

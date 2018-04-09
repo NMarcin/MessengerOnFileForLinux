@@ -29,12 +29,10 @@ std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // T
 
     if (decision)
     {
-        sendAnswer(*senderUsername, AnswerType::accepted);
-        return "true";  // TODO mwozniak: sciezka szybko ogarnac, bo testy jebna
+        return sendAnswer(*senderUsername, AnswerType::accepted);
     }
 
-    sendAnswer(*senderUsername, AnswerType::disaccepted);
-    return "false";
+    return sendAnswer(*senderUsername, AnswerType::disaccepted);
 }
 
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
@@ -174,11 +172,11 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
     if (AnswerType::disaccepted == type)
     {
         FileInterface::Managment::createFile(flagPath + "/DISACCEPTED");
-        return flagPath + "/" + partOfFolderName;
     }
     else if (AnswerType::accepted == type)
     {
         FileInterface::Managment::createFile(flagPath + "/ACCEPTED");
+        return flagPath + "/" + partOfFolderName;
     }
     return "";
 }
@@ -189,7 +187,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     User receiver(username);
 
     //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileField::FieldValue::userBussyStatus);
-    //to ma byc tutaj, dla testow zakomentowane
+    //zakomentowane dla testow na jednym terminalu
 
     ChatFabric newChat;
     std::string chatFileWithPath = newChat.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());

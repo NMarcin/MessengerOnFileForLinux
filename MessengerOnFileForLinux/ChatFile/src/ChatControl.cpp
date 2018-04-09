@@ -16,6 +16,12 @@ ChatControl::ChatControl()
 
 ChatControl::~ChatControl()
 {
+    if (getMessageThread_ && reciverThread_)
+    {
+        getMessageThread_->join();
+        reciverThread_->join();
+        sendMessageThread_->join();
+    }
     //NOOP
 }
 
@@ -93,11 +99,15 @@ void ChatControl::startConversationAsInviter(const std::string& username)
 {
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
-    std::cout << chatFileWithPath_ << std::endl;
+
     if(!chatFileWithPath_.empty())
     {
         messageFlag_ = MessageFlag::inviterMessage;
         conversationControl();
+    }
+    else
+    {
+        endConversation();
     }
 }
 
@@ -105,11 +115,15 @@ void ChatControl::startConversationAsRecipient(const int pid)
 {
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.answerForChatRequest(pid);
-    std::cout << "Recipent: " << chatFileWithPath_ << std::endl;
+
     if(!chatFileWithPath_.empty())
     {
         messageFlag_ = MessageFlag::recipientMessage;
         conversationControl();
+    }
+    else
+    {
+        endConversation();
     }
 }
 

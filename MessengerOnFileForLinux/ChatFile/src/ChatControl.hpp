@@ -28,7 +28,6 @@ class ChatControl
 public:
     ChatControl();
     ~ChatControl();
-    //TODO przetestwoac czy chatFileWithPath_ jest dobrze ustawiany
     void startConversation(const std::string& username, ChatRole chatRole);
     void endConversation();
 
