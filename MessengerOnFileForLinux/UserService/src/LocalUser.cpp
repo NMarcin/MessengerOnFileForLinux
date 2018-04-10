@@ -16,7 +16,6 @@ LocalUser::~LocalUser()
 
 LocalUser & LocalUser::getLocalUser()
 {
-    //log.info("LocalUser::getLocalUser started");
     static LocalUser localUser;
     return localUser;
 }

@@ -16,7 +16,7 @@ SignIn::~SignIn()
 }
 
 std::string SignIn::enterThePassword() const
-{
+{   // TODO mwozniak 5 interwal pytania o haslo
     log.info("SignIn::enterThePassword started");
     std::string password;
     std::cout << "Enter the password : ";
@@ -73,7 +73,7 @@ bool SignIn::isUserLogged() const
     log.info("SignIn::isUserLogged started");
     std::unique_ptr<std::vector<std::string>>loggedFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE));
 
-    for (auto& x : *loggedFileContent)
+    for (auto x : *loggedFileContent)
     {
         std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile));
         std::string username = LocalUser::getLocalUser().getUsername();
@@ -108,7 +108,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
     log.info("SignIn::getPasswordFromDatabase started");
     std::unique_ptr<std::vector<std::string>> registeredFileContent = std::make_unique<std::vector<std::string>>(*FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE));
 
-    for (auto& x : *registeredFileContent)
+    for (auto x : *registeredFileContent)
     {
         std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInRegisteredFile));
         std::string username = LocalUser::getLocalUser().getUsername();

@@ -18,7 +18,7 @@ RegisterUser::~RegisterUser()
 }
 
 std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() const
-{
+{ // TODO mwozniak 5 iteracji pytania o haslo
     log.info("RegisterUser::askUserForPassword started");
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
@@ -57,7 +57,7 @@ bool RegisterUser::isUserRegistered() const
 {
     log.info("RegisterUser::isUserRegistered started");
     std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE);
-    for (auto & x : *registeredFileContent)
+    for (auto  x : *registeredFileContent)
     {
         std::string username = LocalUser::getLocalUser().getUsername();
         std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInRegisteredFile));
