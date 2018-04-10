@@ -18,15 +18,15 @@ Sender::~Sender()
     log.info("Sender D-TOR");
 }
 
-std::unique_ptr<std::string> Sender::getMessageToSend()
+std::unique_ptr<std::string> Sender::getMessageToSend() const
 {
     log.info("Sender::getMessageToSend started");
     std::unique_ptr<std::string> rawMessage = getMessageFromStdin();
-    std::unique_ptr<std::string> messageToSend = prepearMessageToSend(*rawMessage);
+    std::unique_ptr<std::string> messageToSend = prepareMessageToSend(*rawMessage);
     return messageToSend;
 }
 
-bool Sender::sendMessage(const std::string& message)
+bool Sender::sendMessage(const std::string& message) const
 {
     log.info("Sender::sendMessage started");
     bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message);
@@ -49,7 +49,7 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
     return message;
 }
 
-std::unique_ptr<std::string> Sender::prepearMessageToSend(const std::string& rowMessage)
+std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
     log.info("Sender::prepearMessageToSend started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
@@ -74,6 +74,3 @@ std::unique_ptr<std::string> Sender::getActualDateTime() const
     *dateTime += __TIME__;
     return dateTime;
 }
-
-
-

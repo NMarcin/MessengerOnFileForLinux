@@ -31,7 +31,7 @@ void Logger::info(const char* logData) const
 
 void Logger::writeToConsole(const char* log) const
 {
-    fprintf(stdout, "\n%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
+    fprintf(stdout, "\n%s %s %s  %s\n", __DATE__, __TIME__, logSpace_, log);
 }
 
 void Logger::writeToFile(const char* log) const
@@ -44,7 +44,7 @@ void Logger::writeToFile(const char* log) const
         exit(1);
     }
 
-    fprintf(logFile, "%s %s %s \t %s\n", __DATE__, __TIME__, logSpace_, log);
+    fprintf(logFile, "%s %s %s  %s\n", __DATE__, __TIME__, logSpace_, log);
 
     fclose(logFile);
 }

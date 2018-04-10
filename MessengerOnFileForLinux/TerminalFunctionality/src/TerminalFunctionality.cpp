@@ -21,7 +21,7 @@ bool TerminalFunctionality::runCommand(std::string command)
 
 TerminalFunctionality::TerminalFunctionality()
 {
-    terminalCommand_ == nullptr;
+    terminalCommand_ = nullptr;
 }
 
 TerminalFunctionality::~TerminalFunctionality()

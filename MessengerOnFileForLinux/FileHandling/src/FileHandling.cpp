@@ -100,7 +100,7 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string systemCommand = "touch " + pathToFile;
     system(systemCommand.c_str());
-    
+
     if (!isFileExist(pathToFile))
     {
         std::string logInfo = "FileInterface::Managment::createFile started ERROR: " + pathToFile + "was not create";
@@ -115,7 +115,7 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
     std::string folderName = *Accesor::getFolderName(pathToFile);
-    
+
     if (std::unique_ptr<std::fstream> file = openFileToRead(pathToFile))
     {
         while (!file->eof())
@@ -132,9 +132,9 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
         Managment::removeFile(folderName + "/GUARD");
         return nullptr;
     }
-    
+
     Managment::removeFile(folderName + "/GUARD");
-    
+
     return fileContent;
 }
 
@@ -144,10 +144,10 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string command = "ls " + pathToDir;
     std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
-    
+
     std::unique_ptr<std::vector<std::string>> filesNames = std::make_unique<std::vector< std::string>>();
     std::string fileName;
-    
+
     const int lastWhitespaceCharacterASCII = 32;
     for (auto& x : commandOutput)
     {
@@ -162,7 +162,7 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
         }
     }
     return filesNames;
-    
+
 }
 
 std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::string& pathToFile)
@@ -170,14 +170,14 @@ std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::st
     std::string logInfo = "FileInterface::Accesor::getFolderName  from " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     auto it = pathToFile.end();
-    
+
     while ('/' != *it)
     {
         --it;
     }
-    
+
     std::unique_ptr<std::string> folderName = std::make_unique<std::string>(pathToFile.begin(), it);
-    
+
     return folderName;
 }
 
@@ -187,7 +187,7 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
     fileLog("FileInterface::Accesor::getRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
-    
+
     std::string::iterator it;
     for (auto& x : field)
     {
@@ -222,47 +222,23 @@ bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 }
 
 
-/*
-std::unique_ptr<std::string> FileInterface::Modification::removeRowField(const std::string& where, const int fieldNumber)
-{
-    fileLog("FileInterface::Modification::removeRowField  started", LogSpace::FileHandling);
-    int actualFieldNumber = -1;
-    std::unique_ptr<std::string> rowWithoutRemovedField = std::make_unique<std::string>();
-    
-    for (auto &x : row)
-    {
-        if ('[' == x)
-        {
-            ++actualFieldNumber;
-        }
-        
-        if (actualFieldNumber != fieldNumber)
-        {
-            rowWithoutRemovedField -> push_back(x);
-        }
-    }
-    
-    return rowWithoutRemovedField;
-}
-*/
-
 bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
 {
     fileLog("FileInterface::Modification::removeRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
-    
+
     if (Managment::isFileExist(folderName + "/GUARD"))
     {
         return false;
     }
-    
+
     Managment::createFile(folderName + "/GUARD");
-    
+
     std::string command = "sed -i -e '/" + pattern + "/d' " + pathToFile;
     std::system(command.c_str());
-    
+
     bool isGuardRemoved = Managment::removeFile(folderName + "/GUARD");
-    
+
     return isGuardRemoved;
 }
 
@@ -271,7 +247,7 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
 {
     fileLog("FileInterface::Modification::updateRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
-    
+
     if (Managment::isFileExist(folderName + "/GUARD"))
     {
         fileLog("FileInterface::Modification::updateRow ERROR: File does not exist", LogSpace::FileHandling);
@@ -279,13 +255,13 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
     }
 
     Managment::createFile(folderName + "/GUARD");
-    
+
     std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
     //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
     std::system(command.c_str());
-    
+
     bool isGuardRemoved = Managment::removeFile(folderName + "/GUARD");
-    
+
     return isGuardRemoved;
 }
 
@@ -295,7 +271,7 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     bool flag = false;
-    
+
     std::string folderName = *Accesor::getFolderName(pathToFile);
     if (Managment::isFileExist(folderName + "/GUARD"))
     {
@@ -304,7 +280,7 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 
     Managment::createFile(folderName + "/GUARD");
     //TODO moze tutaj guardy?
-    
+
     std::string command = "grep '" + where + "' " + pathToFile;
     std::string row = ConsolControl::getStdoutFromCommand(command.c_str());
 
@@ -321,7 +297,7 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
         {
             ++actualFieldNumber;
         }
-        
+
         if (actualFieldNumber != fieldNumber)
         {
             rowToUpdate -> push_back(x);
@@ -330,14 +306,14 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
         {
             if (true == flag)
                 continue;
-            
+
             rowToUpdate -> push_back('[');
-            
+
             for (auto& y : newField)
             {
                 rowToUpdate -> push_back(y);
             }
-            
+
             flag = true;
             rowToUpdate -> push_back(']');
         }
@@ -346,9 +322,9 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 
     Managment::removeFile(folderName + "/GUARD");
 
-    
+
     return updateRow(pathToFile,*rowToUpdate,where);
-    
+
 }
 
 
@@ -363,7 +339,7 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
     char buffer[max_buffer];
     cmd.append(" 2>&1");
     stream = popen(cmd.c_str(), "r");
-    
+
     if (stream)
     {
         while (!feof(stream))
@@ -373,9 +349,9 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
                 data.append(buffer);
             }
         }
-        
+
         pclose(stream);
     }
-    
+
     return data;
 }
