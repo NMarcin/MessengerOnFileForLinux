@@ -7,7 +7,8 @@
 
 #include <Sender.hpp>
 #include <Reciver.hpp>
-#include <User.hpp>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 enum class MessageFlag
 {
@@ -47,5 +48,7 @@ private:
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;
     bool isThreadsRunning_;
+
+    Logger log{LogSpace::ChatFile};
 
 };

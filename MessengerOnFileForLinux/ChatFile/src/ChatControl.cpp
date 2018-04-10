@@ -9,6 +9,7 @@
 
 ChatControl::ChatControl()
 {
+    log.info("ChatControl C-TOR ");
     getMessageThread_ = nullptr;
     reciverThread_ = nullptr;
     sendMessageThread_ = nullptr;
@@ -16,17 +17,19 @@ ChatControl::ChatControl()
 
 ChatControl::~ChatControl()
 {
+    log.info("ChatControl D-TOR ");
+
     if (getMessageThread_ && reciverThread_)
     {
         getMessageThread_->join();
         reciverThread_->join();
         sendMessageThread_->join();
     }
-    //NOOP
 }
 
 void ChatControl::startConversation(const std::string& username, ChatRole chatRole)
 {
+    log.info("ChatControl::startConversation started");
     if (ChatRole::inviter == chatRole)
     {
         startConversationAsInviter(username);
@@ -40,6 +43,7 @@ void ChatControl::startConversation(const std::string& username, ChatRole chatRo
 
 void ChatControl::endConversation()
 {
+    log.info("ChatControl::endConversation started");
     stopThreads();
 
     if (getMessageThread_ && reciverThread_)
@@ -54,11 +58,13 @@ void ChatControl::endConversation()
 
 void ChatControl::stopThreads()
 {
+    log.info("ChatControl::stopThreads started");
     isThreadsRunning_ = false;
 }
 
 void ChatControl::getMessage()
 {
+    log.info("ChatControl::getMessage started");
     std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
     while(isThreadsRunning_)
     {
@@ -69,6 +75,7 @@ void ChatControl::getMessage()
 
 void ChatControl::reciveMessage()
 {
+    log.info("ChatControl::reciveMessage started");
     std::unique_ptr<Reciver> reciver = std::make_unique<Reciver>();
     while(isThreadsRunning_)
     {
@@ -80,6 +87,7 @@ void ChatControl::reciveMessage()
 
 void ChatControl::sendMessage()
 {
+    log.info("ChatControl::sendMessage started");
     std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
     while(isThreadsRunning_ || !messageWaitingRoom_.empty())
     {
@@ -97,11 +105,14 @@ void ChatControl::sendMessage()
 
 void ChatControl::startConversationAsInviter(const std::string& username)
 {
+    log.info("ChatControl::startConversationAsInviter started");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
 
     if(!chatFileWithPath_.empty())
     {
+        std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
+        log.info(info.c_str());
         messageFlag_ = MessageFlag::inviterMessage;
         conversationControl();
     }
@@ -113,11 +124,14 @@ void ChatControl::startConversationAsInviter(const std::string& username)
 
 void ChatControl::startConversationAsRecipient(const int pid)
 {
+    log.info("ChatControl::startConversationAsRecipient started");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.answerForChatRequest(pid);
 
     if(!chatFileWithPath_.empty())
     {
+        std::string info = "ChatControl::startConversationAsRecipient chatFileWithPath_: " + chatFileWithPath_;
+        log.info(info.c_str());
         messageFlag_ = MessageFlag::recipientMessage;
         conversationControl();
     }
@@ -128,8 +142,9 @@ void ChatControl::startConversationAsRecipient(const int pid)
 }
 
 
-void ChatControl::conversationControl() // TODO mwozniak lambdy -> funkcje
+void ChatControl::conversationControl()
 {
+    log.info("ChatControl::conversationControl started");
     getMessageThread_ = std::make_unique<std::thread>(std::thread([&]()
     {
         getMessage();
