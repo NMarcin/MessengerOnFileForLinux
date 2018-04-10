@@ -92,6 +92,6 @@ int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
             ++fileIterator;
         }
     }   // TODO mnurzyns -> ogarnac to funkcje i dodac logi
-    //return freeFolderNumber;
-    return 1;
+    //return 1;
+    return 3;
 }

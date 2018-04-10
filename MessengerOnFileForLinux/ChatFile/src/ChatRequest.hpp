@@ -29,7 +29,7 @@ private:
     bool isUserActive(const User& user) const;
     bool respondOnInvitation() const;
     std::string sendAnswer(const std::string& senderUsername, AnswerType type) const;
-    void sendSigusr1Signal(const int userPid) const;
+    void sendSIGUSR1Signal(const int userPid) const;
     void showInvitation(const std::string& senderUsername) const;
     bool waitForAnswer(const std::string& username) const;
 

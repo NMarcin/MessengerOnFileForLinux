@@ -31,7 +31,7 @@ namespace ENVIRONMENT_PATH
 
 namespace FileStructure {
 
-    namespace FileField //TODO mwozniak rozbic na mniejsze
+    namespace FileField //TODO mwozniak rozbic na mniejsze (namespace RegisteredFile i LoggedFile)
     {
         static constexpr int usernameFieldInLoggedFile = 0;
         static constexpr int statusFieldInLoggedFile = 1;
@@ -41,7 +41,7 @@ namespace FileStructure {
         static constexpr int dateTimeFieldInRegisteredFile = 2;
     }
 
-    namespace FieldValue
+    namespace FieldValue // TODO do wyjebania -> trzymac gdzie indziej
     {
         static const std::string userActiveStatus = "0";
         static const std::string userBussyStatus = "1";

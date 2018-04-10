@@ -19,23 +19,23 @@ ChatRequest::~ChatRequest()
     log.info("ChatRequest D-TOR");
 }
 
-std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // TODO mwozniak string przez sygnal lub gdzies jakos pobierany tutaj
+std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // TODO mwozniak string przez sygnal
 {
     log.info("ChatRequest::answerForChatRequest started");
-    std::unique_ptr<std::string> senderUsername = std::make_unique<std::string>(*getUsernameThroughPid(usernamePid));
+    std::string senderUsername = *getUsernameThroughPid(usernamePid);
 
-    showInvitation(*senderUsername);
+    showInvitation(senderUsername);
     bool decision = respondOnInvitation();
 
     if (decision)
     {
-        return sendAnswer(*senderUsername, AnswerType::accepted);
+        return sendAnswer(senderUsername, AnswerType::accepted);
     }
 
-    return sendAnswer(*senderUsername, AnswerType::disaccepted);
+    return sendAnswer(senderUsername, AnswerType::disaccepted);
 }
 
-bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
+bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const    // TODO mnurzyns mwozniak po zmianie fora sprawdzic
 {
     log.info("ChatRequest::changeUserStatus started");
     std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
@@ -58,10 +58,11 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
     log.info("ChatRequest::getChatFolderName started");
-    std::string command= "ls " + static_cast<std::string>(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER) + " | grep " + folderName;
-
+    std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + " | grep " + folderName;
+    std::cout << command << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl ;
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
-
+    std::string logData = "DUPA DUPA DUPA DUPA:: " + *folderFullName;
+    log.info(logData.c_str());
      if (!folderFullName->empty())
      {
          folderFullName->pop_back(); //usuwanie znaku konca lini
@@ -76,7 +77,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
     log.info("ChatRequest::getUsernameThroughPid started");
     std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
-    for (auto& x : *loggedFileContent)
+    for (auto x : *loggedFileContent)
     {
         std::unique_ptr< std::string> pidToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::pidFieldInLoggedFile);
         int pid = std::atoi(pidToComapre->c_str());
@@ -84,7 +85,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
         if (0 == pid)
         {
             log.info("ChatRequest::getUsernameThroughPid ERROR: atoi failed");
-            return nullptr; //error nie skonwertowalo
+            return nullptr;
         }
         if (userPid == pid)
         {
@@ -94,7 +95,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
     }
 
     log.info("ChatRequest::getUsernameThroughPid ERROR: User does not exist");
-    return nullptr; //error
+    return nullptr;
 }
 
 
@@ -103,7 +104,7 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
     log.info("ChatRequest::getUserStatus started");
     std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
-    for (auto& x : *loggedFileContent)
+    for (auto x : *loggedFileContent)
     {
         std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile);
         if (!username.compare(*usernameToComapre)) //0 when succes
@@ -158,15 +159,14 @@ bool ChatRequest::respondOnInvitation() const
     }
 
     log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
-    return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz
-    // poki co powoduje odrzucenie
+    return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
 }
 
 std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
     log.info("ChatRequest::sendAnswer started");
-    std::string partOfFolderName = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
-    std::string folderFullName = *getChatFolderName(partOfFolderName);
+    std::string folderNameWithoutNumber = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
+    std::string folderFullName = *getChatFolderName(folderNameWithoutNumber);
     std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + folderFullName;
 
     if (AnswerType::disaccepted == type)
@@ -176,7 +176,8 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
     else if (AnswerType::accepted == type)
     {
         FileInterface::Managment::createFile(flagPath + "/ACCEPTED");
-        return flagPath + "/" + partOfFolderName;
+        std::string chatFilename = folderNameWithoutNumber;
+        return flagPath + "/" + chatFilename;
     }
     return "";
 }
@@ -189,10 +190,10 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileField::FieldValue::userBussyStatus);
     //zakomentowane dla testow na jednym terminalu
 
-    ChatFabric newChat;
-    std::string chatFileWithPath = newChat.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
+    ChatFabric chatFabric;
+    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
 
-    if (!isUserActive(receiver.getUsername()))
+    if (!isUserActive(receiver.getUsername()))  // TODO mwozniak polaczyc z ChatFabric w ifie, usunac !, a else return {}
     {
         return {};
     }
@@ -203,22 +204,22 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
         return {};
     }
 
-    sendSigusr1Signal(pid);
-
-    if (!waitForAnswer(receiver.getUsername()))
+    sendSIGUSR1Signal(pid);
+    bool receiverDecision = waitForAnswer(receiver.getUsername());
+    if(receiverDecision)
     {
-        //TODO mwozniak usuwanie folderu rozmowy
-        changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
-        changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
-        return {};
+        return chatFileWithPath;
     }
+    //TODO mwozniak usuwanie folderu rozmowy
+    changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
+    changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
+    return {};
 
-    return chatFileWithPath;
 }
 
-void ChatRequest::sendSigusr1Signal(const int userPid) const
+void ChatRequest::sendSIGUSR1Signal(const int userPid) const
 {
-    log.info("ChatRequest::sendSigusr1Signal started");
+    log.info("ChatRequest::sendSIGUSR1Signal started");
     kill(userPid, SIGUSR1);
 }
 
