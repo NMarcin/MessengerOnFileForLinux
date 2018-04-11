@@ -99,7 +99,9 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
     std::string logInfo = "FileInterface::Managment::createFile " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string systemCommand = "touch " + pathToFile;
+    std::string systemCommand2 = "chmod 777 " + pathToFile;
     system(systemCommand.c_str());
+    system(systemCommand2.c_str());
 
     if (!isFileExist(pathToFile))
     {

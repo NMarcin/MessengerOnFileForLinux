@@ -71,7 +71,7 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
         else
             username += x;
     }
-
+    std::cout << "Sygnal przyszedl od: " << username << std::endl;
     ChatControl chatControl;
     chatControl.startConversation(username, ChatRole::recipient);
     //TODO mwozniak potestowac. Wczesniej na chatRequest dzialolo dobrze

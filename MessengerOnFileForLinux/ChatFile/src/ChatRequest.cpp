@@ -223,8 +223,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 void ChatRequest::sendSIGUSR1Signal(const int userPid) const
 {
     log.info("ChatRequest::sendSIGUSR1Signal started");
-    std::cout <<"WYSYLAM DO: " << userPid << std::endl;
-    std::string command = "sudo kill -SIGUSR1 " + std::to_string(userPid);
+    std::string command = "sh signal.sh " + std::to_string(userPid);
     system(command.c_str());
     //kill(userPid, SIGUSR1);
 }

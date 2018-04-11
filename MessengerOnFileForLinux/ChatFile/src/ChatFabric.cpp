@@ -40,7 +40,10 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
     int folderNumber = getFreeFolderNumber(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER);
     std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
+    std::string systemCommand2 = "chmod 777 " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
+    system(systemCommand2.c_str());
+
     if(!commandStatus)
     {
         log.info(("ChatFabric::createChatFolder succes, folderName: " + newFolderName).c_str());
