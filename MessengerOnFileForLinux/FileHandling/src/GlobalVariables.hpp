@@ -61,11 +61,18 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
     {
         std::cerr << "WARNING: info = NULL" << std::endl;
     }
-    std::cout << "ZLAPANY PID: " << info -> si_pid << std::endl;
-    pid_t PPID = getppid();
-    std::string command = "ps axo user:20,command,pid | grep " + std::to_string(PPID);
+    std::string command = "ps axo user:20,command,pid | grep signal.sh";
     std::string output = ConsolControl::getStdoutFromCommand(command);
-    std::cout <<"GREP: " << output << std::endl;
+    std::string final;
+    for (auto& x: output)
+    {
+        if (x == " ")
+            break;
+        else
+            final += x;
+    }
+
+    std::cout <<"Sygnal wyslal: " << final << std::endl;
 
     //std::string command = "ps -o ppid= -p " + std::to_string(info -> si_pid);
     //std::string tmp = ConsolControl::getStdoutFromCommand(command);
