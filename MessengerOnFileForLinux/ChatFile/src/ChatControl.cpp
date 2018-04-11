@@ -108,7 +108,6 @@ void ChatControl::startConversationAsInviter(const std::string& username)
     log.info("ChatControl::startConversationAsInviter started");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
-
     if(!chatFileWithPath_.empty())
     {
         std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
@@ -127,7 +126,6 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
     log.info("ChatControl::startConversationAsRecipient started");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.answerForChatRequest(username);
-
     if(!chatFileWithPath_.empty())
     {
         std::string info = "ChatControl::startConversationAsRecipient chatFileWithPath_: " + chatFileWithPath_;
@@ -144,7 +142,8 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
 
 void ChatControl::conversationControl()
 {
-    log.info("ChatControl::conversationControl started");
+    isThreadsRunning_ = true;
+    log.info(("ChatControl::conversationControl started. Flag status: " + std::to_string(isThreadsRunning_)).c_str());
     getMessageThread_ = std::make_unique<std::thread>(std::thread([&]()
     {
         getMessage();
