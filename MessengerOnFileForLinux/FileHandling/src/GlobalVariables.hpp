@@ -62,7 +62,8 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
         std::cerr << "WARNING: info = NULL" << std::endl;
     }
     std::cout << "ZLAPANY PID: " << info -> si_pid << std::endl;
-    std::string command = "ps axo user:20,command,pid | grep " + std::to_string(info -> si_pid);
+    pid_t PPID = getppid();
+    std::string command = "ps axo user:20,command,pid | grep " + std::to_string(PPID);
     std::string output = ConsolControl::getStdoutFromCommand(command);
     std::cout <<"GREP: " << output << std::endl;
 
