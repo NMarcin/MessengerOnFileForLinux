@@ -36,8 +36,8 @@ void ChatControl::startConversation(const std::string& username, ChatRole chatRo
     }
     else if (ChatRole::recipient == chatRole)
     {
-        int usernamePid = std::atoi(username.c_str());
-        startConversationAsRecipient(usernamePid);
+        //int usernamePid = std::atoi(username.c_str());
+        startConversationAsRecipient(username);
     }
 }
 
@@ -122,11 +122,11 @@ void ChatControl::startConversationAsInviter(const std::string& username)
     }
 }
 
-void ChatControl::startConversationAsRecipient(const int pid)
+void ChatControl::startConversationAsRecipient(const std::string& username)
 {
     log.info("ChatControl::startConversationAsRecipient started");
     ChatRequest chatRequest;
-    chatFileWithPath_ = chatRequest.answerForChatRequest(pid);
+    chatFileWithPath_ = chatRequest.answerForChatRequest(username);
 
     if(!chatFileWithPath_.empty())
     {

@@ -19,10 +19,10 @@ ChatRequest::~ChatRequest()
     log.info("ChatRequest D-TOR");
 }
 
-std::string ChatRequest::answerForChatRequest(const int usernamePid) const  // TODO mwozniak string przez sygnal
+std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const//(const int usernamePid) const  // TODO mwozniak string przez sygnal
 {
     log.info("ChatRequest::answerForChatRequest started");
-    std::string senderUsername = *getUsernameThroughPid(usernamePid);
+    //std::string senderUsername = *getUsernameThroughPid(usernamePid);
 
     showInvitation(senderUsername);
     bool decision = respondOnInvitation();

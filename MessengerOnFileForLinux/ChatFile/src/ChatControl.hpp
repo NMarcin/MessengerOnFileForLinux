@@ -38,7 +38,7 @@ private:
     void reciveMessage();
     void sendMessage();
     void startConversationAsInviter(const std::string& username);
-    void startConversationAsRecipient(const int pid);
+    void startConversationAsRecipient(const std::string& username);
     void stopThreads();
 
     std::unique_ptr<std::thread> getMessageThread_;

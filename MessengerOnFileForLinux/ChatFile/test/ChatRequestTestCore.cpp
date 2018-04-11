@@ -45,7 +45,7 @@ void ChatRequestFixture::testSigusr1Handler(int sig_num, siginfo_t *info, void *
         std::cerr << "WARNING: info = NULL" << std::endl;
     }
     ChatRequest chatRequest;
-    chatRequest.answerForChatRequest(info -> si_pid);
+    //chatRequest.answerForChatRequest(info -> si_pid);
 }
 
 void ChatRequestFixture::initSigusr1Action()

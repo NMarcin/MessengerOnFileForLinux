@@ -66,7 +66,7 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
     std::string final;
     for (auto& x: output)
     {
-        if (x == " ")
+        if (x == ' ')
             break;
         else
             final += x;
@@ -74,11 +74,6 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
 
     std::cout <<"Sygnal wyslal: " << final << std::endl;
 
-    //std::string command = "ps -o ppid= -p " + std::to_string(info -> si_pid);
-    //std::string tmp = ConsolControl::getStdoutFromCommand(command);
-
-    //std::cout << "PARENT PID: " << info -> si_uid << std::endl;
-    //sleep(20);
     std::cout << "ZLAPANY PID: " << info -> si_pid << std::endl;
     //kill(info -> si_pid, SIGKILL);
     //ChatRequest request;
