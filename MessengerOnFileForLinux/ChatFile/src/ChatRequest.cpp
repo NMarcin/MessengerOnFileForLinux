@@ -74,7 +74,9 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 
 std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPid) const
 {
-    log.info("ChatRequest::getUsernameThroughPid started");
+    std::cout << "PIDDDD: " << userPid << std::endl;
+    //std::string logInfo = "ChatRequest::getUsernameThroughPid started with PID: " + userPid;
+    //log.info((logInfo).c_str());
     std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
     for (auto x : *loggedFileContent)
@@ -220,7 +222,9 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 void ChatRequest::sendSIGUSR1Signal(const int userPid) const
 {
     log.info("ChatRequest::sendSIGUSR1Signal started");
-    kill(userPid, SIGUSR1);
+    std::string command = "sudo kill -SIGUSR1 " + std::to_string(userPid);
+    system(command.c_str());
+    //kill(userPid, SIGUSR1);
 }
 
 void ChatRequest::showInvitation(const std::string& senderUsername) const

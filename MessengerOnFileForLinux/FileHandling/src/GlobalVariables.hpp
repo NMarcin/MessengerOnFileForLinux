@@ -3,12 +3,15 @@
 #include <signal.h> //to wszystko ponizej potrzebne do initu dzialania sygnalu
 #include <unistd.h>
 #include <stdio.h>
+#include <sys/sysctl.h>
 #include <ctime>
 #include <string.h>
 #include <iostream>
 
 #include <ChatControl.hpp>
 #include <ChatRequest.hpp>
+
+
 
 namespace ENVIRONMENT_PATH
 {
@@ -51,15 +54,28 @@ namespace FileStructure {
 
 /** To do jakiegos inita ***********************************/
 
+
 static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
 {
     if (NULL == info)
     {
         std::cerr << "WARNING: info = NULL" << std::endl;
     }
+
+    std::string command = "ps axo user:20,command,pid | grep " + std::to_string(info -> si_pid);
+    std::string output = ConsolControl::getStdoutFromCommand(command);
+    std::cout <<"GREP: " << output << std::endl;
+
+    //std::string command = "ps -o ppid= -p " + std::to_string(info -> si_pid);
+    //std::string tmp = ConsolControl::getStdoutFromCommand(command);
+
+    //std::cout << "PARENT PID: " << info -> si_uid << std::endl;
+    //sleep(20);
+    std::cout << "ZLAPANY PID: " << info -> si_pid << std::endl;
     //kill(info -> si_pid, SIGKILL);
     //ChatRequest request;
     //request.answerForChatRequest(info -> si_pid);
+
     ChatControl chatControl;
     chatControl.startConversation(std::to_string(info -> si_pid), ChatRole::recipient);
     //TODO mwozniak potestowac. Wczesniej na chatRequest dzialolo dobrze
