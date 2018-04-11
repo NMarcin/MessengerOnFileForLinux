@@ -60,6 +60,7 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
     log.info("ChatRequest::getChatFolderName started");
     std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + " | grep " + folderName;
     std::cout << command << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl ;
+
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
     std::string logData = "DUPA DUPA DUPA DUPA:: " + *folderFullName;
     log.info(logData.c_str());

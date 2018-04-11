@@ -63,24 +63,17 @@ static void sigusr1Handler(int sig_num, siginfo_t *info, void *context)
     }
     std::string command = "ps axo user:20,command,pid | grep signal.sh";
     std::string output = ConsolControl::getStdoutFromCommand(command);
-    std::string final;
+    std::string username;
     for (auto& x: output)
     {
         if (x == ' ')
             break;
         else
-            final += x;
+            username += x;
     }
 
-    std::cout <<"Sygnal wyslal: " << final << std::endl;
-
-    std::cout << "ZLAPANY PID: " << info -> si_pid << std::endl;
-    //kill(info -> si_pid, SIGKILL);
-    //ChatRequest request;
-    //request.answerForChatRequest(info -> si_pid);
-
     ChatControl chatControl;
-    chatControl.startConversation(std::to_string(info -> si_pid), ChatRole::recipient);
+    chatControl.startConversation(username, ChatRole::recipient);
     //TODO mwozniak potestowac. Wczesniej na chatRequest dzialolo dobrze
 }
 
