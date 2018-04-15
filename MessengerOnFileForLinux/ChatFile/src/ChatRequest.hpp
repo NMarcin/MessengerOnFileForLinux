@@ -25,7 +25,7 @@ private:
     bool changeUserStatus(const User& user, const std::string& newStatus) const;
     std::unique_ptr<std::string> getChatFolderName(const std::string& folderName) const;
     std::unique_ptr<std::string> getUserStatus(const std::string& username) const;
-    std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
+    //std::unique_ptr<std::string> getUsernameThroughPid(const int userPid) const;
     bool isUserActive(const User& user) const;
     bool respondOnInvitation() const;
     std::string sendAnswer(const std::string& senderUsername, AnswerType type) const;

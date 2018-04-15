@@ -10,24 +10,24 @@
 ChatControl::ChatControl()
 {
     log.info("ChatControl C-TOR ");
-    getMessageThread_ = nullptr;
-    reciverThread_ = nullptr;
-    sendMessageThread_ = nullptr;
+    getMessageToQueueThread_ = nullptr;
+    reciveMessageThread_ = nullptr;
+    sendMessageFromQueueThread_ = nullptr;
 }
 
 ChatControl::~ChatControl()
 {
     log.info("ChatControl D-TOR ");
 
-    if (getMessageThread_ && reciverThread_)
+    if (getMessageToQueueThread_ && reciveMessageThread_)
     {
-        getMessageThread_->join();
-        reciverThread_->join();
-        sendMessageThread_->join();
+        getMessageToQueueThread_->join();
+        reciveMessageThread_->join();
+        sendMessageFromQueueThread_->join();
     }
 }
 
-void ChatControl::startConversation(const std::string& username, ChatRole chatRole)
+void ChatControl::conversationProlog(const std::string& username, ChatRole chatRole)
 {
     log.info("ChatControl::startConversation started");
     if (ChatRole::inviter == chatRole)
@@ -41,18 +41,10 @@ void ChatControl::startConversation(const std::string& username, ChatRole chatRo
     }
 }
 
-void ChatControl::endConversation()
+void ChatControl::conversationEpilog()
 {
     log.info("ChatControl::endConversation started");
     stopThreads();
-
-    if (getMessageThread_ && reciverThread_)
-    {
-        getMessageThread_->join();
-        reciverThread_->join();
-        sendMessageThread_->join();
-    }
-
     //TODO dalsza czesc konczenia rozmowe, pobieranie historii itd.
 }
 
@@ -113,11 +105,11 @@ void ChatControl::startConversationAsInviter(const std::string& username)
         std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
         log.info(info.c_str());
         messageFlag_ = MessageFlag::inviterMessage;
-        conversationControl();
+        conversation();
     }
     else
     {
-        endConversation();
+        conversationEpilog();
     }
 }
 
@@ -131,30 +123,31 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
         std::string info = "ChatControl::startConversationAsRecipient chatFileWithPath_: " + chatFileWithPath_;
         log.info(info.c_str());
         messageFlag_ = MessageFlag::recipientMessage;
-        conversationControl();
+        conversation();
     }
     else
     {
-        endConversation();
+        conversationEpilog();
     }
 }
 
 
-void ChatControl::conversationControl()
+void ChatControl::conversation()
 {
     isThreadsRunning_ = true;
-    log.info(("ChatControl::conversationControl started. Flag status: " + std::to_string(isThreadsRunning_)).c_str());
-    getMessageThread_ = std::make_unique<std::thread>(std::thread([&]()
+
+    log.info("ChatControl::conversationControl started");
+    getMessageToQueueThread_ = std::make_unique<std::thread>(std::thread([&]()
     {
         getMessage();
     }));
 
-    reciverThread_ = std::make_unique<std::thread>(std::thread([&]()
+    reciveMessageThread_ = std::make_unique<std::thread>(std::thread([&]()
     {
         reciveMessage();
     }));
 
-    sendMessageThread_ = std::make_unique<std::thread>(std::thread([&]()
+    sendMessageFromQueueThread_ = std::make_unique<std::thread>(std::thread([&]()
     {
         sendMessage();
     }));

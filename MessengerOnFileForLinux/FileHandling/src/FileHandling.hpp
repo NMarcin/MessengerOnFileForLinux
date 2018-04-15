@@ -11,7 +11,6 @@ namespace FileInterface
     {
         bool addRow(const std::string& pathToFile, const std::string& text);
         bool removeRow(const std::string& pathToFile, const std::string& pattern);
-        //std::unique_ptr<std::string> removeRowField(const std::string& row, const int fieldNumber);
         bool updateRow(const std::string& pathToFile, const std::string& newRow, const std::string& where);
         bool updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber);
     }

@@ -17,6 +17,26 @@ namespace
         toRead
     };
 
+
+    bool createGuardian(const std::string& pathToFolder)
+    {
+        std::string systemCommand = "touch " + pathToFolder + "/GUARD";
+        system(systemCommand.c_str());
+        return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+    }
+
+    bool removeGuardian(const std::string& pathToFolder)
+    {
+        std::string command = "rm -r " + pathToFolder + "/GUARD";
+        system(command.c_str());
+        return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+    }
+
+    bool isGuardianExist(const std::string& pathToFolder)
+    {
+        return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+    }
+
     std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode)
     {
         fileLog("FileInterface::openFile started", LogSpace::FileHandling);
@@ -29,9 +49,9 @@ namespace
 
         std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
 
-        if (!FileInterface::Managment::isFileExist(folderName + "/GUARD"))
+        if (!isGuardianExist(folderName))
         {
-            FileInterface::Managment::createFile(folderName + "/GUARD");
+            createGuardian(folderName);
         }
         else
         {
@@ -75,6 +95,7 @@ namespace
     }
 }
 
+
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
     fileLog("FileInterface::Modification::addRow started", LogSpace::FileHandling);
@@ -83,7 +104,7 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
         *file << text;
         *file << '\n';
         std::string folderName = *Accesor::getFolderName(pathToFile);
-        Managment::removeFile(folderName + "/GUARD");
+        removeGuardian(folderName);
         return true;
     }
     else
@@ -131,11 +152,11 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
     {
         std::string logInfo = "FileInterface::Accesor::getFileContent ERROR: Cannot get acces to "  + pathToFile;
         fileLog(logInfo.c_str(), LogSpace::FileHandling);
-        Managment::removeFile(folderName + "/GUARD");
+        removeGuardian(folderName);
         return nullptr;
     }
 
-    Managment::removeFile(folderName + "/GUARD");
+    removeGuardian(folderName);
 
     return fileContent;
 }
@@ -229,17 +250,17 @@ bool FileInterface::Modification::removeRow(const std::string& pathToFile, const
     fileLog("FileInterface::Modification::removeRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
-    if (Managment::isFileExist(folderName + "/GUARD"))
+    if (isGuardianExist(folderName))
     {
         return false;
     }
 
-    Managment::createFile(folderName + "/GUARD");
+    createGuardian(folderName);
 
     std::string command = "sed -i -e '/" + pattern + "/d' " + pathToFile;
     std::system(command.c_str());
 
-    bool isGuardRemoved = Managment::removeFile(folderName + "/GUARD");
+    bool isGuardRemoved = removeGuardian(folderName);
 
     return isGuardRemoved;
 }
@@ -250,19 +271,19 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
     fileLog("FileInterface::Modification::updateRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
-    if (Managment::isFileExist(folderName + "/GUARD"))
+    if (isGuardianExist(folderName))
     {
         fileLog("FileInterface::Modification::updateRow ERROR: File does not exist", LogSpace::FileHandling);
         return false;
     }
 
-    Managment::createFile(folderName + "/GUARD");
+    createGuardian(folderName);
 
     std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
     //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
     std::system(command.c_str());
 
-    bool isGuardRemoved = Managment::removeFile(folderName + "/GUARD");
+    bool isGuardRemoved = removeGuardian(folderName);
 
     return isGuardRemoved;
 }
@@ -275,20 +296,19 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     bool flag = false;
 
     std::string folderName = *Accesor::getFolderName(pathToFile);
-    if (Managment::isFileExist(folderName + "/GUARD"))
+    if (isGuardianExist(folderName))
     {
         return false;
     }
 
-    Managment::createFile(folderName + "/GUARD");
-    //TODO moze tutaj guardy?
+    createGuardian(folderName);
 
     std::string command = "grep '" + where + "' " + pathToFile;
     std::string row = ConsolControl::getStdoutFromCommand(command.c_str());
 
     if (!row.empty())
     {
-     row.pop_back(); //usuwanie znaku konca lini
+        row.pop_back(); //usuwanie znaku konca lini
     }
 
     std::unique_ptr< std::string> rowToUpdate = std::make_unique<std::string>();
@@ -321,12 +341,9 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
         }
     }
 
-
-    Managment::removeFile(folderName + "/GUARD");
-
+    removeGuardian(folderName);
 
     return updateRow(pathToFile,*rowToUpdate,where);
-
 }
 
 

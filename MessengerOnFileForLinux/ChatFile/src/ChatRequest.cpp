@@ -22,8 +22,8 @@ ChatRequest::~ChatRequest()
 std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const//(const int usernamePid) const  // TODO mwozniak string przez sygnal
 {
     log.info("ChatRequest::answerForChatRequest started");
-    //std::string senderUsername = *getUsernameThroughPid(usernamePid);
-
+    std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
+    FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER + invitationName);
     showInvitation(senderUsername);
     bool decision = respondOnInvitation();
 
@@ -73,6 +73,7 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
      return nullptr;
 }
 
+/*
 std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPid) const
 {
     std::cout << "PIDDDD: " << userPid << std::endl;
@@ -100,7 +101,7 @@ std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPi
     log.info("ChatRequest::getUsernameThroughPid ERROR: User does not exist");
     return nullptr;
 }
-
+*/
 
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
@@ -190,7 +191,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
 
-    //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileField::FieldValue::userBussyStatus);
+    //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
     //zakomentowane dla testow na jednym terminalu
 
     ChatFabric chatFabric;
@@ -201,13 +202,19 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
         return {};
     }
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userBussyStatus);
-    int pid = receiver.getUserPid();
+
+    /* STARE DZIALANIE CHATEREAGUEST*/
+    /*int pid = receiver.getUserPid();
     if (0 == pid)
     {
         return {};
     }
 
     sendSIGUSR1Signal(pid);
+    */
+    std::string invitationName = username + "_" + LocalUser::getLocalUser().getUsername();
+    FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER + invitationName);
+
     bool receiverDecision = waitForAnswer(receiver.getUsername());
     if(receiverDecision)
     {

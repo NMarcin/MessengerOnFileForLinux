@@ -32,8 +32,8 @@ void mnurzyns()
 
 void mwozniak()
 {
-
-    initSigusr1Action();
+    //initSigusr1Action();
+    std::thread waitForInvitation(lookForInvitation);
 
     std::cout << "REJETRACJA" << std::endl;
     RegisterUser registerUser;
@@ -57,12 +57,15 @@ void mwozniak()
             std::string who;
             std::cin >> who;
             ChatControl control;
-            control.startConversation(who, ChatRole::inviter);
+            control.conversationProlog(who, ChatRole::inviter);
         }
             break;
 
         case 2:
+        {
             i = 0;
+            isMessengerRunnig = false;
+        }
             break;
         default:
             break;
@@ -71,7 +74,7 @@ void mwozniak()
 
     }while(i);
 
-
+    waitForInvitation.join();
     SignOut signOut;
     signOut.signOutUser();
 

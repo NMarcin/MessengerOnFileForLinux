@@ -29,21 +29,21 @@ class ChatControl
 public:
     ChatControl();
     ~ChatControl();
-    void startConversation(const std::string& username, ChatRole chatRole);
-    void endConversation();
+    void conversationProlog(const std::string& username, ChatRole chatRole);
+    void conversationEpilog();
 
 private:
-    void conversationControl();
+    void conversation();
     void getMessage();
     void reciveMessage();
-    void sendMessage();
     void startConversationAsInviter(const std::string& username);
     void startConversationAsRecipient(const std::string& username);
+    void sendMessage();
     void stopThreads();
 
-    std::unique_ptr<std::thread> getMessageThread_;
-    std::unique_ptr<std::thread> sendMessageThread_;
-    std::unique_ptr<std::thread> reciverThread_;
+    std::unique_ptr<std::thread> getMessageToQueueThread_;
+    std::unique_ptr<std::thread> sendMessageFromQueueThread_;
+    std::unique_ptr<std::thread> reciveMessageThread_;
     std::queue<std::unique_ptr<std::string>> messageWaitingRoom_;
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;

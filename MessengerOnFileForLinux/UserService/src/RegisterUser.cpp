@@ -57,6 +57,11 @@ bool RegisterUser::isUserRegistered() const
 {
     log.info("RegisterUser::isUserRegistered started");
     std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE);
+    if (nullptr == registeredFileContent)
+    {
+        return true; //error file is empty or can't get acces. May wait for acces ?
+    }
+
     for (auto  x : *registeredFileContent)
     {
         std::string username = LocalUser::getLocalUser().getUsername();
