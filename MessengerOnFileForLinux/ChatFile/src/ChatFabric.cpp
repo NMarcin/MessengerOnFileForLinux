@@ -1,6 +1,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <iostream>
+#include <algorithm>
 
 #include <ChatFabric.hpp>
 #include <GlobalVariables.hpp>
@@ -37,7 +38,7 @@ std::string ChatFabric::createChatStructure(const std::string& usernameInviter, 
 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    int folderNumber = getFreeFolderNumber(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER);
+    int folderNumber = getFreeFolderNumber();
     std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
@@ -64,34 +65,47 @@ std::string ChatFabric::createChatFile(const std::string& chatFolderName, const 
     return {};
 }
 
-int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
+std::vector<int> ChatFabric::getBusyNumbers() const
 {
-    int freeFolderNumber = -1;
-    std::vector<std::string> filesInPath= *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER); //TODO mnurzyns jakis move czy swap
-    auto fileIterator = filesInPath.begin();
-
-    if(filesInPath.empty())
+    std::vector<std::string> filesInPath = *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER); // daje mi wektor
+    std::vector<int> busyNumbers;
+    for(auto fileName : filesInPath)
     {
-        freeFolderNumber = 0;
-        return freeFolderNumber;
+        busyNumbers.push_back(std::atoi(fileName.c_str()));
     }
+    return busyNumbers;
+}
 
-    for(int folderNumber = 0; 0 <= freeFolderNumber; ++folderNumber)    // aktualna funkcjonalnosc dziala tylko dla 10 rozmow jednoczesnie, TODO mnurzyns dla wiekszej ilosci
+int ChatFabric::findMissingNumber(std::vector<int>& busyNumbers_) const
+{
+    std::vector<int> busyNumbers = busyNumbers_;
+    std::sort(busyNumbers.begin(), busyNumbers.end());
+
+    int numberIteration = 0;
+    for(auto number : busyNumbers)
     {
-        int fileNumber = (*fileIterator)[0];                            // atoi((*fileIterator).c_str()); gdy zadziala na wiecej niz 10 rozmow
-        if(fileNumber > folderNumber)
+        if(numberIteration != number)
         {
-            freeFolderNumber = folderNumber;
+            return numberIteration;
         }
-        else if(filesInPath.end() == fileIterator)
-        {
-            freeFolderNumber = folderNumber + 1;
-        }
-        else
-        {
-            ++fileIterator;
-        }
-    }   // TODO mnurzyns -> ogarnac to funkcje i dodac logi
-    //return 1;
-    return 3;
+        ++numberIteration;
+    }
+    return -1;
+}
+
+int ChatFabric::getFreeFolderNumber() const
+{
+    std::vector<int> busyNumbers = getBusyNumbers();
+    if(busyNumbers.empty())
+    {
+        return 0;
+    }
+    else if(busyNumbers.back()+1 == busyNumbers.size())
+    {
+        return busyNumbers.back()+1;
+    }
+    else
+    {
+        return findMissingNumber(busyNumbers);
+    }
 }
