@@ -39,6 +39,7 @@ ChatRequestFixture::~ChatRequestFixture()
 {
     isMessengerRunnigTest = false;
     waitForInvitation.join();
+    sleep(1);
 }
 
 int ChatRequestFixture::isMessengerRunnigTest = true;

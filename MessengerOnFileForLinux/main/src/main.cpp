@@ -32,7 +32,8 @@ void mnurzyns()
 
 void mwozniak()
 {
-    //initSigusr1Action();
+    std::cout << "ATOI: " << std::atoi("2marcin1006") << std::endl;
+
     std::thread waitForInvitation(lookForInvitation);
 
     std::cout << "REJETRACJA" << std::endl;
