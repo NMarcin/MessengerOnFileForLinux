@@ -96,5 +96,5 @@ int ChatFabric::getFreeFolderNumber(const std::string& folderPath) const
         }
     }   // TODO mnurzyns -> ogarnac to funkcje i dodac logi
     //return 1;
-    return 3;
+    return 0;
 }

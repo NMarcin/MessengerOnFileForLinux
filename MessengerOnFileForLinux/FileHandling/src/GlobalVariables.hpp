@@ -62,7 +62,14 @@ static void lookForInvitation()
 {
     while (isMessengerRunnig)
     {
+        std::cerr << "MOM TO " << std::endl;
+
         auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER);
+        if (0 == invitationsFolderContent->size())
+        {
+            sleep(1);
+            continue;
+        }
         for(auto invitation : *invitationsFolderContent)
         {
             std::string recipent;
@@ -88,8 +95,11 @@ static void lookForInvitation()
 
             }
 
+
+
             if (recipent == getenv("USER"))
             {
+                std::cout << "MOM TO " << inviter << std::endl;
                 ChatControl chatControl;
                 chatControl.conversationProlog(inviter, ChatRole::recipient);
             }

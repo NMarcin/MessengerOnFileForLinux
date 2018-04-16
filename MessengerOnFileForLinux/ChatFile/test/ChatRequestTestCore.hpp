@@ -14,8 +14,11 @@ public:
     void TearDown();
     ~ChatRequestFixture();
 
-    static void testSigusr1Handler(int sig_num, siginfo_t *info, void *context);
-    static void initSigusr1Action();
+    static int isMessengerRunnigTest;
+    static void lookForInvitationGT();
     ChatRequest chatRequest;
+    std::thread waitForInvitation;
     std::string user = getenv("USER");
+    std::string chatFolderNameWithoutNumber = user + "_" + user;
+    std::string pathToChatfile = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "0" + chatFolderNameWithoutNumber + "/" + chatFolderNameWithoutNumber;
 };

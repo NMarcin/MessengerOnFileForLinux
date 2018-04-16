@@ -59,10 +59,8 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 {
     log.info("ChatRequest::getChatFolderName started");
     std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + " | grep " + folderName;
-    std::cout << command << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl ;
-
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
-    std::string logData = "DUPA DUPA DUPA DUPA:: " + *folderFullName;
+    std::string logData = "ChatRequest::getChatFolderName -> " + *folderFullName;
     log.info(logData.c_str());
      if (!folderFullName->empty())
      {
@@ -72,36 +70,6 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 
      return nullptr;
 }
-
-/*
-std::unique_ptr<std::string> ChatRequest::getUsernameThroughPid(const int userPid) const
-{
-    std::cout << "PIDDDD: " << userPid << std::endl;
-    //std::string logInfo = "ChatRequest::getUsernameThroughPid started with PID: " + userPid;
-    //log.info((logInfo).c_str());
-    std::unique_ptr<std::vector<std::string>> loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
-
-    for (auto x : *loggedFileContent)
-    {
-        std::unique_ptr< std::string> pidToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::pidFieldInLoggedFile);
-        int pid = std::atoi(pidToComapre->c_str());
-
-        if (0 == pid)
-        {
-            log.info("ChatRequest::getUsernameThroughPid ERROR: atoi failed");
-            return nullptr;
-        }
-        if (userPid == pid)
-        {
-            std::unique_ptr<std::string> username = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile);
-            return username;
-        }
-    }
-
-    log.info("ChatRequest::getUsernameThroughPid ERROR: User does not exist");
-    return nullptr;
-}
-*/
 
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
@@ -162,7 +130,7 @@ bool ChatRequest::respondOnInvitation() const
         return false;
     }
 
-    log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
+    log.info("ChatRequest::respondOnInvitation Invitation disacceptedddddddddddd");
     return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
 }
 
@@ -190,7 +158,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
-
+    std::cerr << "sendChatRequest started" << std::endl;
     //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
     //zakomentowane dla testow na jednym terminalu
 
@@ -203,15 +171,6 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     }
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userBussyStatus);
 
-    /* STARE DZIALANIE CHATEREAGUEST*/
-    /*int pid = receiver.getUserPid();
-    if (0 == pid)
-    {
-        return {};
-    }
-
-    sendSIGUSR1Signal(pid);
-    */
     std::string invitationName = username + "_" + LocalUser::getLocalUser().getUsername();
     FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER + invitationName);
 
@@ -225,14 +184,6 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
     return {};
 
-}
-
-void ChatRequest::sendSIGUSR1Signal(const int userPid) const
-{
-    log.info("ChatRequest::sendSIGUSR1Signal started");
-    std::string command = "sh signal.sh " + std::to_string(userPid);
-    system(command.c_str());
-    //kill(userPid, SIGUSR1);
 }
 
 void ChatRequest::showInvitation(const std::string& senderUsername) const
