@@ -43,6 +43,7 @@ add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
 add_subdirectory(ChatFile/test)
+add_subdirectory(UserService/test)
 
 
 message(STATUS ${TEST_SOURCES})

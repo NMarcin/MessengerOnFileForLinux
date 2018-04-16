@@ -73,18 +73,11 @@ std::vector<int> ChatFabric::getBusyNumbers() const
     std::vector<std::string> filesInPath = *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER); // daje mi wektor
     std::vector<int> busyNumbers;
 
-    std::cout << "TEST" << std::endl;
-    for (auto x:filesInPath)
-    {
-        std::cout << "size: " << x.size() << std::endl;
-        std::cout <<x << std::endl;
-        std::cout <<"-----------------------" << std::endl;
-    }
-
     for(auto fileName : filesInPath)
     {
         busyNumbers.push_back(std::atoi(fileName.c_str()));
     }
+    std::sort(busyNumbers.begin(), busyNumbers.end(), std::less<int>());
     return busyNumbers;
 }
 

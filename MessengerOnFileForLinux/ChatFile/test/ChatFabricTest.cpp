@@ -15,40 +15,40 @@ void folderDeleter()
 
 TEST(ChatFileTest, isFolderCreated)
 {
-    folderDeleter();
+
     ChatFabric chatFabric;
     chatFabric.createChatStructure("inviterU", "receiver");
 
     bool isEmpty = FileInterface::Accesor::getFilenamesFromFolder(chatPath)->empty();
 
     EXPECT_FALSE(isEmpty);
+    folderDeleter();
 }
 
 TEST(ChatFileTest, isFileCreated)
 {
-    folderDeleter();
     ChatFabric chatFabric;
     chatFabric.createChatStructure("inviterU", "receiver");
 
     bool isFileExists = FileInterface::Managment::isFileExist(chatPath + fileName);
 
     EXPECT_TRUE(isFileExists);
+    folderDeleter();
 }
 
 TEST(ChatFileTest, canWeWriteToFile)
 {
-    folderDeleter();
     ChatFabric chatFabric;
     chatFabric.createChatStructure("inviterU", "receiver");
 
     bool writingToFile = FileInterface::Modification::addRow(chatPath + fileName, "Test row");
 
     EXPECT_TRUE(writingToFile);
+    folderDeleter();
 }
 
 TEST(ChatFileTest, canWeReadFromFile)
 {
-    folderDeleter();
     ChatFabric chatFabric;
     chatFabric.createChatStructure("inviterU", "receiver");
 
@@ -59,14 +59,16 @@ TEST(ChatFileTest, canWeReadFromFile)
     bool readingFromFile = !FileInterface::Accesor::getFileContent(chatPath + fileName)->empty();
 
     EXPECT_TRUE(readingFromFile);
+    folderDeleter();
 }
 
 TEST(ChatFileTest, canWeCreateFilesInFolder)
 {
-    folderDeleter();
     ChatFabric chatFabric;
     chatFabric.createChatStructure("inviterU", "receiver");
 
     bool createFileSucces = FileInterface::Managment::createFile(chatPath + "test_file");
     EXPECT_TRUE(createFileSucces);
+    folderDeleter();
+
 }

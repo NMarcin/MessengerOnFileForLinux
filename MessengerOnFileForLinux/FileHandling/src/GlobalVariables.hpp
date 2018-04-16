@@ -26,7 +26,7 @@ namespace TO_FOLDER
 static const std::string HOME_FOLDER = getenv("HOME");
 static const std::string USER_FOLDER = HOME_FOLDER + "/messenger/";
 static const std::string CHATS_FOLDER = "/home/messenger/chats/";
-static const std::string INVITATIONS_FOLDER = "/home/messenger/chats/invitations/";
+static const std::string INVITATIONS_FOLDER = "/home/messenger/invitations/";
 static const std::string INSTALL_FOLDER = "/home/messenger/installation/";
 
 static const std::string TEST_FOLDER = "/home/messenger/TEST/";
