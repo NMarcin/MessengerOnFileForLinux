@@ -73,6 +73,7 @@ std::vector<int> ChatFabric::getBusyNumbers() const
     {
         busyNumbers.push_back(std::atoi(fileName.c_str()));
     }
+    std::sort(busyNumbers.begin(), busyNumbers.end(), std::less<int>());
     return busyNumbers;
 }
 
