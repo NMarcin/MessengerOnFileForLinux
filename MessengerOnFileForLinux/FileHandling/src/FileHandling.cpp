@@ -226,6 +226,24 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
     return fieldToDownload;
 }
 
+std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& pathToFile, const std::string& pattern)
+{
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+    if (isGuardianExist(folderName))
+    {
+        return nullptr;
+    }
+
+    createGuardian(folderName);
+
+    std::string command = "grep '" + pattern + "'" +  pathToFile;
+
+    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+
+    return nullptr;
+
+}
+
 bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 {
     std::string logInfo = "FileInterface::Managment::isFileExist " + pathToFile;
