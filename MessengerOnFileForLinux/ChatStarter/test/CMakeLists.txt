@@ -12,8 +12,8 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_UserService}/SignIn.cpp
     ${MODULE_UserService}/SignOut.cpp
     ${MODULE_UserService}/RegisterUser.cpp
-    ${MODULE_ChatFile}/Sender.cpp
-    ${MODULE_ChatFile}/Reciver.cpp
-    ${MODULE_ChatFile}/ChatFabric.cpp
-    ${MODULE_ChatFile}/ChatControl.cpp
-    ${MODULE_ChatFile}/ChatRequest.cpp PARENT_SCOPE)
+    ${MODULE_ChatControl}/Sender.cpp
+    ${MODULE_ChatControl}/Reciver.cpp
+    ${MODULE_ChatControl}/ChatControl.cpp
+    ${MODULE_ChatStarter}/ChatFabric.cpp
+    ${MODULE_ChatStarter}/ChatRequest.cpp PARENT_SCOPE)

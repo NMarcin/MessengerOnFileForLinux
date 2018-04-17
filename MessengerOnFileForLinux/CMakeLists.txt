@@ -20,7 +20,8 @@ find_package (Threads REQUIRED)
 set(MODULE_UserService              ${CMAKE_SOURCE_DIR}/UserService/src)
 set(MODULE_FileHandling             ${CMAKE_SOURCE_DIR}/FileHandling/src)
 set(MODULE_LoggerFramework          ${CMAKE_SOURCE_DIR}/LoggerFramework/src)
-set(MODULE_ChatFile                 ${CMAKE_SOURCE_DIR}/ChatFile/src)
+set(MODULE_ChatControl              ${CMAKE_SOURCE_DIR}/ChatControl/src)
+set(MODULE_ChatStarter              ${CMAKE_SOURCE_DIR}/ChatStarter/src)
 set(MODULE_TerminalFunctionality    ${CMAKE_SOURCE_DIR}/TerminalFunctionality/src)
 
 ################################################################################
@@ -30,14 +31,16 @@ set(MODULE_TerminalFunctionality    ${CMAKE_SOURCE_DIR}/TerminalFunctionality/sr
 include_directories(${MODULE_UserService})
 include_directories(${MODULE_FileHandling})
 include_directories(${MODULE_LoggerFramework})
-include_directories(${MODULE_ChatFile})
+include_directories(${MODULE_ChatControl})
+include_directories(${MODULE_ChatStarter})
 include_directories(${MODULE_TerminalFunctionality})
 # SRC
 add_subdirectory(main/src)
 add_subdirectory(${MODULE_UserService})
 add_subdirectory(${MODULE_FileHandling})
 add_subdirectory(${MODULE_LoggerFramework})
-add_subdirectory(${MODULE_ChatFile})
+add_subdirectory(${MODULE_ChatControl})
+add_subdirectory(${MODULE_ChatStarter})
 add_subdirectory(${MODULE_TerminalFunctionality})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
@@ -47,13 +50,12 @@ target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
 #####                       MAKE UNIT TESTS CMAKE PART                     #####
 ################################################################################
 #LIB_TEST
-include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/test)
-include_directories(${CMAKE_SOURCE_DIR}/ChatFile/test)
+include_directories(${CMAKE_SOURCE_DIR}/ChatStarter/test)
 # TEST
 add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
-add_subdirectory(ChatFile/test)
+add_subdirectory(ChatStarter/test)
 add_subdirectory(UserService/test)
 
 # CMAKE BUILD
