@@ -10,7 +10,7 @@ std::string fileName = "inviterU_receiver";
 
 void folderDeleter()
 {
-    system(("rm -rf " + chatPath).c_str());
+    system(("rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "*inviterU*").c_str());
 }
 
 TEST(ChatFileTest, isFolderCreated)
