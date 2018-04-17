@@ -23,18 +23,18 @@ std::string getUsernameFormLoggedFileIfExist(const std::string& user)
 TEST(SignOutTest, isUserSignOut)
 {
     std::string USER = getenv("USER");
-    std::string username = getPatternFromLoggedFile(USER);
+    std::string username = getUsernameFormLoggedFileIfExist(USER);
     EXPECT_TRUE(username.empty());
 
     std::string rowInLoggedFile = "[" + USER + "][0]";
     FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, rowInLoggedFile);
 
-    username = getPatternFromLoggedFile(USER);
+    username = getUsernameFormLoggedFileIfExist(USER);
     EXPECT_EQ(username, USER);
 
     SignOut signOut;
     signOut.signOutUser();
 
-    username = getPatternFromLoggedFile(USER);
+    username = getUsernameFormLoggedFileIfExist(USER);
     EXPECT_TRUE(username.empty());
 }
