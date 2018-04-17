@@ -4,37 +4,22 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 
-std::string getUsernameFormLoggedFileIfExist(const std::string& user)
-{
-    std::string username;
-    auto loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
-
-    for (auto row : *loggedFileContent)
-    {
-        username = *FileInterface::Accesor::getRowField(row, FileStructure::FileField::usernameFieldInLoggedFile);
-        if (username == user)
-        {
-            return username;
-        }
-    }
-    return "";
-}
-
 TEST(SignOutTest, isUserSignOut)
 {
     std::string USER = getenv("USER");
-    std::string username = getUsernameFormLoggedFileIfExist(USER);
-    EXPECT_TRUE(username.empty());
+    auto rowFromFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, USER);
+    EXPECT_TRUE(nullptr == rowFromFile);
 
     std::string rowInLoggedFile = "[" + USER + "][0]";
     FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, rowInLoggedFile);
 
-    username = getUsernameFormLoggedFileIfExist(USER);
+    rowFromFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, USER);
+    std::string username = *FileInterface::Accesor::getRowField(*rowFromFile, FileStructure::FileField::usernameFieldInLoggedFile);
     EXPECT_EQ(username, USER);
 
     SignOut signOut;
     signOut.signOutUser();
 
-    username = getUsernameFormLoggedFileIfExist(USER);
-    EXPECT_TRUE(username.empty());
+    rowFromFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, USER);
+    EXPECT_TRUE(nullptr == rowFromFile);
 }

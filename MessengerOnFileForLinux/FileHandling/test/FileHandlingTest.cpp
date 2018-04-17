@@ -219,3 +219,21 @@ TEST(FileHandlingTest, updateRowField)
 
     FileInterface::Managment::removeFile(testPath + filename);
 }
+
+TEST(FileHandlingTest, getRowTest)
+{
+    FileInterface::Managment::createFile(testPath + filename);
+    auto downloadedRow = FileInterface::Accesor::getRow(testPath + filename, "mwoznia");
+    EXPECT_EQ(nullptr, downloadedRow);
+
+    std::string addedRow_1 = "[mwoznia][3][33]";
+    std::string addedRow_2 = "[tomek][13][33]";
+    FileInterface::Modification::addRow(testPath + filename, addedRow_1);
+    FileInterface::Modification::addRow(testPath + filename, addedRow_2);
+
+    downloadedRow = FileInterface::Accesor::getRow(testPath + filename, "mwoznia");
+    EXPECT_EQ("[mwoznia][3][33]", *downloadedRow);
+
+    FileInterface::Managment::removeFile(testPath + filename);
+}
+

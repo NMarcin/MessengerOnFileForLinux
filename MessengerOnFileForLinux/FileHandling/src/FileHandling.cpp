@@ -235,13 +235,17 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& p
     }
 
     createGuardian(folderName);
-
-    std::string command = "grep '" + pattern + "'" +  pathToFile;
-
+    std::string command = "grep '" + pattern + "' " +  pathToFile;
     std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+    removeGuardian(folderName);
+    if (commandOutput.empty())
+    {
+        return nullptr;
+    }
 
-    return nullptr;
+    commandOutput.pop_back(); //usuwanie znaku konca lini
 
+    return std::make_unique<std::string>(commandOutput);
 }
 
 bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
@@ -376,7 +380,6 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
     char buffer[max_buffer];
     cmd.append(" 2>&1");
     stream = popen(cmd.c_str(), "r");
-
     if (stream)
     {
         while (!feof(stream))
@@ -386,9 +389,7 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
                 data.append(buffer);
             }
         }
-
         pclose(stream);
     }
-
     return data;
 }

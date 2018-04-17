@@ -32,6 +32,8 @@ void mnurzyns()
 
 void mwozniak()
 {
+    FileInterface::Accesor::getRow("/home/messenger/TEST/test.txt", "dupa");
+
     std::cout << "ATOI: " << std::atoi("2marcin1006") << std::endl;
 
     std::thread waitForInvitation(lookForInvitation);
