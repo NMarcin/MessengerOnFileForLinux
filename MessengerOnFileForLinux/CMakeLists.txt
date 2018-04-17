@@ -14,27 +14,38 @@ include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GTest REQUIRED)
 find_package (Threads REQUIRED)
 
+################################################################################
+#####                         MODULE DIR SOURCES                           #####
+################################################################################
+set(MODULE_UserService              ${CMAKE_SOURCE_DIR}/UserService/src)
+set(MODULE_FileHandling             ${CMAKE_SOURCE_DIR}/FileHandling/src)
+set(MODULE_LoggerFramework          ${CMAKE_SOURCE_DIR}/LoggerFramework/src)
+set(MODULE_ChatFile                 ${CMAKE_SOURCE_DIR}/ChatFile/src)
+set(MODULE_TerminalFunctionality    ${CMAKE_SOURCE_DIR}/TerminalFunctionality/src)
 
+################################################################################
+#####                       MAKE BINARY CMAKE PART                         #####
+################################################################################
 # LIB_SRC
-include_directories(${CMAKE_SOURCE_DIR}/UserService/src)
-include_directories(${CMAKE_SOURCE_DIR}/FileHandling/src)
-include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/src)
-include_directories(${CMAKE_SOURCE_DIR}/ChatFile/src)
-include_directories(${CMAKE_SOURCE_DIR}/TerminalFunctionality/src)
-
+include_directories(${MODULE_UserService})
+include_directories(${MODULE_FileHandling})
+include_directories(${MODULE_LoggerFramework})
+include_directories(${MODULE_ChatFile})
+include_directories(${MODULE_TerminalFunctionality})
 # SRC
 add_subdirectory(main/src)
-add_subdirectory(UserService/src)
-add_subdirectory(FileHandling/src)
-add_subdirectory(LoggerFramework/src)
-add_subdirectory(ChatFile/src)
-add_subdirectory(TerminalFunctionality/src)
-
-message(STATUS ${SOURCES})
-
+add_subdirectory(${MODULE_UserService})
+add_subdirectory(${MODULE_FileHandling})
+add_subdirectory(${MODULE_LoggerFramework})
+add_subdirectory(${MODULE_ChatFile})
+add_subdirectory(${MODULE_TerminalFunctionality})
+# CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
 
+################################################################################
+#####                       MAKE UNIT TESTS CMAKE PART                     #####
+################################################################################
 #LIB_TEST
 include_directories(${CMAKE_SOURCE_DIR}/LoggerFramework/test)
 include_directories(${CMAKE_SOURCE_DIR}/ChatFile/test)
@@ -43,17 +54,15 @@ add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
 add_subdirectory(ChatFile/test)
-
-
-message(STATUS ${TEST_SOURCES})
-
-set(TEST_SOURCES ${TEST_SOURCES} ${SOURCES})
-add_executable(messenger_binary_UT ${TEST_SOURCES})
-
+# CMAKE BUILD
+set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
+add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
 
 
-#VALGRIND
+################################################################################
+#####                               VALGIRN                                #####
+################################################################################
 find_program(VALGRIND "valgrind")
 if(VALGRIND)
     message("VALGRIND found in path:" ${VALGRIND})
