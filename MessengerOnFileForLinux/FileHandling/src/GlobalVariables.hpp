@@ -17,8 +17,8 @@ namespace ENVIRONMENT_PATH
 {
 namespace TO_FILE
 {
-static const std::string REGISTERED_FILE= "/home/messenger/configuration/REGISTERED.txt";
-static const std::string LOGGED_FILE = "/home/messenger/configuration/LOGGED.txt";
+static const std::string REGISTERED_FILE= "/home/messenger/configuration/REGISTERED";
+static const std::string LOGGED_FILE = "/home/messenger/configuration/LOGGED";
 }
 
 namespace TO_FOLDER
