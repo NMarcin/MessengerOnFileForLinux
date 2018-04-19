@@ -68,7 +68,7 @@ void ChatControl::getMessage()
 void ChatControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
-    std::unique_ptr<Reciver> reciver = std::make_unique<Reciver>();
+    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>();
     while(isThreadsRunning_)
     {
         //reciver->recive()

@@ -1,4 +1,4 @@
  set(SOURCES ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/ChatControl.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Reciver.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ChatControl.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Receiver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Sender.cpp PARENT_SCOPE)

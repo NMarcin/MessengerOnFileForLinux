@@ -6,7 +6,7 @@
 #include <queue>
 
 #include <Sender.hpp>
-#include <Reciver.hpp>
+#include <Receiver.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
