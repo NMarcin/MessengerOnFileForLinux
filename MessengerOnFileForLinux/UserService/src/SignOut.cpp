@@ -15,11 +15,17 @@ SignOut::~SignOut()
 bool SignOut::signOutUser() const
 {
     log.info("SignOut::signOutUser started");
-    return removeUserDataFromLoggedFile();
+    bool isUserSignedOut = removeUserDataFromLoggedFile();
+    if(isUserSignedOut)
+    {
+        return true;
+    }
+
+    log.info("SignOut::removeUserDataFromLoggedFile ERROR: SignOut failed!");
+    return false;
 }
 
 bool SignOut::removeUserDataFromLoggedFile() const
 {
-    log.info("SignOut::removeUserDataFromLoggedFile started");
     return FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
 }

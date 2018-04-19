@@ -1,10 +1,11 @@
 #include <gtest/gtest.h>
 
 #include <SignOut.hpp>
+#include <SignIn.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 
-TEST(SignOutTest, isUserSignOut)
+TEST(SignOutTest, isUserSignOutCorrectly)
 {
     std::string USER = getenv("USER");
     auto rowFromFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, USER);

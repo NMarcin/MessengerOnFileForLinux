@@ -39,7 +39,7 @@ namespace FileField //TODO mwozniak rozbic na mniejsze (namespace RegisteredFile
 {
 static constexpr int usernameFieldInLoggedFile = 0;
 static constexpr int statusFieldInLoggedFile = 1;
-static constexpr int pidFieldInLoggedFile = 2;
+//static constexpr int pidFieldInLoggedFile = 2;
 static constexpr int usernameFieldInRegisteredFile = 0;
 static constexpr int passwordFieldInRegisteredFile = 1;
 static constexpr int dateTimeFieldInRegisteredFile = 2;

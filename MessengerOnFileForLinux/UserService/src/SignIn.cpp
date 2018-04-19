@@ -1,4 +1,6 @@
 #include <vector>
+#include <chrono>
+#include <thread>
 
 #include <SHA1.hpp>
 #include <SignIn.hpp>
@@ -16,7 +18,7 @@ SignIn::~SignIn()
 }
 
 std::string SignIn::enterThePassword() const
-{   // TODO mwozniak 5 interwal pytania o haslo
+{
     log.info("SignIn::enterThePassword started");
     std::string password;
     std::cout << "Enter the password : ";
@@ -45,9 +47,19 @@ bool SignIn::signInUser() const
         return false;
     }
 
-    std::string password = enterThePassword();
+    bool isPasswordsEqual = false;
+    for (int i = 0; i < 3; i++)
+    {
+        std::string password = enterThePassword();
 
-    if (!isPasswordCorrect(password, *passwordFromDatabase))
+        if (isPasswordCorrect(password, *passwordFromDatabase))
+        {
+            isPasswordsEqual = true;
+            break;
+        }
+    }
+
+    if (!isPasswordsEqual)
     {
         log.info("SignIn::signInUser ERROR: Incorrect password");
         std::cerr << "Incorrect password" << std::endl;
@@ -58,8 +70,8 @@ bool SignIn::signInUser() const
 
     while (!isUserDataSetCorrectly)
     {
-        log.info("SignIn::signInUser ERROR: Waiting for logged file acces");
-        sleep(1);
+
+        std::this_thread::sleep_for(std::chrono::microseconds(500));
         isUserDataSetCorrectly = setUserDataInLoggedFile();
     }
 
@@ -70,7 +82,7 @@ bool SignIn::signInUser() const
 
 bool SignIn::isUserLogged() const
 {
-    log.info("SignIn::isUserLogged started");
+/*
     std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
     for (auto x : *loggedFileContent)
@@ -86,6 +98,18 @@ bool SignIn::isUserLogged() const
 
     log.info("SignIn::isUserLogged User is not logged");
     return false;
+    */
+
+    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
+
+    if(nullptr == userInfo)
+    {
+        log.info("SignIn::isUserLogged User is not logged");
+        return false;
+    }
+
+    log.info("SignIn::isUserLogged User is already logged");
+    return true;
 }
 
 bool SignIn::isPasswordCorrect(const std::string& password, const std::string& correctPassword) const
@@ -127,8 +151,8 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     log.info("SignIn::setUserDataInLoggedFile started");
-    std::string userPid = std::to_string(LocalUser::getLocalUser().getUserPid());
-    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + FileStructure::FieldValue::userActiveStatus + "][" + userPid +"]";
+    //std::string userPid = std::to_string(LocalUser::getLocalUser().getUserPid());
+    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + FileStructure::FieldValue::userActiveStatus + "]";//[" + userPid +"]";
 
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, information); //TODO update date&&time in registered file
 }

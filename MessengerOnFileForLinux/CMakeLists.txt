@@ -51,6 +51,7 @@ target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
 ################################################################################
 #LIB_TEST
 include_directories(${CMAKE_SOURCE_DIR}/ChatStarter/test)
+include_directories(${CMAKE_SOURCE_DIR}/UserService/test)
 # TEST
 add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)

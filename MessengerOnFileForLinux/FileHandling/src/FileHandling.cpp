@@ -49,6 +49,18 @@ namespace
 
         std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
 
+        bool accesToFile = false;
+
+        while(!accesToFile)
+        {
+            if (!isGuardianExist(folderName))
+            {
+                createGuardian(folderName);
+                accesToFile = true;
+            }
+        }
+
+        /*
         if (!isGuardianExist(folderName))
         {
             createGuardian(folderName);
@@ -59,6 +71,7 @@ namespace
             fileLog(logInfo.c_str(), LogSpace::FileHandling);
             return nullptr;
         }
+        */
 
         std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
 

@@ -11,7 +11,7 @@ User::User()
 User::User(std::string username)
         : username_(username)
 {
-    log.info("User(username) C-TOR");
+    log.info("User(std::string username) C-TOR");
 }
 
 User::~User()
@@ -21,16 +21,15 @@ User::~User()
 
 std::string User::getPassword() const
 {
-    log.info("User::getPassword()");
     return password_;
 }
 
 std::string User::getUsername() const
 {
-    log.info("User::getUsername()");
     return username_;
 }
 
+/*
 int User::getUserPid() const
 {
     log.info("User::getUserPid() started");
@@ -47,15 +46,13 @@ int User::getUserPid() const
 
     return userPid;
 }
-
+*/
 void User::setPassword(const std::string& password)
 {
-    log.info("User::setPassword()");
     password_ = password;
 }
 
 void User::setUsername(const std::string& username)
 {
-    log.info("User::setUsername()");
     username_ = username;
 }
