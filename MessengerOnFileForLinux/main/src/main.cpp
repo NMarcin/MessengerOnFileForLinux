@@ -18,12 +18,6 @@
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
 
-void foo()
-{
-    std::cout << "Foo() opened by: "<< std::this_thread::get_id() << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-}
-
 void mnurzyns()
 {
     std::cout << "mnurzyns:\n\n";
@@ -32,50 +26,74 @@ void mnurzyns()
 
 void mwozniak()
 {
-    FileInterface::Accesor::getRow("/home/messenger/TEST/test.txt", "dupa");
-
-    std::cout << "ATOI: " << std::atoi("2marcin1006") << std::endl;
-
+    std::string user = getenv("USER");
     std::thread waitForInvitation(lookForInvitation);
+    std::cout <<"..........:::::::::Welcome " + user + "::::::::::.........." << std::endl;
 
-    std::cout << "REJETRACJA" << std::endl;
-    RegisterUser registerUser;
-    registerUser.registerNewUser();
 
-    std::cout << "LOGOWANIE" << std::endl;
-    SignIn signIn;
-    signIn.signInUser();
-    int i = 1;
-    do
+
+    int option = 0;
+
+    bool isSignInSuccesfully = false;
+    while (!isSignInSuccesfully)
     {
+        std::cout << "Choose option: " << std::endl;
+        std::cout << "(1) Register" << std::endl;
+        std::cout << "(2) SignIn" << std::endl;
+        std::cout << ">> ";
+        std::cin >> option;
+        std::cout << std::endl;
 
-        int j = 0;
-        std::cout << "Wybierz opcje: ";
-        std::cin >> j;
-
-        switch (j) {
-        case 1:
+        if (1 == option)
         {
-            std::cout << " Kogo chcesz zaprosic ? ";
+            RegisterUser registerUser;
+            SignIn signIn;
+            registerUser.registerNewUser();
+            std::cout << "___Sign In___" << std::endl;
+            if (signIn.signInUser())
+            {
+                isSignInSuccesfully = true;
+            }
+        }
+        else if (2 == option)
+        {
+            SignIn signIn;
+            if (signIn.signInUser())
+            {
+                isSignInSuccesfully = true;
+            }
+        }
+    }
+
+    while (true)
+    {
+        std::cout << "Choose option: " << std::endl;
+        std::cout << "(1) Invite user" << std::endl;
+        std::cout << ">> ";
+        std::cin.clear();
+        std::cin.sync();
+        std::cin >> std::ws;
+        std::cin >> option;
+        std::cout <<"." << option <<"." << std::endl;
+        std::cout << std::endl;
+
+        if (1 == option)
+        {
+            ChatControl control;
+            std::cout << " who do you want to invite? Invite ";
             std::string who;
             std::cin >> who;
-            ChatControl control;
             control.conversationProlog(who, ChatRole::inviter);
         }
-            break;
 
-        case 2:
+        else
         {
-            i = 0;
-            isMessengerRunnig = false;
+            while (true)
+            {}
         }
-            break;
-        default:
-            break;
-        }
-        sleep(1);
+    }
 
-    }while(i);
+
 
     waitForInvitation.join();
     SignOut signOut;
