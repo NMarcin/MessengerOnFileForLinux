@@ -69,6 +69,7 @@ void mwozniak()
     {
         std::cout << "Choose option: " << std::endl;
         std::cout << "(1) Invite user" << std::endl;
+        std::cout << "(2) Wait for invitation" << std::endl;
         std::cout << ">> ";
         std::cin.clear();
         std::cin.sync();
