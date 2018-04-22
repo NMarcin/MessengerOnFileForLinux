@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <ncurses.h>
 
 #include <GlobalVariables.hpp>
 #include <FileHandling.hpp>
@@ -18,6 +19,8 @@
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
 
+void ncourses();
+
 void mnurzyns()
 {
     std::cout << "mnurzyns:\n\n";
@@ -26,6 +29,8 @@ void mnurzyns()
 
 void mwozniak()
 {
+    ncourses();
+
     std::string user = getenv("USER");
     std::thread waitForInvitation(lookForInvitation);
     std::cout <<"..........:::::::::Welcome " + user + "::::::::::.........." << std::endl;
@@ -96,6 +101,7 @@ void mwozniak()
 
 
 
+
     waitForInvitation.join();
     SignOut signOut;
     signOut.signOutUser();
@@ -131,4 +137,73 @@ int main(int argc, char **argv)
 
 
     return 0;
+}
+
+std::string getstring(WINDOW* subwindow)
+{
+    std::string input;
+    // let the terminal do the line editing
+    nocbreak();
+    echo();
+
+    // this reads from buffer after <ENTER>, not "raw"
+    // so any backspacing etc. has already been taken care of
+
+    int ch = wgetch(subwindow);
+    while ( ch != '\n' )
+    {
+        //wmove(subwindow, 1, 1);
+        //wrefresh(subwindow);
+        input.push_back( ch );
+        ch = wgetch(subwindow);
+    }
+    // restore your cbreak / echo settings here
+    return input;
+}
+
+void ncourses()
+{
+    initscr();
+    printw("##################### MESSENGER ##################### \n");
+
+    WINDOW* subwindow = newwin(15,40,1,1);//size y,x; wspolrzedne startu
+    WINDOW* subwindow2 = newwin(3,40,15,1);
+
+    refresh();
+
+    box(subwindow,0,0); //obrabia w liniue
+    box(subwindow2,0,0);
+
+    refresh();
+    wrefresh(subwindow);
+    refresh();
+    wrefresh(subwindow2);
+
+    int i = 1;
+    for (;;)
+    {
+        std::string time = static_cast<std::string>(__TIME__) + " : ";
+        wmove(subwindow2, 1, 1);
+        mvwprintw(subwindow2, 1, 1, time.c_str());
+        wrefresh(subwindow2);
+        std::string text = getstring(subwindow2);
+        mvwprintw(subwindow, i, 1, text.c_str());
+
+        refresh();
+        wclear(subwindow2);
+        box(subwindow2,0,0);
+        wrefresh(subwindow);
+
+        i++;
+        refresh();
+        wrefresh(subwindow2);
+    }
+
+    getch();
+    delwin(subwindow);
+    delwin(subwindow2);
+    endwin();
+
+
+
 }

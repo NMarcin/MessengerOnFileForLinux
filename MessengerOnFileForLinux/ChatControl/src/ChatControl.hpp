@@ -45,6 +45,7 @@ private:
     std::unique_ptr<std::thread> sendMessageFromQueueThread_;
     std::unique_ptr<std::thread> reciveMessageThread_;
     std::queue<std::unique_ptr<std::string>> messageWaitingRoom_;
+    std::queue<std::string> messageToDisplay_;
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;
     bool isThreadsRunning_;

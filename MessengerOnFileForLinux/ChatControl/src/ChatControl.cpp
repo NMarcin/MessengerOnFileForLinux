@@ -6,6 +6,7 @@
 #include <ChatRequest.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
+#include <Display.hpp>
 
 ChatControl::ChatControl()
 {
@@ -36,7 +37,6 @@ void ChatControl::conversationProlog(const std::string& username, ChatRole chatR
     }
     else if (ChatRole::recipient == chatRole)
     {
-        //int usernamePid = std::atoi(username.c_str());
         startConversationAsRecipient(username);
     }
 }
@@ -61,6 +61,7 @@ void ChatControl::getMessage()
     while(isThreadsRunning_)
     {
         //TODO jestli cos wysle to koniec rozmowy
+
         messageWaitingRoom_.push(sender->getMessageToSend());
     }
 }
@@ -69,11 +70,18 @@ void ChatControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
     std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>();
+    std::unique_ptr<Display> display = std::make_unique<Display>(messageToDisplay_);
+
     while(isThreadsRunning_)
     {
+        sleep(5);
         //reciver->recive()
         //TODO jesli cos odczyta to koniec rozmowy
-        sleep(1);
+        if (!messageToDisplay_.empty())
+        {
+            display->displayMessege();
+        }
+
     }
 }
 

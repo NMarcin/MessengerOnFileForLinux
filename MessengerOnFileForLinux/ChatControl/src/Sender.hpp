@@ -5,12 +5,7 @@
 #include <FileHandling.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
-/**
-  USUNE TO PO REVIEW
-  W konstruktorze dostajemy sciezke do chatFile i odpowiednia flage (1 albo 2).
-  getMessageToSend() pobiera z konsoli wiadomosc, opakowuje ja i zwraca.
-  sendMessage() wysyla wiadomosc do pliku i ustawia flage NEW
- */
+
 class Sender
 {
 public:

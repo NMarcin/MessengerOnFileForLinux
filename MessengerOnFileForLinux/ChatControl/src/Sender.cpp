@@ -44,6 +44,7 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
 {
     log.info("Sender::getMessageFromStdin started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
+    std::cout << ">> [JA] ";
     std::cin >> std::ws;
     getline(std::cin, *message);
     return message;
