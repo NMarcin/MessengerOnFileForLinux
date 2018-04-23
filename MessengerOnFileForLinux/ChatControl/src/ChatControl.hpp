@@ -4,6 +4,7 @@
 #include <vector>
 #include <signal.h>
 #include <queue>
+#include <ncurses.h>
 
 #include <Sender.hpp>
 #include <Receiver.hpp>
@@ -49,6 +50,9 @@ private:
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;
     bool isThreadsRunning_;
+
+    WINDOW* subwindow1;
+    WINDOW* subwindow2;
 
     Logger log{LogSpace::ChatFile};
 

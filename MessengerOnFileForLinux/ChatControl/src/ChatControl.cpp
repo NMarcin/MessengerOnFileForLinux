@@ -30,6 +30,13 @@ ChatControl::~ChatControl()
 
 void ChatControl::conversationProlog(const std::string& username, ChatRole chatRole)
 {
+    subwindow1 = newwin(15,40,1,1);//size y,x; wspolrzedne startu
+    subwindow2 = newwin(3,40,15,1);
+    box(subwindow1,0,0);
+    box(subwindow1,0,0);
+    wrefresh(subwindow1);
+    wrefresh(subwindow2);
+
     log.info("ChatControl::startConversation started");
     if (ChatRole::inviter == chatRole)
     {

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <ncurses.h>
+#include <stdio.h>
 
 #include <RegisterUser.hpp>
 #include <FileHandling.hpp>
@@ -23,7 +25,9 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 {
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
-    std::cout << "Enter the password again. ";
+    move(3,2);
+    printw("Enter the password again. ");
+    refresh();
     passwords->back() = enterThePassword();
 
     return passwords;
@@ -32,7 +36,8 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 std::string RegisterUser::enterThePassword() const
 {
     std::string password;
-    std::cout << "Enter the password : ";
+    printw("Enter the password : ");
+    refresh();
     std::cin >> password;
     return password;
 }

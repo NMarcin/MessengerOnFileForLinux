@@ -1,0 +1,1294 @@
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::isUserRegistered ERROR: User is registered
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser ERROR: You already have an account
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is already logged
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser ERROR: You are already logged in
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::isUserRegistered ERROR: User is registered
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser ERROR: You already have an account
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is already logged
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser ERROR: You are already logged in
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is already logged
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser ERROR: You are already logged in
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is already logged
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser ERROR: You are already logged in
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is already logged
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser ERROR: You are already logged in
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::isUserRegistered ERROR: User is registered
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser ERROR: You already have an account
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is already logged
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser ERROR: You are already logged in
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  RegisterUser C-TOR
+Apr 23 2018 19:15:41 UserService  SignIn C-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 UserService  LoclaUser C-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  RegisterUser::registerNewUser Registration completed successfully
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::isUserLogged User is not logged
+Apr 23 2018 19:15:41 UserService  SignIn::getPasswordFromDatabase started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/REGISTERED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  SignIn::enterThePassword started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 UserService  SignIn::isPasswordCorrect started
+Apr 23 2018 19:15:41 UserService  SignIn::setUserDataInLoggedFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::addRow started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToWrite started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  SignIn::signInUser SUCCESS
+Apr 23 2018 19:15:41 UserService  SignIn D-TOR
+Apr 23 2018 19:15:41 UserService  RegisterUser D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 ChatFile  ChatControl C-TOR 
+Apr 23 2018 19:15:41 ChatFile  ChatControl::startConversation started
+Apr 23 2018 19:15:41 ChatFile  ChatControl::startConversationAsInviter started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::sendChatRequest started
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatFabric C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatFabric::createChatStructure started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/chats/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 ChatFile  ChatFabric::createChatFolder succes, folderName: /home/messenger/chats/1marcin_tomek/
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::createFile /home/messenger/chats/1marcin_tomek/marcin_tomek
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/marcin_tomek
+Apr 23 2018 19:15:41 ChatFile  ChatFabric::createChatFile folderCreating done
+Apr 23 2018 19:15:41 ChatFile  ChatFabric::createChatStructure succes, chatFileWithPath:/home/messenger/chats/1marcin_tomek/marcin_tomek
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::isUserActive started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::getUserStatus started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 UserService  User D-TOR
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::changeUserStatus started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::updateRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::updateRow  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  User D-TOR
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::createFile /home/messenger/invitations/tomek_marcin
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/invitations/tomek_marcin
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::waitForAnswer started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::getChatFolderName started
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::getChatFolderName -> 1marcin_tomek
+
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/ACCEPTED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/DISACCEPTED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 ChatFile  ChatControl C-TOR 
+Apr 23 2018 19:15:41 ChatFile  ChatControl::startConversation started
+Apr 23 2018 19:15:41 ChatFile  ChatControl::startConversationAsRecipient started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::answerForChatRequest started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::removeFile /home/messenger/invitations/tomek_marcin
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/invitations/tomek_marcin
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::showInvitation started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::respondOnInvitation started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::respondOnInvitation Invitation disacceptedddddddddddd
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::sendAnswer started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::getChatFolderName started
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::getChatFolderName -> 1marcin_tomek
+
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::createFile /home/messenger/chats/1marcin_tomek/DISACCEPTED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/DISACCEPTED
+Apr 23 2018 19:15:41 ChatFile  ChatControl::endConversation started
+Apr 23 2018 19:15:41 ChatFile  ChatControl::stopThreads started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest D-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatControl D-TOR 
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/ACCEPTED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/DISACCEPTED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::removeFile /home/messenger/chats/1marcin_tomek/DISACCEPTED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/chats/1marcin_tomek/DISACCEPTED
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::changeUserStatus started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::updateRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::updateRow  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  User D-TOR
+Apr 23 2018 19:15:41 UserService  User(std::string username) C-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatRequest::changeUserStatus started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFileContent /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFileToRead started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::openFile started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::updateRowField  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Modification::updateRow  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFolderName  from /home/messenger/configuration/LOGGED
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Managment::isFileExist /home/messenger/configuration/GUARD
+Apr 23 2018 19:15:41 UserService  User D-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatFabric D-TOR
+Apr 23 2018 19:15:41 UserService  User D-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatControl::endConversation started
+Apr 23 2018 19:15:41 ChatFile  ChatControl::stopThreads started
+Apr 23 2018 19:15:41 ChatFile  ChatRequest D-TOR
+Apr 23 2018 19:15:41 ChatFile  ChatControl D-TOR 
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started
+Apr 23 2018 19:15:41 FileHandling  FileInterface::Accesor::getFilenamesFromFolder from /home/messenger/invitations/
+Apr 23 2018 19:15:41 FileHandling  ConsolControl::getStdoutFromCommand  started

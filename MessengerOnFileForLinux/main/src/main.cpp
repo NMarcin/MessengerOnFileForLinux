@@ -20,6 +20,7 @@
 #include <LogSpace.hpp>
 
 void ncourses();
+void mainWindow();
 
 void mnurzyns()
 {
@@ -29,7 +30,7 @@ void mnurzyns()
 
 void mwozniak()
 {
-    ncourses();
+    mainWindow();
 
     std::string user = getenv("USER");
     std::thread waitForInvitation(lookForInvitation);
@@ -161,6 +162,116 @@ std::string getstring(WINDOW* subwindow)
     return input;
 }
 
+
+void showFrame()
+{
+    printw("##################### MESSENGER ##################### \n");
+    for (int i = 0; i < 10;  i++)
+    {
+        printw("#                                                                                                                                   # \n");
+    }
+    printw("##################################################### \n");
+}
+
+void mainWindow()
+{
+    initscr();
+
+    showFrame();
+    move(2,2);
+    std::string user = getenv("USER");
+    std::thread waitForInvitation(lookForInvitation);
+    printw(("   .......::::::Welcome " + user + ":::::::.......").c_str());
+
+    int option = 0;
+
+    bool isSignInSuccesfully = false;
+    while (!isSignInSuccesfully)
+    {
+        mvprintw(4,2,"Choose option: ");
+        mvprintw(5,2,"(1) Register");
+        mvprintw(6,2,"(2) SignIn");
+        move(4, 17);
+
+        option = getch();
+        clear();
+
+
+        if ('1' == option)
+        {
+            showFrame();
+            move(2, 2);
+            refresh();
+            RegisterUser registerUser;
+            SignIn signIn;
+            registerUser.registerNewUser();
+            move(2, 2);
+            clear();
+            showFrame();
+            mvprintw(2,2,("   .......::::::Welcome " + user + ":::::::.......").c_str());
+            mvprintw(4,2,"___Sign In___ ");
+            refresh();
+
+            if (signIn.signInUser())
+            {
+                isSignInSuccesfully = true;
+            }
+        }
+
+        else if ('2'== option)
+        {
+            showFrame();
+            move(2, 2);
+            refresh();
+
+            SignIn signIn;
+            if (signIn.signInUser())
+            {
+                isSignInSuccesfully = true;
+            }
+        }
+    }
+
+    while (true)
+    {
+        mvprintw(2,2,"Choose option: ");
+        mvprintw(3,2,"(1) Invite user");
+        mvprintw(4,2,"(2) Wait for invitation");
+        mvprintw(5,2,">> ");
+
+        option = getch();
+
+        if ('1' == option)
+        {
+
+            clear();
+            refresh();
+            showFrame();
+            mvprintw(2,2,("   .......::::::Welcome " + user + ":::::::.......").c_str());
+            mvprintw(3,2," who do you want to invite? Invite ");
+            move(4,2);
+            refresh();
+            std::string who;
+            std::cin >> who;
+
+            ChatControl control;
+            control.conversationProlog(who, ChatRole::inviter);
+        }
+
+        else
+        {
+            while (true)
+            {}
+        }
+    }
+
+    move(2,2);
+
+    getch();
+    endwin();
+
+}
+
 void ncourses()
 {
     initscr();
@@ -203,7 +314,5 @@ void ncourses()
     delwin(subwindow);
     delwin(subwindow2);
     endwin();
-
-
 
 }

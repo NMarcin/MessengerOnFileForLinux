@@ -1,6 +1,7 @@
 #include <vector>
 #include <chrono>
 #include <thread>
+#include <ncurses.h>
 
 #include <SHA1.hpp>
 #include <SignIn.hpp>
@@ -21,9 +22,10 @@ std::string SignIn::enterThePassword() const
 {
     log.info("SignIn::enterThePassword started");
     std::string password;
-    std::cout << "Enter the password : ";
+    mvprintw(5,2,"Enter the password : ");
+    refresh();
     std::cin >> password;
-    std::cout << std::endl;
+    //std::cout << std::endl;
 
     return password;
 }
