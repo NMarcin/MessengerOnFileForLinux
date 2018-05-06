@@ -8,14 +8,17 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include <ChatFabric.hpp>
+#include <Display.hpp>
 
 ChatRequest::ChatRequest()
 {
+    initscr();
     log.info("ChatRequest C-TOR");
 }
 
 ChatRequest::~ChatRequest()
 {
+    endwin();
     log.info("ChatRequest D-TOR");
 }
 
@@ -87,7 +90,9 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
     }
 
     log.info("ChatRequest::getUserStatus ERROR: User is offline or does not exist");
-    std::cerr << "User is offline or does not exist" << std::endl;
+    printw("User is offline or does not exist.");
+    refresh();
+    //std::cerr << "User is offline or does not exist" << std::endl;
     return nullptr;
 }
 
@@ -108,7 +113,9 @@ bool ChatRequest::isUserActive(const User& user) const
     }
 
     log.info("ChatRequest::isUserActive ERROR: User is bussy");
-    std::cerr << "User is bussy" << std::endl;
+    printw("User is bussy. Try again later.");
+    refresh();
+    //std::cerr << "User is bussy" << std::endl;
     return false;
 }
 
@@ -116,6 +123,7 @@ bool ChatRequest::respondOnInvitation() const
 {
     log.info("ChatRequest::respondOnInvitation started");
     std::string decision;
+    //decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
     std::cin >> decision;
     std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);  // TODO mwozniak check tolower on string
 
@@ -130,7 +138,7 @@ bool ChatRequest::respondOnInvitation() const
         return false;
     }
 
-    log.info("ChatRequest::respondOnInvitation Invitation disacceptedddddddddddd");
+    log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
     return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
 }
 
@@ -158,7 +166,6 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
-    std::cerr << "sendChatRequest started" << std::endl;
     //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
     //zakomentowane dla testow na jednym terminalu
 
@@ -189,8 +196,11 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 void ChatRequest::showInvitation(const std::string& senderUsername) const
 {
     log.info("ChatRequest::showInvitation started");
-    std::cout << "You get an invitation to chat form " + senderUsername << std::endl;
-    std::cout << "Do you want to chat with this user (y/n)? " << std::endl;
+    clear();
+    printw(("You get an invitation to chat form " + senderUsername + "\n").c_str());
+    printw("Do you want to chat with this user (y/n)? \n");
+    printw(">> ");
+    refresh();
 }
 
 bool ChatRequest::waitForAnswer(const std::string& username) const

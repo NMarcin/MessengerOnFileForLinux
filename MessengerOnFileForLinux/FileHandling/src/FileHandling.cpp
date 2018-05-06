@@ -323,8 +323,28 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
     return isGuardRemoved;
 }
 
+bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag)
+{
+    fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
+    int actualFieldNumber = -1;
+    bool flag = false;
 
-bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber)
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+    if (isGuardianExist(folderName))
+    {
+        return false;
+    }
+
+    createGuardian(folderName);
+
+   std::string command = "sed -i -e '/\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
+   std::system(command.c_str());
+
+   removeGuardian(folderName);
+   return true;
+}
+
+bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber = 0)
 {
     fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
@@ -377,8 +397,13 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     }
 
     removeGuardian(folderName);
+    command = "sed -i -e 's/.*" + where + ".*/" + *rowToUpdate + "/g' " + pathToFile;
+    //cos w stylu sed -i -e '0,/where/s..............
+    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
+    std::system(command.c_str());
 
-    return updateRow(pathToFile,*rowToUpdate,where);
+    return true;
+    //return updateRow(pathToFile,*rowToUpdate,where);
 }
 
 

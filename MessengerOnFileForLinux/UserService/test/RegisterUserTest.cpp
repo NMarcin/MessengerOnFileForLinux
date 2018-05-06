@@ -16,29 +16,35 @@ TEST(RegisterUserTest, registerNewUser)
     FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
 
     EXPECT_TRUE(registerUser.registerNewUser());
+    endwin();
 }
 
 TEST(RegisterUserTest, registerRegisteredUser)
 {
+
     std::istringstream stream("1\n1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
     FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
 
     EXPECT_TRUE(registerUser.registerNewUser());
     EXPECT_FALSE(registerUser.registerNewUser());
+
 }
 
 TEST(RegisterUserTest, registerUserWithDifferentPasswords)
 {
+
     std::istringstream stream("1\n0\n2\n1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
     FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
 
     EXPECT_TRUE(registerUser.registerNewUser());
+
 }
 
 TEST(RegisterUserTest, isUserCorrectlyAddedRegisterededFile)
 {
+
     std::istringstream stream("1\n1");
     std::cin.rdbuf(stream.rdbuf());
     sha1.update("1");
@@ -52,4 +58,5 @@ TEST(RegisterUserTest, isUserCorrectlyAddedRegisterededFile)
     rowFromRegisteredFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
     std::string expectedRow = "[" + user +"][" + hashedPassword + "]";
     EXPECT_EQ(expectedRow, *rowFromRegisteredFile);
+
 }

@@ -1,23 +1,22 @@
 #pragma once
 #include <queue>
 #include <memory>
+#include <ncurses.h>
+#include <atomic>
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
-class Display
+namespace Display
 {
-public:
-    Display(std::queue<std::string> messegeWaitingRoom);
-    ~Display();
-    bool displayMessege() const;
+    static std::atomic<int> terminalSizeX;
+    static std::atomic<int> terminalSizeY;
 
-private:
+    void displayMainWindow();
+    void displayRegistrationMainWindow();
+    void displayLoggedMainWindow();
+    void updateTerminalSize();
+    std::string getStringFromMainWindow();
+}
 
-    bool getMessegeFromQueue(std::queue<std::string>& messegeWaitingRoom) const;
-
-    std::unique_ptr<std::queue<std::string>> messegeWaitingRoom_;
-
-    Logger log {LogSpace::ChatControl};
-};
 

@@ -30,13 +30,6 @@ ChatControl::~ChatControl()
 
 void ChatControl::conversationProlog(const std::string& username, ChatRole chatRole)
 {
-    subwindow1 = newwin(15,40,1,1);//size y,x; wspolrzedne startu
-    subwindow2 = newwin(3,40,15,1);
-    box(subwindow1,0,0);
-    box(subwindow1,0,0);
-    wrefresh(subwindow1);
-    wrefresh(subwindow2);
-
     log.info("ChatControl::startConversation started");
     if (ChatRole::inviter == chatRole)
     {
@@ -52,6 +45,8 @@ void ChatControl::conversationEpilog()
 {
     log.info("ChatControl::endConversation started");
     stopThreads();
+    delwin(subwindow2);
+    delwin(subwindow1);
     //TODO dalsza czesc konczenia rozmowe, pobieranie historii itd.
 }
 
@@ -64,12 +59,20 @@ void ChatControl::stopThreads()
 void ChatControl::getMessage()
 {
     log.info("ChatControl::getMessage started");
-    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
+    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), subwindow2);
     while(isThreadsRunning_)
     {
         //TODO jestli cos wysle to koniec rozmowy
+        wclear(subwindow2);
+        box(subwindow2, 0, 0);
+        wmove(subwindow2, 1, 1);
+        wrefresh(subwindow2);
 
         messageWaitingRoom_.push(sender->getMessageToSend());
+
+        /*testownie. potem usunac */
+        auto tmp = *messageWaitingRoom_.front();
+        messageToDisplay_.push(tmp);
     }
 }
 
@@ -77,16 +80,19 @@ void ChatControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
     std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>();
-    std::unique_ptr<Display> display = std::make_unique<Display>(messageToDisplay_);
+
 
     while(isThreadsRunning_)
     {
-        sleep(5);
+        sleep(1);
         //reciver->recive()
         //TODO jesli cos odczyta to koniec rozmowy
         if (!messageToDisplay_.empty())
         {
-            display->displayMessege();
+            wprintw(subwindow1, (messageToDisplay_.front() + "\n").c_str());
+            box(subwindow1, 0, 0);
+            wrefresh(subwindow1);
+            messageToDisplay_.pop();
         }
 
     }
@@ -95,7 +101,7 @@ void ChatControl::reciveMessage()
 void ChatControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
-    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
+    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), subwindow2);
     while(isThreadsRunning_ || !messageWaitingRoom_.empty())
     {
         if (messageWaitingRoom_.empty())
@@ -149,6 +155,15 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
 
 void ChatControl::conversation()
 {
+    clear();
+    subwindow1 = newwin(15,40,1,1);//size y,x; wspolrzedne startu
+    subwindow2 = newwin(3,40,15,1);
+    box(subwindow1,0,0);
+    box(subwindow2,0,0);
+    refresh();
+    wrefresh(subwindow1);
+    wrefresh(subwindow2);
+
     isThreadsRunning_ = true;
 
     log.info("ChatControl::conversationControl started");

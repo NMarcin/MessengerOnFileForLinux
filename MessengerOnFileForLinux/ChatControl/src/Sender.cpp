@@ -6,9 +6,10 @@
 #include <FileHandling.hpp>
 
 
-Sender::Sender(const std::string& pathToChatFile, int chatFlag)
+Sender::Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin)
     : chatFilenameWithPath_(pathToChatFile),
-      chatFlag_(chatFlag)
+      chatFlag_(chatFlag),
+      window_(subwin)
 {
     log.info("Sender C-TOR");
 }
@@ -44,9 +45,18 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
 {
     log.info("Sender::getMessageFromStdin started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    std::cout << ">> [JA] ";
-    std::cin >> std::ws;
-    getline(std::cin, *message);
+    mvwprintw(window_, 1, 1, ">> [JA] ");
+    wrefresh(window_);
+
+    nocbreak();
+    echo();
+    int ch = wgetch(window_);
+    while ( ch != '\n' )
+    {
+        message->push_back( ch );
+        ch = wgetch(window_);
+    }
+
     return message;
 }
 
@@ -55,6 +65,13 @@ std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& row
     log.info("Sender::prepearMessageToSend started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
     *message = "[" + std::to_string(chatFlag_) + "][" + *getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
+
+    static int messengerWindowsSizeX = 38;
+    for (int i = messengerWindowsSizeX; i < message->size(); i = i + messengerWindowsSizeX)
+    {
+        message->insert(i, "\n ");
+    }
+
     return message;
 }
 

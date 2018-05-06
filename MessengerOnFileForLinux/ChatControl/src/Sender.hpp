@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <ncurses.h>
 
 #include <FileHandling.hpp>
 #include <Logger.hpp>
@@ -9,7 +10,7 @@
 class Sender
 {
 public:
-    Sender(const std::string& pathToChatFile, int chatFlag);
+    Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin);
     ~Sender();
 
     std::unique_ptr<std::string> getMessageToSend() const;
@@ -24,5 +25,6 @@ private:
     std::string chatFilenameWithPath_;
     int chatFlag_;
 
+    WINDOW* window_;
     Logger log {LogSpace::ChatFile};
 };

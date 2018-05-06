@@ -10,14 +10,17 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
+#include <Display.hpp>
 
 RegisterUser::RegisterUser()
 {
+    initscr();
     log.info("RegisterUser C-TOR");
 }
 
 RegisterUser::~RegisterUser()
 {
+    endwin();
     log.info("RegisterUser D-TOR");
 }
 
@@ -25,9 +28,10 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 {
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
-    move(3,2);
+    Display::displayRegistrationMainWindow();
     printw("Enter the password again. ");
     refresh();
+    sleep(1);
     passwords->back() = enterThePassword();
 
     return passwords;
@@ -36,6 +40,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 std::string RegisterUser::enterThePassword() const
 {
     std::string password;
+    Display::displayRegistrationMainWindow();
     printw("Enter the password : ");
     refresh();
     std::cin >> password;
@@ -51,7 +56,10 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
     }
 
     log.info("RegisterUser::comparePassword ERROR: Passwords are differnet");
-    std::cerr << "The passwords are differnet" << std::endl;
+    Display::displayRegistrationMainWindow();
+    printw("The passwords are differnet. Enter passwords one more time.");
+    refresh();
+    sleep(1);
     return false;
 }
 
@@ -80,6 +88,7 @@ bool RegisterUser::registerNewUser() const
         return false;
     }
 
+
     bool isPasswordSetCorrectly = false;
 
     while (!isPasswordSetCorrectly)
@@ -91,7 +100,7 @@ bool RegisterUser::registerNewUser() const
             isPasswordSetCorrectly = setUserPassword(passwords.front());
         }
     }
-
+    std::cerr <<"DUUPA" << std::endl;
     bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
 
     while (!isUserDataSavedCorrectly)

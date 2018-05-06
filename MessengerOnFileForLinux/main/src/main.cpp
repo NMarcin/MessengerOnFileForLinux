@@ -14,6 +14,7 @@
 #include <ChatRequest.hpp>
 #include <Sender.hpp>
 #include <ChatControl.hpp>
+#include <Display.hpp>
 
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
@@ -21,6 +22,7 @@
 
 void ncourses();
 void mainWindow();
+
 
 void mnurzyns()
 {
@@ -30,82 +32,49 @@ void mnurzyns()
 
 void mwozniak()
 {
-    mainWindow();
+  //FileInterface::Modification::updateRowField("/home/mawoznia/marcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/test.txt"
+         //                              , "'[1]'", "0",);
 
-    std::string user = getenv("USER");
+    initscr();
+
     std::thread waitForInvitation(lookForInvitation);
-    std::cout <<"..........:::::::::Welcome " + user + "::::::::::.........." << std::endl;
+    std::thread getTerminalSize(Display::updateTerminalSize);
 
+    RegisterUser registerUser;
+    SignIn signIn;
+    registerUser.registerNewUser();
+    clear();
+    refresh();
+    signIn.signInUser();
+    clear();
+    refresh();
 
-
-    int option = 0;
-
-    bool isSignInSuccesfully = false;
-    while (!isSignInSuccesfully)
+    for(;;)
     {
-        std::cout << "Choose option: " << std::endl;
-        std::cout << "(1) Register" << std::endl;
-        std::cout << "(2) SignIn" << std::endl;
-        std::cout << ">> ";
-        std::cin >> option;
-        std::cout << std::endl;
+        Display::displayMainWindow();
+        char command[512];
+        getstr(command);
 
-        if (1 == option)
-        {
-            RegisterUser registerUser;
-            SignIn signIn;
-            registerUser.registerNewUser();
-            std::cout << "___Sign In___" << std::endl;
-            if (signIn.signInUser())
-            {
-                isSignInSuccesfully = true;
-            }
-        }
-        else if (2 == option)
-        {
-            SignIn signIn;
-            if (signIn.signInUser())
-            {
-                isSignInSuccesfully = true;
-            }
-        }
-    }
-
-    while (true)
-    {
-        std::cout << "Choose option: " << std::endl;
-        std::cout << "(1) Invite user" << std::endl;
-        std::cout << "(2) Wait for invitation" << std::endl;
-        std::cout << ">> ";
-        std::cin.clear();
-        std::cin.sync();
-        std::cin >> std::ws;
-        std::cin >> option;
-        std::cout <<"." << option <<"." << std::endl;
-        std::cout << std::endl;
-
-        if (1 == option)
+        if ( strcmp("invite marcin", command) == 0)
         {
             ChatControl control;
-            std::cout << " who do you want to invite? Invite ";
-            std::string who;
-            std::cin >> who;
-            control.conversationProlog(who, ChatRole::inviter);
+            control.conversationProlog("marcin", ChatRole::inviter);
+        }
+        else if ( strcmp("invite tomek", command) == 0)
+        {
+            ChatControl control;
+            control.conversationProlog("tomek", ChatRole::inviter);
         }
 
-        else
+         else if ( strcmp("wait", command) == 0)
         {
             while (true)
-            {}
+            {
+                refresh();
+            }
         }
     }
 
-
-
-
-    waitForInvitation.join();
-    SignOut signOut;
-    signOut.signOutUser();
 
 }
 
@@ -143,28 +112,44 @@ int main(int argc, char **argv)
 std::string getstring(WINDOW* subwindow)
 {
     std::string input;
-    // let the terminal do the line editing
     nocbreak();
     echo();
-
-    // this reads from buffer after <ENTER>, not "raw"
-    // so any backspacing etc. has already been taken care of
-
     int ch = wgetch(subwindow);
     while ( ch != '\n' )
     {
-        //wmove(subwindow, 1, 1);
-        //wrefresh(subwindow);
+
         input.push_back( ch );
         ch = wgetch(subwindow);
     }
-    // restore your cbreak / echo settings here
     return input;
 }
 
-
 void showFrame()
 {
+    /*
+    for (int i = 0; i < x/3; i++)
+    {
+        printw("X  ");
+    }
+    printw("\n");
+
+    for (int i = 0; i < y; i++)
+    {
+        printw("X");
+        for (int j = 0; j < x - 2; j++)
+        {
+            printw(" ");
+        }
+        printw("X\n");
+    }
+
+    move(y-1,0);
+    for (int i = 0; i < x/3; i++)
+    {
+        printw("X  ");
+    }
+    */
+
     printw("##################### MESSENGER ##################### \n");
     for (int i = 0; i < 10;  i++)
     {
@@ -184,7 +169,8 @@ void mainWindow()
     printw(("   .......::::::Welcome " + user + ":::::::.......").c_str());
 
     int option = 0;
-
+    SignOut signOut;
+    signOut.signOutUser();
     bool isSignInSuccesfully = false;
     while (!isSignInSuccesfully)
     {
@@ -234,6 +220,9 @@ void mainWindow()
 
     while (true)
     {
+        clear();
+        showFrame();
+        refresh();
         mvprintw(2,2,"Choose option: ");
         mvprintw(3,2,"(1) Invite user");
         mvprintw(4,2,"(2) Wait for invitation");
@@ -243,6 +232,7 @@ void mainWindow()
 
         if ('1' == option)
         {
+
 
             clear();
             refresh();
@@ -260,12 +250,18 @@ void mainWindow()
 
         else
         {
+            clear();
+            showFrame();
+            move(2,2);
+            refresh();
+
             while (true)
             {}
         }
     }
 
-    move(2,2);
+    waitForInvitation.join();
+    signOut.signOutUser();
 
     getch();
     endwin();

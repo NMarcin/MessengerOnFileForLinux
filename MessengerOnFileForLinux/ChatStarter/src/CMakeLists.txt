@@ -1,3 +1,3 @@
- set(SOURCES ${SOURCES}
-  	${CMAKE_CURRENT_SOURCE_DIR}/ChatFabric.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ChatRequest.cpp PARENT_SCOPE)
+set(SOURCES ${SOURCES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/ChatFabric.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ChatRequest.cpp PARENT_SCOPE)

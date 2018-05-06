@@ -237,3 +237,27 @@ TEST(FileHandlingTest, getRowTest)
     FileInterface::Managment::removeFile(testPath + filename);
 }
 
+TEST(FileHandlingTest, updateFlagsInFile)
+{
+    FileInterface::Managment::createFile(testPath + filename);
+    std::string firstRow = "[mwoznia][3][33]";
+    std::string secondRow = "[tomek][3][2]";
+    std::string thirdRow = "[mwoznia][3][3]";
+    FileInterface::Modification::addRow(testPath + filename, firstRow);
+    FileInterface::Modification::addRow(testPath + filename, secondRow);
+    FileInterface::Modification::addRow(testPath + filename, thirdRow);
+
+    FileInterface::Modification::updateFlagsInFile(testPath + filename, "3", "10");
+
+    std::array<std::string, 3> expectedRow{"[mwoznia][10][33]", "[tomek][10][2]", "[mwoznia][10][3]"};
+    std::fstream file(testPath + filename);
+    std::string updatedRow;
+
+    for (int i = 0; i < 3; i++)
+    {
+        getline(file, updatedRow);
+        EXPECT_EQ(expectedRow.at(i), updatedRow);
+    }
+
+    FileInterface::Managment::removeFile(testPath + filename);
+}

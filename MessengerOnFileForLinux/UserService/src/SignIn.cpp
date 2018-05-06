@@ -7,14 +7,17 @@
 #include <SignIn.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
+#include <Display.hpp>
 
 SignIn::SignIn()
 {
+    initscr();
     log.info("SignIn C-TOR");
 }
 
 SignIn::~SignIn()
 {
+    endwin();
     log.info("SignIn D-TOR");
 }
 
@@ -22,10 +25,10 @@ std::string SignIn::enterThePassword() const
 {
     log.info("SignIn::enterThePassword started");
     std::string password;
-    mvprintw(5,2,"Enter the password : ");
+    Display::displayLoggedMainWindow();
+    printw("Enter the password : ");
     refresh();
     std::cin >> password;
-    //std::cout << std::endl;
 
     return password;
 }
@@ -64,7 +67,6 @@ bool SignIn::signInUser() const
     if (!isPasswordsEqual)
     {
         log.info("SignIn::signInUser ERROR: Incorrect password");
-        std::cerr << "Incorrect password" << std::endl;
         return false;
     }
 
@@ -124,6 +126,11 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
     {
         return true;
     }
+
+    Display::displayLoggedMainWindow();
+    printw("Incorrect password. Enter password again.");
+    refresh();
+    sleep(1);
 
     log.info("SignIn::isPasswordCorrect ERROR: Incorect password");
     return false;
