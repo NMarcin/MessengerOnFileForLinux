@@ -45,7 +45,7 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
 {
     log.info("Sender::getMessageFromStdin started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    mvwprintw(window_, 1, 1, ">> [JA] ");
+    mvwprintw(window_, 1, 1, ">> ");
     wrefresh(window_);
 
     nocbreak();
@@ -65,12 +65,6 @@ std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& row
     log.info("Sender::prepearMessageToSend started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
     *message = "[" + std::to_string(chatFlag_) + "][" + *getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
-
-    static int messengerWindowsSizeX = 38;
-    for (int i = messengerWindowsSizeX; i < message->size(); i = i + messengerWindowsSizeX)
-    {
-        message->insert(i, "\n ");
-    }
 
     return message;
 }
