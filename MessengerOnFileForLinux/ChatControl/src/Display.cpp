@@ -54,6 +54,54 @@ std::string Display::getStringFromMainWindow()
     return input;
 }
 
+void Display::displayEnterMessageWindow(WINDOW* enterMessageWindow)
+{
+    int x, y;
+    std::string frame;
+
+    getmaxyx(stdscr, y, x);
+
+    for (int i = 0; i < x; i++)
+    {
+        frame += "-";
+    }
+
+    wclear(enterMessageWindow);
+    wprintw(enterMessageWindow, frame.c_str());
+    mvwprintw(enterMessageWindow, 2, 1, ">> ");
+    wrefresh(enterMessageWindow);
+    nocbreak();
+    echo();
+}
+
+void Display::displayDisplayMessageWindow(WINDOW* displayMessageWindow, const std::string& message)
+{
+    wprintw(displayMessageWindow, message.c_str());
+    scrollok(displayMessageWindow, true);
+    idlok(displayMessageWindow, true);
+    wrefresh(displayMessageWindow);
+}
+
+void Display::initChatWindow(WINDOW* displayMessageWindow, WINDOW* enterMessageWindow)
+{
+    clear();
+    int x, y;
+    getmaxyx(stdscr, y, x);
+    displayMessageWindow = newwin(y * 0.75, x, 1, 1);//size y,x; wspolrzedne startu
+    enterMessageWindow = newwin(y * 0.25 ,x, y * 0.8 + 1 ,1);
+
+    std::string frame;
+    for (int i = 0; i < x; i++)
+    {
+        frame += "-";
+    }
+
+    wprintw(enterMessageWindow, frame.c_str());
+    wrefresh(displayMessageWindow);
+    wrefresh(enterMessageWindow);
+    refresh();
+}
+
 void Display::updateTerminalSize()
 {
     while(isMessengerRunnig)

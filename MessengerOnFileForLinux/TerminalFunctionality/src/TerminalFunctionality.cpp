@@ -2,16 +2,21 @@
 
 #include <HistoryDowloander.hpp>
 #include <UserCommand.hpp>
+#include <iostream>
 
 
 bool starts_with(const std::string toFind, const std::string ourString);
 
 bool TerminalFunctionality::runCommand(std::string command)
 {
-    if(starts_with(UserCommand::historyDowloander, command))
+    if (starts_with(UserCommand::historyDowloander, command))
     {
         terminalCommand_ = std::make_unique<HistoryDowloander>(command);
         return terminalCommand_->doCommand();
+    }
+    else if (starts_with(UserCommand::endChat, command))
+    {
+        //TODO konczenie rozmowy
     }
     else
     {

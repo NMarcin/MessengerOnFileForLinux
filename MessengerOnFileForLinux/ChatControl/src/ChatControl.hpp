@@ -51,8 +51,8 @@ private:
     MessageFlag messageFlag_;
     bool isThreadsRunning_;
 
-    WINDOW* subwindow1;
-    WINDOW* subwindow2;
+    WINDOW* displayMessageWindow_;
+    WINDOW* enterMessageWindow_;
 
     Logger log{LogSpace::ChatFile};
 

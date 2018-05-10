@@ -4,12 +4,12 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include <FileHandling.hpp>
-
+#include <TerminalFunctionality.hpp>
 
 Sender::Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin)
     : chatFilenameWithPath_(pathToChatFile),
       chatFlag_(chatFlag),
-      window_(subwin)
+      enterMessageWindow_(subwin)
 {
     log.info("Sender C-TOR");
 }
@@ -45,16 +45,12 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
 {
     log.info("Sender::getMessageFromStdin started");
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    mvwprintw(window_, 1, 1, ">> ");
-    wrefresh(window_);
 
-    nocbreak();
-    echo();
-    int ch = wgetch(window_);
+    int ch = wgetch(enterMessageWindow_);
     while ( ch != '\n' )
     {
         message->push_back( ch );
-        ch = wgetch(window_);
+        ch = wgetch(enterMessageWindow_);
     }
 
     return message;
@@ -63,10 +59,31 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
 std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
     log.info("Sender::prepearMessageToSend started");
+
+    if (isTerminalCommand(rowMessage))
+    {
+        TerminalFunctionality terminalFunctionality;
+        terminalFunctionality.runCommand(rowMessage);
+    }
+
     std::unique_ptr<std::string> message = std::make_unique<std::string>();
     *message = "[" + std::to_string(chatFlag_) + "][" + *getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
 
     return message;
+}
+
+bool Sender::isTerminalCommand(const std::string& message) const
+{
+    if (2 > message.size())
+    {
+        return false;
+    }
+    if ("//" == std::string(message.begin(), message.begin()+2))
+    {
+        return true;
+    }
+
+    return false;
 }
 
 bool Sender::setNewMessageFlag() const

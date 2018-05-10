@@ -32,13 +32,8 @@ void mnurzyns()
 
 void mwozniak()
 {
-  //FileInterface::Modification::updateRowField("/home/mawoznia/marcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/test.txt"
-         //                              , "'[1]'", "0",);
-
-    initscr();
 
     std::thread waitForInvitation(lookForInvitation);
-    std::thread getTerminalSize(Display::updateTerminalSize);
 
     RegisterUser registerUser;
     SignIn signIn;
@@ -66,14 +61,15 @@ void mwozniak()
             control.conversationProlog("tomek", ChatRole::inviter);
         }
 
-         else if ( strcmp("wait", command) == 0)
+         else if ( strcmp("w", command) == 0)
         {
             while (true)
             {
-                refresh();
+                Display::displayMainWindow();
             }
         }
     }
+
 
 
 }
