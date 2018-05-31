@@ -1,28 +1,37 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <chrono>
+#include <thread>
+#include <ncurses.h>
+#include <stdio.h>
 
 #include <RegisterUser.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
+#include <Display.hpp>
 
 RegisterUser::RegisterUser()
 {
+    initscr();
     log.info("RegisterUser C-TOR");
 }
 
 RegisterUser::~RegisterUser()
 {
+    endwin();
     log.info("RegisterUser D-TOR");
 }
 
 std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() const
-{ // TODO mwozniak 5 iteracji pytania o haslo
-    log.info("RegisterUser::askUserForPassword started");
+{
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
-    std::cout << "Enter the password again. ";
+    Display::displayRegistrationMainWindow();
+    printw("Enter the password again. ");
+    refresh();
+    sleep(1);
     passwords->back() = enterThePassword();
 
     return passwords;
@@ -30,9 +39,10 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 
 std::string RegisterUser::enterThePassword() const
 {
-    log.info("RegisterUser::enterThePassword started");
     std::string password;
-    std::cout << "Enter the password : ";
+    Display::displayRegistrationMainWindow();
+    printw("Enter the password : ");
+    refresh();
     std::cin >> password;
     return password;
 }
@@ -40,42 +50,31 @@ std::string RegisterUser::enterThePassword() const
 
 bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 {
-    log.info("RegisterUser::comparePassword started");
     if(passwords.front() == passwords.back())
     {
-        log.info("RegisterUser::comparePassword Passwords equal");
         return true;
     }
 
     log.info("RegisterUser::comparePassword ERROR: Passwords are differnet");
-    std::cerr << "The passwords are differnet" << std::endl;
+    Display::displayRegistrationMainWindow();
+    printw("The passwords are differnet. Enter passwords one more time.");
+    refresh();
+    sleep(1);
     return false;
 }
 
 
 bool RegisterUser::isUserRegistered() const
 {
-    log.info("RegisterUser::isUserRegistered started");
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE);
-    if (nullptr == registeredFileContent)
+    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE, LocalUser::getLocalUser().getUsername());
+
+    if (nullptr == userInfo)
     {
-        return true; //error file is empty or can't get acces. May wait for acces ?
+        return false;
     }
 
-    for (auto  x : *registeredFileContent)
-    {
-        std::string username = LocalUser::getLocalUser().getUsername();
-        std::unique_ptr<std::string> usernameToCompare = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInRegisteredFile));
-
-        if (!username.compare(*usernameToCompare)) //0 when the same
-        {
-            log.info("RegisterUser::isUserRegistered User is registered");
-            return true;
-        }
-    }
-
-    log.info("RegisterUser::isUserRegistered ERROR: User does not exist in registered file");
-    return false;
+    log.info("RegisterUser::isUserRegistered ERROR: User is registered");
+    return true;
 }
 
 
@@ -89,6 +88,7 @@ bool RegisterUser::registerNewUser() const
         return false;
     }
 
+
     bool isPasswordSetCorrectly = false;
 
     while (!isPasswordSetCorrectly)
@@ -100,22 +100,21 @@ bool RegisterUser::registerNewUser() const
             isPasswordSetCorrectly = setUserPassword(passwords.front());
         }
     }
-
+    std::cerr <<"DUUPA" << std::endl;
     bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
 
     while (!isUserDataSavedCorrectly)
     {
-        log.info("RegisterUser::registerNewUser Waiting for registered file access");
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::microseconds(500));
         isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
     }
 
+    log.info("RegisterUser::registerNewUser Registration completed successfully");
     return true;
 }
 
 bool RegisterUser::setUserPassword(const std::string& password) const
 {
-    log.info("RegisterUser::setUserPassword started");
     SHA1 hashObject;
     hashObject.update(password);
     LocalUser::getLocalUser().setPassword(hashObject.final());
@@ -125,7 +124,6 @@ bool RegisterUser::setUserPassword(const std::string& password) const
 
 bool RegisterUser::saveUserDataInRegisteredFile() const
 {
-    log.info("RegisterUser::saveUserDataInRegisteredFile started");
     std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
             + LocalUser::getLocalUser().getPassword() +"]";//TODO DATE&&TIME mwozniak
     //TODO mwozniak

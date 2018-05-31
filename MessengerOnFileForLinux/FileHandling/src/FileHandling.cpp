@@ -49,6 +49,18 @@ namespace
 
         std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
 
+        bool accesToFile = false;
+
+        while(!accesToFile)
+        {
+            if (!isGuardianExist(folderName))
+            {
+                createGuardian(folderName);
+                accesToFile = true;
+            }
+        }
+
+        /*
         if (!isGuardianExist(folderName))
         {
             createGuardian(folderName);
@@ -59,6 +71,7 @@ namespace
             fileLog(logInfo.c_str(), LogSpace::FileHandling);
             return nullptr;
         }
+        */
 
         std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
 
@@ -226,6 +239,28 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
     return fieldToDownload;
 }
 
+std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& pathToFile, const std::string& pattern)
+{
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+    if (isGuardianExist(folderName))
+    {
+        return nullptr;
+    }
+
+    createGuardian(folderName);
+    std::string command = "grep '" + pattern + "' " +  pathToFile;
+    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+    removeGuardian(folderName);
+    if (commandOutput.empty())
+    {
+        return nullptr;
+    }
+
+    commandOutput.pop_back(); //usuwanie znaku konca lini
+
+    return std::make_unique<std::string>(commandOutput);
+}
+
 bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 {
     std::string logInfo = "FileInterface::Managment::isFileExist " + pathToFile;
@@ -288,8 +323,28 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
     return isGuardRemoved;
 }
 
+bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag)
+{
+    fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
+    int actualFieldNumber = -1;
+    bool flag = false;
 
-bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber)
+    std::string folderName = *Accesor::getFolderName(pathToFile);
+    if (isGuardianExist(folderName))
+    {
+        return false;
+    }
+
+    createGuardian(folderName);
+
+   std::string command = "sed -i -e '/\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
+   std::system(command.c_str());
+
+   removeGuardian(folderName);
+   return true;
+}
+
+bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber = 0)
 {
     fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
@@ -342,8 +397,13 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     }
 
     removeGuardian(folderName);
+    command = "sed -i -e 's/.*" + where + ".*/" + *rowToUpdate + "/g' " + pathToFile;
+    //cos w stylu sed -i -e '0,/where/s..............
+    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
+    std::system(command.c_str());
 
-    return updateRow(pathToFile,*rowToUpdate,where);
+    return true;
+    //return updateRow(pathToFile,*rowToUpdate,where);
 }
 
 
@@ -358,7 +418,6 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
     char buffer[max_buffer];
     cmd.append(" 2>&1");
     stream = popen(cmd.c_str(), "r");
-
     if (stream)
     {
         while (!feof(stream))
@@ -368,9 +427,7 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
                 data.append(buffer);
             }
         }
-
         pclose(stream);
     }
-
     return data;
 }

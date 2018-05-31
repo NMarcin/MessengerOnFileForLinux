@@ -12,6 +12,7 @@ namespace FileInterface
         bool addRow(const std::string& pathToFile, const std::string& text);
         bool removeRow(const std::string& pathToFile, const std::string& pattern);
         bool updateRow(const std::string& pathToFile, const std::string& newRow, const std::string& where);
+        bool updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag);
         bool updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber);
     }
 
@@ -21,6 +22,7 @@ namespace FileInterface
         std::unique_ptr<std::string> getFolderName(const std::string& pathToFile);
         std::unique_ptr<std::string> getRowField(const std::string& field, const int fieldNumber);
         std::unique_ptr<std::vector<std::string>> getFileContent(const std::string& pathToFile);
+        std::unique_ptr<std::string> getRow(const std::string& pathToFile, const std::string& pattern);
         //TODO mwozniak getRow i zamienic wszedzie gdzie jest przeszukiwanie pliku na getRow
     }
 

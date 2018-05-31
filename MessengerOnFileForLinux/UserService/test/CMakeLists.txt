@@ -1,5 +1,6 @@
 set(TEST_SOURCES ${TEST_SOURCES}
-            ${CMAKE_CURRENT_SOURCE_DIR}/UserTest.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/RegisterUserTest.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/SignInTest.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/SignOutTest.cpp PARENT_SCOPE)
+    ${CMAKE_CURRENT_SOURCE_DIR}/UserTest.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RegisterUserTest.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SignInTest.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SignInTestCore.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SignOutTest.cpp PARENT_SCOPE)

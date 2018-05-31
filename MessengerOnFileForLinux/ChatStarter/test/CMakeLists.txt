@@ -13,7 +13,8 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_UserService}/SignOut.cpp
     ${MODULE_UserService}/RegisterUser.cpp
     ${MODULE_ChatControl}/Sender.cpp
-    ${MODULE_ChatControl}/Reciver.cpp
+    ${MODULE_ChatControl}/Display.cpp
+    ${MODULE_ChatControl}/Receiver.cpp
     ${MODULE_ChatControl}/ChatControl.cpp
     ${MODULE_ChatStarter}/ChatFabric.cpp
     ${MODULE_ChatStarter}/ChatRequest.cpp PARENT_SCOPE)
