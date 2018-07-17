@@ -61,7 +61,7 @@ void mwozniak()
             control.conversationProlog("tomek", ChatRole::inviter);
         }
 
-         else if ( strcmp("w", command) == 0)
+         else if ( strcmp("w", command) == 0) //TODO mawaoznia ogarnac co z tym waitem
         {
             while (true)
             {
@@ -173,6 +173,7 @@ void mainWindow()
         mvprintw(4,2,"Choose option: ");
         mvprintw(5,2,"(1) Register");
         mvprintw(6,2,"(2) SignIn");
+        mvprintw(7,2,"(3) Exit");
         move(4, 17);
 
         option = getch();

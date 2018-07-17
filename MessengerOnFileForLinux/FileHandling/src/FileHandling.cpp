@@ -39,7 +39,7 @@ namespace
 
     std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode)
     {
-        fileLog("FileInterface::openFile started", LogSpace::FileHandling);
+        fileLog("FileInterface::openFile started in FileMode = " + static_cast<int>(mode), LogSpace::FileHandling);
         if (!FileInterface::Managment::isFileExist(pathToFile))
         {
             std::string logInfo = "FileInterface::openFile ERROR: " + pathToFile + " does not exist";
@@ -59,19 +59,6 @@ namespace
                 accesToFile = true;
             }
         }
-
-        /*
-        if (!isGuardianExist(folderName))
-        {
-            createGuardian(folderName);
-        }
-        else
-        {
-            std::string logInfo = "FileInterface::openFile ERROR: cannot get access to" + pathToFile;
-            fileLog(logInfo.c_str(), LogSpace::FileHandling);
-            return nullptr;
-        }
-        */
 
         std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
 
@@ -97,13 +84,11 @@ namespace
 
     std::unique_ptr<std::fstream> openFileToWrite(const std::string& pathToFile)
     {
-        fileLog("FileInterface::openFileToWrite started", LogSpace::FileHandling);
         return openFile(pathToFile, FileMode::toWrite);
     }
 
     std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile)
     {
-        fileLog("FileInterface::openFileToRead started", LogSpace::FileHandling);
         return openFile(pathToFile, FileMode::toRead);
     }
 }
@@ -111,7 +96,7 @@ namespace
 
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
-    fileLog("FileInterface::Modification::addRow started", LogSpace::FileHandling);
+    fileLog(("FileInterface::Modification::addRow Add row to " + pathToFile).c_str(), LogSpace::FileHandling);
     if (std::unique_ptr<std::fstream> file = openFileToWrite(pathToFile))
     {
         *file << text;
@@ -220,7 +205,7 @@ std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::st
 
 std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::string& field, const int fieldNumber)
 {
-    fileLog("FileInterface::Accesor::getRowField  started", LogSpace::FileHandling);
+    fileLog("FileInterface::Accesor::getRowField started from ", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
 
@@ -263,26 +248,20 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& p
 
 bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 {
-    std::string logInfo = "FileInterface::Managment::isFileExist " + pathToFile;
-    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     bool isFileExist = (-1 != access(pathToFile.c_str(), F_OK ));
     return isFileExist;
 }
 
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
-    std::string logInfo = "FileInterface::Managment::removeFile " + pathToFile;
-    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string command = "rm -r " + pathToFile;
     system(command.c_str());
 
     return ! isFileExist(pathToFile);
 }
 
-
 bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
 {
-    fileLog("FileInterface::Modification::removeRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
     if (isGuardianExist(folderName))
@@ -300,10 +279,8 @@ bool FileInterface::Modification::removeRow(const std::string& pathToFile, const
     return isGuardRemoved;
 }
 
-
 bool FileInterface::Modification::updateRow(const std::string & pathToFile, const std::string & newRow, const std::string & where)
 {
-    fileLog("FileInterface::Modification::updateRow  started", LogSpace::FileHandling);
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
     if (isGuardianExist(folderName))
@@ -325,7 +302,6 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
 
 bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag)
 {
-    fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     bool flag = false;
 
@@ -346,7 +322,6 @@ bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFil
 
 bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber = 0)
 {
-    fileLog("FileInterface::Modification::updateRowField  started", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     bool flag = false;
 
@@ -405,7 +380,6 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     return true;
     //return updateRow(pathToFile,*rowToUpdate,where);
 }
-
 
 /** TO NIZEJ GDIZE INDZIEJ*/
 

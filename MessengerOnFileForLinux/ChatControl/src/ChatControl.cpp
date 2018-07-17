@@ -30,7 +30,7 @@ ChatControl::~ChatControl()
 
 void ChatControl::conversationProlog(const std::string& username, ChatRole chatRole)
 {
-    log.info("ChatControl::startConversation started");
+    log.info(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());
     if (ChatRole::inviter == chatRole)
     {
         startConversationAsInviter(username);
@@ -54,7 +54,6 @@ void ChatControl::conversationEpilog()
 
 void ChatControl::stopThreads()
 {
-    log.info("ChatControl::stopThreads started");
     isThreadsRunning_ = false;
 }
 
@@ -67,7 +66,7 @@ void ChatControl::getMessage()
         Display::displayEnterMessageWindow(enterMessageWindow_);
         messageWaitingRoom_.push(sender->getMessageToSend());
 
-        /*testownie. potem usunac */
+        //TODO mawoznia Wersja do testownia. potem zamienic na wiadomosci z implementacji mnurzyn
         auto tmp = *messageWaitingRoom_.front();
         messageToDisplay_.push(tmp);
     }
@@ -88,11 +87,15 @@ void ChatControl::reciveMessage()
 
             if (5 <= message.size() && "//end" == std::string(message.begin(), message.begin()+5))
             {
+                //TODO mawoznia narzucic tu implementacje z terminal funcionality
+                log.info("ChatControl::reciveMessage Receive 'end conversatoin' request");
                 messageToDisplay_.pop();
                 conversationEpilog();
             }
             else if (2 <= message.size() && "//" == std::string(message.begin(), message.begin()+2))
             {
+                log.info("ChatControl::reciveMessage Receive 'terminal funcionality' request");
+                //TODO mawoznia co chcemy jeszcze wywolywac bezposrednio z czatu ?
                 messageToDisplay_.pop();
             }
             else

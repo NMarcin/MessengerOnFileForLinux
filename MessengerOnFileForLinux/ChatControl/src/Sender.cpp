@@ -29,7 +29,7 @@ std::unique_ptr<std::string> Sender::getMessageToSend() const
 
 bool Sender::sendMessage(const std::string& message) const
 {
-    log.info("Sender::sendMessage started");
+
     bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message);
 
     if (isMessageSend)
@@ -38,6 +38,7 @@ bool Sender::sendMessage(const std::string& message) const
         return true;
     }
 
+    log.info("Sender::sendMessage ERROR: send message fail");
     return false;
 }
 
@@ -58,10 +59,9 @@ std::unique_ptr<std::string> Sender::getMessageFromStdin() const
 
 std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
-    log.info("Sender::prepearMessageToSend started");
-
     if (isTerminalCommand(rowMessage))
     {
+        log.info("Sender::prepearMessageToSend Message is a terminal command");
         TerminalFunctionality terminalFunctionality;
         terminalFunctionality.runCommand(rowMessage);
     }
@@ -88,15 +88,13 @@ bool Sender::isTerminalCommand(const std::string& message) const
 
 bool Sender::setNewMessageFlag() const
 {
-    log.info("Sender::setNewMessageFlag started");
     std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");
+    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");    
     return isNewFlagCreated;
 }
 
 std::unique_ptr<std::string> Sender::getActualDateTime() const
 {
-    log.info("Sender::getActualDateTime started");
     std::unique_ptr<std::string> dateTime = std::make_unique<std::string>();
     *dateTime = __DATE__;
     *dateTime += " | " ;
