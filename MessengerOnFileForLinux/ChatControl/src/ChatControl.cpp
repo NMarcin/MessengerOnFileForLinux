@@ -50,6 +50,9 @@ void ChatControl::conversationEpilog()
     //Display::displayMainWindow();
     //refresh();
     //TODO dalsza czesc konczenia rozmowe, pobieranie historii itd.
+    //Zmiana statusów
+    //Rozdzielic na dwie sytuacje, z bledem i bez
+    //Jak poinformowac druga osobe ze kniec ? wyslac jej //unexpected_end ?
 }
 
 void ChatControl::stopThreads()
@@ -160,7 +163,6 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
         conversationEpilog();
     }
 }
-
 
 void ChatControl::conversation()
 {

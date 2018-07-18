@@ -2,6 +2,9 @@
 
 #include <HistoryDowloander.hpp>
 #include <UserCommand.hpp>
+#include <SignOut.hpp>
+#include <ChatControl.hpp>
+#include <Display.hpp>
 #include <iostream>
 
 
@@ -17,6 +20,27 @@ bool TerminalFunctionality::runCommand(std::string command)
     else if (starts_with(UserCommand::endChat, command))
     {
         //TODO konczenie rozmowy
+    }
+    else if (starts_with(UserCommand::logout, command))
+    {
+        SignOut signOut;
+        return signOut.signOutUser();
+    }
+    else if (starts_with(UserCommand::inviteUser, command))
+    {
+        std::string username = {command.begin()+7, command.end()};
+        ChatControl control;
+        //TODO mwoznia podpiac tu std::sginal
+        //std::signal(SIGINT, sigintHandlerInChatConsole);
+        control.conversationProlog(username, ChatRole::inviter);
+    }
+    else if (starts_with("w", command))
+    {
+        Display::displayMainWindow();
+        while (true)
+        {
+
+        }
     }
     else
     {

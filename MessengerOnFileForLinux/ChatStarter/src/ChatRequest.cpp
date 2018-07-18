@@ -166,7 +166,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
-    //changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
+    changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
     //zakomentowane dla testow na jednym terminalu
 
     ChatFabric chatFabric;
@@ -186,6 +186,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     {
         return chatFileWithPath;
     }
+
     //TODO mwozniak usuwanie folderu rozmowy
     changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
