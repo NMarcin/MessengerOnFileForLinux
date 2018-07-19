@@ -4,8 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <ncurses.h>
-#include <csignal>
-#include <stdlib.h>
+
 
 #include <GlobalVariables.hpp>
 #include <FileHandling.hpp>
@@ -22,31 +21,8 @@
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
+#include <SignalHandling.hpp>
 
-namespace
-{
-volatile std::sig_atomic_t gSignalStatus;
-}
-
-void sigintHandlerInMainConsole(int signal)
-{
-    fileLog("SIGINT signal handled", LogSpace::main);
-    gSignalStatus = signal;
-    SignOut signOut;
-    signOut.signOutUser();
-    exit (EXIT_SUCCESS);
-}
-
-void sigintHandlerInChatConsole(int signal)
-{
-    fileLog("SIGINT signal handled in chat console", LogSpace::main);
-    gSignalStatus = signal;
-    SignOut signOut;
-    ChatControl chatControl;
-    chatControl.conversationEpilog();
-    signOut.signOutUser();
-    exit (EXIT_SUCCESS);
-}
 
 
 void mnurzyns()
@@ -57,7 +33,7 @@ void mnurzyns()
 
 void mwozniak()
 {
-    std::signal(SIGINT, sigintHandlerInMainConsole);
+    std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
     std::thread waitForInvitation(lookForInvitation);
 
     RegisterUser registerUser;

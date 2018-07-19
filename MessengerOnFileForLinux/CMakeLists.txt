@@ -25,6 +25,7 @@ set(MODULE_LoggerFramework          ${CMAKE_SOURCE_DIR}/LoggerFramework/src)
 set(MODULE_ChatControl              ${CMAKE_SOURCE_DIR}/ChatControl/src)
 set(MODULE_ChatStarter              ${CMAKE_SOURCE_DIR}/ChatStarter/src)
 set(MODULE_TerminalFunctionality    ${CMAKE_SOURCE_DIR}/TerminalFunctionality/src)
+set(MODULE_Common                   ${CMAKE_SOURCE_DIR}/Common/src)
 
 ################################################################################
 #####                       MAKE BINARY CMAKE PART                         #####
@@ -36,6 +37,7 @@ include_directories(${MODULE_LoggerFramework})
 include_directories(${MODULE_ChatControl})
 include_directories(${MODULE_ChatStarter})
 include_directories(${MODULE_TerminalFunctionality})
+include_directories(${MODULE_Common})
 # SRC
 add_subdirectory(main/src)
 add_subdirectory(${MODULE_UserService})
@@ -44,6 +46,7 @@ add_subdirectory(${MODULE_LoggerFramework})
 add_subdirectory(${MODULE_ChatControl})
 add_subdirectory(${MODULE_ChatStarter})
 add_subdirectory(${MODULE_TerminalFunctionality})
+add_subdirectory(${MODULE_Common})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
@@ -61,6 +64,7 @@ add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
 add_subdirectory(ChatStarter/test)
 add_subdirectory(UserService/test)
+
 
 # CMAKE BUILD
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})

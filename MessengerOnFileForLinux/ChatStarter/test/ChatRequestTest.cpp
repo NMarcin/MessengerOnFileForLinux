@@ -55,7 +55,7 @@ TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_2)
 
     EXPECT_EQ(chatRequest.sendChatRequest(user), pathToChatfile);
 }
-*/
+
 TEST_F(ChatRequestFixture, isUserActiveAfterChatStart)
 {
     std::istringstream stream("y");
@@ -71,7 +71,7 @@ TEST_F(ChatRequestFixture, isToLowerWorking)
 
     EXPECT_EQ(chatRequest.sendChatRequest(user), pathToChatfile);
 }
-
+*/
 TEST_F(ChatRequestFixture, inviteActiveUserWithUndefinedResponse)
 {
     std::istringstream stream("somethigElseThanYesOrNo");
