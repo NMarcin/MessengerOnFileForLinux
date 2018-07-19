@@ -29,24 +29,6 @@ std::string User::getUsername() const
     return username_;
 }
 
-/*
-int User::getUserPid() const
-{
-    log.info("User::getUserPid() started");
-    //TODO mwozniak czemu nazwa procesu jest skrocona?
-    std::string command = "ps -u " + getUsername() + " | grep 'messenger_binar'";   // TODO remember to change messenger_binar when binary name will change
-    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
-    int userPid = atoi(commandOutput.c_str());
-
-    if (0 == userPid)
-    {
-        log.info("User::getUserPid() ERROR: atoi() failed");
-        return 0;
-    }
-
-    return userPid;
-}
-*/
 void User::setPassword(const std::string& password)
 {
     password_ = password;

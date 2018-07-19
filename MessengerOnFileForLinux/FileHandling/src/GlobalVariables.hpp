@@ -8,8 +8,10 @@
 #include <string.h>
 #include <iostream>
 
+
 #include <ChatControl.hpp>
 #include <ChatRequest.hpp>
+
 
 
 
@@ -103,4 +105,4 @@ static void lookForInvitation()
     }
 }
 
-/** **********************************************************/
+

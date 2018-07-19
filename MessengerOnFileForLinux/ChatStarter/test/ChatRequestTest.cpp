@@ -34,7 +34,10 @@ TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_2)
     EXPECT_TRUE(chatRequest.sendChatRequest(user).empty());
 }
 
-
+/*
+ * Testujemy zapraszjac siebie, ale nie mozemy tego zrobic bo widzimi sami siebie
+ * jako zajetego usera
+ *
 TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_1)
 {
     std::istringstream stream("y");
@@ -52,7 +55,7 @@ TEST_F(ChatRequestFixture, inviteActiveUserWithAcceptResponse_2)
 
     EXPECT_EQ(chatRequest.sendChatRequest(user), pathToChatfile);
 }
-
+*/
 TEST_F(ChatRequestFixture, isUserActiveAfterChatStart)
 {
     std::istringstream stream("y");

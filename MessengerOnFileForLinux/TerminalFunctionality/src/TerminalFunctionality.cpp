@@ -40,7 +40,7 @@ bool TerminalFunctionality::runCommand(std::string command)
         printw("\n");
         printw("  PRZYKLADOWE KOMENDY ");
         refresh();
-        sleep(2);
+        //sleep(2);
     }
     else if (starts_with("w", command))
     {

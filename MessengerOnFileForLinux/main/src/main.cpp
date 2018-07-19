@@ -43,11 +43,12 @@ void sigintHandlerInChatConsole(int signal)
     gSignalStatus = signal;
     SignOut signOut;
     ChatControl chatControl;
-    signOut.signOutUser();
     chatControl.conversationEpilog();
+    signOut.signOutUser();
     exit (EXIT_SUCCESS);
 }
-void (*pf)(ChatControl&);
+
+
 void mnurzyns()
 {
     std::cout << "mnurzyns:\n\n";
@@ -107,3 +108,4 @@ int main(int argc, char **argv)
     }
     return 0;
 }
+

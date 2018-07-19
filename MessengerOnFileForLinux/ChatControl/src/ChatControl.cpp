@@ -47,12 +47,12 @@ void ChatControl::conversationEpilog()
     stopThreads();
     delwin(enterMessageWindow_);
     delwin(displayMessageWindow_);
-    //Display::displayMainWindow();
-    //refresh();
+    Display::displayMainWindow();
+
     //TODO mawoznia dalsza czesc konczenia rozmowe, pobieranie historii itd.
-    //Zmiana statusów
     //Rozdzielic na dwie sytuacje, z bledem i bez
     //Jak poinformowac druga osobe ze kniec ? wyslac jej //unexpected_end ?
+    //^tutaj juz wiemy ze jest koniec, blad trzeba przeniesc do conversation();
     const std::string userActiveStatus = "0";
     const std::string username = LocalUser::getLocalUser().getUsername();
     FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, username, userActiveStatus, FileStructure::FileField::statusFieldInLoggedFile);
