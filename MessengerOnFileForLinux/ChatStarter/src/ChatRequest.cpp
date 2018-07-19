@@ -41,21 +41,10 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername)
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const    // TODO mnurzyns mwozniak po zmianie fora sprawdzic
 {
     log.info("ChatRequest::changeUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
-    for (auto& x : *loggedFileContent)
-    {
-        std::unique_ptr<std::string> usernameToComapre = std::make_unique<std::string>(*FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile));
-        std::string username = user.getUsername();
+    auto username = user.getUsername();
+    return FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, username, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
 
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, x, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
-            return true;
-        }
-    }
-
-    return false;
 }
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
@@ -167,7 +156,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
     changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
-    //zakomentowane dla testow na jednym terminalu
+    //^ tutaj moze byc problem z ut
 
     ChatFabric chatFabric;
     std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
@@ -187,7 +176,8 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
         return chatFileWithPath;
     }
 
-    //TODO mwozniak usuwanie folderu rozmowy
+    auto chatFileFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath);
+    FileInterface::Managment::removeFile(chatFileFolder);
     changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
     changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
     return {};

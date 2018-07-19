@@ -76,38 +76,6 @@ void mwozniak()
         getstr(command);
 
         terminal.runCommand(command);
-
-        //TODO mawoznia tutaj powinno byc wywolwyawnie runCommand() dla kazdego stringa wejscioweg
-        /*
-        if ( strcmp("invite marcin", command) == 0)
-        {
-            ChatControl control;
-            std::signal(SIGINT, sigintHandlerInChatConsole);
-            control.conversationProlog("marcin", ChatRole::inviter);
-        }
-        else if ( strcmp("invite tomek", command) == 0)
-        {
-            //std::signal(SIGINT, sigintHandlerInChatConsole);
-
-            ChatControl control;
-            control.conversationProlog("tomek", ChatRole::inviter);
-        }
-        else if ( strcmp("logout", command) == 0)
-        {
-            //std::signal(SIGINT, sigintHandlerInChatConsole);
-
-            terminal.runCommand(command);
-        }
-
-        else if ( strcmp("w", command) == 0) //TODO mawaoznia ogarnac co z tym waitem
-        {
-            Display::displayMainWindow();
-            while (true)
-            {
-
-            }
-        }
-        */
     }
 }
 

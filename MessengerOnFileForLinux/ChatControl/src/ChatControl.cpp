@@ -49,10 +49,13 @@ void ChatControl::conversationEpilog()
     delwin(displayMessageWindow_);
     //Display::displayMainWindow();
     //refresh();
-    //TODO dalsza czesc konczenia rozmowe, pobieranie historii itd.
+    //TODO mawoznia dalsza czesc konczenia rozmowe, pobieranie historii itd.
     //Zmiana statusów
     //Rozdzielic na dwie sytuacje, z bledem i bez
     //Jak poinformowac druga osobe ze kniec ? wyslac jej //unexpected_end ?
+    const std::string userActiveStatus = "0";
+    const std::string username = LocalUser::getLocalUser().getUsername();
+    FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, username, userActiveStatus, FileStructure::FileField::statusFieldInLoggedFile);
 }
 
 void ChatControl::stopThreads()

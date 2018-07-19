@@ -161,8 +161,6 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFromFolder(const std::string& pathToDir)
 {
-    std::string logInfo = "FileInterface::Accesor::getFilenamesFromFolder from " + pathToDir;
-    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::string command = "ls " + pathToDir;
     std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
 
@@ -385,7 +383,6 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 
 std::string ConsolControl::getStdoutFromCommand(std::string cmd)
 {
-    fileLog("ConsolControl::getStdoutFromCommand  started", LogSpace::FileHandling);
     std::string data;
     FILE * stream;
     const int max_buffer = 1024;

@@ -6,4 +6,5 @@ namespace UserCommand
     static constexpr auto endChat = "end";
     static constexpr auto logout = "logout";
     static constexpr auto inviteUser = "invite ";
+    static constexpr auto help = "help";
 }

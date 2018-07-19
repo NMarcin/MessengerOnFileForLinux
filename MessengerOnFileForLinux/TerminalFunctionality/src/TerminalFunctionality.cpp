@@ -34,6 +34,14 @@ bool TerminalFunctionality::runCommand(std::string command)
         //std::signal(SIGINT, sigintHandlerInChatConsole);
         control.conversationProlog(username, ChatRole::inviter);
     }
+    else if (starts_with(UserCommand::help, command))
+    {
+        Display::displayMainWindow();
+        printw("\n");
+        printw("  PRZYKLADOWE KOMENDY ");
+        refresh();
+        sleep(2);
+    }
     else if (starts_with("w", command))
     {
         Display::displayMainWindow();
