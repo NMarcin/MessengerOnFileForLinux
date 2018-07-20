@@ -7,6 +7,7 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include <Display.hpp>
+#include <SignalHandling.hpp>
 
 ChatControl::ChatControl()
 {
@@ -50,12 +51,10 @@ void ChatControl::conversationEpilog()
     Display::displayMainWindow();
 
     //TODO mawoznia dalsza czesc konczenia rozmowe, pobieranie historii itd.
-    //Rozdzielic na dwie sytuacje, z bledem i bez
-    //Jak poinformowac druga osobe ze kniec ? wyslac jej //unexpected_end ?
-    //^tutaj juz wiemy ze jest koniec, blad trzeba przeniesc do conversation();
+    //zastanowic sie co z usuwaniem pliku rozmowy
     const std::string userActiveStatus = "0";
     const std::string username = LocalUser::getLocalUser().getUsername();
-    FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, username, userActiveStatus, FileStructure::FileField::statusFieldInLoggedFile);
+    FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED, username, userActiveStatus, FileStructure::LoggedFile::status);
 }
 
 void ChatControl::stopThreads()
@@ -72,7 +71,9 @@ void ChatControl::getMessage()
         Display::displayEnterMessageWindow(enterMessageWindow_);
         messageWaitingRoom_.push(sender->getMessageToSend());
 
-        //TODO mawoznia Wersja do testownia. potem zamienic na wiadomosci z implementacji mnurzyn
+        /*
+         * TODO mawoznia Wersja do testownia. potem zamienic na wiadomosci z implementacji mnurzyn
+         */
         auto tmp = *messageWaitingRoom_.front();
         messageToDisplay_.push(tmp);
     }
@@ -169,6 +170,8 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
 
 void ChatControl::conversation()
 {
+    std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
+
     clear(); //TODO mwoznia czemu jak opakuje 150-165 w funkjce to program sie sypie
     int x, y;
     getmaxyx(stdscr, y, x);

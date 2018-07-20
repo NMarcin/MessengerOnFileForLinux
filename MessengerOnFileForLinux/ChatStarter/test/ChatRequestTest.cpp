@@ -3,16 +3,17 @@
 
 TEST_F(ChatRequestFixture, inviteInactiveUser)
 {
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, user);
 
     EXPECT_TRUE(chatRequest.sendChatRequest(user).empty());
 }
 
 TEST_F(ChatRequestFixture, inviteBussyUser)
 {
-    FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, user,
-                                                FileStructure::FieldValue::userBussyStatus,
-                                                FileStructure::FileField::statusFieldInLoggedFile);
+    FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED,
+                                                user,
+                                                UserStatus::bussyStatus,
+                                                FileStructure::LoggedFile::status);
 
     EXPECT_TRUE(chatRequest.sendChatRequest(user).empty());
 

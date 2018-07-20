@@ -1,23 +1,11 @@
-#include <iostream>
-#include <math.h>
-#include <string>
 #include <thread>
-#include <chrono>
 #include <ncurses.h>
 
-
-#include <GlobalVariables.hpp>
-#include <FileHandling.hpp>
 #include <RegisterUser.hpp>
 #include <SignIn.hpp>
-#include <SignOut.hpp>
-#include <LocalUser.hpp>
-#include <ChatRequest.hpp>
-#include <Sender.hpp>
-#include <ChatControl.hpp>
 #include <Display.hpp>
 #include <TerminalFunctionality.hpp>
-
+#include <GlobalVariables.hpp> //lookforInivitation() init function
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>

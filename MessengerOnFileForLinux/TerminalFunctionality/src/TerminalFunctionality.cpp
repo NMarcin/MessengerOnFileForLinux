@@ -28,10 +28,9 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else if (starts_with(UserCommand::inviteUser, command))
     {
-        std::string username = {command.begin()+7, command.end()};
+        auto beginOfUsernameInCommand = command.begin()+7;
+        std::string username = {beginOfUsernameInCommand, command.end()};
         ChatControl control;
-        //TODO mwoznia podpiac tu std::sginal
-        //std::signal(SIGINT, sigintHandlerInChatConsole);
         control.conversationProlog(username, ChatRole::inviter);
     }
     else if (starts_with(UserCommand::help, command))

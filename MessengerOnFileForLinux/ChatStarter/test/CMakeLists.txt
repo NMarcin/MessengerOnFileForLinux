@@ -7,6 +7,7 @@ set(TEST_FILES ${TEST_FILES}
 #SOURCES FILES WHICH ARE NEEDED TO COMPILE TESTS
 set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_Common}/SHA1.cpp
+    ${MODULE_Common}/SignalHandling.cpp
     ${MODULE_UserService}/User.cpp
     ${MODULE_UserService}/LocalUser.cpp
     ${MODULE_UserService}/SignIn.cpp

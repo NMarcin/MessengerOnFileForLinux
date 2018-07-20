@@ -39,7 +39,7 @@ std::string ChatFabric::createChatStructure(const std::string& usernameInviter, 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
     int folderNumber = getFreeFolderNumber();
-    std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
+    std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
     std::string systemCommand2 = "chmod 777 " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
@@ -70,7 +70,7 @@ std::string ChatFabric::createChatFile(const std::string& chatFolderName, const 
 
 std::vector<int> ChatFabric::getBusyNumbers() const
 {
-    std::vector<std::string> filesInPath = *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER); // daje mi wektor
+    std::vector<std::string> filesInPath = *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS); // daje mi wektor
     std::vector<int> busyNumbers;
 
     for(auto fileName : filesInPath)

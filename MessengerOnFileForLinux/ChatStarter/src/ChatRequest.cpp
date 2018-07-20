@@ -26,7 +26,7 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername)
 {
     log.info("ChatRequest::answerForChatRequest started");
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
-    FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER + invitationName);
+    FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
     showInvitation(senderUsername);
     bool decision = respondOnInvitation();
 
@@ -43,14 +43,14 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
     log.info("ChatRequest::changeUserStatus started");
 
     auto username = user.getUsername();
-    return FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, username, newStatus, FileStructure::FileField::statusFieldInLoggedFile);
+    return FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED, username, newStatus, FileStructure::LoggedFile::status);
 
 }
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
     log.info("ChatRequest::getChatFolderName started");
-    std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + " | grep " + folderName;
+    std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + " | grep " + folderName;
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
     std::string logData = "ChatRequest::getChatFolderName -> " + *folderFullName;
     log.info(logData.c_str());
@@ -66,14 +66,14 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
     log.info("ChatRequest::getUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
+    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED);
 
     for (auto x : *loggedFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile);
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::username);
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileStructure::FileField::statusFieldInLoggedFile);
+            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::status);
             return userStatusToCompare;
         }
     }
@@ -96,7 +96,7 @@ bool ChatRequest::isUserActive(const User& user) const
         return false;
     }
 
-    if (!FileStructure::FieldValue::userActiveStatus.compare(*userStatusToCompare)) //0 when succes
+    if (!UserStatus::activeStatus.compare(*userStatusToCompare)) //0 when succes
     {
         return true;
     }
@@ -136,7 +136,7 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
     log.info("ChatRequest::sendAnswer started");
     std::string folderNameWithoutNumber = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
     std::string folderFullName = *getChatFolderName(folderNameWithoutNumber);
-    std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + folderFullName;
+    std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + folderFullName;
 
     if (AnswerType::disaccepted == type)
     {
@@ -155,8 +155,8 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
     log.info("ChatRequest::sendChatRequest started");
     User receiver(username);
-    changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userBussyStatus);
-    //^ tutaj moze byc problem z ut
+    changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::bussyStatus);
+    //^ przez ta linijke są zakomentowane UT
 
     ChatFabric chatFabric;
     std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
@@ -165,10 +165,10 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     {
         return {};
     }
-    changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userBussyStatus);
+    changeUserStatus(receiver.getUsername(), UserStatus::bussyStatus);
 
     std::string invitationName = username + "_" + LocalUser::getLocalUser().getUsername();
-    FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER + invitationName);
+    FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
 
     bool receiverDecision = waitForAnswer(receiver.getUsername());
     if(receiverDecision)
@@ -178,8 +178,8 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 
     auto chatFileFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath);
     FileInterface::Managment::removeFile(chatFileFolder);
-    changeUserStatus(LocalUser::getLocalUser().getUsername(), FileStructure::FieldValue::userActiveStatus);
-    changeUserStatus(receiver.getUsername(), FileStructure::FieldValue::userActiveStatus);
+    changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::activeStatus);
+    changeUserStatus(receiver.getUsername(), UserStatus::activeStatus);
     return {};
 
 }
@@ -201,7 +201,7 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
     std::string folderFullName = *getChatFolderName(folderName);
 
     const int timeToWaitForAnswer = 20;
-    const std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + folderFullName;
+    const std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + folderFullName;
 
     for (int i = 0; i < timeToWaitForAnswer; i++)
     {

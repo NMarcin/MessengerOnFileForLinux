@@ -19,11 +19,11 @@ TEST_F(SignInTestFixture, signInUnregisteredUser)
     std::cin.rdbuf(stream.rdbuf());
 
     EXPECT_TRUE(signIn.signInUser());
-    std::string rowBuff = *FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
+    std::string rowBuff = *FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
     signOut.signOutUser();
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
     EXPECT_FALSE(signIn.signInUser());
-    FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE, rowBuff);
+    FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, rowBuff);
 }
 
 TEST_F(SignInTestFixture, signInUnloggedUser)
@@ -56,11 +56,11 @@ TEST_F(SignInTestFixture, isUserCorrectlyAddedToLoggedFile)
     std::istringstream stream("1");
     std::cin.rdbuf(stream.rdbuf());
 
-    std::unique_ptr<std::string> userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, user);
+    std::unique_ptr<std::string> userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, user);
     EXPECT_EQ(nullptr, userInfo);
     signIn.signInUser();
-    userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, user);
-    std::string expectedOutput = "[" + user + "][" + FileStructure::FieldValue::userActiveStatus + "]";
+    userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, user);
+    std::string expectedOutput = "[" + user + "][" + UserStatus::activeStatus + "]";
     EXPECT_EQ(expectedOutput, *userInfo);
     signOut.signOutUser();
 }
