@@ -22,7 +22,7 @@ ChatRequest::~ChatRequest()
     log.info("ChatRequest D-TOR");
 }
 
-std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const//(const int usernamePid) const  // TODO mwozniak string przez sygnal
+std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const
 {
     log.info("ChatRequest::answerForChatRequest started");
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
@@ -56,7 +56,6 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
     log.info(logData.c_str());
      if (!folderFullName->empty())
      {
-         folderFullName->pop_back(); //usuwanie znaku konca lini
          return folderFullName ;
      }
 
@@ -81,7 +80,7 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
     log.info("ChatRequest::getUserStatus ERROR: User is offline or does not exist");
     printw("User is offline or does not exist.");
     refresh();
-    //std::cerr << "User is offline or does not exist" << std::endl;
+
     return nullptr;
 }
 
@@ -104,7 +103,7 @@ bool ChatRequest::isUserActive(const User& user) const
     log.info("ChatRequest::isUserActive ERROR: User is bussy");
     printw("User is bussy. Try again later.");
     refresh();
-    //std::cerr << "User is bussy" << std::endl;
+
     return false;
 }
 
@@ -114,7 +113,7 @@ bool ChatRequest::respondOnInvitation() const
     std::string decision;
     //decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
     std::cin >> decision;
-    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);  // TODO mwozniak check tolower on string
+    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
 
     if ("y" == decision || "yes" == decision)
     {

@@ -9,7 +9,6 @@ class User
 public:
     std::string getUsername() const;
     std::string getPassword() const;
-    //int getUserPid() const; //TODO mwoznia do usuniecia
     void setPassword(const std::string & password);
     void setUsername(const std::string & username);
 

@@ -125,9 +125,9 @@ bool RegisterUser::setUserPassword(const std::string& password) const
 bool RegisterUser::saveUserDataInRegisteredFile() const
 {
     std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
-            + LocalUser::getLocalUser().getPassword() +"]";//TODO DATE&&TIME mwozniak
-    //TODO mwozniak
-    //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
+            + LocalUser::getLocalUser().getPassword() +"]";
+    //TODO mwozniak klasa obsługująca [ ] jeesli sie na nia zdecydujemy
+    //Co z czasem zalogowania ?
 
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, accountInformations);
 }
