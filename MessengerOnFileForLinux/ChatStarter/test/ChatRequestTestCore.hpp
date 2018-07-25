@@ -20,5 +20,5 @@ public:
     std::thread waitForInvitation;
     std::string user = getenv("USER");
     std::string chatFolderNameWithoutNumber = user + "_" + user;
-    std::string pathToChatfile = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "0" + chatFolderNameWithoutNumber + "/" + chatFolderNameWithoutNumber;
+    std::string pathToChatfile = ENVIRONMENT_PATH::TO_FOLDER::CHATS + "0" + chatFolderNameWithoutNumber + "/" + chatFolderNameWithoutNumber;
 };

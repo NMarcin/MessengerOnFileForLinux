@@ -5,12 +5,12 @@
 #include <GlobalVariables.hpp>
 #include <FileHandling.hpp>
 
-std::string chatPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "0inviterU_receiver/";
+std::string chatPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + "0inviterU_receiver/";
 std::string fileName = "inviterU_receiver";
 
 void folderDeleter()
 {
-    system(("rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "*inviterU*").c_str());
+    system(("rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + "*inviterU*").c_str());
 }
 
 TEST(ChatFileTest, isFolderCreated)

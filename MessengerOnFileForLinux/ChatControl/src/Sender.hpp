@@ -20,11 +20,12 @@ private:
     std::unique_ptr<std::string> getMessageFromStdin() const;
     std::unique_ptr<std::string> getActualDateTime() const;
     std::unique_ptr<std::string> prepareMessageToSend(const std::string& rowMessage) const;
+    bool isTerminalCommand(const std::string& message) const;
     bool setNewMessageFlag() const;
 
     std::string chatFilenameWithPath_;
     int chatFlag_;
 
-    WINDOW* window_;
+    WINDOW* enterMessageWindow_;
     Logger log {LogSpace::ChatFile};
 };

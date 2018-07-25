@@ -30,7 +30,7 @@ void ChatRequestFixture::TearDown()
     SignOut signOut;
     signOut.signOutUser();
     //TODO usunac jak bedzie napisane konczenie rozmowy
-    std::string command = "rm -r " + ENVIRONMENT_PATH::TO_FOLDER::CHATS_FOLDER + "*" + user + "*";
+    std::string command = "rm -r " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + "*" + user + "*";
     system(command.c_str());
 
 }
@@ -48,7 +48,7 @@ void ChatRequestFixture::lookForInvitationGT()
 {
     while (isMessengerRunnigTest)
     {
-        auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS_FOLDER);
+        auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS);
         if (0 == invitationsFolderContent->size())
         {
             sleep(1);

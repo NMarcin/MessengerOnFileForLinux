@@ -66,7 +66,7 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 
 bool RegisterUser::isUserRegistered() const
 {
-    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE, LocalUser::getLocalUser().getUsername());
+    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, LocalUser::getLocalUser().getUsername());
 
     if (nullptr == userInfo)
     {
@@ -129,5 +129,5 @@ bool RegisterUser::saveUserDataInRegisteredFile() const
     //TODO mwozniak
     //^ tu bedzie jeszcze ta klasa ktora dodaje nawiasy
 
-    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE, accountInformations);
+    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, accountInformations);
 }

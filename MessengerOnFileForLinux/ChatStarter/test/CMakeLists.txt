@@ -6,7 +6,8 @@ set(TEST_FILES ${TEST_FILES}
 
 #SOURCES FILES WHICH ARE NEEDED TO COMPILE TESTS
 set(TEST_SOURCES ${TEST_SOURCES}
-    ${MODULE_FileHandling}/SHA1.cpp
+    ${MODULE_Common}/SHA1.cpp
+    ${MODULE_Common}/SignalHandling.cpp
     ${MODULE_UserService}/User.cpp
     ${MODULE_UserService}/LocalUser.cpp
     ${MODULE_UserService}/SignIn.cpp
@@ -17,4 +18,7 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_ChatControl}/Receiver.cpp
     ${MODULE_ChatControl}/ChatControl.cpp
     ${MODULE_ChatStarter}/ChatFabric.cpp
+    ${MODULE_TerminalFunctionality}/TerminalFunctionality.cpp
+    ${MODULE_TerminalFunctionality}/TerminalCommand.cpp
+    ${MODULE_TerminalFunctionality}/HistoryDowloander.cpp
     ${MODULE_ChatStarter}/ChatRequest.cpp PARENT_SCOPE)

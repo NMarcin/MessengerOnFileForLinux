@@ -2,16 +2,52 @@
 
 #include <HistoryDowloander.hpp>
 #include <UserCommand.hpp>
+#include <SignOut.hpp>
+#include <ChatControl.hpp>
+#include <Display.hpp>
+#include <iostream>
 
 
 bool starts_with(const std::string toFind, const std::string ourString);
 
 bool TerminalFunctionality::runCommand(std::string command)
 {
-    if(starts_with(UserCommand::historyDowloander, command))
+    if (starts_with(UserCommand::historyDowloander, command))
     {
         terminalCommand_ = std::make_unique<HistoryDowloander>(command);
         return terminalCommand_->doCommand();
+    }
+    else if (starts_with(UserCommand::endChat, command))
+    {
+        //TODO konczenie rozmowy
+    }
+    else if (starts_with(UserCommand::logout, command))
+    {
+        SignOut signOut;
+        return signOut.signOutUser();
+    }
+    else if (starts_with(UserCommand::inviteUser, command))
+    {
+        auto beginOfUsernameInCommand = command.begin()+7;
+        std::string username = {beginOfUsernameInCommand, command.end()};
+        ChatControl control;
+        control.conversationProlog(username, ChatRole::inviter);
+    }
+    else if (starts_with(UserCommand::help, command))
+    {
+        Display::displayMainWindow();
+        printw("\n");
+        printw("  PRZYKLADOWE KOMENDY ");
+        refresh();
+        //sleep(2);
+    }
+    else if (starts_with("w", command))
+    {
+        Display::displayMainWindow();
+        while (true)
+        {
+
+        }
     }
     else
     {

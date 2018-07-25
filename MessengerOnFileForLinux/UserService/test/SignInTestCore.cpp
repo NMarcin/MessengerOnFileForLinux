@@ -19,6 +19,6 @@ void SignInTestFixture::SetUp()
 
 void SignInTestFixture::TearDown()
 {
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
 }
 

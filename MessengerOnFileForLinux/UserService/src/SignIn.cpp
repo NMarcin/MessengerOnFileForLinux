@@ -86,25 +86,8 @@ bool SignIn::signInUser() const
 
 bool SignIn::isUserLogged() const
 {
-/*
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE);
 
-    for (auto x : *loggedFileContent)
-    {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInLoggedFile);
-        std::string username = LocalUser::getLocalUser().getUsername();
-
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            return true;
-        }
-    }
-
-    log.info("SignIn::isUserLogged User is not logged");
-    return false;
-    */
-
-    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, LocalUser::getLocalUser().getUsername());
+    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, LocalUser::getLocalUser().getUsername());
 
     if(nullptr == userInfo)
     {
@@ -139,16 +122,16 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
 std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 {
     log.info("SignIn::getPasswordFromDatabase started");
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED_FILE);
+    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED);
 
     for (auto x : *registeredFileContent)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::FileField::usernameFieldInRegisteredFile);
+        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::RegisteredFile::username);
         std::string username = LocalUser::getLocalUser().getUsername();
 
         if (!username.compare(*usernameToComapre)) //0 when succes
         {
-            return FileInterface::Accesor::getRowField(x, FileStructure::FileField::passwordFieldInRegisteredFile);
+            return FileInterface::Accesor::getRowField(x, FileStructure::RegisteredFile::password);
         }
     }
 
@@ -160,8 +143,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     log.info("SignIn::setUserDataInLoggedFile started");
-    //std::string userPid = std::to_string(LocalUser::getLocalUser().getUserPid());
-    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + FileStructure::FieldValue::userActiveStatus + "]";//[" + userPid +"]";
+    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + UserStatus::activeStatus + "]";//[" + userPid +"]";
 
-    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED_FILE, information); //TODO update date&&time in registered file
+    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, information); //TODO update date&&time in registered file
 }

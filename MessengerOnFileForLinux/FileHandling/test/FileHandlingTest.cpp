@@ -8,7 +8,7 @@
 #include <GlobalVariables.hpp>
 
 const std::string filename = "test.txt";
-const std::string testPath = ENVIRONMENT_PATH::TO_FOLDER::TEST_FOLDER;
+const std::string testPath = ENVIRONMENT_PATH::TO_FOLDER::TEST;
 
 TEST(FileHandlingTest, createFile)
 {
