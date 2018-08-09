@@ -2,8 +2,9 @@
 
 #include <GlobalVariables.hpp>
 
-HistoryDowloander::HistoryDowloander(std::string command)
+HistoryDowloander::HistoryDowloander(std::string command, std::string chatFileWithPath)
                 : TerminalCommand(command)
+                , chatFileWithPath_(chatFileWithPath)
 {
     //NOOP
 }
@@ -15,8 +16,7 @@ HistoryDowloander::~HistoryDowloander()
 
 bool HistoryDowloander::doCommand() // TODO think about chatHistoryPath, how to get it
 {
-    std::string chatHistoryPath = "home/messenger/chats/0mnurzyns_mwozniak/mnurzyns_mwozniak";
-    std::string systemCommand = "cp " + chatHistoryPath + " " + ENVIRONMENT_PATH::TO_FOLDER::USER;
+    std::string systemCommand = "a";//"cp " + TerminalCommand::chatFileWithPath_ + " " + ENVIRONMENT_PATH::TO_FOLDER::USER;
     bool commandStatus = system(systemCommand.c_str());
 
     return commandStatus;

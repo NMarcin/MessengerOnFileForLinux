@@ -62,7 +62,7 @@ std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& row
     if (isTerminalCommand(rowMessage))
     {
         log.info("Sender::prepearMessageToSend Message is a terminal command");
-        TerminalFunctionality terminalFunctionality;
+        TerminalFunctionality terminalFunctionality(chatFilenameWithPath_);
         terminalFunctionality.runCommand(rowMessage);
     }
 
@@ -89,7 +89,7 @@ bool Sender::isTerminalCommand(const std::string& message) const
 bool Sender::setNewMessageFlag() const
 {
     std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");    
+    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");
     return isNewFlagCreated;
 }
 
