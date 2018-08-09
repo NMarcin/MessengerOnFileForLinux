@@ -10,7 +10,7 @@ namespace TO_FILE
 {
 static const std::string REGISTERED= "/home/messenger/configuration/REGISTERED";
 static const std::string LOGGED = "/home/messenger/configuration/LOGGED";
-}
+}    //TO_FILE
 
 namespace TO_FOLDER
 {
@@ -21,30 +21,35 @@ static const std::string INVITATIONS = "/home/messenger/invitations/";
 static const std::string INSTALL = "/home/messenger/installation/";
 
 static const std::string TEST = "/home/messenger/TEST/";
-}
-}//ENVIRONMENT_PATH
+}    // TO FOLDER
+} //ENVIRONMENT_PATH
 
 namespace FileStructure {
 namespace LoggedFile
 {
     static constexpr int username = 0;
     static constexpr int status = 1;
-}
+}    //LoggedFile
 namespace RegisteredFile
 {
 static constexpr int username = 0;
 static constexpr int password = 1;
 static constexpr int date = 2;
-}
-}//FileStructure
+}    //RegisteredFile
+} //FileStructure
 
 namespace UserStatus
 {
 static const std::string activeStatus = "0";
 static const std::string bussyStatus = "1";
-}
+} // UserStatus
 
-
+namespace MessageFlags  // TODO mwozniak zmienic na 's' i usunac tego enum class z ChatControl, bo potrzebujemy to w stringu, a nie w int, ze wzgledu na FileHandling
+{
+    static const std::string seen = "0";
+    static const std::string inviter = "0";
+    static const std::string guest = "0";
+} // MessageFlag
 
 /** To do jakiegos inita ***********************************/
 
@@ -95,5 +100,3 @@ static void lookForInvitation()
         sleep(1);
     }
 }
-
-

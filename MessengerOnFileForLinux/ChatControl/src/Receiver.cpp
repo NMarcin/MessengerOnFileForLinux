@@ -3,7 +3,9 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 
-Reciver::Reciver()
+Reciver::Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag)
+                : chatFileWithPath_(chatFileWithPath)
+                , mineMessageUserFlag_(mineMessageUserFlag)
 {
     //NOOP
 }
@@ -13,56 +15,90 @@ Reciver::~Reciver()
     //NOOP
 }
 
-bool Reciver::readMessages()
+bool Reciver::readMessagesToStack()
 {
-// BLOKUJEMY DOSTĘP DO FOLDERU
+// BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
 
-    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath);
+    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_);
     auto fileContentIterator = messagesFileContent->end();
     while(fileContentIterator != messagesFileContent->begin()) // dany wiersz jest do odbiorcy oraz został już przeczytany wcześniej
     {
         --fileContentIterator;
-        int messageFlag;
-        messageFlag = std::atoi((FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::LoggedFile::username))->c_str()); // LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
-        if( mineMessageUserFlag != messageFlag)
+        std::string messageFlag;
+        messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
+
+        if(endOfMessageToRead(*fileContentIterator, messageFlag))
         {
-            std::string purgeMessage;
-            purgeMessage = purgeMessageFromRaw(*fileContentIterator);
-            purgeMessagesStack.push(purgeMessage);
+            break;
         }
-        if( 0 == messageFlag)
+        else if(mineMessageUserFlag_ != messageFlag)
         {
-            std::string senderUsername;
-            senderUsername = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::LoggedFile::username); // LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
-            if( LocalUser::getLocalUser().getUsername() == senderUsername)
-            {
-                break;
-            }
+            pushPurgeMessageOnStack(*fileContentIterator);
         }
     }
-    //updateFlagsInFile()
+    bool updateFlagStatus = updateSeenFlags();
 
-// ODBLOKOWUJEMY DOSTĘP DO FOLDERU
+// ODBLOKOWUJEMY DOSTĘP DO FOLDERU TODO mwozniak
 
+    return updateFlagStatus;
+}
+
+std::string Reciver::returnTheOldestMessage()
+{
+    if(purgeMessagesStack_.empty())
+    {
+        return nullptr;
+    }
+    else
+    {
+        std::string message;
+        message = purgeMessagesStack_.top();
+        purgeMessagesStack_.pop();
+
+        return message;
+    }
+}
+
+bool Reciver::endOfMessageToRead(std::string message, std::string messageFlag)
+{
+    if( MessageFlags::seen == messageFlag)
+    {
+        std::string senderUsername;
+        senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
+        if( LocalUser::getLocalUser().getUsername() == senderUsername)
+        {
+            return true;
+        }
+    }
     return false;
 }
 
-bool Reciver::getRawMessagesFromFile(std::string chatFileWithPath)
+std::string Reciver::purgeMessageFromRaw(std::string messageToPurge)
 {
-    return false;
+    auto firstCharToDelete = messageToPurge.begin() + 1;
+    auto lastCharToDelete = messageToPurge.begin() + 18;
+    messageToPurge.erase(firstCharToDelete, lastCharToDelete);
+
+    return messageToPurge;
 }
 
-std::string Reciver::getMessageFromStack()
+void Reciver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
-    return "false";
+    std::string purgeMessage;
+    purgeMessage = purgeMessageFromRaw(rawMessageToPush);
+    purgeMessagesStack_.push(purgeMessage);
 }
 
-std::string Reciver::purgeMessageFromRaw(std::string rawMessage)
+bool Reciver::updateSeenFlags()
 {
-    return "false";
-}
-
-bool Reciver::addMessageToQueue(std::queue<std::string> messagesToShowOnScreen, std::string purgeMessage)
-{
-    return false;
+    bool updateFlagStatus;
+    if(MessageFlags::inviter == mineMessageUserFlag_)
+    {
+        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlags::guest, MessageFlags::seen);
+    }
+    else if(MessageFlags::guest == mineMessageUserFlag_)
+    {
+        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlags::inviter, MessageFlags::seen);
+    }
+    return updateFlagStatus;
 }

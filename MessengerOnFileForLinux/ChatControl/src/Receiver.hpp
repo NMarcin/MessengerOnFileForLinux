@@ -16,18 +16,19 @@
 class Reciver
 {
 public:
-    Reciver();      // chatFileWithPath -> do konstruktora
+    Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
     ~Reciver();
 
-    bool readMessages();
+    bool readMessagesToStack();
+    std::string returnTheOldestMessage();
 
 private:
-    bool getRawMessagesFromFile(std::string chatFileWithPath);                                          // pobiera wszystkie linijki NEW z pliku
-    std::string getMessageFromStack();                                                                  // pobiera wiadomość ze stosu i ją zwraca
-    std::string purgeMessageFromRaw(std::string rawMessage);                                                   // otrzymanego stringa oczyszcza na stringa, ktory zostanie wyświetlony na odpowiednim ekranie
-    bool addMessageToQueue(std::queue<std::string> messagesToShowOnScreen, std::string purgeMessage);   // otrzymanego stringa wrzuca do kolejki, na którą ma wskaźnik, tej z Chat Controla
+    bool updateSeenFlags();
+    bool endOfMessageToRead(std::string message, std::string messageFlag);
+    void pushPurgeMessageOnStack(std::string rawMessageToPush);
+    std::string purgeMessageFromRaw(std::string rawMessage);
 
-    const std::string chatFileWithPath;
-    std::stack<std::string> purgeMessagesStack;
-    int mineMessageUserFlag;
+    const std::string chatFileWithPath_;
+    std::stack<std::string> purgeMessagesStack_;
+    std::string mineMessageUserFlag_;
 };
