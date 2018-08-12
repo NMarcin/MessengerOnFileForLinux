@@ -13,11 +13,11 @@
 - kolejna funkcja wrzuca oprawiona linijke do naszej kolejki do wyswietlania
 */
 
-class Reciver
+class Receiver
 {
 public:
-    Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
-    ~Reciver();
+    Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
+    ~Receiver();
 
     bool readMessagesToStack();
     std::string returnTheOldestMessage();

@@ -74,7 +74,7 @@ void ChatControl::getMessage()
         /*
          * TODO mawoznia Wersja do testownia. potem zamienic na wiadomosci z implementacji mnurzyn
          */
-        auto tmp = *messageWaitingRoom_.front();
+        auto tmp = *messageWaitingRoom_.front(); //wyswietlamy swoja wiadomosc
         messageToDisplay_.push(tmp);
     }
 }
@@ -82,12 +82,29 @@ void ChatControl::getMessage()
 void ChatControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
-    //std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(); TO DO: mwoznia
+
+    auto messageFlag = std::to_string(static_cast<int>(messageFlag_));
+    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(chatFileWithPath_, messageFlag);
 
     while(isThreadsRunning_)
     {
         sleep(1);
-        //reciver->recive()
+
+        receiver->readMessagesToStack();
+        bool isEndOfMessages = false;
+        while(!isEndOfMessages)
+        {
+            auto message = receiver->returnTheOldestMessage();
+            if("" == message)
+            {
+                isEndOfMessages = true;
+            }
+            else
+            {
+                messageToDisplay_.push(message);
+            }
+        }
+
         if (!messageToDisplay_.empty())
         {
             std::string message = *FileInterface::Accesor::getRowField(messageToDisplay_.front(), 3);

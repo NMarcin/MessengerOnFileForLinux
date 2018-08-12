@@ -22,8 +22,8 @@ Sender::~Sender()
 std::unique_ptr<std::string> Sender::getMessageToSend() const
 {
     log.info("Sender::getMessageToSend started");
-    std::unique_ptr<std::string> rawMessage = getMessageFromStdin();
-    std::unique_ptr<std::string> messageToSend = prepareMessageToSend(*rawMessage);
+    std::string rawMessage = *getMessageFromStdin();
+    auto messageToSend = prepareMessageToSend(rawMessage);
     return messageToSend;
 }
 

@@ -3,19 +3,19 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 
-Reciver::Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag)
+Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag)
                 : chatFileWithPath_(chatFileWithPath)
                 , mineMessageUserFlag_(mineMessageUserFlag)
 {
     //NOOP
 }
 
-Reciver::~Reciver()
+Receiver::~Receiver()
 {
     //NOOP
 }
 
-bool Reciver::readMessagesToStack()
+bool Receiver::readMessagesToStack()
 {
 // BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
 
@@ -43,11 +43,12 @@ bool Reciver::readMessagesToStack()
     return updateFlagStatus;
 }
 
-std::string Reciver::returnTheOldestMessage()
+std::string Receiver::returnTheOldestMessage()
 {
     if(purgeMessagesStack_.empty())
     {
-        return nullptr;
+        //return nullptr;
+        return ""; //TODO mnurzyn czy rozsadnie w funkcji zwracajacej stringa zwracac w ifie nulltpr?
     }
     else
     {
@@ -59,7 +60,7 @@ std::string Reciver::returnTheOldestMessage()
     }
 }
 
-bool Reciver::endOfMessageToRead(std::string message, std::string messageFlag)
+bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
 {
     if( MessageFlags::seen == messageFlag)
     {
@@ -73,7 +74,7 @@ bool Reciver::endOfMessageToRead(std::string message, std::string messageFlag)
     return false;
 }
 
-std::string Reciver::purgeMessageFromRaw(std::string messageToPurge)
+std::string Receiver::purgeMessageFromRaw(std::string messageToPurge)
 {
     auto firstCharToDelete = messageToPurge.begin() + 1;
     auto lastCharToDelete = messageToPurge.begin() + 18;
@@ -82,14 +83,14 @@ std::string Reciver::purgeMessageFromRaw(std::string messageToPurge)
     return messageToPurge;
 }
 
-void Reciver::pushPurgeMessageOnStack(std::string rawMessageToPush)
+void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
     std::string purgeMessage;
     purgeMessage = purgeMessageFromRaw(rawMessageToPush);
     purgeMessagesStack_.push(purgeMessage);
 }
 
-bool Reciver::updateSeenFlags()
+bool Receiver::updateSeenFlags()
 {
     bool updateFlagStatus;
     if(MessageFlags::inviter == mineMessageUserFlag_)
