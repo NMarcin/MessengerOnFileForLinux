@@ -1,8 +1,11 @@
 #include <TerminalFunctionality.hpp>
 
-#include <HistoryDowloander.hpp>
+
 #include <UserCommand.hpp>
-#include <SignOut.hpp>
+
+#include <HistoryDowloander.hpp>
+#include <LoggingOut.hpp>
+
 #include <ChatControl.hpp>
 #include <Display.hpp>
 #include <iostream>
@@ -20,12 +23,11 @@ bool TerminalFunctionality::runCommand(std::string command)
     {
         //TODO konczenie rozmowy
     }
-    else if (starts_with(UserCommand::logout, command)) // TODO mwoznia jezeli ta klasa jest wywolywana tylko i wylacznie tutaj to prosze zastosowac sie do schematu polimorfizmu
+    else if (starts_with(UserCommand::logout, command))
     {
-        SignOut signOut;
-        return signOut.signOutUser();
+        terminalCommand_ = std::make_unique<LoggingOut>(command);
     }
-    else if (starts_with(UserCommand::inviteUser, command)) // TODO mwoznia tak samo to powinno być zgodnie ze schematem
+    else if (starts_with(UserCommand::inviteUser, command)) // TODO mwoznia zastosować schemat polimorfizmu, dodatkowo architektura tego jest zła, ponieważ ChatControl ma istnieć cały czas
     {
         auto beginOfUsernameInCommand = command.begin()+7;  // TODO mwoznia 7 is a little bit magic number
         std::string username = {beginOfUsernameInCommand, command.end()};
