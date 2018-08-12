@@ -3,7 +3,7 @@
 #include <string>
 #include <ncurses.h>
 
-#include <FileHandling.hpp>
+#include <FileHandling.hpp>     // TODO mwozniak to nie powinno byc tutaj, a w .cpp, nie korzystasz z tego w tym pliku
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 

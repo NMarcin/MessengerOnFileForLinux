@@ -82,7 +82,7 @@ void ChatControl::getMessage()
 void ChatControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
-    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>();
+    //std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(); TO DO: mwoznia
 
     while(isThreadsRunning_)
     {

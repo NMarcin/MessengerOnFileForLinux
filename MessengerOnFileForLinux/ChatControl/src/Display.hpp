@@ -21,5 +21,3 @@ namespace Display
     void initChatWindow(WINDOW* displayMessageWindow, WINDOW* enterMessageWindow);
     std::string getStringFromMainWindow();
 }
-
-
