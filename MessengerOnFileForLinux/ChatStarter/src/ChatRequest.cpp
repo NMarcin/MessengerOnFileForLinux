@@ -28,7 +28,7 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername)
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
     FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
     showInvitation(senderUsername);
-    bool decision = respondOnInvitation();
+    bool decision = approveChatInvitation();
 
     if (decision)
     {
@@ -103,7 +103,7 @@ bool ChatRequest::isUserActive(const User& user) const
     return false;
 }
 
-bool ChatRequest::respondOnInvitation() const
+bool ChatRequest::approveChatInvitation() const
 {
     log.info("ChatRequest::respondOnInvitation started");
     std::string decision;
@@ -122,7 +122,7 @@ bool ChatRequest::respondOnInvitation() const
         return false;
     }
 
-    log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
+    log.info("ChatRequest::respondOnInvitation Invitation disaccepted. Timeout while waiting for answer");
     return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
 }
 

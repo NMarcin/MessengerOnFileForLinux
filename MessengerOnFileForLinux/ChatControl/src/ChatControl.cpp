@@ -1,5 +1,6 @@
 #include <chrono>
 #include <thread>
+#include <stdio.h>
 
 #include <ChatControl.hpp>
 #include <FileHandling.hpp>
@@ -69,16 +70,16 @@ void ChatControl::getMessage()
     while(isThreadsRunning_)
     {
         Display::displayEnterMessageWindow(enterMessageWindow_);
-        messageWaitingRoom_.push(sender->getMessageToSend());
+        messageReadyToSend_.push(sender->getMessageToSend());
 
         /*
-         * TODO mawoznia Wersja do testownia. potem zamienic na wiadomosci z implementacji mnurzyn
+         * TODO mawoznia obrobic sowjego msg do wysiweltnia
          */
-        auto tmp = *messageWaitingRoom_.front(); //wyswietlamy swoja wiadomosc
+        auto tmp = messageReadyToSend_.front(); //wyswietlamy swoja wiadomosc
         messageToDisplay_.push(tmp);
         log.info(("ChatControl::reciveMessage messageToDispaly_ size = " + std::to_string(messageToDisplay_.size())).c_str());
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(6+static_cast<int>(messageFlag_)));
+        std::this_thread::sleep_for(std::chrono::milliseconds(5+static_cast<int>(messageFlag_)));
 
     }
 }
@@ -92,7 +93,7 @@ void ChatControl::reciveMessage()
 
     while(isThreadsRunning_)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(6+static_cast<int>(messageFlag_)));
+        std::this_thread::sleep_for(std::chrono::milliseconds(3+static_cast<int>(messageFlag_)));
 
         log.info("PRZED1");
         receiver->readMessagesToStack();
@@ -142,19 +143,19 @@ void ChatControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(8+static_cast<int>(messageFlag_)));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1+static_cast<int>(messageFlag_)));
 
     std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), enterMessageWindow_);
-    while(isThreadsRunning_ || !messageWaitingRoom_.empty())
+    while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
-        if (messageWaitingRoom_.empty())
+        if (messageReadyToSend_.empty())
         {
             sleep(1);
         }
         else
         {
-            sender->sendMessage(*messageWaitingRoom_.front());
-            messageWaitingRoom_.pop();
+            sender->sendMessage(messageReadyToSend_.front());
+            messageReadyToSend_.pop();
         }
     }
 }

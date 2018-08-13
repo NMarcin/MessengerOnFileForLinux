@@ -21,7 +21,7 @@ Receiver::~Receiver()
 
 bool Receiver::readMessagesToStack()
 {
-// BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
+    /*//BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
     auto isFileLock = false;
     auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
     while (!isFileLock)
@@ -30,41 +30,41 @@ bool Receiver::readMessagesToStack()
         std::this_thread::sleep_for(std::chrono::milliseconds(9+std::atoi(mineMessageUserFlag_.c_str())));
         log.info("ZAABLOKOWANYYYY");
     }
-    log.info("AFTER WHILEEEEEEEEEEEEEEEeee");
-    //sprawdzic czy tutaj dochodzimi
+    */
+
     std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_);
     auto fileContentIterator = messagesFileContent->end();
-    if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")
+
+    if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")//TODO mawoznia do funkcji albo zmienic getFileContent
     {
         log.info("PUSTY PLIK");
         return true;
     }
-    while(fileContentIterator != messagesFileContent->begin()) // dany wiersz jest do odbiorcy oraz został już przeczytany wcześniej
+    while(fileContentIterator != messagesFileContent->begin())
     {
-        log.info("POBIERAM");
         --fileContentIterator;
         std::string messageFlag;
-        messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
-
+        messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::MessageFile::flag);
         if(endOfMessageToRead(*fileContentIterator, messageFlag))
         {
             break;
         }
-        else if(mineMessageUserFlag_ != messageFlag)
+        else if(mineMessageUserFlag_ != messageFlag && MessageFlags::seen != messageFlag)
         {
             pushPurgeMessageOnStack(*fileContentIterator);
         }
     }
     bool updateFlagStatus = updateSeenFlags();
 
-// ODBLOKOWUJEMY DOSTĘP DO FOLDERU TODO mwozniak
-    FileInterface::unlockFolder(folder);
+    //ODBLOKOWUJEMY DOSTĘP DO FOLDERU TODO mwozniak
+    //FileInterface::unlockFolder(folder);
 
     return updateFlagStatus;
 }
 
 std::string Receiver::returnTheOldestMessage()
 {
+    log.info("ZCZYTUJE WIADOMOSCI");
     if(purgeMessagesStack_.empty())
     {
         //return nullptr;
@@ -85,7 +85,7 @@ bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
     if( MessageFlags::seen == messageFlag)
     {
         std::string senderUsername;
-        senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
+        senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::MessageFile::flag);
         if( LocalUser::getLocalUser().getUsername() == senderUsername)
         {
             return true;
@@ -96,18 +96,19 @@ bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
 
 std::string Receiver::purgeMessageFromRaw(std::string messageToPurge)
 {
-    auto firstCharToDelete = messageToPurge.begin() + 1;
-    auto lastCharToDelete = messageToPurge.begin() + 18;
-    messageToPurge.erase(firstCharToDelete, lastCharToDelete);
-
-    return messageToPurge;
+    auto username = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::username);
+    auto message = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::message);
+    return username + " >> " + message;
 }
 
 void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
-    std::string purgeMessage;
-    purgeMessage = purgeMessageFromRaw(rawMessageToPush);
-    purgeMessagesStack_.push(purgeMessage);
+    if (rawMessageToPush != "")
+    {
+        std::string purgeMessage;
+        purgeMessage = purgeMessageFromRaw(rawMessageToPush);
+        purgeMessagesStack_.push(purgeMessage);
+    }
 }
 
 bool Receiver::updateSeenFlags()

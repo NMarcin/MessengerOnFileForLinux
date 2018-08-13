@@ -11,20 +11,20 @@
 
 bool FileInterface::lockFolder(const std::string& pathToFolder)
 {
-    if (!FileInterface::Managment::isFileExist(pathToFolder + "/GUARD"))
+    if (!FileInterface::Managment::isFileExist(pathToFolder + "/GUARD") || FileInterface::Managment::isFileExist(pathToFolder + "/FOLDER"))
     {
-        std::string systemCommand = "touch " + pathToFolder + "/GUARD";
+        std::string systemCommand = "touch " + pathToFolder + "/FOLDER";
         system(systemCommand.c_str());
-        return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+        return FileInterface::Managment::isFileExist(pathToFolder + "/FOLDER");
     }
     return false;
 }
 
 bool FileInterface::unlockFolder(const std::string& pathToFolder)
 {
-    std::string command = "rm -r " + pathToFolder + "/GUARD";
+    std::string command = "rm -r " + pathToFolder + "/FOLDER";
     system(command.c_str());
-    return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+    return ! FileInterface::Managment::isFileExist(pathToFolder + "/FOLDER");
 }
 
 namespace
@@ -44,14 +44,15 @@ bool createGuardian(const std::string& pathToFolder)
 
 bool removeGuardian(const std::string& pathToFolder)
 {
-    std::string command = "rm -r " + pathToFolder + "/GUARD";
-    system(command.c_str());
+    remove((pathToFolder + "/GUARD").c_str());
+    //std::string command = "rm -r " + pathToFolder + "/GUARD";
+    //system(command.c_str());
     return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
 
 bool isGuardianExist(const std::string& pathToFolder)
 {
-    return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+    return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");// || FileInterface::Managment::isFileExist(pathToFolder + "/FOLDER");
 }
 
 std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode)
@@ -275,9 +276,9 @@ bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
-    std::string command = "rm -r " + pathToFile;
-    system(command.c_str());
-
+    //std::string command = "rm -r " + pathToFile;
+    //system(command.c_str());
+    remove(pathToFile.c_str());
     return ! isFileExist(pathToFile);
 }
 

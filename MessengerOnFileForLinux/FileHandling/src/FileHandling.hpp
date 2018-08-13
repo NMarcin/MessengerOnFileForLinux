@@ -7,10 +7,6 @@
 
 namespace FileInterface
 {
-
-
-
-
     namespace Modification
     {
         bool addRow(const std::string& pathToFile, const std::string& text);

@@ -46,7 +46,7 @@ private:
     std::unique_ptr<std::thread> sendMessageFromQueueThread_;
     std::unique_ptr<std::thread> reciveMessageThread_;
 
-    std::queue<std::unique_ptr<std::string>> messageWaitingRoom_;               // TODO mwozniak zmienic nazwe, ta nie mowi od czego dokladnie to jest, dodatkowo to powinna byc kolejka stringow, a nie wskaznikow na string
+    std::queue<std::string> messageReadyToSend_;
     std::queue<std::string> messageToDisplay_;
 
     std::string chatFileWithPath_;
