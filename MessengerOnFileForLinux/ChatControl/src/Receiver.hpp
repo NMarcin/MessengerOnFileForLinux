@@ -2,6 +2,9 @@
 #include <stack>
 #include <queue>
 #include <string>
+
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 /*
 - pobieramy cały plik
 - blokujemy dostęp do pliku
@@ -31,4 +34,6 @@ private:
     const std::string chatFileWithPath_;
     std::stack<std::string> purgeMessagesStack_;
     std::string mineMessageUserFlag_;
+
+    Logger log{LogSpace::ChatFile};
 };

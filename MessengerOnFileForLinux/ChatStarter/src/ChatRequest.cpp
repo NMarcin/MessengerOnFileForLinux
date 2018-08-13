@@ -65,16 +65,12 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
     log.info("ChatRequest::getUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED);
 
-    for (auto x : *loggedFileContent)
+    auto row = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, username);
+    if (row)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::username);
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::status);
-            return userStatusToCompare;
-        }
+        std::unique_ptr<std::string> userStatus = FileInterface::Accesor::getRowField(*row, FileStructure::LoggedFile::status);
+        return userStatus;
     }
 
     log.info("ChatRequest::getUserStatus ERROR: User is offline or does not exist");

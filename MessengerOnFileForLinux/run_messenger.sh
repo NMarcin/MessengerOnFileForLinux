@@ -1,4 +1,5 @@
 #!/bin/bash
+rm Logger_default.txt
 
 user[0]=marcin
 user[1]=tomek

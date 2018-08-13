@@ -76,6 +76,10 @@ void ChatControl::getMessage()
          */
         auto tmp = *messageWaitingRoom_.front(); //wyswietlamy swoja wiadomosc
         messageToDisplay_.push(tmp);
+        log.info(("ChatControl::reciveMessage messageToDispaly_ size = " + std::to_string(messageToDisplay_.size())).c_str());
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(6+static_cast<int>(messageFlag_)));
+
     }
 }
 
@@ -88,10 +92,12 @@ void ChatControl::reciveMessage()
 
     while(isThreadsRunning_)
     {
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(6+static_cast<int>(messageFlag_)));
 
+        log.info("PRZED1");
         receiver->readMessagesToStack();
         bool isEndOfMessages = false;
+        log.info("PRZED");
         while(!isEndOfMessages)
         {
             auto message = receiver->returnTheOldestMessage();
@@ -104,7 +110,7 @@ void ChatControl::reciveMessage()
                 messageToDisplay_.push(message);
             }
         }
-
+         log.info("PO");
         if (!messageToDisplay_.empty())
         {
             std::string message = *FileInterface::Accesor::getRowField(messageToDisplay_.front(), 3);
@@ -124,6 +130,7 @@ void ChatControl::reciveMessage()
             }
             else
             {
+                 log.info("ChatControl::reciveMessage Receive messageeeeeeeeeee");
                 Display::displayDisplayMessageWindow(displayMessageWindow_, messageToDisplay_.front() + "\n");
                 messageToDisplay_.pop();
             }
@@ -134,6 +141,9 @@ void ChatControl::reciveMessage()
 void ChatControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(8+static_cast<int>(messageFlag_)));
+
     std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), enterMessageWindow_);
     while(isThreadsRunning_ || !messageWaitingRoom_.empty())
     {

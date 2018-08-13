@@ -9,6 +9,24 @@
 #include <LogSpace.hpp>
 #include <FileHandling.hpp>
 
+bool FileInterface::lockFolder(const std::string& pathToFolder)
+{
+    if (!FileInterface::Managment::isFileExist(pathToFolder + "/GUARD"))
+    {
+        std::string systemCommand = "touch " + pathToFolder + "/GUARD";
+        system(systemCommand.c_str());
+        return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+    }
+    return false;
+}
+
+bool FileInterface::unlockFolder(const std::string& pathToFolder)
+{
+    std::string command = "rm -r " + pathToFolder + "/GUARD";
+    system(command.c_str());
+    return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+}
+
 namespace
 {
 enum class FileMode
@@ -90,6 +108,8 @@ std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile)
 {
     return openFile(pathToFile, FileMode::toRead);
 }
+
+
 }
 
 
@@ -338,7 +358,6 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 
     std::string rowToUpdate;
     auto it = row.begin();
-    std::cout << "ROOW " << rowToUpdate << std::endl;
     for (auto& x : row)
     {
         if ('[' == x)

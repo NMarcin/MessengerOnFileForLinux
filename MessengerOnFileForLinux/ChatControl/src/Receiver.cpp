@@ -2,6 +2,10 @@
 
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
+#include <FileHandling.hpp>
+#include <iostream>
+#include <thread>
+#include <chrono>
 
 Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag)
                 : chatFileWithPath_(chatFileWithPath)
@@ -18,11 +22,26 @@ Receiver::~Receiver()
 bool Receiver::readMessagesToStack()
 {
 // BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
-
+    auto isFileLock = false;
+    auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+    while (!isFileLock)
+    {
+        isFileLock = FileInterface::lockFolder(folder);
+        std::this_thread::sleep_for(std::chrono::milliseconds(9+std::atoi(mineMessageUserFlag_.c_str())));
+        log.info("ZAABLOKOWANYYYY");
+    }
+    log.info("AFTER WHILEEEEEEEEEEEEEEEeee");
+    //sprawdzic czy tutaj dochodzimi
     std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_);
     auto fileContentIterator = messagesFileContent->end();
+    if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")
+    {
+        log.info("PUSTY PLIK");
+        return true;
+    }
     while(fileContentIterator != messagesFileContent->begin()) // dany wiersz jest do odbiorcy oraz został już przeczytany wcześniej
     {
+        log.info("POBIERAM");
         --fileContentIterator;
         std::string messageFlag;
         messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
@@ -39,6 +58,7 @@ bool Receiver::readMessagesToStack()
     bool updateFlagStatus = updateSeenFlags();
 
 // ODBLOKOWUJEMY DOSTĘP DO FOLDERU TODO mwozniak
+    FileInterface::unlockFolder(folder);
 
     return updateFlagStatus;
 }

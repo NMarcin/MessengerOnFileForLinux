@@ -16,3 +16,5 @@ sudo chmod 777 *
 cd configuration
 sudo touch LOGGED REGISTERED
 sudo chmod 777 *
+
+
