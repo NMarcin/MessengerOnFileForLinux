@@ -21,18 +21,12 @@ Receiver::~Receiver()
 
 bool Receiver::readMessagesToStack()
 {
-    /*//BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
-    auto isFileLock = false;
-    auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
-    while (!isFileLock)
-    {
-        isFileLock = FileInterface::lockFolder(folder);
-        std::this_thread::sleep_for(std::chrono::milliseconds(9+std::atoi(mineMessageUserFlag_.c_str())));
-        log.info("ZAABLOKOWANYYYY");
-    }
-    */
+    //BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
 
-    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_);
+    //auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+    //FileInterface::lockFolder(folder);
+
+    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_, AccesMode::withoutGuardian);
     auto fileContentIterator = messagesFileContent->end();
 
     if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")//TODO mawoznia do funkcji albo zmienic getFileContent

@@ -39,7 +39,6 @@ void mwozniak()
         Display::displayMainWindow();
         char command[512];
         getstr(command);
-
         terminal.runCommand(command);
     }
 }

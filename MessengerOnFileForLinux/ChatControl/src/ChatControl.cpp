@@ -75,8 +75,8 @@ void ChatControl::getMessage()
         /*
          * TODO mawoznia obrobic sowjego msg do wysiweltnia
          */
-        auto tmp = messageReadyToSend_.front(); //wyswietlamy swoja wiadomosc
-        messageToDisplay_.push(tmp);
+
+        messageToDisplay_.push(messageReadyToSend_.front());
         log.info(("ChatControl::reciveMessage messageToDispaly_ size = " + std::to_string(messageToDisplay_.size())).c_str());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(5+static_cast<int>(messageFlag_)));

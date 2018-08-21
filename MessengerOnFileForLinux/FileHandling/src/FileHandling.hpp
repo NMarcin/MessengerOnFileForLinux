@@ -4,6 +4,11 @@
 #include<string>
 #include<fstream>
 
+enum class AccesMode
+{
+    withGuardian,
+    withoutGuardian
+};
 
 namespace FileInterface
 {
@@ -21,7 +26,7 @@ namespace FileInterface
         std::unique_ptr<std::vector<std::string>> getFilenamesFromFolder(const std::string& pathToDir);
         std::unique_ptr<std::string> getFolderName(const std::string& pathToFile);
         std::unique_ptr<std::string> getRowField(const std::string& field, const int fieldNumber);
-        std::unique_ptr<std::vector<std::string>> getFileContent(const std::string& pathToFile);
+        std::unique_ptr<std::vector<std::string>> getFileContent(const std::string& pathToFile, AccesMode accesMode);
         std::unique_ptr<std::string> getRow(const std::string& pathToFile, const std::string& pattern);
     }
 

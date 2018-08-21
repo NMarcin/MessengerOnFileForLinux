@@ -52,7 +52,7 @@ TEST(FileHandlingTest, getFileContent)
 {
     std::string testFile = testPath + filename;
     FileInterface::Managment::createFile(testFile);
-    auto  fileContent = FileInterface::Accesor::getFileContent(testFile);
+    auto  fileContent = FileInterface::Accesor::getFileContent(testFile, AccesMode::withGuardian);
 
     EXPECT_EQ(fileContent->at(0), "");
 
@@ -62,7 +62,7 @@ TEST(FileHandlingTest, getFileContent)
     std::string command_2 = "echo " + secondRow + " >> " + testFile;
     system(command_1.c_str());
     system(command_2.c_str());
-    fileContent = FileInterface::Accesor::getFileContent(testFile);
+    fileContent = FileInterface::Accesor::getFileContent(testFile, AccesMode::withGuardian);
 
     EXPECT_EQ(fileContent->at(0), firstRow);
     EXPECT_EQ(fileContent->at(1), secondRow);

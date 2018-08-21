@@ -139,7 +139,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     log.info("SignIn::setUserDataInLoggedFile started");
-    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + UserStatus::activeStatus + "]";//[" + userPid +"]";
+    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + UserStatus::activeStatus + "]";
 
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, information); //TODO update date&&time in registered file
 }

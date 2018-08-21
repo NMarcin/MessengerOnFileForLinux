@@ -105,7 +105,7 @@ bool ChatRequest::isUserActive(const User& user) const
 
 bool ChatRequest::approveChatInvitation() const
 {
-    log.info("ChatRequest::respondOnInvitation started");
+    log.info("ChatRequest::approveChatInvitation started");
     std::string decision;
     //decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
     std::cin >> decision;
@@ -113,16 +113,16 @@ bool ChatRequest::approveChatInvitation() const
 
     if ("y" == decision || "yes" == decision)
     {
-        log.info("ChatRequest::respondOnInvitation Invitation accepted");
+        log.info("ChatRequest::approveChatInvitation Invitation accepted");
         return true;
     }
     else if ("n" == decision || "no" == decision)
     {
-        log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
+        log.info("ChatRequest::approveChatInvitation Invitation disaccepted");
         return false;
     }
 
-    log.info("ChatRequest::respondOnInvitation Invitation disaccepted. Timeout while waiting for answer");
+    log.info("ChatRequest::approveChatInvitation Invitation disaccepted. Timeout while waiting for answer");
     return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
 }
 
