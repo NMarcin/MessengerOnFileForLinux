@@ -169,6 +169,7 @@ void ChatControl::startConversationAsRecipient(const std::string& username)
 }
 
 void ChatControl::conversation()
+// ta funkcja jest do ostrego refaktoru, liczby z dupy, signal tak samo, nie czytelne nic
 {
     std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
 
