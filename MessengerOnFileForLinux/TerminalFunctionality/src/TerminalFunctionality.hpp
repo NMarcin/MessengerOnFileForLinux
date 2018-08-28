@@ -9,9 +9,11 @@ class TerminalFunctionality
 public:
     bool runCommand(std::string command);
 
-    TerminalFunctionality();
+    TerminalFunctionality(std::string chatFileWithPath);
+    TerminalFunctionality() = default;
     ~TerminalFunctionality();
 
 private:
-    std::unique_ptr<TerminalCommand> terminalCommand_;
+    std::unique_ptr<TerminalCommand> terminalCommand_ = nullptr;
+    std::string chatFileWithPath_;
 };

@@ -11,6 +11,7 @@
 #include <LogSpace.hpp>
 #include <SignalHandling.hpp>
 
+#define ever (;;)
 
 
 void mnurzyns()
@@ -29,7 +30,7 @@ void mwozniak()
     SignIn signIn;
     TerminalFunctionality terminal;
 
-    for(;;)
+    for ever
     {
         registerUser.registerNewUser();
         clear();
@@ -75,4 +76,3 @@ int main(int argc, char **argv)
     }
     return 0;
 }
-

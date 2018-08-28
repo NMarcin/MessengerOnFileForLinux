@@ -1,0 +1,10 @@
+class Conversation;
+
+class ConversationIviter : Conversation;
+class ConversationSender : Conversation;
+
+przeniesiony SignalHandling();
+
+metody publiczne:
+startConversation();
+endConversation();

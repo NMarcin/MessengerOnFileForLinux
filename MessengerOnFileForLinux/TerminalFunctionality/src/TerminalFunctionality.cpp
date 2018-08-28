@@ -1,8 +1,11 @@
 #include <TerminalFunctionality.hpp>
 
-#include <HistoryDowloander.hpp>
+
 #include <UserCommand.hpp>
-#include <SignOut.hpp>
+
+#include <HistoryDowloander.hpp>
+#include <LoggingOut.hpp>
+
 #include <ChatControl.hpp>
 #include <Display.hpp>
 #include <iostream>
@@ -14,8 +17,7 @@ bool TerminalFunctionality::runCommand(std::string command)
 {
     if (starts_with(UserCommand::historyDowloander, command))
     {
-        terminalCommand_ = std::make_unique<HistoryDowloander>(command);
-        return terminalCommand_->doCommand();
+        terminalCommand_ = std::make_unique<HistoryDowloander>(command, chatFileWithPath_);
     }
     else if (starts_with(UserCommand::endChat, command))
     {
@@ -23,17 +25,16 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else if (starts_with(UserCommand::logout, command))
     {
-        SignOut signOut;
-        return signOut.signOutUser();
+        terminalCommand_ = std::make_unique<LoggingOut>(command);
     }
-    else if (starts_with(UserCommand::inviteUser, command))
+    else if (starts_with(UserCommand::inviteUser, command)) // TODO mwoznia zastosować schemat polimorfizmu, dodatkowo architektura tego jest zła, ponieważ ChatControl ma istnieć cały czas
     {
-        auto beginOfUsernameInCommand = command.begin()+7;
+        auto beginOfUsernameInCommand = command.begin()+7;  // TODO mwoznia 7 is a little bit magic number
         std::string username = {beginOfUsernameInCommand, command.end()};
         ChatControl control;
         control.conversationProlog(username, ChatRole::inviter);
     }
-    else if (starts_with(UserCommand::help, command))
+    else if (starts_with(UserCommand::help, command))       // TODO mwoznia co to jest? to i ponizsze?
     {
         Display::displayMainWindow();
         printw("\n");
@@ -53,11 +54,13 @@ bool TerminalFunctionality::runCommand(std::string command)
     {
         return false;   // TODO: kto obsluguje tego, ze nie ma takiej komendy?
     }
+    return terminalCommand_->doCommand();
 }
 
-TerminalFunctionality::TerminalFunctionality()
+TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath)
+            : chatFileWithPath_(chatFileWithPath)
 {
-    terminalCommand_ = nullptr;
+    //NOOP
 }
 
 TerminalFunctionality::~TerminalFunctionality()

@@ -18,5 +18,5 @@ fi
 
 for (( i=0; $i < $MAX_USER_COUNT; i++ )) ; do
     new_username=${user[$i]}
-    gnome-terminal -e "bash -c \"USER=$new_username; $RUN_MESSENGER; exec bash\"" 
+    gnome-terminal -e "bash -c \"USER=$new_username; $RUN_MESSENGER; exec bash\""
 done

@@ -26,6 +26,7 @@ set(MODULE_ChatControl              ${CMAKE_SOURCE_DIR}/ChatControl/src)
 set(MODULE_ChatStarter              ${CMAKE_SOURCE_DIR}/ChatStarter/src)
 set(MODULE_TerminalFunctionality    ${CMAKE_SOURCE_DIR}/TerminalFunctionality/src)
 set(MODULE_Common                   ${CMAKE_SOURCE_DIR}/Common/src)
+set(MODULE_DisplayChat              ${CMAKE_SOURCE_DIR}/DisplayChat/src)
 
 ################################################################################
 #####                       MAKE BINARY CMAKE PART                         #####
@@ -38,6 +39,7 @@ include_directories(${MODULE_ChatControl})
 include_directories(${MODULE_ChatStarter})
 include_directories(${MODULE_TerminalFunctionality})
 include_directories(${MODULE_Common})
+include_directories(${MODULE_DisplayChat})
 # SRC
 add_subdirectory(main/src)
 add_subdirectory(${MODULE_UserService})
@@ -47,6 +49,7 @@ add_subdirectory(${MODULE_ChatControl})
 add_subdirectory(${MODULE_ChatStarter})
 add_subdirectory(${MODULE_TerminalFunctionality})
 add_subdirectory(${MODULE_Common})
+add_subdirectory(${MODULE_DisplayChat})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
