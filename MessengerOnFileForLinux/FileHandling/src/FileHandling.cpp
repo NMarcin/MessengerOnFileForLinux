@@ -122,6 +122,7 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
 
 bool FileInterface::Managment::createFile(const std::string& pathToFile)
 {
+
     if (isFileExist(pathToFile))
     {
         std::string logInfo = "FileInterface::Managment::createFile started ERROR: " + pathToFile + "File exist!";
@@ -131,10 +132,10 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
     //std::string logInfo = "FileInterface::Managment::createFile " + pathToFile;
     std::string logInfo = "FileInterface::Managment::TWORZE " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
+
     std::string systemCommand = "touch " + pathToFile;
-    std::string systemCommand2 = "chmod 777 " + pathToFile;
+    system("umask 777");
     system(systemCommand.c_str());
-    system(systemCommand2.c_str());
 
     if (!isFileExist(pathToFile))
     {
@@ -279,6 +280,7 @@ bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
     std::string logInfo = "FileInterface::Managment::USUWAM " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     remove(pathToFile.c_str());
     return ! isFileExist(pathToFile);
 }
@@ -314,14 +316,8 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
 
 bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag)
 {
-    std::string folderName = *Accesor::getFolderName(pathToFile);
-
-    //waitForAccess(folderName);
-
     std::string command = "sed -i -e '/\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
     std::system(command.c_str());
-
-    //bool isGuardRemoved = removeGuardian(folderName);
 
     return true;
 }
@@ -368,7 +364,6 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 bool FileInterface::lockFolder(const std::string& pathToFolder)
 {
     waitForAccess(pathToFolder);
-    createGuardian(pathToFolder);
 }
 
 bool FileInterface::unlockFolder(const std::string& pathToFolder)

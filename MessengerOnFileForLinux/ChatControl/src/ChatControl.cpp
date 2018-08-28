@@ -72,15 +72,14 @@ void ChatControl::getMessage()
         Display::displayEnterMessageWindow(enterMessageWindow_);
         messageReadyToSend_.push(sender->getMessageToSend());
 
-        /*
-         * TODO mawoznia obrobic sowjego msg do wysiweltnia
-         */
+        auto username = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::username);
+        auto message = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::message);
+        auto convertedMessage = username + " >> " + message;
 
-        messageToDisplay_.push(messageReadyToSend_.front());
+        messageToDisplay_.push(convertedMessage);
         log.info(("ChatControl::reciveMessage messageToDispaly_ size = " + std::to_string(messageToDisplay_.size())).c_str());
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(5+static_cast<int>(messageFlag_)));
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(50+static_cast<int>(messageFlag_)));
     }
 }
 
@@ -93,7 +92,7 @@ void ChatControl::reciveMessage()
 
     while(isThreadsRunning_)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(3+static_cast<int>(messageFlag_)));
+        std::this_thread::sleep_for(std::chrono::milliseconds(30+static_cast<int>(messageFlag_)));
 
         log.info("PRZED1");
         receiver->readMessagesToStack();
@@ -115,7 +114,7 @@ void ChatControl::reciveMessage()
         if (!messageToDisplay_.empty())
         {
             std::string message = *FileInterface::Accesor::getRowField(messageToDisplay_.front(), 3);
-
+            log.info(("ChatControl::reciveMessage Receive ===" + message + "===").c_str());
             if (5 <= message.size() && "//end" == std::string(message.begin(), message.begin()+5))
             {
                 //TODO mawoznia narzucic tu implementacje z terminal funcionality
@@ -143,7 +142,7 @@ void ChatControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(1+static_cast<int>(messageFlag_)));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10+static_cast<int>(messageFlag_)));
 
     std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), enterMessageWindow_);
     while(isThreadsRunning_ || !messageReadyToSend_.empty())

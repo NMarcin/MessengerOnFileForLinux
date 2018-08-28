@@ -1,6 +1,8 @@
 #include <iostream>
 #include <signal.h>
 #include <algorithm>
+#include <sstream>
+#include <unistd.h>
 
 #include <ChatRequest.hpp>
 #include <User.hpp>
@@ -24,6 +26,7 @@ ChatRequest::~ChatRequest()
 
 std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const
 {
+
     log.info("ChatRequest::answerForChatRequest started");
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
     FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
@@ -107,8 +110,8 @@ bool ChatRequest::approveChatInvitation() const
 {
     log.info("ChatRequest::approveChatInvitation started");
     std::string decision;
-    //decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
-    std::cin >> decision;
+    decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
+    //std::cin >> decision;
     std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
 
     if ("y" == decision || "yes" == decision)

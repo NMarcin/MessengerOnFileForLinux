@@ -21,10 +21,9 @@ Receiver::~Receiver()
 
 bool Receiver::readMessagesToStack()
 {
-    //BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
 
-    //auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
-    //FileInterface::lockFolder(folder);
+    auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+    FileInterface::lockFolder(folder);
 
     std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_, AccesMode::withoutGuardian);
     auto fileContentIterator = messagesFileContent->end();
@@ -32,6 +31,7 @@ bool Receiver::readMessagesToStack()
     if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")//TODO mawoznia do funkcji albo zmienic getFileContent
     {
         log.info("PUSTY PLIK");
+        FileInterface::unlockFolder(folder);
         return true;
     }
     while(fileContentIterator != messagesFileContent->begin())
@@ -50,8 +50,7 @@ bool Receiver::readMessagesToStack()
     }
     bool updateFlagStatus = updateSeenFlags();
 
-    //ODBLOKOWUJEMY DOSTĘP DO FOLDERU TODO mwozniak
-    //FileInterface::unlockFolder(folder);
+    FileInterface::unlockFolder(folder);
 
     return updateFlagStatus;
 }

@@ -5,23 +5,26 @@
 #include <ChatControl.hpp>
 #include <FileHandling.hpp>
 
+static const std::string pathh = "/var/tmp/";
+//static const std::string pathh = "/home/";
+
 namespace ENVIRONMENT_PATH
 {
 namespace TO_FILE
 {
-static const std::string REGISTERED= "/home/messenger/configuration/REGISTERED";
-static const std::string LOGGED = "/home/messenger/configuration/LOGGED";
-}    //TO_FILE
+static const std::string REGISTERED= pathh + "messenger/configuration/REGISTERED";
+static const std::string LOGGED = pathh + "messenger/configuration/LOGGED";
+}//TO_FILE
 
 namespace TO_FOLDER
 {
 static const std::string HOME = getenv("HOME");
 static const std::string USER = HOME + "/messenger/";
-static const std::string CHATS = "/home/messenger/chats/";
-static const std::string INVITATIONS = "/home/messenger/invitations/";
-static const std::string INSTALL = "/home/messenger/installation/";
+static const std::string CHATS = pathh + "messenger/chats/";
+static const std::string INVITATIONS = pathh + "messenger/invitations/";
+static const std::string INSTALL = pathh + "messenger/installation/";
 
-static const std::string TEST = "/home/messenger/TEST/";
+static const std::string TEST = pathh + "messenger/TEST/";
 }//TO FOLDER
 }//ENVIRONMENT_PATH
 
