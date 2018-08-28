@@ -3,6 +3,17 @@
 #include <ChatRequest.hpp>
 // REMEMBER TO ADD THIS FILE INTO TEST CMAKELISTS
 
+
+bool TerminalControl::waitinginTerminal()
+{
+    ;
+    // pobiera z konsoli wiadomość
+    // jeżeli to jest inivite
+        // return startConversation()
+    // jezeli to komenda
+        // run TerminalFunctionality
+}
+
 void TerminalControl::startConversation(const std::string& username, ChatRole chatRole)
 {
     log.info(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());

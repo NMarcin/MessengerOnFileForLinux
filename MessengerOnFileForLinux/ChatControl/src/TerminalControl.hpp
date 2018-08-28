@@ -21,7 +21,7 @@ enum class ChatRole // TO DO mnurzyns usunac jak nie bedzie potrzebne
 class TerminalControl //: public ChatControl
 {
 public:
-    void waitinginTerminal();
+    bool waitinginTerminal();
 
 private:
     void startConversation(const std::string& username, ChatRole chatRole);
