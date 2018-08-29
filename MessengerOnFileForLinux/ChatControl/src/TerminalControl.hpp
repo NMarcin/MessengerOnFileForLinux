@@ -2,26 +2,14 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include <ChatControl.hpp>
 // nie dodane do kompilowania
 
-
-enum class MessageFlag
-{
-    readMessage,
-    inviterMessage,
-    recipientMessage
-};
-
-enum class ChatRole // TO DO mnurzyns usunac jak nie bedzie potrzebne
-{
-    inviter,
-    recipient
-};
 
 class TerminalControl //: public ChatControl
 {
 public:
-    bool waitinginTerminal();
+    bool waitingInTerminal();
 
 private:
     void startConversation(const std::string& username, ChatRole chatRole);

@@ -4,7 +4,7 @@
 // REMEMBER TO ADD THIS FILE INTO TEST CMAKELISTS
 
 
-bool TerminalControl::waitinginTerminal()
+bool TerminalControl::waitingInTerminal()
 {
     ;
     // pobiera z konsoli wiadomość
