@@ -77,7 +77,6 @@ void ChatControl::getMessage()
         auto convertedMessage = username + " >> " + message;
 
         messageToDisplay_.push(convertedMessage);
-        log.info(("ChatControl::reciveMessage messageToDispaly_ size = " + std::to_string(messageToDisplay_.size())).c_str());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50+static_cast<int>(messageFlag_)));
     }

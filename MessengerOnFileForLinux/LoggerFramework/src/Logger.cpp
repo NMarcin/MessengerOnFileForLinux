@@ -44,7 +44,7 @@ void Logger::writeToFile(const char* log) const
         exit(1);
     }
 
-    fprintf(logFile, "%s %s %s %s  %s\n",std::getenv("USER"), __DATE__, __TIME__, logSpace_, log);
+    fprintf(logFile, "%s %s %s  %s\n", __DATE__, __TIME__, logSpace_, log);
 
     fclose(logFile);
 }

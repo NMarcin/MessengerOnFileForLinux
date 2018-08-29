@@ -88,7 +88,9 @@ bool Sender::isTerminalCommand(const std::string& message) const
 bool Sender::setNewMessageFlag() const
 {
     std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");
+    std::string userRole = std::to_string(chatFlag_);
+    std::string messageFlagWithPath = folderName + "/NEW_" + userRole;
+    bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
 }
 
