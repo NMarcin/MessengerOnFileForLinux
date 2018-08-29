@@ -53,7 +53,7 @@ bool Reciver::removeFlagNEW()
     }
     else if(MessageFlags::guest == mineMessageUserFlag_)
     {
-        FileInterface::Managment::removeFile(pathToFolder + "_" + MessageFlags::guest);
+        FileInterface::Managment::removeFile(pathToFolder + "_" + MessageFlags::inviter);
     }
 }
 
