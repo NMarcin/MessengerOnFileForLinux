@@ -18,6 +18,7 @@ public:
     void conversation();
     void conversationEpilog();
     ~ConversationControl();
+    ConversationControl();
 
 private:
     void getMessage();

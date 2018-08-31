@@ -13,6 +13,14 @@
 #include <Display.hpp>
 #include <SignalHandling.hpp>
 
+ConversationControl::ConversationControl()
+{
+    log.info("ChatControl C-TOR ");
+    getMessageToQueueThread_ = nullptr;
+    reciveMessageThread_ = nullptr;
+    sendMessageFromQueueThread_ = nullptr;
+}
+
 ConversationControl::~ConversationControl()
 {
     log.info("ChatControl D-TOR ");
