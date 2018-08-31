@@ -55,7 +55,7 @@ bool Receiver::readMessagesToStack()
     return updateFlagStatus;
 }
 
-bool Reciver::removeFlagNEW()
+bool Receiver::removeFlagNEW()
 {
     std::string pathToFolder;
     pathToFolder = getFolderPath();
@@ -69,7 +69,7 @@ bool Reciver::removeFlagNEW()
     }
 }
 
-std::string Reciver::getFolderPath() // TODO mwoznia <- to chyba warto przenieść do FileHandling
+std::string Receiver::getFolderPath() // TODO mwoznia <- to chyba warto przenieść do FileHandling
 {
     std::string pathToFolder = chatFileWithPath_;
     auto lastSlash = pathToFolder.find_last_of("/");
@@ -78,7 +78,7 @@ std::string Reciver::getFolderPath() // TODO mwoznia <- to chyba warto przenieś
     return pathToFolder;
 }
 
-std::string Reciver::returnTheOldestMessage()
+std::string Receiver::returnTheOldestMessage()
 {
     log.info("ZCZYTUJE WIADOMOSCI");
     if(purgeMessagesStack_.empty())
