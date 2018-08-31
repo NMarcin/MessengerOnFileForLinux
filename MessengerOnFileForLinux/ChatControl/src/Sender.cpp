@@ -19,11 +19,11 @@ Sender::~Sender()
     log.info("Sender D-TOR");
 }
 
-std::unique_ptr<std::string> Sender::getMessageToSend() const
+std::string Sender::getMessageToSend() const
 {
     log.info("Sender::getMessageToSend started");
-    std::unique_ptr<std::string> rawMessage = getMessageFromStdin();
-    std::unique_ptr<std::string> messageToSend = prepareMessageToSend(*rawMessage);
+    std::string rawMessage = getMessageFromStdin();
+    auto messageToSend = prepareMessageToSend(rawMessage);
     return messageToSend;
 }
 
@@ -42,22 +42,22 @@ bool Sender::sendMessage(const std::string& message) const
     return false;
 }
 
-std::unique_ptr<std::string> Sender::getMessageFromStdin() const
+std::string Sender::getMessageFromStdin() const
 {
     log.info("Sender::getMessageFromStdin started");
-    std::unique_ptr<std::string> message = std::make_unique<std::string>();
 
+    std::string message;
     int ch = wgetch(enterMessageWindow_);
-    while ( ch != '\n' )
+    while (ch != '\n')
     {
-        message->push_back( ch );
+        message.push_back(ch);
         ch = wgetch(enterMessageWindow_);
     }
 
     return message;
 }
 
-std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& rowMessage) const
+std::string Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
     if (isTerminalCommand(rowMessage))
     {
@@ -66,8 +66,7 @@ std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& row
         terminalFunctionality.runCommand(rowMessage);
     }
 
-    std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    *message = "[" + std::to_string(chatFlag_) + "][" + *getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
+    std::string message = "[" + std::to_string(chatFlag_) + "][" + getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
 
     return message;
 }
@@ -89,15 +88,16 @@ bool Sender::isTerminalCommand(const std::string& message) const
 bool Sender::setNewMessageFlag() const
 {
     std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");
+    std::string userRole = std::to_string(chatFlag_);
+    std::string messageFlagWithPath = folderName + "/NEW_" + userRole;
+    bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
 }
 
-std::unique_ptr<std::string> Sender::getActualDateTime() const
+std::string Sender::getActualDateTime() const
 {
-    std::unique_ptr<std::string> dateTime = std::make_unique<std::string>();
-    *dateTime = __DATE__;
-    *dateTime += " | " ;
-    *dateTime += __TIME__;
+    std::string dateTime = __DATE__;
+    dateTime += " | " ;
+    dateTime += __TIME__;
     return dateTime;
 }

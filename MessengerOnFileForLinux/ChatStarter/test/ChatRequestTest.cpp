@@ -87,8 +87,7 @@ TEST_F(ChatRequestFixture, isGetChatFolderNameWorksCorrectly)
     system("mkdir 1mwoznia2_tkogut");
     system("mkdir 2mnurzyns_mwoznia2");
     std::string commandOutput = ConsolControl::getStdoutFromCommand("ls | grep mwoznia2_tkogut");
-    commandOutput.pop_back(); //usuwanie znaku konca linii
-                              //TODO mwoznia poprawic getStdoutFromCommand
+
     EXPECT_EQ(commandOutput, "1mwoznia2_tkogut");
 
     FileInterface::Managment::removeFile("0mwoznia2_mnurzyns");

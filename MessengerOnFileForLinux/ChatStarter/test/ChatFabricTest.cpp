@@ -56,7 +56,7 @@ TEST(ChatFileTest, canWeReadFromFile)
 
     ASSERT_TRUE(writingToFile);
 
-    bool readingFromFile = !FileInterface::Accesor::getFileContent(chatPath + fileName)->empty();
+    bool readingFromFile = !FileInterface::Accesor::getFileContent(chatPath + fileName, AccesMode::withGuardian)->empty();
 
     EXPECT_TRUE(readingFromFile);
     folderDeleter();

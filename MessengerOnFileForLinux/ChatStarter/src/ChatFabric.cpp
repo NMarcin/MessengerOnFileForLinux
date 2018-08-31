@@ -43,6 +43,7 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
     std::string systemCommand = "mkdir " + newFolderName;
     std::string systemCommand2 = "chmod 777 " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
+
     system(systemCommand2.c_str());
 
     if(!commandStatus)

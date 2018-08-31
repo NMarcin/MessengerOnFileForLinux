@@ -22,6 +22,7 @@ void mnurzyns()
 
 void mwozniak()
 {
+
     std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
     std::thread waitForInvitation(lookForInvitation);
 
@@ -40,8 +41,10 @@ void mwozniak()
         Display::displayMainWindow();
         char command[512];
         getstr(command);
-
         terminal.runCommand(command);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
     }
 }
 

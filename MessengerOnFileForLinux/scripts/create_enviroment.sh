@@ -7,7 +7,8 @@ cd $USER
 mkdir messenger
 chmod 777 messenger
 
-cd /home
+cd /var/tmp
+#cd /home
 sudo mkdir messenger
 sudo chmod 777 messenger
 cd messenger
@@ -16,3 +17,5 @@ sudo chmod 777 *
 cd configuration
 sudo touch LOGGED REGISTERED
 sudo chmod 777 *
+
+

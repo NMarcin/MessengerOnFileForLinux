@@ -2,5 +2,6 @@
 
 cd /home/$USER
 sudo rm -r messenger
-cd /home
+#cd /home
+cd /var/tmp/
 sudo rm -r messenger

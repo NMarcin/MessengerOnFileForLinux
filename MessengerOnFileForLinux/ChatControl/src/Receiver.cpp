@@ -2,43 +2,55 @@
 
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
+#include <FileHandling.hpp>
+#include <iostream>
+#include <thread>
+#include <chrono>
 
-Reciver::Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag)
+Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag)
                 : chatFileWithPath_(chatFileWithPath)
                 , mineMessageUserFlag_(mineMessageUserFlag)
 {
     //NOOP
 }
 
-Reciver::~Reciver()
+Receiver::~Receiver()
 {
     //NOOP
 }
 
-bool Reciver::readMessagesToStack()
+bool Receiver::readMessagesToStack()
 {
-// BLOKUJEMY DOSTĘP DO FOLDERU TODO mwozniak
 
-    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_);
+    auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+    FileInterface::lockFolder(folder);
+
+    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_, AccesMode::withoutGuardian);
     auto fileContentIterator = messagesFileContent->end();
-    while(fileContentIterator != messagesFileContent->begin()) // dany wiersz jest do odbiorcy oraz został już przeczytany wcześniej
+
+    if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")//TODO mawoznia do funkcji albo zmienic getFileContent
+    {
+        log.info("PUSTY PLIK");
+        FileInterface::unlockFolder(folder);
+        return true;
+    }
+    while(fileContentIterator != messagesFileContent->begin())
     {
         --fileContentIterator;
         std::string messageFlag;
-        messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
-
+        messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::MessageFile::flag);
         if(endOfMessageToRead(*fileContentIterator, messageFlag))
         {
             break;
         }
-        else if(mineMessageUserFlag_ != messageFlag)
+        else if(mineMessageUserFlag_ != messageFlag && MessageFlags::seen != messageFlag)
         {
             pushPurgeMessageOnStack(*fileContentIterator);
         }
     }
     bool updateFlagStatus = updateSeenFlags();
     removeFlagNEW();
-// ODBLOKOWUJEMY DOSTĘP DO FOLDERU TODO mwozniak
+    FileInterface::unlockFolder(folder);
 
     return updateFlagStatus;
 }
@@ -68,9 +80,11 @@ std::string Reciver::getFolderPath() // TODO mwoznia <- to chyba warto przenieś
 
 std::string Reciver::returnTheOldestMessage()
 {
+    log.info("ZCZYTUJE WIADOMOSCI");
     if(purgeMessagesStack_.empty())
     {
-        return nullptr;
+        //return nullptr;
+        return ""; //TODO mnurzyn czy rozsadnie w funkcji zwracajacej stringa zwracac w ifie nulltpr?
     }
     else
     {
@@ -82,12 +96,12 @@ std::string Reciver::returnTheOldestMessage()
     }
 }
 
-bool Reciver::endOfMessageToRead(std::string message, std::string messageFlag)
+bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
 {
     if( MessageFlags::seen == messageFlag)
     {
         std::string senderUsername;
-        senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::LoggedFile::username); // TODO LoggedFile::username podmienic na odpowiedni stworzony przez mnowznia
+        senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::MessageFile::flag);
         if( LocalUser::getLocalUser().getUsername() == senderUsername)
         {
             return true;
@@ -96,23 +110,24 @@ bool Reciver::endOfMessageToRead(std::string message, std::string messageFlag)
     return false;
 }
 
-std::string Reciver::purgeMessageFromRaw(std::string messageToPurge)
+std::string Receiver::purgeMessageFromRaw(std::string messageToPurge)
 {
-    auto firstCharToDelete = messageToPurge.begin() + 1;
-    auto lastCharToDelete = messageToPurge.begin() + 18;
-    messageToPurge.erase(firstCharToDelete, lastCharToDelete);
-
-    return messageToPurge;
+    auto username = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::username);
+    auto message = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::message);
+    return username + " >> " + message;
 }
 
-void Reciver::pushPurgeMessageOnStack(std::string rawMessageToPush)
+void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
-    std::string purgeMessage;
-    purgeMessage = purgeMessageFromRaw(rawMessageToPush);
-    purgeMessagesStack_.push(purgeMessage);
+    if (rawMessageToPush != "")
+    {
+        std::string purgeMessage;
+        purgeMessage = purgeMessageFromRaw(rawMessageToPush);
+        purgeMessagesStack_.push(purgeMessage);
+    }
 }
 
-bool Reciver::updateSeenFlags()
+bool Receiver::updateSeenFlags()
 {
     bool updateFlagStatus;
     if(MessageFlags::inviter == mineMessageUserFlag_)

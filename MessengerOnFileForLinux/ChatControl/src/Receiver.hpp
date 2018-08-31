@@ -2,6 +2,9 @@
 #include <stack>
 #include <queue>
 #include <string>
+
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 /*
 - pobieramy cały plik
 - blokujemy dostęp do pliku
@@ -13,11 +16,11 @@
 - kolejna funkcja wrzuca oprawiona linijke do naszej kolejki do wyswietlania
 */
 
-class Reciver
+class Receiver
 {
 public:
-    Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
-    ~Reciver();
+    Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
+    ~Receiver();
 
     bool readMessagesToStack();
     std::string returnTheOldestMessage();
@@ -33,4 +36,6 @@ private:
     const std::string chatFileWithPath_;
     std::stack<std::string> purgeMessagesStack_;
     std::string mineMessageUserFlag_;
+
+    Logger log{LogSpace::ChatFile};
 };

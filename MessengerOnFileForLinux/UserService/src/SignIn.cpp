@@ -122,17 +122,13 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
 std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 {
     log.info("SignIn::getPasswordFromDatabase started");
-    std::unique_ptr<std::vector<std::string>> registeredFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::REGISTERED);
 
-    for (auto x : *registeredFileContent)
+    std::string username = LocalUser::getLocalUser().getUsername();
+    auto row = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, username);
+
+    if (row)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::RegisteredFile::username);
-        std::string username = LocalUser::getLocalUser().getUsername();
-
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            return FileInterface::Accesor::getRowField(x, FileStructure::RegisteredFile::password);
-        }
+        return FileInterface::Accesor::getRowField(*row, FileStructure::RegisteredFile::password);
     }
 
     log.info("SignIn::getPasswordFromDatabase ERROR: User does not exist in registered file");
@@ -143,7 +139,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     log.info("SignIn::setUserDataInLoggedFile started");
-    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + UserStatus::activeStatus + "]";//[" + userPid +"]";
+    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + UserStatus::activeStatus + "]";
 
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, information); //TODO update date&&time in registered file
 }

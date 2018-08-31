@@ -1,6 +1,8 @@
 #include <iostream>
 #include <signal.h>
 #include <algorithm>
+#include <sstream>
+#include <unistd.h>
 
 #include <ChatRequest.hpp>
 #include <User.hpp>
@@ -22,13 +24,14 @@ ChatRequest::~ChatRequest()
     log.info("ChatRequest D-TOR");
 }
 
-std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const//(const int usernamePid) const  // TODO mwozniak string przez sygnal
+std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const
 {
+
     log.info("ChatRequest::answerForChatRequest started");
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
     FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
     showInvitation(senderUsername);
-    bool decision = respondOnInvitation();
+    bool decision = approveChatInvitation();
 
     if (decision)
     {
@@ -56,7 +59,6 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
     log.info(logData.c_str());
      if (!folderFullName->empty())
      {
-         folderFullName->pop_back(); //usuwanie znaku konca lini
          return folderFullName ;
      }
 
@@ -66,22 +68,18 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
     log.info("ChatRequest::getUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED);
 
-    for (auto x : *loggedFileContent)
+    auto row = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, username);
+    if (row)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::username);
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::status);
-            return userStatusToCompare;
-        }
+        std::unique_ptr<std::string> userStatus = FileInterface::Accesor::getRowField(*row, FileStructure::LoggedFile::status);
+        return userStatus;
     }
 
     log.info("ChatRequest::getUserStatus ERROR: User is offline or does not exist");
     printw("User is offline or does not exist.");
     refresh();
-    //std::cerr << "User is offline or does not exist" << std::endl;
+
     return nullptr;
 }
 
@@ -104,30 +102,30 @@ bool ChatRequest::isUserActive(const User& user) const
     log.info("ChatRequest::isUserActive ERROR: User is bussy");
     printw("User is bussy. Try again later.");
     refresh();
-    //std::cerr << "User is bussy" << std::endl;
+
     return false;
 }
 
-bool ChatRequest::respondOnInvitation() const
+bool ChatRequest::approveChatInvitation() const
 {
-    log.info("ChatRequest::respondOnInvitation started");
+    log.info("ChatRequest::approveChatInvitation started");
     std::string decision;
-    //decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
-    std::cin >> decision;
-    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);  // TODO mwozniak check tolower on string
+    decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
+    //std::cin >> decision;
+    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
 
     if ("y" == decision || "yes" == decision)
     {
-        log.info("ChatRequest::respondOnInvitation Invitation accepted");
+        log.info("ChatRequest::approveChatInvitation Invitation accepted");
         return true;
     }
     else if ("n" == decision || "no" == decision)
     {
-        log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
+        log.info("ChatRequest::approveChatInvitation Invitation disaccepted");
         return false;
     }
 
-    log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
+    log.info("ChatRequest::approveChatInvitation Invitation disaccepted. Timeout while waiting for answer");
     return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
 }
 

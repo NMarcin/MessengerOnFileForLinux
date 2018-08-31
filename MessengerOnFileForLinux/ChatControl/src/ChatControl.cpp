@@ -1,5 +1,6 @@
 #include <chrono>
 #include <thread>
+#include <stdio.h>
 
 #include <ChatControl.hpp>
 #include <FileHandling.hpp>
@@ -69,29 +70,50 @@ void ChatControl::getMessage()
     while(isThreadsRunning_)
     {
         Display::displayEnterMessageWindow(enterMessageWindow_);
-        messageWaitingRoom_.push(sender->getMessageToSend());
+        messageReadyToSend_.push(sender->getMessageToSend());
 
-        /*
-         * TODO mawoznia Wersja do testownia. potem zamienic na wiadomosci z implementacji mnurzyn
-         */
-        auto tmp = *messageWaitingRoom_.front();
-        messageToDisplay_.push(tmp);
+        auto username = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::username);
+        auto message = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::message);
+        auto convertedMessage = username + " >> " + message;
+
+        messageToDisplay_.push(convertedMessage);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(50+static_cast<int>(messageFlag_)));
     }
 }
 
 void ChatControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
-    //std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(); TO DO: mwoznia
+
+    auto messageFlag = std::to_string(static_cast<int>(messageFlag_));
+    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(chatFileWithPath_, messageFlag);
 
     while(isThreadsRunning_)
     {
-        sleep(1);
-        //reciver->recive()
+        std::this_thread::sleep_for(std::chrono::milliseconds(30+static_cast<int>(messageFlag_)));
+
+        log.info("PRZED1");
+        receiver->readMessagesToStack();
+        bool isEndOfMessages = false;
+        log.info("PRZED");
+        while(!isEndOfMessages)
+        {
+            auto message = receiver->returnTheOldestMessage();
+            if("" == message)
+            {
+                isEndOfMessages = true;
+            }
+            else
+            {
+                messageToDisplay_.push(message);
+            }
+        }
+         log.info("PO");
         if (!messageToDisplay_.empty())
         {
             std::string message = *FileInterface::Accesor::getRowField(messageToDisplay_.front(), 3);
-
+            log.info(("ChatControl::reciveMessage Receive ===" + message + "===").c_str());
             if (5 <= message.size() && "//end" == std::string(message.begin(), message.begin()+5))
             {
                 //TODO mawoznia narzucic tu implementacje z terminal funcionality
@@ -107,6 +129,7 @@ void ChatControl::reciveMessage()
             }
             else
             {
+                 log.info("ChatControl::reciveMessage Receive messageeeeeeeeeee");
                 Display::displayDisplayMessageWindow(displayMessageWindow_, messageToDisplay_.front() + "\n");
                 messageToDisplay_.pop();
             }
@@ -117,17 +140,20 @@ void ChatControl::reciveMessage()
 void ChatControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(10+static_cast<int>(messageFlag_)));
+
     std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), enterMessageWindow_);
-    while(isThreadsRunning_ || !messageWaitingRoom_.empty())
+    while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
-        if (messageWaitingRoom_.empty())
+        if (messageReadyToSend_.empty())
         {
             sleep(1);
         }
         else
         {
-            sender->sendMessage(*messageWaitingRoom_.front());
-            messageWaitingRoom_.pop();
+            sender->sendMessage(messageReadyToSend_.front());
+            messageReadyToSend_.pop();
         }
     }
 }
