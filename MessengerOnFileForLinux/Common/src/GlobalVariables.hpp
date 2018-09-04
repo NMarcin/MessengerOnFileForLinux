@@ -2,7 +2,7 @@
 
 #include <unistd.h>
 
-#include <ChatControl.hpp>
+#include <TerminalControl.hpp>
 #include <FileHandling.hpp>
 
 static const std::string pathh = "/var/tmp/";
@@ -107,8 +107,8 @@ static void lookForInvitation()
 
             if (recipent == getenv("USER"))
             {
-                ChatControl chatControl;
-                chatControl.conversationProlog(inviter, ChatRole::recipient);
+                TerminalControl terminalControl;
+                terminalControl.startConversation(inviter, ChatRole::recipient);
             }
         }
         sleep(1);

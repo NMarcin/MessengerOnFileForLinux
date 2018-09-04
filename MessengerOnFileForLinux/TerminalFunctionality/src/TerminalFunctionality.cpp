@@ -6,7 +6,7 @@
 #include <HistoryDowloander.hpp>
 #include <LoggingOut.hpp>
 
-#include <ChatControl.hpp>
+#include <TerminalControl.hpp>
 #include <Display.hpp>
 #include <iostream>
 
@@ -31,8 +31,8 @@ bool TerminalFunctionality::runCommand(std::string command)
     {
         auto beginOfUsernameInCommand = command.begin()+7;  // TODO mwoznia 7 is a little bit magic number
         std::string username = {beginOfUsernameInCommand, command.end()};
-        ChatControl control;
-        control.conversationProlog(username, ChatRole::inviter);
+        TerminalControl terminalControl;
+        terminalControl.startConversation(username, ChatRole::inviter);    // TODO mnurzyns check it later!!!!
     }
     else if (starts_with(UserCommand::help, command))       // TODO mwoznia co to jest? to i ponizsze?
     {
