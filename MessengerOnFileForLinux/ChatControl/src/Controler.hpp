@@ -2,7 +2,8 @@
 // DODAC DO CMAKOW TEST
 #include <memory>
 
-#include <TerminalControl.hpp> // do usuniecia po podmianie <> w unique
+#include <TerminalControl.hpp>
+#include <ConversationControl.hpp>
 
 class Controler
 {
@@ -10,5 +11,6 @@ public:
     void controlUserAction();
 
 private:
-    std::unique_ptr<TerminalControl> chatControl_; // do podmienienia na <ChatControl>
+    std::unique_ptr<TerminalControl> terminalControl_;
+    std::unique_ptr<ConversationControl> conversationControl_;
 };

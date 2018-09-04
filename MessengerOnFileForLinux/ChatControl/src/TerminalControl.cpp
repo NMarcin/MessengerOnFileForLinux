@@ -14,6 +14,11 @@ bool TerminalControl::waitingInTerminal()
         // run TerminalFunctionality
 }
 
+std::shared_ptr<ChatData> TerminalControl::getChatData()
+{
+    return chatData_;
+}
+
 void TerminalControl::startConversation(const std::string& username, ChatRole chatRole)
 {
     log.info(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());

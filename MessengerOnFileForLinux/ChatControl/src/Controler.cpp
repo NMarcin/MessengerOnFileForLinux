@@ -9,13 +9,13 @@ void Controler::controlUserAction()
 {
     for ever
     {
-        chatControl_ = std::make_unique<TerminalControl>();
+        terminalControl_ = std::make_unique<TerminalControl>();
+        terminalControl_->waitingInTerminal();
+        auto chatData = terminalControl_->getChatData();    // TODO mnurzyns zrobic to ładniej na zasadzie shared_ptr -> do zastanowienia sie
 
-        chatControl_->waitingInTerminal();
-        //chatControl_->getChatData(); -> pobieranie ewentualnych danych, ktore musi przekazac
-
-        chatControl_ = nullptr;
-        //chatControl_ = std::make_unique<ConversationControl>(command, chatFileWithPath_);   // dodać kiedy będzie klasa mwoznia
+        conversationControl_ = std::make_unique<ConversationControl>();   // TODO mwozniak dodac konstruktor, ktory bierze chatData i wpisac sobie z powyzszego auto
+        conversationControl_->conversation();
+        conversationControl_->conversationEpilog();
     }
 }
 
