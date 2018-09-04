@@ -3,6 +3,7 @@
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 #include <ChatData.hpp>
+#include <TerminalFunctionality.hpp>
 #include <memory>
 // nie dodane do kompilowania
 
@@ -21,6 +22,7 @@ private:
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;
     std::shared_ptr<ChatData> chatData_;
+    TerminalFunctionality terminalFunctionality_;
 
     Logger log{LogSpace::ChatFile};
 };
