@@ -8,7 +8,7 @@
 
 #include <Sender.hpp>
 #include <Receiver.hpp>
-#include <ChatControl.hpp>
+#include <ChatData.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 

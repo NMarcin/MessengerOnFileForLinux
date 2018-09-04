@@ -5,7 +5,7 @@
 #include <thread>
 #include <stdio.h>
 
-#include <ChatControl.hpp>
+#include <ChatData.hpp>
 #include <FileHandling.hpp>
 #include <ChatRequest.hpp>
 #include <GlobalVariables.hpp>

@@ -2,7 +2,7 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
-#include <ChatControl.hpp>
+#include <ChatData.hpp>
 // nie dodane do kompilowania
 
 

@@ -25,16 +25,8 @@ enum class ChatRole
 };
 
 
-class ChatControl
+struct ChatData
 {
-public:
-    ChatControl();
-    ~ChatControl();
+    ChatRole chatRole_;
 
-private:
-
-    std::string chatFileWithPath_;
-    MessageFlag messageFlag_;
-
-    Logger log{LogSpace::ChatFile};
 };
