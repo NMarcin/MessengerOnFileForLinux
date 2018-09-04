@@ -1,0 +1,3 @@
+set(SOURCES ${SOURCES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/Message.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/PurgeMessage.cpp PARENT_SCOPE)
