@@ -5,11 +5,9 @@
 class Message
 {
 public:
-    bool setChatRole();
-    bool setDate();
-    bool setTime();
-    bool setUsername();
-    bool setMessage();
+    bool setChatRole(ChatRole chatRole);
+    bool setUsername(std::string username);
+    bool setMessage(std::string message);
 
     ChatRole getChatRole();
     std::string getDate();
