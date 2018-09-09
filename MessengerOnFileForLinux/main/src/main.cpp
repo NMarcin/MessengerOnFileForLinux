@@ -22,6 +22,7 @@ void mnurzyns()
 
 void mwozniak()
 {
+
     std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
     std::thread waitForInvitation(lookForInvitation);
 
