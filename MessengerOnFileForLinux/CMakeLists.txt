@@ -32,9 +32,10 @@ set(MODULE_MessageFramework         ${CMAKE_SOURCE_DIR}/MessageFramework/src)
 ################################################################################
 #####                       CREATE ENVIRONMENT CMAKE PART                  #####
 ################################################################################
-set (sh "sh")
-set (script_path "/scripts/create_enviroment.sh")
-execute_process(COMMAND ${sh} ${CMAKE_SOURCE_DIR}${script_path})
+set(clear_enviroment "/scripts/clear_enviroment.sh")
+set(create_enviroment "/scripts/create_enviroment.sh")
+execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${clear_enviroment})
+execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${create_enviroment})
 
 ################################################################################
 #####                       MAKE BINARY CMAKE PART                         #####
