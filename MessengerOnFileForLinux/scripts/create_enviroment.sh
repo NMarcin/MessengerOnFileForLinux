@@ -8,14 +8,13 @@ mkdir messenger
 chmod 777 messenger
 
 cd /var/tmp
-#cd /home
-sudo mkdir messenger
-sudo chmod 777 messenger
+mkdir messenger
+chmod 777 messenger
 cd messenger
-sudo mkdir chats invitations configuration instalation TEST
-sudo chmod 777 *
+mkdir chats invitations configuration instalation TEST
+chmod 777 *
 cd configuration
-sudo touch LOGGED REGISTERED
-sudo chmod 777 *
+touch LOGGED REGISTERED
+chmod 777 *
 
 

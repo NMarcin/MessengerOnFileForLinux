@@ -30,6 +30,13 @@ set(MODULE_DisplayChat              ${CMAKE_SOURCE_DIR}/DisplayChat/src)
 set(MODULE_MessageFramework         ${CMAKE_SOURCE_DIR}/MessageFramework/src)
 
 ################################################################################
+#####                       CREATE ENVIRONMENT CMAKE PART                  #####
+################################################################################
+set (sh "sh")
+set (script_path "/scripts/create_enviroment.sh")
+execute_process(COMMAND ${sh} ${CMAKE_SOURCE_DIR}${script_path})
+
+################################################################################
 #####                       MAKE BINARY CMAKE PART                         #####
 ################################################################################
 # LIB_SRC

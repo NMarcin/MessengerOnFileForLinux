@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cd /home/$USER
-sudo rm -r messenger
-#cd /home
+rm -r messenger
 cd /var/tmp/
-sudo rm -r messenger
+rm -r messenger
