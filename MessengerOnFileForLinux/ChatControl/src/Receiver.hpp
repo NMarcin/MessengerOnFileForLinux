@@ -30,6 +30,8 @@ private:
     bool endOfMessageToRead(std::string message, std::string messageFlag);
     void pushPurgeMessageOnStack(std::string rawMessageToPush);
     std::string purgeMessageFromRaw(std::string rawMessage);
+    bool removeFlagNEW();
+    std::string getFolderPath();
 
     const std::string chatFileWithPath_;
     std::stack<std::string> purgeMessagesStack_;

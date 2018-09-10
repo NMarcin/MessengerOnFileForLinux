@@ -49,10 +49,33 @@ bool Receiver::readMessagesToStack()
         }
     }
     bool updateFlagStatus = updateSeenFlags();
-
+    removeFlagNEW();
     FileInterface::unlockFolder(folder);
 
     return updateFlagStatus;
+}
+
+bool Receiver::removeFlagNEW()
+{
+    std::string pathToFolder;
+    pathToFolder = getFolderPath();
+    if(MessageFlags::inviter == mineMessageUserFlag_)
+    {
+        FileInterface::Managment::removeFile(pathToFolder + "_" + MessageFlags::guest);
+    }
+    else if(MessageFlags::guest == mineMessageUserFlag_)
+    {
+        FileInterface::Managment::removeFile(pathToFolder + "_" + MessageFlags::inviter);
+    }
+}
+
+std::string Receiver::getFolderPath() // TODO mwoznia <- to chyba warto przenieść do FileHandling
+{
+    std::string pathToFolder = chatFileWithPath_;
+    auto lastSlash = pathToFolder.find_last_of("/");
+    pathToFolder.erase(lastSlash+1);
+
+    return pathToFolder;
 }
 
 std::string Receiver::returnTheOldestMessage()

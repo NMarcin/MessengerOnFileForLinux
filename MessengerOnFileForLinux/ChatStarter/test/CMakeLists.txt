@@ -16,10 +16,12 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_ChatControl}/Sender.cpp
     ${MODULE_DisplayChat}/Display.cpp
     ${MODULE_ChatControl}/Receiver.cpp
-    ${MODULE_ChatControl}/ChatControl.cpp
+    ${MODULE_ChatControl}/ConversationControl.cpp
+    ${MODULE_ChatControl}/ChatData.cpp
     ${MODULE_ChatStarter}/ChatFabric.cpp
     ${MODULE_TerminalFunctionality}/TerminalFunctionality.cpp
     ${MODULE_TerminalFunctionality}/TerminalCommand.cpp
+    ${MODULE_ChatControl}/TerminalControl.cpp
     ${MODULE_TerminalFunctionality}/HistoryDowloander.cpp
     ${MODULE_TerminalFunctionality}/LoggingOut.cpp
     ${MODULE_ChatStarter}/ChatRequest.cpp PARENT_SCOPE)

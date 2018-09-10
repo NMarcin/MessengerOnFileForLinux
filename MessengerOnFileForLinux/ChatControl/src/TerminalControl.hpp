@@ -2,34 +2,27 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include <ChatData.hpp>
+#include <TerminalFunctionality.hpp>
+#include <memory>
 // nie dodane do kompilowania
 
-
-enum class MessageFlag
-{
-    readMessage,
-    inviterMessage,
-    recipientMessage
-};
-
-enum class ChatRole // TO DO mnurzyns usunac jak nie bedzie potrzebne
-{
-    inviter,
-    recipient
-};
 
 class TerminalControl //: public ChatControl
 {
 public:
-    bool waitinginTerminal();
+    bool waitingInTerminal();
+    void startConversation(const std::string& username, ChatRole chatRole); // TO DO mwozniak to private, but temporary is here because GlobalVariables.hpp
+    std::shared_ptr<ChatData> getChatData();
 
 private:
-    void startConversation(const std::string& username, ChatRole chatRole);
     void startConversationAsInviter(const std::string& username);
     void startConversationAsRecipient(const std::string& username);
 
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;
+    std::shared_ptr<ChatData> chatData_;
+    TerminalFunctionality terminalFunctionality_;
 
     Logger log{LogSpace::ChatFile};
 };

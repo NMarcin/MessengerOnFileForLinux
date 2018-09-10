@@ -1,17 +1,24 @@
 #include<TerminalControl.hpp>
 
 #include <ChatRequest.hpp>
+
+#include <iostream>
 // REMEMBER TO ADD THIS FILE INTO TEST CMAKELISTS
 
 
-bool TerminalControl::waitinginTerminal()
+bool TerminalControl::waitingInTerminal()
 {
-    ;
-    // pobiera z konsoli wiadomość
-    // jeżeli to jest inivite
-        // return startConversation()
-    // jezeli to komenda
-        // run TerminalFunctionality
+    std::string command;
+    std::cin >> command;
+    bool commandStatus;
+    commandStatus = terminalFunctionality_.runCommand(command);
+
+    return commandStatus;
+}
+
+std::shared_ptr<ChatData> TerminalControl::getChatData()
+{
+    return chatData_;
 }
 
 void TerminalControl::startConversation(const std::string& username, ChatRole chatRole)

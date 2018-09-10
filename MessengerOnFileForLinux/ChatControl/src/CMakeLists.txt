@@ -1,5 +1,6 @@
  set(SOURCES ${SOURCES}
-        ${CMAKE_CURRENT_SOURCE_DIR}/ChatControl.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ChatData.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Controler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Receiver.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TerminalControl.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ConversationControl.cpp
