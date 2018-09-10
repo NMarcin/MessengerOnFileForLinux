@@ -3,11 +3,11 @@
 
 
 
-Message::Message()
-{/*
-    setMessageFlag();
-    setUsername();
-    setMessage();*/
+Message::Message(MessageFlag messageFlag, std::string username, std::string message);
+{
+    setMessageFlag(messageFlag);
+    setUsername(username);
+    setMessage(message);
 }
 
 std::string Message::messageToSave()

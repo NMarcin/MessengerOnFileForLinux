@@ -24,7 +24,7 @@ public:
     std::string getUsername();
     std::string getMessage();
 
-    Message();
+    Message(MessageFlag messageFlag, std::string username, std::string message);
     ~Message();
 
 private:
