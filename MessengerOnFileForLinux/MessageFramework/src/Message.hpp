@@ -1,16 +1,25 @@
 #pragma once
 
-#include <ChatData.hpp>
+#include<iostream>
+
+enum class ChatRole
+{
+    inviter,
+    recipient
+};
+
+enum class MessageFlag
+{
+    readMessage,
+    inviterMessage,
+    recipientMessage
+};
 
 class Message
 {
 public:
-    bool setChatRole(ChatRole chatRole);
-    bool setUsername(std::string username);
-    bool setMessage(std::string message);
+    std::string messageToSave();
 
-    ChatRole getChatRole();
-    std::string getDate();
     std::string getTime();
     std::string getUsername();
     std::string getMessage();
@@ -19,7 +28,11 @@ public:
     ~Message();
 
 private:
-    ChatRole chatRole_;
+    bool setMessageFlag(MessageFlag messageFlag);    // do kogo wiadomosc, a nie chatRole
+    bool setUsername(std::string username);
+    bool setMessage(std::string message);
+
+    MessageFlag messageFlag_;
     std::string date_;
     std::string time_;
     std::string username_;

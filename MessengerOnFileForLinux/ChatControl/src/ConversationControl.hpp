@@ -8,9 +8,10 @@
 
 #include <Sender.hpp>
 #include <Receiver.hpp>
-#include <ChatData.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include <Message.hpp>
+
 
 class ConversationControl //: public ChatControl
 {

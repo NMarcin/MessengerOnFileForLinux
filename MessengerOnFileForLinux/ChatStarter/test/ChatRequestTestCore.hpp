@@ -5,6 +5,7 @@
 #include <ChatRequest.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
+#include <thread>
 
 class ChatRequestFixture : public ::testing::Test
 {

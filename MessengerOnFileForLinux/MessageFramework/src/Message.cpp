@@ -1,11 +1,31 @@
 #include <Message.hpp>
 
-bool Message::setChatRole(ChatRole chatRole)
+
+
+
+Message::Message()
+{/*
+    setMessageFlag();
+    setUsername();
+    setMessage();*/
+}
+
+std::string Message::messageToSave()
 {
-    if(ChatRole::inviter == chatRole || ChatRole::recipient == chatRole)
+    // stringłącznik
+}
+
+
+bool Message::setMessageFlag(MessageFlag messageFlag)
+{
+    if(MessageFlag::inviterMessage == messageFlag || MessageFlag::recipientMessage == messageFlag)
     {
-        chatRole_ = chatRole;
+        messageFlag_ = messageFlag;
         return true;
+    }
+    else if (MessageFlag::readMessage == messageFlag)
+    {
+        return false; // wiadomosc byla juz odczytana
     }
     else
     {
@@ -41,16 +61,6 @@ bool Message::setMessage(std::string message)
         // it's not message, it's terminal command!
         return false;
     }
-}
-
-ChatRole Message::getChatRole()
-{
-    return chatRole_;
-}
-
-std::string Message::getDate()
-{
-    return date_;
 }
 
 std::string Message::getTime()
