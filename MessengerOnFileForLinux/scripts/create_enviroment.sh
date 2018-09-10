@@ -1,7 +1,5 @@
 #!/bin/bash
 
-bash clear_enviroment.sh
-
 cd /home
 cd $USER
 mkdir messenger
