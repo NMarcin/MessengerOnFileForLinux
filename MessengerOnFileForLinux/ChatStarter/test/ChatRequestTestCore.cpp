@@ -7,7 +7,6 @@
 #include <GlobalVariables.hpp>
 
 
-
 ChatRequestFixture::ChatRequestFixture()
 {
     waitForInvitation = std::thread(lookForInvitationGT);
@@ -86,4 +85,3 @@ void ChatRequestFixture::lookForInvitationGT()
         }
     }
 }
-
