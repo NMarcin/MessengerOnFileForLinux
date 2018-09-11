@@ -1,18 +1,24 @@
 #include <Message.hpp>
+#include <string>
+#include <StringSum.hpp>
 
-
-
-
-Message::Message(MessageFlag messageFlag, std::string username, std::string message);
+Message::Message(MessageFlag messageFlag, std::string username, std::string content)
 {
-    setMessageFlag(messageFlag);
+    setMessageFlag(messageFlag);        // TODO mnurzyns use throw as false check
     setUsername(username);
-    setMessage(message);
+    setContent(content);
 }
 
 std::string Message::messageToSave()
 {
-    // stringłącznik
+    StringSumSquareBrackets fullMessage;
+
+    fullMessage.sum(std::to_string(static_cast<int>(messageFlag_)));
+    fullMessage.sum(date_ + " | " + time_);
+    fullMessage.sum(username_);
+    fullMessage.sum(content_);
+
+    return fullMessage.getSumedString();
 }
 
 
@@ -47,13 +53,13 @@ bool Message::setUsername(std::string username)
     }
 }
 
-bool Message::setMessage(std::string message)
+bool Message::setContent(std::string content)
 {
     int firstLetter = 1;
     int secondLetter = 2;
-    if(message[firstLetter] != '/' && message[secondLetter] != '/')
+    if(content[firstLetter] != '/' && content[secondLetter] != '/')
     {
-        message_ = message;
+        content_ = content;
         return true;
     }
     else
@@ -73,7 +79,7 @@ std::string Message::getUsername()
     return username_;
 }
 
-std::string Message::getMessage()
+std::string Message::getContent()
 {
-    return message_;
+    return content_;
 }
