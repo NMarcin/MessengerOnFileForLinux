@@ -24,4 +24,5 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_ChatControl}/TerminalControl.cpp
     ${MODULE_TerminalFunctionality}/HistoryDowloander.cpp
     ${MODULE_TerminalFunctionality}/LoggingOut.cpp
-    ${MODULE_ChatStarter}/ChatRequest.cpp PARENT_SCOPE)
+    ${MODULE_ChatStarter}/ChatRequest.cpp
+    ${MODULE_DisplayChat}/ChatWindow.cpp PARENT_SCOPE)
