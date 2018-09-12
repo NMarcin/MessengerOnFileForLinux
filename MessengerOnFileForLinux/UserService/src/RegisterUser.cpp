@@ -10,7 +10,7 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 
 RegisterUser::RegisterUser()
 {
@@ -28,7 +28,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 {
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
-    Display::displayRegistrationMainWindow();
+    ConsoleWindow::displayRegistrationWindow();
     printw("Enter the password again. ");
     refresh();
     sleep(1);
@@ -40,7 +40,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 std::string RegisterUser::enterThePassword() const
 {
     std::string password;
-    Display::displayRegistrationMainWindow();
+    ConsoleWindow::displayRegistrationWindow();
     printw("Enter the password : ");
     refresh();
     std::cin >> password;
@@ -56,7 +56,7 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
     }
 
     log.info("RegisterUser::comparePassword ERROR: Passwords are differnet");
-    Display::displayRegistrationMainWindow();
+    ConsoleWindow::displayRegistrationWindow();
     printw("The passwords are differnet. Enter passwords one more time.");
     refresh();
     sleep(1);

@@ -9,8 +9,6 @@ public:
     ChatWindow();
     ~ChatWindow();
 
-    //setWidnowssize x2;
-
     static void displayChatWindows();
     static void deleteDisplayMesageWindow();
     static void deleteEnterMesageWindow();

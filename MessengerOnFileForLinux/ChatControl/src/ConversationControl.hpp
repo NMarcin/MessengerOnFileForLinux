@@ -26,6 +26,7 @@ private:
     void sendMessage();
     void stopThreads();
     void startThreads();
+    void saveMessageToDisplay(const std::unique_ptr<Receiver>& receiver);
 
     std::unique_ptr<std::thread> getMessageToQueueThread_;
     std::unique_ptr<std::thread> sendMessageFromQueueThread_;

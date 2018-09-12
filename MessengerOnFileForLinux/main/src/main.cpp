@@ -3,7 +3,7 @@
 
 #include <RegisterUser.hpp>
 #include <SignIn.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 #include <TerminalFunctionality.hpp>
 #include <GlobalVariables.hpp> //lookforInivitation() init function
 #include <Logger.hpp>
@@ -38,7 +38,7 @@ void mwozniak()
         signIn.signInUser();
         clear();
         refresh();
-        Display::displayMainWindow();
+        ConsoleWindow::displayMainWindow();
         char command[512];
         getstr(command);
         terminal.runCommand(command);

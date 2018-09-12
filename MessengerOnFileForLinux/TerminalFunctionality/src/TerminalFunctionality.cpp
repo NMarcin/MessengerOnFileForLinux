@@ -7,7 +7,7 @@
 #include <LoggingOut.hpp>
 
 #include <TerminalControl.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 #include <iostream>
 
 
@@ -36,7 +36,7 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else if (starts_with(UserCommand::help, command))       // TODO mwoznia co to jest? to i ponizsze?
     {
-        Display::displayMainWindow();
+        ConsoleWindow::displayMainWindow();
         printw("\n");
         printw("  PRZYKLADOWE KOMENDY ");
         refresh();
@@ -44,7 +44,7 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else if (starts_with("w", command))
     {
-        Display::displayMainWindow();
+        ConsoleWindow::displayMainWindow();
         while (true)
         {
 

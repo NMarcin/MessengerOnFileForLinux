@@ -30,7 +30,7 @@ public:
 private:
     bool setMessageFlag(MessageFlag messageFlag);    // do kogo wiadomosc, a nie chatRole
     bool setUsername(std::string username);
-    bool setContent(std::string content_);
+    bool setContent(std::string content);
 
     MessageFlag messageFlag_;
     std::string date_;

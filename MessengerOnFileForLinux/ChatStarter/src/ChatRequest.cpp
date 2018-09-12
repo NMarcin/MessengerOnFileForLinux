@@ -10,7 +10,7 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include <ChatFabric.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 
 ChatRequest::ChatRequest()
 {
@@ -110,7 +110,7 @@ bool ChatRequest::approveChatInvitation() const
 {
     log.info("ChatRequest::approveChatInvitation started");
     std::string decision;
-    decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
+    decision = ConsoleWindow::getStringFromConsoleWindow(); //TODO mwoznia PROBLEM Z UT
     //std::cin >> decision;
     std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
 

@@ -7,7 +7,7 @@
 #include <SignIn.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 
 SignIn::SignIn()
 {
@@ -25,7 +25,7 @@ std::string SignIn::enterThePassword() const
 {
     log.info("SignIn::enterThePassword started");
     std::string password;
-    Display::displayLoggedMainWindow();
+    ConsoleWindow::displayLoggedWindow();
     printw("Enter the password : ");
     refresh();
     std::cin >> password;
@@ -110,7 +110,7 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
         return true;
     }
 
-    Display::displayLoggedMainWindow();
+    ConsoleWindow::displayLoggedWindow();
     printw("Incorrect password. Enter password again.");
     refresh();
     sleep(1);

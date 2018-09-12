@@ -80,11 +80,9 @@ std::string Receiver::getFolderPath() // TODO mwoznia <- to chyba warto przenieÅ
 
 std::string Receiver::returnTheOldestMessage()
 {
-    log.info("ZCZYTUJE WIADOMOSCI");
     if(purgeMessagesStack_.empty())
     {
-        //return nullptr;
-        return ""; //TODO mnurzyn czy rozsadnie w funkcji zwracajacej stringa zwracac w ifie nulltpr?
+        return "";
     }
     else
     {
