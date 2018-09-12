@@ -2,7 +2,7 @@
 
 #include <string>
 
-enum SavingMode
+enum class SavingMode
 {
     fileOnly,
     withConsole

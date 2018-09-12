@@ -28,12 +28,12 @@ bool Receiver::readMessagesToStack()
     std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_, AccesMode::withoutGuardian);
     auto fileContentIterator = messagesFileContent->end();
 
-    if (messagesFileContent->size() == 1 && messagesFileContent->at(0) == "")//TODO mawoznia do funkcji albo zmienic getFileContent
+    if (isChatFileEmpty(messagesFileContent))
     {
-        log.info("PUSTY PLIK");
         FileInterface::unlockFolder(folder);
-        return true;
+        return false;
     }
+
     while(fileContentIterator != messagesFileContent->begin())
     {
         --fileContentIterator;
@@ -58,7 +58,7 @@ bool Receiver::readMessagesToStack()
 bool Receiver::removeFlagNEW()
 {
     std::string pathToFolder;
-    pathToFolder = getFolderPath();
+    pathToFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
     if(MessageFlags::inviter == mineMessageUserFlag_)
     {
         FileInterface::Managment::removeFile(pathToFolder + "_" + MessageFlags::guest);
@@ -67,15 +67,6 @@ bool Receiver::removeFlagNEW()
     {
         FileInterface::Managment::removeFile(pathToFolder + "_" + MessageFlags::inviter);
     }
-}
-
-std::string Receiver::getFolderPath() // TODO mwoznia <- to chyba warto przenieść do FileHandling
-{
-    std::string pathToFolder = chatFileWithPath_;
-    auto lastSlash = pathToFolder.find_last_of("/");
-    pathToFolder.erase(lastSlash+1);
-
-    return pathToFolder;
 }
 
 std::string Receiver::returnTheOldestMessage()
@@ -106,6 +97,11 @@ bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
         }
     }
     return false;
+}
+
+bool Receiver::isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFileContent)
+{
+    return chatFileContent->size() == 1 && chatFileContent->at(0) == "";
 }
 
 std::string Receiver::purgeMessageFromRaw(std::string messageToPurge)

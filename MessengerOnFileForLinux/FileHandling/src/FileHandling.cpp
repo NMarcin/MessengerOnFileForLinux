@@ -129,7 +129,6 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
         fileLog(logInfo.c_str(), LogSpace::FileHandling);
         return false;
     }
-    //std::string logInfo = "FileInterface::Managment::createFile " + pathToFile;
     std::string logInfo = "FileInterface::Managment::TWORZE " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
 

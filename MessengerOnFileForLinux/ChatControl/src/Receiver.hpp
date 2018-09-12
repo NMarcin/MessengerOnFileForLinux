@@ -2,6 +2,7 @@
 #include <stack>
 #include <queue>
 #include <string>
+#include <memory>
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
@@ -28,10 +29,10 @@ public:
 private:
     bool updateSeenFlags();
     bool endOfMessageToRead(std::string message, std::string messageFlag);
+    bool isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFileContent);
     void pushPurgeMessageOnStack(std::string rawMessageToPush);
     std::string purgeMessageFromRaw(std::string rawMessage);
     bool removeFlagNEW();
-    std::string getFolderPath();
 
     const std::string chatFileWithPath_;
     std::stack<std::string> purgeMessagesStack_;
