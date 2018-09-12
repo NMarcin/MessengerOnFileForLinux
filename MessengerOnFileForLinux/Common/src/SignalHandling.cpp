@@ -24,8 +24,8 @@ void sigintHandlerInChatConsole(int signal)
     fileLog("SIGINT handled in chat console", LogSpace::Common);
     signalStatus = signal;
     SignOut signOut;
-    ConversationControl conversationControl;
-    conversationControl.conversationEpilog();
+    //ConversationControl conversationControl; //TODO !!! trzeba tu przekazac w jakis sposob chatFilePath i messageFlag
+    //conversationControl.conversationEpilog();//TODO bo konsturktor musi przyjac te wartosc i zeby to dzialo
     signOut.signOutUser();
     exit (EXIT_SUCCESS);
         //Jak poinformowac druga osobe ze kniec ? wyslac jej //unexpected_end ?

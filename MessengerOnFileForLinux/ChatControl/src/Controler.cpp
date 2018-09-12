@@ -12,8 +12,8 @@ void Controler::controlUserAction()
         terminalControl_ = std::make_unique<TerminalControl>();
         terminalControl_->waitingInTerminal();
 
-        conversationControl_ = std::make_unique<ConversationControl>();
-        conversationControl_->conversation();
+        //conversationControl_ = std::make_unique<ConversationControl>();
+        //conversationControl_->conversation(); //tu trzeba przekazac jakos chatFilePath i messagEFlag
         conversationControl_->conversationEpilog();
     }
 }

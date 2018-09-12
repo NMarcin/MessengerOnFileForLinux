@@ -1,6 +1,7 @@
 #include<TerminalControl.hpp>
 
 #include <ChatRequest.hpp>
+#include <ConversationControl.hpp>
 
 #include <iostream>
 // REMEMBER TO ADD THIS FILE INTO TEST CMAKELISTS
@@ -39,7 +40,8 @@ void TerminalControl::startConversationAsInviter(const std::string& username)
         std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
         log.info(info.c_str());
         messageFlag_ = MessageFlag::inviterMessage;
-        //conversation(); // TO DO mnurzyns zwraca boola i gdzie indziej obsluga converstaion()
+        ConversationControl conversation(chatFileWithPath_, messageFlag_);
+        conversation.conversation(); // TO DO mnurzyns zwraca boola i gdzie indziej obsluga converstaion()
     }/*
     else
     {
@@ -57,7 +59,8 @@ void TerminalControl::startConversationAsRecipient(const std::string& username)
         std::string info = "ChatControl::startConversationAsRecipient chatFileWithPath_: " + chatFileWithPath_;
         log.info(info.c_str());
         messageFlag_ = MessageFlag::recipientMessage;
-        //conversation(); // TO DO mnurzyns zwraca boola i gdzie indziej obsluga converstaion()
+        ConversationControl conversation(chatFileWithPath_, messageFlag_);
+        conversation.conversation(); // TO DO mnurzyns zwraca boola i gdzie indziej obsluga converstaion()
     }/*
     else
     {

@@ -18,8 +18,9 @@ class ConversationControl //: public ChatControl
 public:
     void conversation();
     void conversationEpilog();
+    ConversationControl(const std::string& chatFileWithPath, MessageFlag messageFlag);
     ~ConversationControl();
-    ConversationControl();
+
 
 private:
     void getMessage();

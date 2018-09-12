@@ -12,7 +12,9 @@
 #include <Display.hpp>
 #include <SignalHandling.hpp>
 
-ConversationControl::ConversationControl()
+ConversationControl::ConversationControl(const std::string& chatFileWithPath, MessageFlag messageFlag)
+  : chatFileWithPath_(chatFileWithPath)
+  , messageFlag_(messageFlag)
 {
     log.info("ChatControl C-TOR ");
     getMessageToQueueThread_ = nullptr;
