@@ -9,7 +9,7 @@
 class Sender
 {
 public:
-    Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin);
+    Sender(const std::string& pathToChatFile, int chatFlag);
     ~Sender();
 
     std::string getMessageToSend() const;
@@ -25,6 +25,5 @@ private:
     std::string chatFilenameWithPath_;
     int chatFlag_;
 
-    //WINDOW* ChatWindow::getEnterMessageWindow();
     Logger log {LogSpace::ChatFile};
 };

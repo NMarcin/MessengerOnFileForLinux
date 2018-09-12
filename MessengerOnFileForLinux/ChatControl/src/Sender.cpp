@@ -7,10 +7,9 @@
 #include <TerminalFunctionality.hpp>
 #include <ChatWindow.hpp>
 
-Sender::Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin)
+Sender::Sender(const std::string& pathToChatFile, int chatFlag)
     : chatFilenameWithPath_(pathToChatFile),
-      chatFlag_(chatFlag)//,
-      //ChatWindow::getEnterMessageWindow()//(subwin)
+      chatFlag_(chatFlag)
 {
     log.info("Sender C-TOR");
 }

@@ -3,9 +3,6 @@
 WINDOW* ChatWindow::displayMessageWindow_ = nullptr;
 WINDOW* ChatWindow::enterMessageWindow_ = nullptr;
 
-//ChatWindow::getDisplayMessageWindow() = newwin(y * 0.75, x, 1, 1);//size y,x; wspolrzedne startu
-//ChatWindow::getEnterMessageWindow() = newwin(y * 0.25 ,x, y * 0.8 + 1 ,1);
-
 ChatWindow::ChatWindow()
 {
     //NOOP
@@ -16,14 +13,17 @@ ChatWindow::~ChatWindow()
     //NOOP
 }
 
-void ChatWindow::newDisplayWindow(int x, int y)
+void ChatWindow::displayChatWindows()
 {
-    displayMessageWindow_ = newwin(y * 0.75, x, 1, 1);
-}
-
-void ChatWindow::newEnterWindow(int x, int y)
-{
-    enterMessageWindow_ = newwin(y * 0.25 ,x, y * 0.8 + 1 ,1);
+    clear();
+    int sizeX, sizeY;
+    getmaxyx(stdscr, sizeY, sizeX);
+    displayMessageWindow_ = newwin(sizeY * 0.75, sizeX, 1, 1);
+    enterMessageWindow_ = newwin(sizeY * 0.25 ,sizeX, sizeY * 0.8 + 1 ,1);
+    wprintw(enterMessageWindow_, std::string(sizeX, '-').c_str());
+    wrefresh(displayMessageWindow_);
+    wrefresh(enterMessageWindow_);
+    refresh();
 }
 
 void ChatWindow::deleteDisplayMesageWindow()
@@ -48,18 +48,10 @@ WINDOW* ChatWindow::getEnterMessageWindow()
 
 void ChatWindow::displayEnterMessageWindow()
 {
-    int x, y;
-    std::string frame;
-
-    getmaxyx(stdscr, y, x);
-
-    for (int i = 0; i < x; i++)
-    {
-        frame += "-";
-    }
-
+    int sizeX, sizeY;
+    getmaxyx(stdscr, sizeY, sizeX);
     wclear(enterMessageWindow_);
-    wprintw(enterMessageWindow_, frame.c_str());
+    wprintw(enterMessageWindow_, std::string(sizeX, '-').c_str());
     mvwprintw(enterMessageWindow_, 2, 1, ">> ");
     wrefresh(enterMessageWindow_);
     nocbreak();

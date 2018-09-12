@@ -12,8 +12,7 @@
 #include <LogSpace.hpp>
 #include <Message.hpp>
 
-
-class ConversationControl //: public ChatControl
+class ConversationControl
 {
 public:
     void conversation();
@@ -21,12 +20,12 @@ public:
     ConversationControl(const std::string& chatFileWithPath, MessageFlag messageFlag);
     ~ConversationControl();
 
-
 private:
     void getMessage();
     void reciveMessage();
     void sendMessage();
     void stopThreads();
+    void startThreads();
 
     std::unique_ptr<std::thread> getMessageToQueueThread_;
     std::unique_ptr<std::thread> sendMessageFromQueueThread_;
@@ -38,9 +37,6 @@ private:
     std::string chatFileWithPath_;
     MessageFlag messageFlag_;
     bool isThreadsRunning_;
-
-    //WINDOW* ChatWindow::getDisplayMessageWindow();                                              // TODO mwozniak to powinno być jako klasa, która udostępniainterfejs, a nie część ChatControlu
-    //WINDOW* ChatWindow::getEnterMessageWindow();
 
     Logger log{LogSpace::ChatFile};
 };
