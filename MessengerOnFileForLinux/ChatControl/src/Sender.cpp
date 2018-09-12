@@ -5,11 +5,12 @@
 #include <LocalUser.hpp>
 #include <FileHandling.hpp>
 #include <TerminalFunctionality.hpp>
+#include <ChatWindow.hpp>
 
 Sender::Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin)
     : chatFilenameWithPath_(pathToChatFile),
-      chatFlag_(chatFlag),
-      enterMessageWindow_(subwin)
+      chatFlag_(chatFlag)//,
+      //ChatWindow::getEnterMessageWindow()//(subwin)
 {
     log.info("Sender C-TOR");
 }
@@ -47,11 +48,11 @@ std::string Sender::getMessageFromStdin() const
     log.info("Sender::getMessageFromStdin started");
 
     std::string message;
-    int ch = wgetch(enterMessageWindow_);
+    int ch = wgetch(ChatWindow::getEnterMessageWindow());
     while (ch != '\n')
     {
         message.push_back(ch);
-        ch = wgetch(enterMessageWindow_);
+        ch = wgetch(ChatWindow::getEnterMessageWindow());
     }
 
     return message;

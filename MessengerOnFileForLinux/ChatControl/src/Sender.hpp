@@ -25,6 +25,6 @@ private:
     std::string chatFilenameWithPath_;
     int chatFlag_;
 
-    WINDOW* enterMessageWindow_;
+    //WINDOW* ChatWindow::getEnterMessageWindow();
     Logger log {LogSpace::ChatFile};
 };

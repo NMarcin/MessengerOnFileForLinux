@@ -11,6 +11,7 @@
 #include <LocalUser.hpp>
 #include <Display.hpp>
 #include <SignalHandling.hpp>
+#include <ChatWindow.hpp>
 
 ConversationControl::ConversationControl(const std::string& chatFileWithPath, MessageFlag messageFlag)
   : chatFileWithPath_(chatFileWithPath)
@@ -41,8 +42,8 @@ void ConversationControl::conversation()
   clear(); //TODO mwoznia czemu jak opakuje 150-165 w funkjce to program sie sypie
   int x, y;
   getmaxyx(stdscr, y, x);
-  displayMessageWindow_ = newwin(y * 0.75, x, 1, 1);//size y,x; wspolrzedne startu
-  enterMessageWindow_ = newwin(y * 0.25 ,x, y * 0.8 + 1 ,1);
+  ChatWindow::newDisplayWindow(x, y) ;//= newwin(y * 0.75, x, 1, 1);//size y,x; wspolrzedne startu
+  ChatWindow::newEnterWindow(x,y) ;////= newwin(y * 0.25 ,x, y * 0.8 + 1 ,1);
 
   std::string frame;
   for (int i = 0; i < x; i++)
@@ -50,9 +51,9 @@ void ConversationControl::conversation()
       frame += "-";
   }
 
-  wprintw(enterMessageWindow_, frame.c_str());
-  wrefresh(displayMessageWindow_);
-  wrefresh(enterMessageWindow_);
+  wprintw(ChatWindow::getEnterMessageWindow(), frame.c_str());
+  wrefresh(ChatWindow::getDisplayMessageWindow());
+  wrefresh(ChatWindow::getEnterMessageWindow());
   refresh();
   isThreadsRunning_ = true;
 
@@ -77,8 +78,8 @@ void ConversationControl::conversationEpilog()
 {
   log.info("ChatControl::endConversation started");
   stopThreads();
-  delwin(enterMessageWindow_);
-  delwin(displayMessageWindow_);
+  delwin(ChatWindow::getEnterMessageWindow());
+  delwin(ChatWindow::getDisplayMessageWindow());
   Display::displayMainWindow();
 
   //TODO mawoznia dalsza czesc konczenia rozmowe, pobieranie historii itd.
@@ -91,10 +92,11 @@ void ConversationControl::conversationEpilog()
 void ConversationControl::getMessage()
 {
   log.info("ChatControl::getMessage started");
-  std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), enterMessageWindow_);
+  std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), ChatWindow::getEnterMessageWindow());
   while(isThreadsRunning_)
   {
-      Display::displayEnterMessageWindow(enterMessageWindow_);
+      //Display::displayEnterMessageWindow(ChatWindow::getEnterMessageWindow());
+      ChatWindow::displayEnterMessageWindow();
       messageReadyToSend_.push(sender->getMessageToSend());
 
       auto username = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::username);
@@ -155,7 +157,8 @@ void ConversationControl::reciveMessage()
           else
           {
                log.info("ChatControl::reciveMessage Receive messageeeeeeeeeee");
-              Display::displayDisplayMessageWindow(displayMessageWindow_, messageToDisplay_.front() + "\n");
+              //Display::displayDisplayMessageWindow(ChatWindow::getDisplayMessageWindow(), messageToDisplay_.front() + "\n");
+               ChatWindow::displayDisplayMessageWindow( messageToDisplay_.front() + "\n");
               messageToDisplay_.pop();
           }
       }
@@ -168,7 +171,7 @@ void ConversationControl::sendMessage()
 
   std::this_thread::sleep_for(std::chrono::milliseconds(10+static_cast<int>(messageFlag_)));
 
-  std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), enterMessageWindow_);
+  std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_), ChatWindow::getEnterMessageWindow());
   while(isThreadsRunning_ || !messageReadyToSend_.empty())
   {
       if (messageReadyToSend_.empty())

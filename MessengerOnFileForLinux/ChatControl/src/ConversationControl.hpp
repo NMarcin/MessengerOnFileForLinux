@@ -39,8 +39,8 @@ private:
     MessageFlag messageFlag_;
     bool isThreadsRunning_;
 
-    WINDOW* displayMessageWindow_;                                              // TODO mwozniak to powinno być jako klasa, która udostępniainterfejs, a nie część ChatControlu
-    WINDOW* enterMessageWindow_;
+    //WINDOW* ChatWindow::getDisplayMessageWindow();                                              // TODO mwozniak to powinno być jako klasa, która udostępniainterfejs, a nie część ChatControlu
+    //WINDOW* ChatWindow::getEnterMessageWindow();
 
     Logger log{LogSpace::ChatFile};
 };
