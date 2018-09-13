@@ -18,7 +18,7 @@ enum class MessageFlag
 class Message
 {
 public:
-    std::string messageToSave();
+    std::string messageToSave() const;
 
     std::string getTime();
     std::string getUsername();

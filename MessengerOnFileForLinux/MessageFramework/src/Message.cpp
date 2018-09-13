@@ -9,7 +9,7 @@ Message::Message(MessageFlag messageFlag, std::string username, std::string cont
     setContent(content);
 }
 
-std::string Message::messageToSave()
+std::string Message::messageToSave() const
 {
     StringSumSquareBrackets fullMessage;
 

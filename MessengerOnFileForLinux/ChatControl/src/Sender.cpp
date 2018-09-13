@@ -7,9 +7,9 @@
 #include <TerminalFunctionality.hpp>
 #include <ChatWindow.hpp>
 
-Sender::Sender(const std::string& pathToChatFile, int chatFlag)
+Sender::Sender(const std::string& pathToChatFile, MessageFlag messageFlag)
     : chatFilenameWithPath_(pathToChatFile),
-      chatFlag_(chatFlag)
+      messageFlag_(messageFlag)
 {
     log.info("Sender C-TOR");
 }
@@ -19,7 +19,7 @@ Sender::~Sender()
     log.info("Sender D-TOR");
 }
 
-std::string Sender::getMessageToSend() const
+Message Sender::getMessageToSend() const
 {
     log.info("Sender::getMessageToSend started");
     std::string rawMessage = getMessageFromStdin();
@@ -27,10 +27,10 @@ std::string Sender::getMessageToSend() const
     return messageToSend;
 }
 
-bool Sender::sendMessage(const std::string& message) const
+bool Sender::sendMessage(const Message& message) const
 {
 
-    bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message);
+    bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message.messageToSave());
 
     if (isMessageSend)
     {
@@ -57,7 +57,7 @@ std::string Sender::getMessageFromStdin() const
     return message;
 }
 
-std::string Sender::prepareMessageToSend(const std::string& rowMessage) const
+Message Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
     if (isTerminalCommand(rowMessage))
     {
@@ -66,9 +66,9 @@ std::string Sender::prepareMessageToSend(const std::string& rowMessage) const
         terminalFunctionality.runCommand(rowMessage);
     }
 
-    std::string message = "[" + std::to_string(chatFlag_) + "][" + getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
-
-    return message;
+    //std::string message = "[" + std::to_string(chatFlag_) + "][" + getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
+    return Message(messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
+    //return message;
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const
@@ -88,16 +88,9 @@ bool Sender::isTerminalCommand(const std::string& message) const
 bool Sender::setNewMessageFlag() const
 {
     std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    std::string userRole = std::to_string(chatFlag_);
+    std::string userRole = std::to_string(static_cast<int>(messageFlag_));
     std::string messageFlagWithPath = folderName + "/NEW_" + userRole;
     bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
 }
 
-std::string Sender::getActualDateTime() const
-{
-    std::string dateTime = __DATE__;
-    dateTime += " | " ;
-    dateTime += __TIME__;
-    return dateTime;
-}

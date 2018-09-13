@@ -61,15 +61,15 @@ void ConversationControl::conversationEpilog()
 void ConversationControl::getMessage()
 {
     log.info("ChatControl::getMessage started");
-    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
+    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, messageFlag_);
     while(isThreadsRunning_)
     {
         ChatWindow::displayEnterMessageWindow();
         messageReadyToSend_.push(sender->getMessageToSend());
 
-        auto username = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::username);
-        auto message = *FileInterface::Accesor::getRowField(messageReadyToSend_.front(), FileStructure::MessageFile::message);
-        auto convertedMessage = username + " >> " + message;
+
+        //auto convertedMessage = username + " >> " + message;
+        auto convertedMessage = messageReadyToSend_.front().messageToSave();
 
         messageToDisplay_.push(convertedMessage);
 
@@ -106,7 +106,7 @@ void ConversationControl::sendMessage()
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, static_cast<int>(messageFlag_));
+    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, messageFlag_);
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
         if (messageReadyToSend_.empty())

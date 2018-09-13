@@ -32,7 +32,7 @@ private:
     std::unique_ptr<std::thread> sendMessageFromQueueThread_;
     std::unique_ptr<std::thread> reciveMessageThread_;
 
-    std::queue<std::string> messageReadyToSend_;
+    std::queue<Message> messageReadyToSend_;
     std::queue<std::string> messageToDisplay_;
 
     std::string chatFileWithPath_;

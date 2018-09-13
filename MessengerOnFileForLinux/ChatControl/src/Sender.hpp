@@ -3,27 +3,27 @@
 #include <string>
 #include <ncurses.h>
 
+#include <Message.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
 class Sender
 {
 public:
-    Sender(const std::string& pathToChatFile, int chatFlag);
+    Sender(const std::string& pathToChatFile, MessageFlag messageFlag);
     ~Sender();
 
-    std::string getMessageToSend() const;
-    bool sendMessage(const std::string& message) const;
+    Message getMessageToSend() const;
+    bool sendMessage(const Message& message) const;
 
 private:
     std::string getMessageFromStdin() const;
-    std::string getActualDateTime() const;
-    std::string prepareMessageToSend(const std::string& rowMessage) const;
+    Message prepareMessageToSend(const std::string& rowMessage) const;
     bool isTerminalCommand(const std::string& message) const;
     bool setNewMessageFlag() const;
 
     std::string chatFilenameWithPath_;
-    int chatFlag_;
+    MessageFlag messageFlag_;
 
     Logger log {LogSpace::ChatFile};
 };
