@@ -41,16 +41,17 @@ bool Message::setMessageFlag(MessageFlag messageFlag)
 
 bool Message::setUsername(std::string username)
 {
-    int requiredUsernameSize = 8; // for example 'mnurzyns'
-    if(username.size() == requiredUsernameSize)
-    {
+    //TODO mnurzyns mwoznia Czy na pewno chcemy to sprawdzać? Nie kazdy ma 8 znakowego username. Wezmy np. takiego biolika czy tomeczka
+    //int requiredUsernameSize = 8; // for example 'mnurzyns'
+    //if(username.size() == requiredUsernameSize)
+    //{
         username_ = username;
         return true;
-    }
-    else
-    {
-        return false;
-    }
+    //}
+    //else
+    //{
+    //    return false;
+    //}
 }
 
 bool Message::setContent(std::string content)

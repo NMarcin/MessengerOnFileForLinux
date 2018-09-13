@@ -21,7 +21,6 @@ Receiver::~Receiver()
 
 bool Receiver::readMessagesToStack()
 {
-
     auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
     FileInterface::lockFolder(folder);
 

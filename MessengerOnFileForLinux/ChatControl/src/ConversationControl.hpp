@@ -22,6 +22,7 @@ public:
 
 private:
     void getMessage();
+    bool isMessagesToReadExist();
     void reciveMessage();
     void sendMessage();
     void stopThreads();

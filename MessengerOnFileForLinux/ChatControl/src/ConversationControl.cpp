@@ -67,13 +67,26 @@ void ConversationControl::getMessage()
         ChatWindow::displayEnterMessageWindow();
         messageReadyToSend_.push(sender->getMessageToSend());
 
-
         //auto convertedMessage = username + " >> " + message;
         auto convertedMessage = messageReadyToSend_.front().messageToSave();
 
         messageToDisplay_.push(convertedMessage);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+}
+
+bool ConversationControl::isMessagesToReadExist()
+{
+    auto chatFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+
+    if(MessageFlag::inviterMessage == messageFlag_)
+    {
+        return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + std::to_string(static_cast<int>(MessageFlag::recipientMessage)));
+    }
+    else if(MessageFlag::recipientMessage == messageFlag_)
+    {
+        return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + std::to_string(static_cast<int>(MessageFlag::inviterMessage)));
     }
 }
 
@@ -86,16 +99,17 @@ void ConversationControl::reciveMessage()
 
     while(isThreadsRunning_)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(30));
-
-        receiver->readMessagesToStack();
-
-        saveMessageToDisplay(receiver);
-
         if (!messageToDisplay_.empty())
         {
-            ChatWindow::displayDisplayMessageWindow( messageToDisplay_.front() + "\n");
+            ChatWindow::displayDisplayMessageWindow(messageToDisplay_.front() + "\n");
             messageToDisplay_.pop();
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(30));
+        if (isMessagesToReadExist())
+        {
+            receiver->readMessagesToStack();
+            saveMessageToDisplay(receiver);
         }
     }
 }

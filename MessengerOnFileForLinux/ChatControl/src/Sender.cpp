@@ -66,9 +66,7 @@ Message Sender::prepareMessageToSend(const std::string& rowMessage) const
         terminalFunctionality.runCommand(rowMessage);
     }
 
-    //std::string message = "[" + std::to_string(chatFlag_) + "][" + getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
     return Message(messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
-    //return message;
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const
