@@ -2,6 +2,7 @@
 
 #include <ChatRequest.hpp>
 #include <ConversationControl.hpp>
+#include <GlobalVariables.hpp>
 
 #include <iostream>
 // REMEMBER TO ADD THIS FILE INTO TEST CMAKELISTS
@@ -17,9 +18,9 @@ bool TerminalControl::waitingInTerminal()
     return commandStatus;
 }
 
-void TerminalControl::startConversation(const std::string& username, ChatRole chatRole)
+void TerminalControl::startConversation(const std::string& username, std::string chatRole)
 {
-    log.info(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());
+    log.info(("ChatControl::startConversation started whit chatRole = " + chatRole.c_str());
     if (ChatRole::inviter == chatRole)
     {
         startConversationAsInviter(username);

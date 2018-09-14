@@ -13,7 +13,7 @@
 #include <ChatWindow.hpp>
 #include <ConsoleWindow.hpp>
 
-ConversationControl::ConversationControl(const std::string& chatFileWithPath, MessageFlag messageFlag)
+ConversationControl::ConversationControl(const std::string& chatFileWithPath, std::string messageFlag)
     : chatFileWithPath_(chatFileWithPath)
     , messageFlag_(messageFlag)
 {
@@ -82,11 +82,11 @@ bool ConversationControl::isMessagesToReadExist()
 
     if(MessageFlag::inviterMessage == messageFlag_)
     {
-        return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + std::to_string(static_cast<int>(MessageFlag::recipientMessage)));
+        return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::recipientMessage);
     }
     else if(MessageFlag::recipientMessage == messageFlag_)
     {
-        return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + std::to_string(static_cast<int>(MessageFlag::inviterMessage)));
+        return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::inviterMessage);
     }
 }
 
@@ -94,8 +94,7 @@ void ConversationControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
 
-    auto messageFlag = std::to_string(static_cast<int>(messageFlag_));
-    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(chatFileWithPath_, messageFlag);
+    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(chatFileWithPath_, messageFlag_);
 
     while(isThreadsRunning_)
     {

@@ -17,7 +17,7 @@ class ConversationControl
 public:
     void conversation();
     void conversationEpilog();
-    ConversationControl(const std::string& chatFileWithPath, MessageFlag messageFlag);
+    ConversationControl(const std::string& chatFileWithPath, std::string messageFlag);
     ~ConversationControl();
 
 private:
@@ -37,7 +37,7 @@ private:
     std::queue<std::string> messageToDisplay_;
 
     std::string chatFileWithPath_;
-    MessageFlag messageFlag_;
+    std::string messageFlag_;
     bool isThreadsRunning_;
 
     Logger log{LogSpace::ChatFile};

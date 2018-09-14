@@ -36,13 +36,13 @@ bool Receiver::readMessagesToStack()
     while(fileContentIterator != messagesFileContent->begin())
     {
         --fileContentIterator;
-        std::string MessageFlags;
-        MessageFlags = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::MessageFile::flag);
-        if(endOfMessageToRead(*fileContentIterator, MessageFlags))
+        std::string messageFlag;
+        messageFlag = *FileInterface::Accesor::getRowField(*fileContentIterator, FileStructure::MessageFile::flag);
+        if(endOfMessageToRead(*fileContentIterator, messageFlag))
         {
             break;
         }
-        else if(mineMessageUserFlag_ != MessageFlags && MessageFlags::seen != MessageFlags)
+        else if(mineMessageUserFlag_ != messageFlag && MessageFlag::readMessage != messageFlag)
         {
             pushPurgeMessageOnStack(*fileContentIterator);
         }
@@ -58,13 +58,13 @@ bool Receiver::removeFlagNEW()
 {
     std::string pathToFolder;
     pathToFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
-    if(MessageFlags::inviter == mineMessageUserFlag_)
+    if(MessageFlag::inviterMessage == mineMessageUserFlag_)
     {
-        FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlags::guest);
+        FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlag::recipientMessage);
     }
-    else if(MessageFlags::guest == mineMessageUserFlag_)
+    else if(MessageFlag::recipientMessage == mineMessageUserFlag_)
     {
-        FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlags::inviter);
+        FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlag::inviterMessage);
     }
 }
 
@@ -84,9 +84,9 @@ std::string Receiver::returnTheOldestMessage()
     }
 }
 
-bool Receiver::endOfMessageToRead(std::string message, std::string MessageFlags)
+bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
 {
-    if( MessageFlags::seen == MessageFlags)
+    if( MessageFlag::readMessage == messageFlag)
     {
         std::string senderUsername;
         senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::MessageFile::flag);
@@ -123,13 +123,13 @@ void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 bool Receiver::updateSeenFlags()
 {
     bool updateFlagStatus;
-    if(MessageFlags::inviter == mineMessageUserFlag_)
+    if(MessageFlag::inviterMessage == mineMessageUserFlag_)
     {
-        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlags::guest, MessageFlags::seen);
+        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlag::recipientMessage, MessageFlag::readMessage);
     }
-    else if(MessageFlags::guest == mineMessageUserFlag_)
+    else if(MessageFlag::recipientMessage == mineMessageUserFlag_)
     {
-        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlags::inviter, MessageFlags::seen);
+        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlag::inviterMessage, MessageFlag::readMessage);
     }
     return updateFlagStatus;
 }

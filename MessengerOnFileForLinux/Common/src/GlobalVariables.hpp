@@ -58,11 +58,11 @@ static const std::string activeStatus = "0";
 static const std::string bussyStatus = "1";
 }//UserStatus
 
-namespace MessageFlags  // TODO mwozniak zmienic na 's' i usunac tego enum class z ChatControl, bo potrzebujemy to w stringu, a nie w int, ze wzgledu na FileHandling
+namespace MessageFlag  // TODO mwozniak zmienic na 's' i usunac tego enum class z ChatControl, bo potrzebujemy to w stringu, a nie w int, ze wzgledu na FileHandling
 {
-    static const std::string seen = "0";
-    static const std::string inviter = "1";
-    static const std::string guest = "2";
+    static const std::string readMessage = "0";
+    static const std::string inviterMessage = "1";
+    static const std::string recipientMessage = "2";
 }//MessageFlag
 
 /** To do jakiegos inita ***********************************/
@@ -108,7 +108,7 @@ static void lookForInvitation()
             if (recipent == getenv("USER"))
             {
                 TerminalControl terminalControl;
-                terminalControl.startConversation(inviter, ChatRole::recipient);
+                terminalControl.startConversation(inviter, MessageFlag::recipientMessage);
             }
         }
         sleep(1);

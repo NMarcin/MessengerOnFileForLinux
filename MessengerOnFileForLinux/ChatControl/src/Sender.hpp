@@ -10,7 +10,7 @@
 class Sender
 {
 public:
-    Sender(const std::string& pathToChatFile, MessageFlag messageFlag);
+    Sender(const std::string& pathToChatFile, std::string messageFlag);
     ~Sender();
 
     Message getMessageToSend() const;
@@ -23,7 +23,7 @@ private:
     bool setNewMessageFlag() const;
 
     std::string chatFilenameWithPath_;
-    MessageFlag messageFlag_;
+    std::string messageFlag_;
 
     Logger log {LogSpace::ChatFile};
 };

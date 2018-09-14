@@ -8,13 +8,6 @@ enum class ChatRole
     recipient
 };
 
-enum class MessageFlag
-{
-    readMessage,
-    inviterMessage,
-    recipientMessage
-};
-
 class Message
 {
 public:
@@ -24,15 +17,15 @@ public:
     std::string getUsername();
     std::string getContent();
 
-    Message(MessageFlag messageFlag, std::string username, std::string content);
+    Message(std::string messageFlag, std::string username, std::string content);
     ~Message() = default;
 
 private:
-    bool setMessageFlag(MessageFlag messageFlag);    // do kogo wiadomosc, a nie chatRole
+    bool setMessageFlag(std::string messageFlag);    // do kogo wiadomosc, a nie chatRole
     bool setUsername(std::string username);
     bool setContent(std::string content);
 
-    MessageFlag messageFlag_;
+    std::string messageFlag_;
     std::string date_;
     std::string time_;
     std::string username_;

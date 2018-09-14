@@ -2,7 +2,7 @@
 #include <string>
 #include <StringSum.hpp>
 
-Message::Message(MessageFlag messageFlag, std::string username, std::string content)
+Message::Message(std::string messageFlag, std::string username, std::string content)
 {
     setMessageFlag(messageFlag);        // TODO mnurzyns use throw as false check
     setUsername(username);
@@ -22,7 +22,7 @@ std::string Message::messageToSave() const
 }
 
 
-bool Message::setMessageFlag(MessageFlag messageFlag)
+bool Message::setMessageFlag(std::string messageFlag)
 {
     if(MessageFlag::inviterMessage == messageFlag || MessageFlag::recipientMessage == messageFlag)
     {

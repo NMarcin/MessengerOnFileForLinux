@@ -7,7 +7,7 @@
 #include <TerminalFunctionality.hpp>
 #include <ChatWindow.hpp>
 
-Sender::Sender(const std::string& pathToChatFile, MessageFlag messageFlag)
+Sender::Sender(const std::string& pathToChatFile, std::string messageFlag)
     : chatFilenameWithPath_(pathToChatFile),
       messageFlag_(messageFlag)
 {
