@@ -1,6 +1,7 @@
 #include <Message.hpp>
 #include <string>
 #include <StringSum.hpp>
+#include <GlobalVariables.hpp>
 
 Message::Message(std::string messageFlag, std::string username, std::string content)
 {
@@ -13,7 +14,7 @@ std::string Message::messageToSave() const
 {
     StringSumSquareBrackets fullMessage;
 
-    fullMessage.sum(std::to_string(static_cast<int>(messageFlag_)));
+    fullMessage.sum(messageFlag_);
     fullMessage.sum(date_ + " | " + time_);
     fullMessage.sum(username_);
     fullMessage.sum(content_);
