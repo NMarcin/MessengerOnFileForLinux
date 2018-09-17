@@ -301,15 +301,12 @@ bool FileInterface::Modification::removeRow(const std::string& pathToFile, const
 bool FileInterface::Modification::updateRow(const std::string & pathToFile, const std::string & newRow, const std::string & where)
 {
     std::string folderName = *Accesor::getFolderName(pathToFile);
-
     waitForAccess(folderName);
 
-    std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
-    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
+    std::string command = "sed -i -e '0,/" + where + "/s/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
     std::system(command.c_str());
 
     bool isGuardRemoved = removeGuardian(folderName);
-
     return isGuardRemoved;
 }
 
@@ -326,7 +323,6 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     int actualFieldNumber = -1;
 
     std::string folderName = *Accesor::getFolderName(pathToFile);
-
     waitForAccess(folderName);
 
     std::string command = "grep '" + where + "' " + pathToFile;
@@ -334,29 +330,31 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 
     std::string rowToUpdate;
     auto it = row.begin();
+    int oldFieldSize = 0;
+
     for (auto& x : row)
     {
-        if ('[' == x)
+        if ('[' == *it)
         {
             ++actualFieldNumber;
         }
-
         else if (actualFieldNumber == fieldNumber)
         {
-            rowToUpdate = std::string(row.begin(), it) + newField;
-            it = it + newField.size();
-            rowToUpdate += "]" + std::string(it, row.end());
+            oldFieldSize++;
+        }
+
+        if (actualFieldNumber == fieldNumber && ']' == *it)
+        {
+            rowToUpdate = std::string(row.begin(), it - oldFieldSize) + "[" + newField;
+            rowToUpdate += std::string(it, row.end());
             break;
         }
         it++;
     }
 
     removeGuardian(folderName);
-    command = "sed -i -e 's/.*" + where + ".*/" + rowToUpdate + "/g' " + pathToFile;
-    //cos w stylu sed -i -e '0,/where/s..............
-    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
+    command = "sed -i -e '0,/" + where + "/s/.*" + where + ".*/" + rowToUpdate + "/g' " + pathToFile;
     std::system(command.c_str());
-
     return true;
 }
 

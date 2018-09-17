@@ -41,7 +41,7 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername)
     return sendAnswer(senderUsername, AnswerType::disaccepted);
 }
 
-bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const    // TODO mnurzyns mwozniak po zmianie fora sprawdzic
+bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
 {
     log.info("ChatRequest::changeUserStatus started");
 
@@ -110,8 +110,7 @@ bool ChatRequest::approveChatInvitation() const
 {
     log.info("ChatRequest::approveChatInvitation started");
     std::string decision;
-    decision = ConsoleWindow::getStringFromConsoleWindow(); //TODO mwoznia PROBLEM Z UT
-    //std::cin >> decision;
+    decision = ConsoleWindow::getStringFromConsoleWindow();
     std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
 
     if ("y" == decision || "yes" == decision)
@@ -126,7 +125,7 @@ bool ChatRequest::approveChatInvitation() const
     }
 
     log.info("ChatRequest::approveChatInvitation Invitation disaccepted. Timeout while waiting for answer");
-    return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
+    return false;
 }
 
 std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
@@ -156,15 +155,14 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::bussyStatus);
     //^ przez ta linijke są zakomentowane UT
 
-    ChatFabric chatFabric;
-    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
-
-    if (!isUserActive(receiver.getUsername()))  // TODO mwozniak polaczyc z ChatFabric w ifie, usunac !, a else return {}
+    if (!isUserActive(receiver.getUsername()))
     {
         return {};
     }
-    changeUserStatus(receiver.getUsername(), UserStatus::bussyStatus);
 
+    ChatFabric chatFabric;
+    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
+    changeUserStatus(receiver.getUsername(), UserStatus::bussyStatus);
     std::string invitationName = username + "_" + LocalUser::getLocalUser().getUsername();
     FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
 

@@ -58,7 +58,7 @@ static const std::string activeStatus = "0";
 static const std::string bussyStatus = "1";
 }//UserStatus
 
-namespace MessageFlag  // TODO mwozniak zmienic na 's' i usunac tego enum class z ChatControl, bo potrzebujemy to w stringu, a nie w int, ze wzgledu na FileHandling
+namespace MessageFlag
 {
     static const std::string readMessage = "0";
     static const std::string inviterMessage = "1";

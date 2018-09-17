@@ -11,6 +11,7 @@
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
 #include <ConsoleWindow.hpp>
+#include <StringSum.hpp>
 
 RegisterUser::RegisterUser()
 {
@@ -124,10 +125,9 @@ bool RegisterUser::setUserPassword(const std::string& password) const
 
 bool RegisterUser::saveUserDataInRegisteredFile() const
 {
-    std::string accountInformations = "[" + LocalUser::getLocalUser().getUsername() + "]["
-            + LocalUser::getLocalUser().getPassword() +"]";
-    //TODO mwozniak klasa obsługująca [ ] jeesli sie na nia zdecydujemy
-    //Co z czasem zalogowania ?
+    StringSumSquareBrackets information;
+    information.sum(LocalUser::getLocalUser().getUsername());
+    information.sum(LocalUser::getLocalUser().getPassword());
 
-    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, accountInformations);
+    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, information.getSumedString());
 }

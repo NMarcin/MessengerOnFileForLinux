@@ -8,6 +8,7 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <ConsoleWindow.hpp>
+#include <StringSum.hpp>
 
 SignIn::SignIn()
 {
@@ -139,7 +140,11 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     log.info("SignIn::setUserDataInLoggedFile started");
-    std::string information = "[" + LocalUser::getLocalUser().getUsername() + "][" + UserStatus::activeStatus + "]";
+    std::string user = LocalUser::getLocalUser().getUsername();
 
-    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, information); //TODO update date&&time in registered file
+    StringSumSquareBrackets information;
+    information.sum(user);
+    information.sum(UserStatus::activeStatus);
+
+    return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, information.getSumedString());
 }
