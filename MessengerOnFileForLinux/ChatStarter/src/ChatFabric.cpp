@@ -41,11 +41,12 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
     int folderNumber = getFreeFolderNumber();
     std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
-    std::string systemCommand2 = "chmod 1777 " + newFolderName;
+    std::string systemCommand2 = "chmod 1700 " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
     system(systemCommand2.c_str());
-    systemCommand = "setfacl -d -m user:" + usernameGuess + ":rwx " + newFolderName;
+    systemCommand = "setfacl -m u:" + usernameGuess + ":rwx " + newFolderName;
     system(systemCommand.c_str());
+    //TODO mawoznia jest ok, ale jeszcze nie trzeba ogarnac mzliwos usuwania
 
     if(!commandStatus)
     {
