@@ -10,6 +10,11 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
     setContent(content);
 }
 
+Message::Message(std::unique_ptr<std::string> fullMessageInRow)
+{
+    // TODO mnurzyns think how to get Message from row
+}
+
 std::string Message::messageToSave() const
 {
     StringSumSquareBrackets fullMessage;
@@ -71,17 +76,17 @@ bool Message::setContent(std::string content)
     }
 }
 
-std::string Message::getTime()
+std::string Message::getTime() const
 {
     return time_;
 }
 
-std::string Message::getUsername()
+std::string Message::getUsername() const
 {
     return username_;
 }
 
-std::string Message::getContent()
+std::string Message::getContent() const
 {
     return content_;
 }

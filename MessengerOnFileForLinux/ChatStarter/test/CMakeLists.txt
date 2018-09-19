@@ -25,5 +25,6 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_TerminalFunctionality}/LoggingOut.cpp
     ${MODULE_ChatStarter}/ChatRequest.cpp
     ${MODULE_MessageFramework}/Message.cpp
+    ${MODULE_MessageFramework}/PurgeMessage.cpp
     ${MODULE_MessageFramework}/StringSum.cpp
     ${MODULE_DisplayChat}/ChatWindow.cpp PARENT_SCOPE)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include<iostream>
+#include <memory>
 
 enum class ChatRole
 {
@@ -13,12 +14,20 @@ class Message
 public:
     std::string messageToSave() const;
 
-    std::string getTime();
-    std::string getUsername();
-    std::string getContent();
+    std::string getTime() const;
+    std::string getUsername() const;
+    std::string getContent() const;
 
     Message(std::string messageFlag, std::string username, std::string content);
-    ~Message() = default;
+    Message(std::unique_ptr<std::string> fullMessageInRow);
+    virtual ~Message() = default;
+
+protected:
+    std::string time_;
+    std::string username_;
+    std::string content_;
+
+    Message() = default;
 
 private:
     bool setMessageFlag(std::string messageFlag);    // do kogo wiadomosc, a nie chatRole
@@ -27,9 +36,6 @@ private:
 
     std::string messageFlag_;
     std::string date_;
-    std::string time_;
-    std::string username_;
-    std::string content_;
 
 };
 

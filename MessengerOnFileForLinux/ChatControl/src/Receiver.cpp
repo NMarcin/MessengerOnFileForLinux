@@ -6,6 +6,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <PurgeMessage.hpp>
 
 Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag)
                 : chatFileWithPath_(chatFileWithPath)
