@@ -2,6 +2,7 @@
 #include <string>
 #include <StringSum.hpp>
 #include <GlobalVariables.hpp>
+#include <vector>
 
 Message::Message(std::string messageFlag, std::string username, std::string content)
 {
@@ -12,7 +13,11 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
 
 Message::Message(std::unique_ptr<std::string> fullMessageInRow)
 {
-    // TODO mnurzyns think how to get Message from row
+    messageFlag_.append( fullMessageInRow->begin() + 1,  fullMessageInRow->begin() + 2  );
+    date_.append(        fullMessageInRow->begin() + 4,  fullMessageInRow->begin() + 15 );
+    time_.append(        fullMessageInRow->begin() + 18, fullMessageInRow->begin() + 26 );
+    username_.append(    fullMessageInRow->begin() + 28, fullMessageInRow->begin() + 36 );
+    content_.append(     fullMessageInRow->begin() + 36, fullMessageInRow->end()   - 1  );
 }
 
 std::string Message::messageToSave() const
