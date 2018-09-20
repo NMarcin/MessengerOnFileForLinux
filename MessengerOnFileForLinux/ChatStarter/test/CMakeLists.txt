@@ -26,4 +26,6 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_ChatStarter}/ChatRequest.cpp
     ${MODULE_MessageFramework}/Message.cpp
     ${MODULE_MessageFramework}/StringSum.cpp
+    ${MODULE_TerminalFunctionality}/InviteSender.cpp
+    ${MODULE_TerminalFunctionality}/EndConversation.cpp
     ${MODULE_DisplayChat}/ChatWindow.cpp PARENT_SCOPE)

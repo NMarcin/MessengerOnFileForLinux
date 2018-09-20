@@ -10,10 +10,10 @@
 
 bool TerminalControl::waitingInTerminal()
 {
-    std::string command;
+    std::string command;    //TODO zamienic na funkcje ncoursowe
     std::cin >> command;
     bool commandStatus;
-    commandStatus = terminalFunctionality_.runCommand(command);
+    commandStatus = terminalFunctionality_.runCommand(command, this);
 
     return commandStatus;
 }

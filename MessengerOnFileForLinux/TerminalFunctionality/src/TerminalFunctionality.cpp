@@ -5,15 +5,16 @@
 
 #include <HistoryDowloander.hpp>
 #include <LoggingOut.hpp>
+#include <InviteSender.hpp>
 #include <GlobalVariables.hpp>
-#include <TerminalControl.hpp>
+#include <EndConversation.hpp>
 #include <ConsoleWindow.hpp>
 #include <iostream>
 
 
 bool starts_with(const std::string toFind, const std::string ourString);
 
-bool TerminalFunctionality::runCommand(std::string command)
+bool TerminalFunctionality::runCommand(std::string command,  TerminalControl* przekazujemyToZebyMiecDostepDoStartuRozmowyPrzyInvicie)
 {
     if (starts_with(UserCommand::historyDowloander, command))
     {
@@ -21,28 +22,19 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else if (starts_with(UserCommand::endChat, command))
     {
-        //TODO konczenie rozmowy
+         terminalCommand_ = std::make_unique<EndConversation>(command);
     }
     else if (starts_with(UserCommand::logout, command))
     {
         terminalCommand_ = std::make_unique<LoggingOut>(command);
     }
-    else if (starts_with(UserCommand::inviteUser, command)) // TODO mwoznia zastosować schemat polimorfizmu, dodatkowo architektura tego jest zła, ponieważ ChatControl ma istnieć cały czas
+    else if (starts_with(UserCommand::inviteUser, command))
     {
-        auto beginOfUsernameInCommand = command.begin()+7;  // TODO mwoznia 7 is a little bit magic number
-        std::string username = {beginOfUsernameInCommand, command.end()};
-        TerminalControl terminalControl;
-        terminalControl.startConversation(username, ChatRole::inviter);    // TODO mnurzyns check it later!!!!
+
+        terminalCommand_ = std::make_unique<InviteSender>(command);
     }
-    else if (starts_with(UserCommand::help, command))       // TODO mwoznia co to jest? to i ponizsze?
-    {
-        ConsoleWindow::displayMainWindow();
-        printw("\n");
-        printw("  PRZYKLADOWE KOMENDY ");
-        refresh();
-        //sleep(2);
-    }
-    else if (starts_with("w", command))
+
+    else if (starts_with("w", command)) // TODO mwoznia problem z czekaniem na zaproszenie w mainie
     {
         ConsoleWindow::displayMainWindow();
         while (true)
@@ -50,10 +42,12 @@ bool TerminalFunctionality::runCommand(std::string command)
 
         }
     }
+
     else
     {
         return false;   // TODO: kto obsluguje tego, ze nie ma takiej komendy?
     }
+
     return terminalCommand_->doCommand();
 }
 

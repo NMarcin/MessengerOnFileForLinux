@@ -40,7 +40,6 @@ void ConversationControl::conversation()
     log.info("ChatControl::conversationControl started");
     std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
     ChatWindow::displayChatWindows();
-    isThreadsRunning_ = true;
     startThreads();
 }
 
@@ -67,7 +66,6 @@ void ConversationControl::getMessage()
         ChatWindow::displayEnterMessageWindow();
         messageReadyToSend_.push(sender->getMessageToSend());
 
-        //auto convertedMessage = username + " >> " + message;
         auto convertedMessage = messageReadyToSend_.front().messageToSave();
 
         messageToDisplay_.push(convertedMessage);
@@ -136,6 +134,8 @@ void ConversationControl::sendMessage()
 
 void ConversationControl::startThreads()
 {
+    isThreadsRunning_ = true;
+
     getMessageToQueueThread_ = std::make_unique<std::thread>(std::thread([&]()
     {
         getMessage();

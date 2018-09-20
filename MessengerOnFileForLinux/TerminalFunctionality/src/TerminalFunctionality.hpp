@@ -1,13 +1,14 @@
 #pragma once
 #include <memory>
 #include <string>
-
 #include <TerminalCommand.hpp>
+
+class TerminalControl;
 
 class TerminalFunctionality
 {
 public:
-    bool runCommand(std::string command);
+    bool runCommand(std::string command, TerminalControl* x = nullptr);
 
     TerminalFunctionality(std::string chatFileWithPath);
     TerminalFunctionality() = default;
