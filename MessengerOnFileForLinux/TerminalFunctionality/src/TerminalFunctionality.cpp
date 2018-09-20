@@ -21,7 +21,7 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else if (starts_with(UserCommand::endChat, command))
     {
-        //TODO konczenie rozmowy
+        //TODO mwozniak konczenie rozmowy (END)
     }
     else if (starts_with(UserCommand::logout, command))
     {
@@ -52,7 +52,7 @@ bool TerminalFunctionality::runCommand(std::string command)
     }
     else
     {
-        return false;   // TODO: kto obsluguje tego, ze nie ma takiej komendy?
+        return false;
     }
     return terminalCommand_->doCommand();
 }
