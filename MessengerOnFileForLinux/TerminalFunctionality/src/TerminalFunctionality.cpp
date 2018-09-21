@@ -31,8 +31,8 @@ bool TerminalFunctionality::runCommand(std::string command)
     {
         auto beginOfUsernameInCommand = command.begin()+7;  // TODO mwoznia 7 is a little bit magic number
         std::string username = {beginOfUsernameInCommand, command.end()};
-        TerminalControl terminalControl;
-        terminalControl.startConversation(username, ChatRole::inviter);    // TODO mnurzyns check it later!!!!
+        TerminalControl terminalControl(ChatStatus::terminal);  // TODO mwozniak to nie powinno tutaj tworzyć nowego TerminalControl
+        terminalControl.startConversation(username, ChatRole::inviter);
     }
     else if (starts_with(UserCommand::help, command))       // TODO mwoznia co to jest? to i ponizsze?
     {
@@ -57,13 +57,9 @@ bool TerminalFunctionality::runCommand(std::string command)
     return terminalCommand_->doCommand();
 }
 
-TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath)
+TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
             : chatFileWithPath_(chatFileWithPath)
-{
-    //NOOP
-}
-
-TerminalFunctionality::~TerminalFunctionality()
+            , chatStatus_(chatStatus)
 {
     //NOOP
 }

@@ -107,7 +107,7 @@ static void lookForInvitation()
 
             if (recipent == getenv("USER"))
             {
-                TerminalControl terminalControl;
+                TerminalControl terminalControl(ChatStatus::terminal);
                 terminalControl.startConversation(inviter, ChatRole::recipient);
             }
         }

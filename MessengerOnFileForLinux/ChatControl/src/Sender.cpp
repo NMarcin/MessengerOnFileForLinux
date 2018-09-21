@@ -62,7 +62,7 @@ Message Sender::prepareMessageToSend(const std::string& rowMessage) const
     if (isTerminalCommand(rowMessage))
     {
         log.info("Sender::prepearMessageToSend Message is a terminal command");
-        TerminalFunctionality terminalFunctionality(chatFilenameWithPath_);
+        TerminalFunctionality terminalFunctionality(chatFilenameWithPath_, ChatStatus::conversation);
         terminalFunctionality.runCommand(rowMessage);
     }
 
@@ -90,4 +90,3 @@ bool Sender::setNewMessageFlag() const
     bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
 }
-

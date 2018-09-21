@@ -9,7 +9,7 @@ void Controler::controlUserAction()
 {
     for ever
     {
-        terminalControl_ = std::make_unique<TerminalControl>();
+        terminalControl_ = std::make_unique<TerminalControl>(ChatStatus::terminal);
         terminalControl_->waitingInTerminal();
 
         //conversationControl_ = std::make_unique<ConversationControl>();

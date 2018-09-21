@@ -7,6 +7,11 @@
 #include <iostream>
 // REMEMBER TO ADD THIS FILE INTO TEST CMAKELISTS
 
+TerminalControl::TerminalControl(ChatStatus chatStatus)
+                                : chatStatus_(chatStatus)
+{
+    // NOOP
+}
 
 bool TerminalControl::waitingInTerminal()
 {
