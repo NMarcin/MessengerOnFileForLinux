@@ -14,6 +14,8 @@ public:
     Logger(const char* logSpace, SavingMode mode=SavingMode::fileOnly);
     ~Logger();
 
+    void debug(std::string& logData) const;
+    void function(std::string& logData) const;
     void info(std::string& logData) const;
     void info(const char * logData) const;
 

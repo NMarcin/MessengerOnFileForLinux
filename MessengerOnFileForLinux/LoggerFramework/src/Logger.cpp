@@ -14,6 +14,16 @@ Logger::~Logger()
     //NOOP
 }
 
+void Logger::debug(std::string& logData) const
+{
+    info(logData.c_str());
+}
+
+void Logger::function(std::string& logData) const
+{
+    info(logData.c_str());
+}
+
 void Logger::info(std::string& logData) const
 {
     info(logData.c_str());
