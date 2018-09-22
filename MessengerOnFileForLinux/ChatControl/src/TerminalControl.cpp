@@ -15,6 +15,7 @@ TerminalControl::TerminalControl(ChatStatus chatStatus)
 
 bool TerminalControl::waitingInTerminal()
 {
+    log_.function("TerminalControl::waitingInTerminal()");
     std::string command;
     std::cin >> command;
     bool commandStatus;
@@ -25,7 +26,7 @@ bool TerminalControl::waitingInTerminal()
 
 void TerminalControl::startConversation(const std::string& username, ChatRole chatRole)
 {
-    log.info(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());
+    log_.function(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());
     if (ChatRole::inviter == chatRole)
     {
         startConversationAsInviter(username);
@@ -38,13 +39,13 @@ void TerminalControl::startConversation(const std::string& username, ChatRole ch
 
 void TerminalControl::startConversationAsInviter(const std::string& username)
 {
-    log.info("ChatControl::startConversationAsInviter started");
+    log_.function("TerminalControl::startConversationAsInviter()");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
     if(!chatFileWithPath_.empty())
     {
         std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
-        log.info(info.c_str());
+        log_.info(info.c_str());
         messageFlag_ = MessageFlag::inviterMessage;
         ConversationControl conversation(chatFileWithPath_, messageFlag_);
         conversation.conversation();
@@ -53,13 +54,13 @@ void TerminalControl::startConversationAsInviter(const std::string& username)
 
 void TerminalControl::startConversationAsRecipient(const std::string& username)
 {
-    log.info("ChatControl::startConversationAsRecipient started");
+    log_.function("TerminalControl::startConversationAsRecipient()");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.answerForChatRequest(username);
     if(!chatFileWithPath_.empty())
     {
         std::string info = "ChatControl::startConversationAsRecipient chatFileWithPath_: " + chatFileWithPath_;
-        log.info(info.c_str());
+        log_.info(info.c_str());
         messageFlag_ = MessageFlag::recipientMessage;
         ConversationControl conversation(chatFileWithPath_, messageFlag_);
         conversation.conversation();

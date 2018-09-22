@@ -8,7 +8,7 @@
 // nie dodane do kompilowania
 
 
-class TerminalControl //: public ChatControl
+class TerminalControl
 {
 public:
     bool waitingInTerminal();
@@ -26,5 +26,5 @@ private:
     TerminalFunctionality terminalFunctionality_;
     ChatStatus chatStatus_;
 
-    Logger log{LogSpace::ChatFile};
+    Logger log_{LogSpace::ChatControl};
 };

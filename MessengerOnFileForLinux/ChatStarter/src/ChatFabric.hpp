@@ -7,8 +7,8 @@
 class ChatFabric
 {
 public:
-    ChatFabric();
-    ~ChatFabric();
+    ChatFabric() = default;
+    ~ChatFabric() = default;
 
     std::string createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const;
 
@@ -19,5 +19,5 @@ private:
     std::vector<int> getBusyNumbers() const;
     int findMissingNumber(std::vector<int>& busyNumbers_) const;
 
-    Logger log {LogSpace::ChatFile};
+    Logger log_ {LogSpace::ChatStarter};
 };

@@ -22,7 +22,7 @@ class Receiver
 {
 public:
     Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
-    ~Receiver();
+    ~Receiver() = default;
 
     bool readMessagesToStack();
     std::unique_ptr<PurgeMessage> returnTheOldestMessage();
@@ -33,11 +33,11 @@ private:
     bool isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFileContent);
     void pushPurgeMessageOnStack(std::string rawMessageToPush);
     std::unique_ptr<PurgeMessage> messagePurging(Message& messageToPurge);
-    bool removeFlagNEW();
+    void removeFlagNEW();
 
     const std::string chatFileWithPath_;
     std::stack<PurgeMessage> purgeMessagesStack_;
     std::string mineMessageUserFlag_;
 
-    Logger log{LogSpace::ChatFile};
+    Logger log_{LogSpace::ChatControl};
 };

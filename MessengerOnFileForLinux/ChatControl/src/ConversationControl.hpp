@@ -40,5 +40,5 @@ private:
     std::string messageFlag_;
     bool isThreadsRunning_;
 
-    Logger log{LogSpace::ChatFile};
+    Logger log{LogSpace::ChatStarter};
 };

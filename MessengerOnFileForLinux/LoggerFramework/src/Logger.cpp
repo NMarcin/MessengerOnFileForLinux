@@ -19,9 +19,19 @@ void Logger::debug(std::string& logData) const
     info(logData.c_str());
 }
 
+void Logger::debug(const char* logData) const
+{
+    info(logData);
+}
+
 void Logger::function(std::string& logData) const
 {
     info(logData.c_str());
+}
+
+void Logger::function(const char* logData) const
+{
+    info(logData);
 }
 
 void Logger::info(std::string& logData) const
