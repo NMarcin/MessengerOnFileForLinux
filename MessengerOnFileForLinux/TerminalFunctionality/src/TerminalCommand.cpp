@@ -5,8 +5,3 @@ TerminalCommand::TerminalCommand(std::string command)
 {
     //NOOP
 }
-
-TerminalCommand::~TerminalCommand()
-{
-    //NOOP
-}

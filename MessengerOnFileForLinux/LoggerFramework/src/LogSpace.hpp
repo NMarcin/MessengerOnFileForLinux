@@ -7,5 +7,7 @@ namespace LogSpace
     static constexpr auto FileHandling = "FileHandling";
     static constexpr auto Logger = "Logger";
     static constexpr auto main = "main";
+    static constexpr auto MessageFramework = "MessageFramework";
+    static constexpr auto TerminalFunctionality = "TerminalFunctionality";
     static constexpr auto UserService = "UserService";
 }

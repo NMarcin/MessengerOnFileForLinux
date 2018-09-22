@@ -2,6 +2,8 @@
 
 #include<iostream>
 #include <memory>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 enum class ChatRole
 {
@@ -30,13 +32,13 @@ protected:
     Message() = default;
 
 private:
-    bool setMessageFlag(std::string messageFlag);    // do kogo wiadomosc, a nie chatRole
-    bool setUsername(std::string username);
+    bool setMessageFlag(std::string messageFlag);
     bool setContent(std::string content);
 
     std::string messageFlag_;
     std::string date_;
 
+    Logger log_ {LogSpace::MessageFramework};
 };
 
 // [1][Jul 31 2018 | 09:19:13][mnurzyns][czesc, co u ciebie ?]

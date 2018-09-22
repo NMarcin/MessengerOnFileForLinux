@@ -7,7 +7,7 @@ public:
     virtual bool doCommand() = 0;
 
     TerminalCommand(std::string command);
-    ~TerminalCommand();
+    virtual ~TerminalCommand() = default;
 
 private:
     std::string commandName_;

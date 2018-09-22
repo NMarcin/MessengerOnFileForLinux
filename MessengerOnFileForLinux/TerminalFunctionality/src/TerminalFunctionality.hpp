@@ -3,6 +3,8 @@
 #include <string>
 
 #include <TerminalCommand.hpp>
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 enum class ChatStatus
 {
@@ -23,4 +25,6 @@ private:
     std::unique_ptr<TerminalCommand> terminalCommand_ = nullptr;
     std::string chatFileWithPath_;
     ChatStatus chatStatus_;
+
+    Logger log_ {LogSpace::TerminalFunctionality};
 };
