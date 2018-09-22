@@ -34,7 +34,7 @@ private:
     std::unique_ptr<std::thread> reciveMessageThread_;
 
     std::queue<Message> messageReadyToSend_;
-    std::queue<std::string> messageToDisplay_;
+    std::queue<PurgeMessage> messageToDisplay_;
 
     std::string chatFileWithPath_;
     std::string messageFlag_;

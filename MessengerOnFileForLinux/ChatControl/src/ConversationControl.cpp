@@ -68,9 +68,10 @@ void ConversationControl::getMessage()
         messageReadyToSend_.push(sender->getMessageToSend());
 
         //auto convertedMessage = username + " >> " + message;
-        auto convertedMessage = messageReadyToSend_.front().messageToSave();
-
-        messageToDisplay_.push(convertedMessage);
+        // TODO mwozniak nie jestem pewny czy zrozumialem o co tutaj chodzi
+        // czym jest convertedMessage? z tego co ja rozumiem to sluzy do
+        // wystwietlania wiadomosci przez uzytkownika ktory ja napisal u niego
+        messageToDisplay_.push(messageReadyToSend_.front());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
@@ -100,7 +101,7 @@ void ConversationControl::reciveMessage()
     {
         if (!messageToDisplay_.empty())
         {
-            ChatWindow::displayDisplayMessageWindow(messageToDisplay_.front() + "\n");
+            ChatWindow::displayDisplayMessageWindow(messageToDisplay_.front().messageToShow() + "\n");
             messageToDisplay_.pop();
         }
 
@@ -158,13 +159,13 @@ void ConversationControl::saveMessageToDisplay(const std::unique_ptr<Receiver>& 
     while(!isEndOfMessages)
     {
         auto message = receiver->returnTheOldestMessage();
-        if("" == message)
+        if(nullptr == message)
         {
             isEndOfMessages = true;
         }
         else
         {
-            messageToDisplay_.push(message);
+            messageToDisplay_.push(*message);
         }
     }
 }
@@ -173,4 +174,3 @@ void ConversationControl::stopThreads()
 {
     isThreadsRunning_ = false;
 }
-

@@ -19,7 +19,7 @@ public:
     std::string getContent() const;
 
     Message(std::string messageFlag, std::string username, std::string content);
-    Message(std::unique_ptr<std::string> fullMessageInRow);
+    Message(std::string fullMessageInRow);
     virtual ~Message() = default;
 
 protected:

@@ -69,19 +69,19 @@ bool Receiver::removeFlagNEW()
     }
 }
 
-std::string Receiver::returnTheOldestMessage()
+std::unique_ptr<PurgeMessage> Receiver::returnTheOldestMessage()
 {
     if(purgeMessagesStack_.empty())
     {
-        return "";
+        return nullptr;
     }
     else
     {
-        std::string message;
-        message = purgeMessagesStack_.top();
+        std::unique_ptr<PurgeMessage> purgeMessage;
+        purgeMessage = std::make_unique<PurgeMessage>(purgeMessagesStack_.top());
         purgeMessagesStack_.pop();
 
-        return message;
+        return purgeMessage;
     }
 }
 
@@ -104,21 +104,31 @@ bool Receiver::isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFi
     return chatFileContent->size() == 1 && chatFileContent->at(0) == "";
 }
 
-std::string Receiver::purgeMessageFromRaw(std::string messageToPurge)
+std::unique_ptr<PurgeMessage> Receiver::messagePurging(Message& messageToPurge)
 {
+    std::unique_ptr<PurgeMessage> purgeMessage= std::make_unique<PurgeMessage>(messageToPurge);
+    return purgeMessage;
+    /*
     auto username = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::username);
     auto message = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::message);
-    return username + " >> " + message;
+    return username + " >> " + message; */
 }
 
 void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
+    if( "" != rawMessageToPush)
+    {
+        Message message(rawMessageToPush);
+        auto purgeMessage = messagePurging(message);
+        purgeMessagesStack_.push(*purgeMessage);
+    }
+    /*
     if (rawMessageToPush != "")
     {
         std::string purgeMessage;
         purgeMessage = purgeMessageFromRaw(rawMessageToPush);
         purgeMessagesStack_.push(purgeMessage);
-    }
+    }*/
 }
 
 bool Receiver::updateSeenFlags()
