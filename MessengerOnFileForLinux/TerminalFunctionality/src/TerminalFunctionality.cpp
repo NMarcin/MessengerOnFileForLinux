@@ -45,7 +45,7 @@ bool TerminalFunctionality::runCommand(std::string command,  TerminalControl* pr
 
     else
     {
-        return false;   // TODO: kto obsluguje tego, ze nie ma takiej komendy?
+        return false;
     }
 
     return terminalCommand_->doCommand();

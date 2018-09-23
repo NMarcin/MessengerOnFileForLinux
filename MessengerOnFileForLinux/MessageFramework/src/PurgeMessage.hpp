@@ -2,12 +2,16 @@
 
 #include <Message.hpp>
 
-class PurgeMessage : protected Message
+class PurgeMessage : public Message
 {
 public:
+    std::string messageToShow() const;
 
-    PurgeMessage();
-    ~PurgeMessage();
+    PurgeMessage(const Message& message);
+    ~PurgeMessage() = default;
+
+private:
+    bool setTime(std::string longTime);
 };
 
 // [09:19][tomek]: czesc, co u ciebie ?

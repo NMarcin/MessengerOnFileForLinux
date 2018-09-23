@@ -18,6 +18,5 @@ bool InviteSender::doCommand(TerminalControl *x)
     auto beginOfUsernameInCommand = command_.begin()+7;
     std::string username = {beginOfUsernameInCommand, command_.end()};
     TerminalControl terminalControl;
-    bool commandStatus = x->startConversation(username, ChatRole::inviter); //startConversation powinno zwracac bool
-    return commandStatus;
+    x->startConversation(username, ChatRole::inviter); //startConversation powinno zwracac bool
 }

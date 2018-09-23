@@ -14,7 +14,7 @@ HistoryDowloander::~HistoryDowloander()
     //NOOP
 }
 
-bool HistoryDowloander::doCommand() // TODO think about chatHistoryPath, how to get it
+bool HistoryDowloander::doCommand()
 {
     std::string systemCommand = "cp " + chatFileWithPath_ + " " + ENVIRONMENT_PATH::TO_FOLDER::USER;
     bool commandStatus = system(systemCommand.c_str());

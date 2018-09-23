@@ -42,12 +42,8 @@ void TerminalControl::startConversationAsInviter(const std::string& username)
         log.info(info.c_str());
         messageFlag_ = MessageFlag::inviterMessage;
         ConversationControl conversation(chatFileWithPath_, messageFlag_);
-        conversation.conversation(); // TO DO mnurzyns zwraca boola i gdzie indziej obsluga converstaion()
-    }/*
-    else
-    {
-        conversationEpilog();
-    }*/
+        conversation.conversation();
+    }
 }
 
 void TerminalControl::startConversationAsRecipient(const std::string& username)
@@ -61,10 +57,6 @@ void TerminalControl::startConversationAsRecipient(const std::string& username)
         log.info(info.c_str());
         messageFlag_ = MessageFlag::recipientMessage;
         ConversationControl conversation(chatFileWithPath_, messageFlag_);
-        conversation.conversation(); // TO DO mnurzyns zwraca boola i gdzie indziej obsluga converstaion()
-    }/*
-    else
-    {
-        conversationEpilog();
-    }*/
+        conversation.conversation();
+    }
 }
