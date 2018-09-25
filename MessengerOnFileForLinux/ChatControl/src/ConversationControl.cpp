@@ -14,6 +14,8 @@
 #include <ConsoleWindow.hpp>
 #include <PurgeMessage.hpp>
 
+bool ConversationControl::isConversationRunning_ = false;
+
 ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
     : chatInfo_(chatInfo)
 {
@@ -23,6 +25,7 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     sendMessageFromQueueThread_ = nullptr;
     chatFileWithPath_ = chatInfo_->chatPath_;
     messageFlag_ = chatInfo_->messageFlag_;
+    isConversationRunning_ = true;
 }
 
 ConversationControl::~ConversationControl()
@@ -43,6 +46,10 @@ void ConversationControl::conversation()
     std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
     ChatWindow::displayChatWindows();
     startThreads();
+    while (isConversationRunning_)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
 }
 
 void ConversationControl::conversationEpilog()

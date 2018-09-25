@@ -20,6 +20,7 @@ public:
     void conversationEpilog();
     ConversationControl(std::shared_ptr<ChatInformation> chatInfo);
     ~ConversationControl();
+    static bool isConversationRunning_;
 
 private:
     void getMessage();

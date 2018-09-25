@@ -15,9 +15,6 @@
 #include <streambuf>
 #include <sstream>
 
-using namespace std::chrono_literals;
-
-
 
 TerminalControl::TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo)
                                 : chatStatus_(chatStatus)
@@ -32,12 +29,7 @@ TerminalControl::TerminalControl(ChatStatus chatStatus)
     //NOOP
 }
 
-
-class zeroNumerator: public std::exception
-{
-    const char* what() const throw() { return "Numerator can't be 0.\n"; }
-};
-
+bool TerminalControl::isWaitingForInvitation = true;
 
 bool TerminalControl::waitingInTerminal()
 {
@@ -121,7 +113,7 @@ bool TerminalControl::startConversationAsRecipient(const std::string& username)
 
 void TerminalControl::lookForInvitation()
 {
-    while (isMessengerRunnig)
+    while (isWaitingForInvitation)
     {
         auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS);
         if (0 == invitationsFolderContent->size())
@@ -158,14 +150,13 @@ void TerminalControl::lookForInvitation()
             {
                 clear();
                 printw(("You get an invitation to chat form " + inviter + "\n").c_str());
-                printw("Do you want to chat with this user (y/n)? \n");
+                printw(("Do you want to chat with this user (start " + inviter + "/n)? \n").c_str());
                 printw(">> ");
                 refresh();
-                //TerminalControl terminalControl(ChatStatus::terminal);
-                //terminalControl.startConversation(inviter, ChatRole::recipient);
+                isWaitingForInvitation=false;
             }
         }
-        //sleep(1);
-        isMessengerRunnig=false;
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
     }
 }

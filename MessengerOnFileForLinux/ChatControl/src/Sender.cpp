@@ -49,21 +49,13 @@ std::string Sender::getMessageFromStdin() const
     log.info("Sender::getMessageFromStdin started");
 
     std::string message;
-    log.info("CHUJ1");
-    if (ChatWindow::getEnterMessageWindow() == NULL)
-        log.info("NULLLLLLLLLL");
     int ch = wgetch(ChatWindow::getEnterMessageWindow());
-    log.info("CHUJ2");
     while (ch != '\n')
     {
-        log.info("CHUJ3");
         message.push_back(ch);
-        log.info("CHUJ4");
         ch = wgetch(ChatWindow::getEnterMessageWindow());
-        log.info("CHUJ5");
     }
 
-    log.info("CHUJ6");
     return message;
 }
 
@@ -71,9 +63,10 @@ Message Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
     if (isTerminalCommand(rowMessage))
     {
-        log.info("Sender::prepearMessageToSend Message is a terminal command");
+        log.info("Sender::prepearMessageToSend() Message is a terminal command");
         TerminalFunctionality terminalFunctionality(chatFilenameWithPath_, ChatStatus::conversation);
-        terminalFunctionality.runCommand(rowMessage);
+        std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
+        terminalFunctionality.runCommand(command);
     }
 
     return Message(messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);

@@ -2,6 +2,8 @@
 
 #include <ConsoleWindow.hpp>
 #include <GlobalVariables.hpp>
+#include <TerminalControl.hpp>
+
 #include <thread>
 #include <chrono>
 
@@ -56,7 +58,7 @@ std::string ConsoleWindow::getStringFromConsoleWindow()
 
 void ConsoleWindow::updateTerminalSize()
 {
-    while(isMessengerRunnig)
+    while(TerminalControl::isWaitingForInvitation)
     {
         getmaxyx(stdscr, ConsoleWindow::terminalSizeY, ConsoleWindow::terminalSizeX);
         std::this_thread::sleep_for(std::chrono::milliseconds(300));

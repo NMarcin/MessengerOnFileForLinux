@@ -19,6 +19,7 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
 {
     log_.function("TerminalFunctionality::runCommand()");
     log_.function(command);
+
     if (starts_with(UserCommand::historyDowloander, command) && ChatStatus::conversation == chatStatus_)
     {
         log_.info("TerminalFunctionality::runCommand() historyDowloander command");
@@ -40,17 +41,6 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
         InviteSender inviteSender(command, chatInfo);
         return inviteSender.doCommand();
     }
-
-    else if (starts_with("w", command)) // TODO mwoznia problem z czekaniem na zaproszenie w mainie
-    {
-        // TODO mwoznia tak samo tutaj logi dodaj bo ja nie mam pojęcia co to jest
-        ConsoleWindow::displayMainWindow();
-        while (true)
-        {
-
-        }
-    }
-
     else
     {
         log_.info("TerminalFunctionality::runCommand() command not found");

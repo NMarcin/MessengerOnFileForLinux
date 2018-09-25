@@ -66,8 +66,7 @@ namespace MessageFlag
     static const std::string recipientMessage = "2";
 }//MessageFlag
 
-/** To do jakiegos inita ***********************************/
 
 
 
-static int isMessengerRunnig = true;
+
