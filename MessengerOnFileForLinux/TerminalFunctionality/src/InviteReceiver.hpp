@@ -1,18 +1,17 @@
 #pragma once
 
 #include <TerminalFunctionality.hpp>
-#include <functional>
 #include <TerminalControl.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
-class InviteSender : public TerminalCommand
+class InviteReceiver : public TerminalCommand
 {
 public:
     bool doCommand();
 
-    InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo);
-    ~InviteSender();
+    InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo);
+    ~InviteReceiver();
 
 private:
     std::string command_;

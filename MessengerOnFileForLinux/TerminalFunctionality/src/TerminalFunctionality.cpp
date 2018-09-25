@@ -8,6 +8,7 @@
 #include <InviteSender.hpp>
 #include <GlobalVariables.hpp>
 #include <EndConversation.hpp>
+#include <InviteReceiver.hpp>
 #include <ConsoleWindow.hpp>
 #include <iostream>
 
@@ -38,6 +39,11 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
     {
         log_.info("TerminalFunctionality::runCommand() invite user");
         terminalCommand_ = std::make_unique<InviteSender>(command, chatInfo);
+    }
+    else if (starts_with(UserCommand::startConversation, command))
+    {
+        log_.info("TerminalFunctionality::runCommand() start conversation");
+        terminalCommand_ = std::make_unique<InviteReceiver>(command, chatInfo);
     }
     else
     {

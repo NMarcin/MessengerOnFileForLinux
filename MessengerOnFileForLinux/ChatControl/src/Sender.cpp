@@ -66,6 +66,7 @@ Message Sender::prepareMessageToSend(const std::string& rowMessage) const
         TerminalFunctionality terminalFunctionality(chatInfo_->chatPath_, ChatStatus::conversation);
         std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
         terminalFunctionality.runCommand(command, chatInfo_);
+        //TODO infomajca od systemu
     }
 
     return Message(chatInfo_->messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);

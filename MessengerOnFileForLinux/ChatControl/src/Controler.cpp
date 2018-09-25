@@ -10,16 +10,16 @@
 void Controler::controlUserAction()
 {
     log_.function("Controler::controlUserAction()");
-    std::shared_ptr<ChatInformation> chatInfo = std::make_shared<ChatInformation>();
 
     for ever
     {
         std::thread waitForInvitation(terminalControl_->lookForInvitation);
-
+        std::shared_ptr<ChatInformation> chatInfo = std::make_shared<ChatInformation>();
 
         terminalControl_ = std::make_unique<TerminalControl>(ChatStatus::terminal, chatInfo);
         terminalControl_->waitingInTerminal();
         TerminalControl::isWaitingForInvitation = false;
+        TerminalControl::isInvitationExist = false;
         waitForInvitation.join();
         if(not chatInfo->chatPath_.empty())
         {

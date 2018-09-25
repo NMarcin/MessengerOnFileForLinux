@@ -7,16 +7,16 @@
 #include <Message.hpp>
 
 
-class TerminalControl : public std::enable_shared_from_this<TerminalControl>
+class TerminalControl
 {
 public:
     bool waitingInTerminal();
     bool startConversation(const std::string& username, ChatRole chatRole);
     static void lookForInvitation();
     TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo);
-    TerminalControl(ChatStatus chatStatus);
     ~TerminalControl() = default;
     static bool isWaitingForInvitation;
+    static bool isInvitationExist;
 
 private:
     bool startConversationAsInviter(const std::string& username);

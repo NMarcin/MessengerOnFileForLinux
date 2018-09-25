@@ -23,31 +23,16 @@ TerminalControl::TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInfo
     // NOOP
 }
 
-TerminalControl::TerminalControl(ChatStatus chatStatus)
-                                : chatStatus_(chatStatus)
-{
-    //NOOP
-}
-
 bool TerminalControl::isWaitingForInvitation = true;
+bool TerminalControl::isInvitationExist = false;
 
 bool TerminalControl::waitingInTerminal()
 {
-
     log_.function("TerminalControl::waitingInTerminal()");
     char command[512];
     getstr(command);
-    log_.function((std::string(command) + "|").c_str());
-    if ("start oskierko" == std::string(command))
-    {
-        log_.function("TerminalControl::waitingInTerminal() START");
-        return startConversationAsRecipient("oskierko");
-    }
-
     bool commandStatus = terminalFunctionality_.runCommand(std::string(command), chatInfo_);
-
     return commandStatus;
-
 }
 
 bool TerminalControl::startConversation(const std::string& username, ChatRole chatRole)
@@ -71,20 +56,10 @@ bool TerminalControl::startConversationAsInviter(const std::string& username)
     if(!chatFileWithPath_.empty())
     {
         std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
-        if (nullptr == chatInfo_)
-        {
-            log_.info("DUPAAAAA");
-        }
         log_.info(info.c_str());
-        log_.info("INVITER PRZED");
         chatInfo_->chatPath_ = chatFileWithPath_;
-        log_.info("CZAT PATH UPDATE");
         chatInfo_->messageFlag_ = MessageFlag::inviterMessage;
-        log_.info("FLAG UPDATE");
         return true;
-
-        //ConversationControl conversation(chatFileWithPath_, messageFlag_);
-        //conversation.conversation();
     }
     return false;
 }
@@ -103,9 +78,6 @@ bool TerminalControl::startConversationAsRecipient(const std::string& username)
         log_.info("RECEIVER PRZED");
         chatInfo_->messageFlag_ = MessageFlag::recipientMessage;
         return true;
-
-        //ConversationControl conversation(chatFileWithPath_, messageFlag_);
-        //conversation.conversation();
     }
     return false;
 }
@@ -148,6 +120,7 @@ void TerminalControl::lookForInvitation()
 
             if (recipent == getenv("USER"))
             {
+                isInvitationExist = true;
                 clear();
                 printw(("You get an invitation to chat form " + inviter + "\n").c_str());
                 printw(("Do you want to chat with this user (start " + inviter + "/n)? \n").c_str());
