@@ -6,11 +6,12 @@
 #include <Message.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include <TerminalFunctionality.hpp>
 
 class Sender
 {
 public:
-    Sender(const std::string& pathToChatFile, std::string messageFlag);
+    Sender(std::shared_ptr<ChatInformation> chatInfo);
     ~Sender();
 
     Message getMessageToSend() const;
@@ -22,8 +23,6 @@ private:
     bool isTerminalCommand(const std::string& message) const;
     bool setNewMessageFlag() const;
 
-    std::string chatFilenameWithPath_;
-    std::string messageFlag_;
-
+    std::shared_ptr<ChatInformation> chatInfo_;
     Logger log {LogSpace::ChatStarter};
 };

@@ -18,13 +18,13 @@ bool ConversationControl::isConversationRunning_ = false;
 
 ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
     : chatInfo_(chatInfo)
+    , sender_(std::make_unique<Sender>(chatInfo))
+    , receiver_(std::make_unique<Receiver>(chatInfo))
+    , getMessageToQueueThread_(nullptr)
+    , reciveMessageThread_(nullptr)
+    , sendMessageFromQueueThread_(nullptr)
 {
     log.info("ChatControl C-TOR ");
-    getMessageToQueueThread_ = nullptr;
-    reciveMessageThread_ = nullptr;
-    sendMessageFromQueueThread_ = nullptr;
-    chatFileWithPath_ = chatInfo_->chatPath_;
-    messageFlag_ = chatInfo_->messageFlag_;
     isConversationRunning_ = true;
 }
 
@@ -69,21 +69,11 @@ void ConversationControl::conversationEpilog()
 void ConversationControl::getMessage()
 {
     log.info("ChatControl::getMessage started");
-    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, messageFlag_);
     while(isThreadsRunning_)
     {
         ChatWindow::displayEnterMessageWindow();
-        messageReadyToSend_.push(sender->getMessageToSend());
+        messageReadyToSend_.push(sender_->getMessageToSend());
 
-
-        //auto messega = messageReadyToSend_.front().messageToSave();
-        //auto convertedMessage = username + " >> " + message;
-        // TODO mwozniak nie jestem pewny czy zrozumialem o co tutaj chodzi
-        // czym jest convertedMessage? z tego co ja rozumiem to sluzy do
-        // wystwietlania wiadomosci przez uzytkownika ktory ja napisal u niego
-        //auto x = convertedMessage.messageToShow();
-        log.info("DUPA");
-        //log.info(x);
         auto ownMessageToDisplay = PurgeMessage(messageReadyToSend_.front());
         ownMessageToDisplay.messageToShow();
         messageToDisplay_.push(ownMessageToDisplay);
@@ -94,13 +84,13 @@ void ConversationControl::getMessage()
 
 bool ConversationControl::isMessagesToReadExist()
 {
-    auto chatFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+    auto chatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
 
-    if(MessageFlag::inviterMessage == messageFlag_)
+    if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
     {
         return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::recipientMessage);
     }
-    else if(MessageFlag::recipientMessage == messageFlag_)
+    else if(MessageFlag::recipientMessage == chatInfo_->messageFlag_)
     {
         return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::inviterMessage);
     }
@@ -109,8 +99,6 @@ bool ConversationControl::isMessagesToReadExist()
 void ConversationControl::reciveMessage()
 {
     log.info("ChatControl::reciveMessage started");
-
-    std::unique_ptr<Receiver> receiver = std::make_unique<Receiver>(chatFileWithPath_, messageFlag_);
 
     while(isThreadsRunning_)
     {
@@ -123,8 +111,8 @@ void ConversationControl::reciveMessage()
         std::this_thread::sleep_for(std::chrono::milliseconds(30));
         if (isMessagesToReadExist())
         {
-            receiver->readMessagesToStack();
-            saveMessageToDisplay(receiver);
+            receiver_->readMessagesToStack();
+            saveMessageToDisplay();
         }
     }
 }
@@ -135,12 +123,6 @@ void ConversationControl::sendMessage()
 
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
     auto elapsedTime = std::chrono::milliseconds(20);
-
-
-    log.info(chatFileWithPath_);
-    log.info(messageFlag_);
-    log.info("ChatControl::sendMessage PODSUMOWANIE");
-    std::unique_ptr<Sender> sender = std::make_unique<Sender>(chatFileWithPath_, messageFlag_);
 
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
@@ -157,7 +139,7 @@ void ConversationControl::sendMessage()
         }
         else
         {
-            sender->sendMessage(messageReadyToSend_.front());
+            sender_->sendMessage(messageReadyToSend_.front());
             messageReadyToSend_.pop();
         }
     }
@@ -183,12 +165,12 @@ void ConversationControl::startThreads()
     }));
 }
 
-void ConversationControl::saveMessageToDisplay(const std::unique_ptr<Receiver>& receiver)
+void ConversationControl::saveMessageToDisplay()
 {
     bool isEndOfMessages = false;
     while(!isEndOfMessages)
     {
-        auto message = receiver->returnTheOldestMessage();
+        auto message = receiver_->returnTheOldestMessage();
         if(nullptr == message)
         {
             isEndOfMessages = true;

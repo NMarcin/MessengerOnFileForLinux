@@ -8,7 +8,7 @@ LoggingOut::LoggingOut(std::string command)
     //NOOP
 }
 
-bool LoggingOut::doCommand() // TODO think about chatHistoryPath, how to get it
+bool LoggingOut::doCommand()
 {
     log_.function("LoggingOut::doCommand()");
     SignOut signOutLocalUser;

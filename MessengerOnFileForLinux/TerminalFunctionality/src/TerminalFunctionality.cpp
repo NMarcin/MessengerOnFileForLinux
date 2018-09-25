@@ -38,8 +38,9 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
     else if (starts_with(UserCommand::inviteUser, command))
     {
         log_.info("TerminalFunctionality::runCommand() invite user");
-        InviteSender inviteSender(command, chatInfo);
-        return inviteSender.doCommand();
+        terminalCommand_ = std::make_unique<InviteSender>(command, chatInfo);
+        //InviteSender inviteSender(command, chatInfo);
+        //return inviteSender.doCommand();
     }
     else
     {

@@ -29,20 +29,17 @@ private:
     void sendMessage();
     void stopThreads();
     void startThreads();
-    void saveMessageToDisplay(const std::unique_ptr<Receiver>& receiver);
+    void saveMessageToDisplay();
 
     std::unique_ptr<std::thread> getMessageToQueueThread_;
     std::unique_ptr<std::thread> sendMessageFromQueueThread_;
     std::unique_ptr<std::thread> reciveMessageThread_;
-
+    std::unique_ptr<Receiver> receiver_;
+    std::unique_ptr<Sender> sender_;
+    std::shared_ptr<ChatInformation> chatInfo_;
     std::queue<Message> messageReadyToSend_;
     std::queue<PurgeMessage> messageToDisplay_;
-
-    std::string chatFileWithPath_;
-    std::string messageFlag_;
     bool isThreadsRunning_;
-    TerminalFunctionality terminalFunctionality_;
-    std::shared_ptr<ChatInformation> chatInfo_ = std::make_shared<ChatInformation>();
 
     Logger log{LogSpace::ChatStarter};
 };

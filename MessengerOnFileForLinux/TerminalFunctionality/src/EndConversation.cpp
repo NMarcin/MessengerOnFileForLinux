@@ -10,10 +10,10 @@ EndConversation::EndConversation(std::string command) : TerminalCommand(command)
 
 EndConversation::~EndConversation()
 {
-    ConversationControl::isConversationRunning_ = false;
+
 }
 
 bool EndConversation::doCommand()
 {
-
+    ConversationControl::isConversationRunning_ = false;
 }

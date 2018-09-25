@@ -7,13 +7,12 @@
 #include <TerminalFunctionality.hpp>
 #include <ChatWindow.hpp>
 
-Sender::Sender(const std::string& pathToChatFile, std::string messageFlag)
-    : chatFilenameWithPath_(pathToChatFile),
-      messageFlag_(messageFlag)
+Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
+    : chatInfo_(chatInfo)
 {
     log.info("Sender C-TOR");
-    log.info(chatFilenameWithPath_);
-    log.info(messageFlag_);
+    log.info(chatInfo_->chatPath_);
+    log.info(chatInfo_->messageFlag_);
 }
 
 Sender::~Sender()
@@ -32,7 +31,7 @@ Message Sender::getMessageToSend() const
 bool Sender::sendMessage(const Message& message) const
 {
 
-    bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message.messageToSave());
+    bool isMessageSend = FileInterface::Modification::addRow(chatInfo_->chatPath_, message.messageToSave());
 
     if (isMessageSend)
     {
@@ -64,12 +63,12 @@ Message Sender::prepareMessageToSend(const std::string& rowMessage) const
     if (isTerminalCommand(rowMessage))
     {
         log.info("Sender::prepearMessageToSend() Message is a terminal command");
-        TerminalFunctionality terminalFunctionality(chatFilenameWithPath_, ChatStatus::conversation);
+        TerminalFunctionality terminalFunctionality(chatInfo_->chatPath_, ChatStatus::conversation);
         std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
-        terminalFunctionality.runCommand(command);
+        terminalFunctionality.runCommand(command, chatInfo_);
     }
 
-    return Message(messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
+    return Message(chatInfo_->messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const
@@ -88,8 +87,8 @@ bool Sender::isTerminalCommand(const std::string& message) const
 
 bool Sender::setNewMessageFlag() const
 {
-    std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    std::string messageFlagWithPath = folderName + "/NEW_" + messageFlag_;
+    std::string folderName = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+    std::string messageFlagWithPath = folderName + "/NEW_" + chatInfo_->messageFlag_;
     bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
 }

@@ -11,14 +11,11 @@ enum class ChatStatus
     terminal
 };
 
-struct ChatInformation
+struct ChatInformation //TODO lepsze miejsce na to
 {
     std::string chatPath_ {};
     std::string messageFlag_ {};
 };
-
-class TerminalControl;
-
 
 class TerminalFunctionality
 {

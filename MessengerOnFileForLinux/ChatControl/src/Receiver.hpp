@@ -7,21 +7,13 @@
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 #include <PurgeMessage.hpp>
-/*
-- pobieramy cały plik
-- blokujemy dostęp do pliku
--
+#include <TerminalFunctionality.hpp>
 
-- pobieramy od końca pliku linijki które mają odpowiednią flagę na początku
-- uzywamy do tego stosu, bo potem w odwrotnej kolejnosci bedziemy chcieli wrzucac do kolejki
-- nastepnie z tego stosu zabieram po linijce i oprawiamy ja i zwracamy w innej funkcji
-- kolejna funkcja wrzuca oprawiona linijke do naszej kolejki do wyswietlania
-*/
 
 class Receiver
 {
 public:
-    Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
+    Receiver(std::shared_ptr<ChatInformation> chatInfo);
     ~Receiver() = default;
 
     bool readMessagesToStack();
@@ -35,9 +27,8 @@ private:
     std::unique_ptr<PurgeMessage> messagePurging(Message& messageToPurge);
     void removeFlagNEW();
 
-    const std::string chatFileWithPath_;
+    std::shared_ptr<ChatInformation> chatInfo_;
     std::stack<PurgeMessage> purgeMessagesStack_;
-    std::string mineMessageUserFlag_;
 
     Logger log_{LogSpace::ChatControl};
 };

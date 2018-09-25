@@ -8,9 +8,8 @@
 #include <chrono>
 #include <PurgeMessage.hpp>
 
-Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag)
-                : chatFileWithPath_(chatFileWithPath)
-                , mineMessageUserFlag_(mineMessageUserFlag)
+Receiver::Receiver(std::shared_ptr<ChatInformation> chatInfo)
+                : chatInfo_(chatInfo)
 {
     //NOOP
 }
@@ -18,10 +17,10 @@ Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag
 bool Receiver::readMessagesToStack()
 {
     log_.function("Receiver::readMessagesToStack()");
-    auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
+    auto folder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
     FileInterface::lockFolder(folder);
 
-    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatFileWithPath_, AccesMode::withoutGuardian);
+    std::unique_ptr<std::vector<std::string>> messagesFileContent = FileInterface::Accesor::getFileContent(chatInfo_->chatPath_, AccesMode::withoutGuardian);
     auto fileContentIterator = messagesFileContent->end();
 
     if (isChatFileEmpty(messagesFileContent))
@@ -40,7 +39,7 @@ bool Receiver::readMessagesToStack()
         {
             break;
         }
-        else if(mineMessageUserFlag_ != messageFlag && MessageFlag::readMessage != messageFlag)
+        else if(chatInfo_->messageFlag_ != messageFlag && MessageFlag::readMessage != messageFlag)
         {
             pushPurgeMessageOnStack(*fileContentIterator);
         }
@@ -56,13 +55,13 @@ void Receiver::removeFlagNEW()
 {
     log_.function("Receiver::removeFlagNEW()");
     std::string pathToFolder;
-    pathToFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
-    if(MessageFlag::inviterMessage == mineMessageUserFlag_)
+    pathToFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+    if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
     {
         log_.info("Receiver::removeFlagNEW() remove flag 'NEW' create by recipient");
         FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlag::recipientMessage);
     }
-    else if(MessageFlag::recipientMessage == mineMessageUserFlag_)
+    else if(MessageFlag::recipientMessage == chatInfo_->messageFlag_)
     {
         log_.info("Receiver::removeFlagNEW() remove flag 'NEW' create by inviter");
         FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlag::inviterMessage);
@@ -135,15 +134,15 @@ bool Receiver::updateSeenFlags()
 {
     log_.function("Receiver::updateSeenFlags()");
     bool updateFlagStatus;
-    if(MessageFlag::inviterMessage == mineMessageUserFlag_)
+    if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
     {
         log_.info("Receiver::updateSeenFlags() update flag status for MessageFlag::recipientMessage = 0");
-        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlag::recipientMessage, MessageFlag::readMessage);
+        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatInfo_->chatPath_, MessageFlag::recipientMessage, MessageFlag::readMessage);
     }
-    else if(MessageFlag::recipientMessage == mineMessageUserFlag_)
+    else if(MessageFlag::recipientMessage == chatInfo_->messageFlag_)
     {
         log_.info("Receiver::updateSeenFlags() update flag status for MessageFlag::inviterMessage = 0");
-        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlag::inviterMessage, MessageFlag::readMessage);
+        updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatInfo_->chatPath_, MessageFlag::inviterMessage, MessageFlag::readMessage);
     }
     return updateFlagStatus;
 }
