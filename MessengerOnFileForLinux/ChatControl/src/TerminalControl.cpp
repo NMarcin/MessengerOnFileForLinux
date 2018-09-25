@@ -55,8 +55,6 @@ bool TerminalControl::startConversationAsInviter(const std::string& username)
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
     if(!chatFileWithPath_.empty())
     {
-        std::string info = "ChatControl::startConversationAsInviter chatFileWithPath_: " + chatFileWithPath_;
-        log_.info(info.c_str());
         chatInfo_->chatPath_ = chatFileWithPath_;
         chatInfo_->messageFlag_ = MessageFlag::inviterMessage;
         return true;
@@ -71,11 +69,7 @@ bool TerminalControl::startConversationAsRecipient(const std::string& username)
     chatFileWithPath_ = chatRequest.answerForChatRequest(username, "dupa");
     if(!chatFileWithPath_.empty())
     {
-        std::string info = "ChatControl::startConversationAsRecipient chatFileWithPath_: " + chatFileWithPath_;
-        log_.info(info.c_str());
-        log_.info("RECEIVER PRZED");
         chatInfo_->chatPath_ = chatFileWithPath_;
-        log_.info("RECEIVER PRZED");
         chatInfo_->messageFlag_ = MessageFlag::recipientMessage;
         return true;
     }

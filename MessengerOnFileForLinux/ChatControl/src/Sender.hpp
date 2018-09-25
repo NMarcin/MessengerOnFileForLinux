@@ -14,12 +14,12 @@ public:
     Sender(std::shared_ptr<ChatInformation> chatInfo);
     ~Sender();
 
-    Message getMessageToSend() const;
+    std::unique_ptr<Message> getMessageToSend() const;
     bool sendMessage(const Message& message) const;
 
 private:
     std::string getMessageFromStdin() const;
-    Message prepareMessageToSend(const std::string& rowMessage) const;
+    std::unique_ptr<Message> prepareMessageToSend(const std::string& rowMessage) const;
     bool isTerminalCommand(const std::string& message) const;
     bool setNewMessageFlag() const;
 

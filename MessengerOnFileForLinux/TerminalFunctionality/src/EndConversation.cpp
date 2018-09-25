@@ -16,7 +16,16 @@ EndConversation::~EndConversation()
 
 bool EndConversation::doCommand()
 {
+    log_.function("EndConversation::doCommand() start");
     ConversationControl::isConversationRunning_ = false;
+
     auto chatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
-    FileInterface::Managment::createFile(chatFolder + "/END_" + chatInfo_->messageFlag_);
+    if (FileInterface::Managment::isFileExist(chatFolder + "/END"))
+    {
+        log_.info("EndConversation::doCommand() remove chat folder");
+        log_.info(chatFolder);
+        std::string command = "rm -rf " + chatFolder;
+        return system(command.c_str());
+    }
+    return FileInterface::Managment::createFile(chatFolder + "/END");
 }

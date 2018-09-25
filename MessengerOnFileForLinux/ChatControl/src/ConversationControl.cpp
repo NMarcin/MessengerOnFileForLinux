@@ -72,7 +72,11 @@ void ConversationControl::getMessage()
     while(isThreadsRunning_)
     {
         ChatWindow::displayEnterMessageWindow();
-        messageReadyToSend_.push(sender_->getMessageToSend());
+        auto message = sender_->getMessageToSend();
+        if(message)
+        {
+            messageReadyToSend_.push(*message);
+        }
 
         auto ownMessageToDisplay = PurgeMessage(messageReadyToSend_.front());
         ownMessageToDisplay.messageToShow();
@@ -121,11 +125,12 @@ void ConversationControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
 
-    auto beginTime = std::chrono::system_clock::now();
-    auto newTime = std::chrono::system_clock::now();
+    //auto beginTime = std::chrono::system_clock::now();
+    //auto newTime = std::chrono::system_clock::now();
 
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
+        /*
         newTime = std::chrono::system_clock::now();
         auto timePeriod = newTime - beginTime;
 
@@ -135,6 +140,7 @@ void ConversationControl::sendMessage()
             log.info("ChatControl::sendMessage looking for END flag");
             beginTime = std::chrono::system_clock::now();
         }
+        */
         if (messageReadyToSend_.empty())
         {
             sleep(1);

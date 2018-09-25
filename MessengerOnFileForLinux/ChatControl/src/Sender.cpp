@@ -20,12 +20,12 @@ Sender::~Sender()
     log.info("Sender D-TOR");
 }
 
-Message Sender::getMessageToSend() const
+std::unique_ptr<Message> Sender::getMessageToSend() const
 {
     log.info("Sender::getMessageToSend started");
     std::string rawMessage = getMessageFromStdin();
     auto messageToSend = prepareMessageToSend(rawMessage);
-    return messageToSend;
+    return std::move(messageToSend);
 }
 
 bool Sender::sendMessage(const Message& message) const
@@ -58,7 +58,7 @@ std::string Sender::getMessageFromStdin() const
     return message;
 }
 
-Message Sender::prepareMessageToSend(const std::string& rowMessage) const
+std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
     if (isTerminalCommand(rowMessage))
     {
@@ -66,10 +66,15 @@ Message Sender::prepareMessageToSend(const std::string& rowMessage) const
         TerminalFunctionality terminalFunctionality(chatInfo_->chatPath_, ChatStatus::conversation);
         std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
         terminalFunctionality.runCommand(command, chatInfo_);
-        //TODO infomajca od systemu
+        if("end" == command)
+        {
+            std::string systemMessage = LocalUser::getLocalUser().getUsername() + " LEFT CHAT";
+            return std::make_unique<Message>(chatInfo_->messageFlag_, "SYSTEM" ,systemMessage);
+        }
+        return nullptr;
     }
 
-    return Message(chatInfo_->messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
+    return std::make_unique<Message>(chatInfo_->messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const

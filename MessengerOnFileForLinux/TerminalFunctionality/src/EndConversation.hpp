@@ -13,4 +13,5 @@ public:
 
 private:
     std::shared_ptr<ChatInformation> chatInfo_;
+    Logger log_ {LogSpace::TerminalFunctionality};
 };
