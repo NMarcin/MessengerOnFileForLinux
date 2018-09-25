@@ -29,6 +29,7 @@ bool TerminalControl::isInvitationExist = false;
 bool TerminalControl::waitingInTerminal()
 {
     log_.function("TerminalControl::waitingInTerminal()");
+    refresh();
     char command[512];
     getstr(command);
     bool commandStatus = terminalFunctionality_.runCommand(std::string(command), chatInfo_);

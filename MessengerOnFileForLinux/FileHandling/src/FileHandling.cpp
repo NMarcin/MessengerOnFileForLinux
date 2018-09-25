@@ -212,20 +212,13 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
 
 std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::string& pathToFile)
 {
-    std::string logInfo = "FileInterface::Accesor::getFolderName  from " + pathToFile;
-    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     auto it = pathToFile.end();
 
     while ('/' != *it)
     {
         --it;
     }
-
     std::unique_ptr<std::string> folderName = std::make_unique<std::string>(pathToFile.begin(), it);
-
-    logInfo = "FileInterface::Accesor::getFolderName  Taken folder name is: " + *folderName;
-    fileLog(logInfo.c_str(), LogSpace::FileHandling);
-
     return folderName;
 }
 
