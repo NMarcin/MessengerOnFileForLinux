@@ -6,6 +6,7 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include <PurgeMessage.hpp>
 /*
 - pobieramy cały plik
 - blokujemy dostęp do pliku
@@ -21,22 +22,22 @@ class Receiver
 {
 public:
     Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
-    ~Receiver();
+    ~Receiver() = default;
 
     bool readMessagesToStack();
-    std::string returnTheOldestMessage();
+    std::unique_ptr<PurgeMessage> returnTheOldestMessage();
 
 private:
     bool updateSeenFlags();
     bool endOfMessageToRead(std::string message, std::string messageFlag);
     bool isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFileContent);
     void pushPurgeMessageOnStack(std::string rawMessageToPush);
-    std::string purgeMessageFromRaw(std::string rawMessage);
-    bool removeFlagNEW();
+    std::unique_ptr<PurgeMessage> messagePurging(Message& messageToPurge);
+    void removeFlagNEW();
 
     const std::string chatFileWithPath_;
-    std::stack<std::string> purgeMessagesStack_;
+    std::stack<PurgeMessage> purgeMessagesStack_;
     std::string mineMessageUserFlag_;
 
-    Logger log{LogSpace::ChatFile};
+    Logger log_{LogSpace::ChatControl};
 };

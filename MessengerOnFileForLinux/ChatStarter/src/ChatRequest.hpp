@@ -15,7 +15,7 @@ enum class AnswerType
 class ChatRequest
 {
 public:
-    std::string answerForChatRequest(const std::string& ) const;
+    std::string answerForChatRequest(const std::string& , const std::string &decision = "") const;
     std::string sendChatRequest(const std::string& username) const;
 
     ChatRequest();
@@ -31,5 +31,5 @@ private:
     void showInvitation(const std::string& senderUsername) const;
     bool waitForAnswer(const std::string& username) const;
 
-    Logger log {LogSpace::ChatFile};
+    Logger log_ {LogSpace::ChatStarter};
 };

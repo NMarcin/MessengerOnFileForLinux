@@ -15,15 +15,18 @@ ChatWindow::~ChatWindow()
 
 void ChatWindow::displayChatWindows()
 {
+
     clear();
     int sizeX, sizeY;
     getmaxyx(stdscr, sizeY, sizeX);
     displayMessageWindow_ = newwin(sizeY * 0.75, sizeX, 1, 1);
     enterMessageWindow_ = newwin(sizeY * 0.25 ,sizeX, sizeY * 0.8 + 1 ,1);
+    fileLog("POWINNO BYC XXXXXXXXXXXXXXXXXXXXXXXXXXXXX", LogSpace::Common);
     wprintw(enterMessageWindow_, std::string(sizeX, '-').c_str());
     wrefresh(displayMessageWindow_);
     wrefresh(enterMessageWindow_);
     refresh();
+    fileLog("POWINNO BYC WESIETLONE", LogSpace::Common);
 }
 
 void ChatWindow::deleteDisplayMesageWindow()

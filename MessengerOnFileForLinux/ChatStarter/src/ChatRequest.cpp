@@ -14,26 +14,30 @@
 
 ChatRequest::ChatRequest()
 {
+    log_.function("ChatRequest C-TOR");
     initscr();
-    log.info("ChatRequest C-TOR");
 }
 
 ChatRequest::~ChatRequest()
 {
+    log_.function("ChatRequest D-TOR");
     endwin();
-    log.info("ChatRequest D-TOR");
 }
 
-std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const
+std::string ChatRequest::answerForChatRequest(const std::string& senderUsername, const std::string& decision) const
 {
 
-    log.info("ChatRequest::answerForChatRequest started");
+    if (decision == "dupa")
+    {
+        return sendAnswer(senderUsername, AnswerType::accepted);
+    }
+    log_.function("ChatRequest::answerForChatRequest()");
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
     FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
     showInvitation(senderUsername);
-    bool decision = approveChatInvitation();
+    bool decisionStatus = approveChatInvitation();
 
-    if (decision)
+    if (decisionStatus)
     {
         return sendAnswer(senderUsername, AnswerType::accepted);
     }
@@ -43,7 +47,7 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername)
 
 bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
 {
-    log.info("ChatRequest::changeUserStatus started");
+    log_.function("ChatRequest::changeUserStatus()");
 
     auto username = user.getUsername();
     return FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED, username, newStatus, FileStructure::LoggedFile::status);
@@ -52,11 +56,11 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
-    log.info("ChatRequest::getChatFolderName started");
+    log_.function("ChatRequest::getChatFolderName()");
     std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + " | grep " + folderName;
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
     std::string logData = "ChatRequest::getChatFolderName -> " + *folderFullName;
-    log.info(logData.c_str());
+    log_.info(logData);
      if (!folderFullName->empty())
      {
          return folderFullName ;
@@ -67,7 +71,7 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
-    log.info("ChatRequest::getUserStatus started");
+    log_.function("ChatRequest::getUserStatus()");
 
     auto row = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, username);
     if (row)
@@ -76,7 +80,7 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
         return userStatus;
     }
 
-    log.info("ChatRequest::getUserStatus ERROR: User is offline or does not exist");
+    log_.info("ChatRequest::getUserStatus() ERROR: User is offline or does not exist");
     printw("User is offline or does not exist.");
     refresh();
 
@@ -86,7 +90,7 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
 
 bool ChatRequest::isUserActive(const User& user) const
 {
-    log.info("ChatRequest::isUserActive started");
+    log_.function("ChatRequest::isUserActive()");
     std::unique_ptr<std::string> userStatusToCompare = getUserStatus(user.getUsername());
 
     if (nullptr == userStatusToCompare)
@@ -99,7 +103,7 @@ bool ChatRequest::isUserActive(const User& user) const
         return true;
     }
 
-    log.info("ChatRequest::isUserActive ERROR: User is bussy");
+    log_.info("ChatRequest::isUserActive ERROR: User is bussy");
     printw("User is bussy. Try again later.");
     refresh();
 
@@ -108,29 +112,35 @@ bool ChatRequest::isUserActive(const User& user) const
 
 bool ChatRequest::approveChatInvitation() const
 {
-    log.info("ChatRequest::approveChatInvitation started");
+    log_.function("ChatRequest::approveChatInvitation()");
     std::string decision;
     decision = ConsoleWindow::getStringFromConsoleWindow();
+    auto x = "1||" + decision + "||1";
+    log_.info(x.c_str());
     std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
+    x = "2||" + decision + "||2";
+    log_.info(x.c_str());
 
     if ("y" == decision || "yes" == decision)
     {
-        log.info("ChatRequest::approveChatInvitation Invitation accepted");
+        log_.info("ChatRequest::approveChatInvitation Invitation accepted");
         return true;
     }
     else if ("n" == decision || "no" == decision)
     {
-        log.info("ChatRequest::approveChatInvitation Invitation disaccepted");
+        log_.info("ChatRequest::approveChatInvitation Invitation disaccepted");
         return false;
     }
 
-    log.info("ChatRequest::approveChatInvitation Invitation disaccepted. Timeout while waiting for answer");
+    log_.info("ChatRequest::approveChatInvitation Invitation disaccepted");
+    x = "DUPA||" + decision + "||DUPA";
+    log_.info(x.c_str());
     return false;
 }
 
 std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
-    log.info("ChatRequest::sendAnswer started");
+    log_.function("ChatRequest::sendAnswer()");
     std::string folderNameWithoutNumber = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
     std::string folderFullName = *getChatFolderName(folderNameWithoutNumber);
     std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + folderFullName;
@@ -150,7 +160,7 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
 
 std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
-    log.info("ChatRequest::sendChatRequest started");
+    log_.function("ChatRequest::sendChatRequest()");
     User receiver(username);
     changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::bussyStatus);
     //^ przez ta linijke są zakomentowane UT
@@ -182,7 +192,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 
 void ChatRequest::showInvitation(const std::string& senderUsername) const
 {
-    log.info("ChatRequest::showInvitation started");
+    log_.function("ChatRequest::showInvitation()");
     clear();
     printw(("You get an invitation to chat form " + senderUsername + "\n").c_str());
     printw("Do you want to chat with this user (y/n)? \n");
@@ -192,7 +202,7 @@ void ChatRequest::showInvitation(const std::string& senderUsername) const
 
 bool ChatRequest::waitForAnswer(const std::string& username) const
 {
-    log.info("ChatRequest::waitForAnswer started");
+    log_.function("ChatRequest::waitForAnswer()");
     std::string folderName = LocalUser::getLocalUser().getUsername() + "_" + username;
     std::string folderFullName = *getChatFolderName(folderName);
 
@@ -217,7 +227,7 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
         sleep(1);
     }
 
-    log.info("ChatRequest::waitForAnswer ERROR: User has not accepted the invitation");
+    log_.info("ChatRequest::waitForAnswer ERROR: User has not accepted the invitation");
     std::cout << "User has not accepted the invitation." << std::endl;
     return false;
 }

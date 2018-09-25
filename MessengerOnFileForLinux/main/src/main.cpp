@@ -10,6 +10,7 @@
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
 #include <SignalHandling.hpp>
+#include <Controler.hpp>
 
 #define ever (;;)
 
@@ -23,15 +24,14 @@ void mnurzyns()
 void mwozniak()
 {
 
-    std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
-    std::thread waitForInvitation(lookForInvitation);
+
 
     RegisterUser registerUser;
     SignIn signIn;
-    TerminalFunctionality terminal;
-
-    for ever
-    {
+    //for ever
+    //{
+        std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
+        //std::thread waitForInvitation(lookForInvitation);
         registerUser.registerNewUser();
         clear();
         refresh();
@@ -39,13 +39,17 @@ void mwozniak()
         clear();
         refresh();
         ConsoleWindow::displayMainWindow();
-        char command[512];
-        getstr(command);
-        terminal.runCommand(command);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        Controler controler;
+        controler.controlUserAction();
 
-    }
+        //char command[512];
+        //getstr(command);
+        //terminal.runCommand(command);
+
+        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    //}
 }
 
 enum class Run

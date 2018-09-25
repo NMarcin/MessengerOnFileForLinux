@@ -3,9 +3,14 @@
 
 #include <ConversationControl.hpp>
 
-InviteSender::InviteSender(std::string command) : TerminalCommand(command)
+InviteSender::InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo) :
+    TerminalCommand(command)
+  , command_(command)
+  , chatInfo_(chatInfo)
 {
-
+    log_.info("InviteSender() CTOR");
+    int x = command.size();
+    log_.info(std::to_string(x).c_str());
 }
 
 InviteSender::~InviteSender()
@@ -13,10 +18,10 @@ InviteSender::~InviteSender()
 
 }
 
-bool InviteSender::doCommand(TerminalControl *x)
+bool InviteSender::doCommand()
 {
-    auto beginOfUsernameInCommand = command_.begin()+7;
-    std::string username = {beginOfUsernameInCommand, command_.end()};
-    TerminalControl terminalControl;
-    x->startConversation(username, ChatRole::inviter); //startConversation powinno zwracac bool
+    log_.info("InviteSender()::doCommand()");
+    std::string usernameInCommand = std::string{command_.begin()+7, command_.end()};
+    TerminalControl terminalControl(ChatStatus::terminal, chatInfo_);
+    terminalControl.startConversation(usernameInCommand, ChatRole::inviter);
 }

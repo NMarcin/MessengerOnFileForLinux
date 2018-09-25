@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unistd.h>
+#include <exception>
 
 #include <TerminalControl.hpp>
 #include <FileHandling.hpp>
@@ -67,50 +68,6 @@ namespace MessageFlag
 
 /** To do jakiegos inita ***********************************/
 
+
+
 static int isMessengerRunnig = true;
-
-
-static void lookForInvitation()
-{
-    while (isMessengerRunnig)
-    {
-        auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS);
-        if (0 == invitationsFolderContent->size())
-        {
-            sleep(1);
-            continue;
-        }
-        for(auto invitation : *invitationsFolderContent)
-        {
-            std::string recipent;
-            std::string inviter;
-            bool getRecipentName = true;
-
-            for (auto letter : invitation)
-            {
-                if (!getRecipentName)
-                {
-                    inviter += letter;
-                }
-
-                else if ('_' != letter)
-                {
-                    recipent += letter;
-                }
-
-                else if ( '_' == letter)
-                {
-                    getRecipentName = false;
-                }
-
-            }
-
-            if (recipent == getenv("USER"))
-            {
-                TerminalControl terminalControl;
-                terminalControl.startConversation(inviter, ChatRole::recipient);
-            }
-        }
-        sleep(1);
-    }
-}

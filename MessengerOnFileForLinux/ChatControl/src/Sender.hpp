@@ -25,5 +25,5 @@ private:
     std::string chatFilenameWithPath_;
     std::string messageFlag_;
 
-    Logger log {LogSpace::ChatFile};
+    Logger log {LogSpace::ChatStarter};
 };

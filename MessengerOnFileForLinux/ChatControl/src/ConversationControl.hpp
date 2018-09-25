@@ -11,13 +11,14 @@
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 #include <Message.hpp>
+#include <TerminalFunctionality.hpp>
 
 class ConversationControl
 {
 public:
     void conversation();
     void conversationEpilog();
-    ConversationControl(const std::string& chatFileWithPath, std::string messageFlag);
+    ConversationControl(std::shared_ptr<ChatInformation> chatInfo);
     ~ConversationControl();
 
 private:
@@ -34,11 +35,13 @@ private:
     std::unique_ptr<std::thread> reciveMessageThread_;
 
     std::queue<Message> messageReadyToSend_;
-    std::queue<std::string> messageToDisplay_;
+    std::queue<PurgeMessage> messageToDisplay_;
 
     std::string chatFileWithPath_;
     std::string messageFlag_;
     bool isThreadsRunning_;
+    TerminalFunctionality terminalFunctionality_;
+    std::shared_ptr<ChatInformation> chatInfo_ = std::make_shared<ChatInformation>();
 
-    Logger log{LogSpace::ChatFile};
+    Logger log{LogSpace::ChatStarter};
 };

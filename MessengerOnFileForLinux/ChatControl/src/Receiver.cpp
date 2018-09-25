@@ -15,13 +15,9 @@ Receiver::Receiver(std::string chatFileWithPath, std::string mineMessageUserFlag
     //NOOP
 }
 
-Receiver::~Receiver()
-{
-    //NOOP
-}
-
 bool Receiver::readMessagesToStack()
 {
+    log_.function("Receiver::readMessagesToStack()");
     auto folder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
     FileInterface::lockFolder(folder);
 
@@ -31,6 +27,7 @@ bool Receiver::readMessagesToStack()
     if (isChatFileEmpty(messagesFileContent))
     {
         FileInterface::unlockFolder(folder);
+        log_.info("Receiver::readMessagesToStack() ChatFolder is empty, unlocking folder");
         return false;
     }
 
@@ -55,44 +52,52 @@ bool Receiver::readMessagesToStack()
     return updateFlagStatus;
 }
 
-bool Receiver::removeFlagNEW()
+void Receiver::removeFlagNEW()
 {
+    log_.function("Receiver::removeFlagNEW()");
     std::string pathToFolder;
     pathToFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath_);
     if(MessageFlag::inviterMessage == mineMessageUserFlag_)
     {
+        log_.info("Receiver::removeFlagNEW() remove flag 'NEW' create by recipient");
         FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlag::recipientMessage);
     }
     else if(MessageFlag::recipientMessage == mineMessageUserFlag_)
     {
+        log_.info("Receiver::removeFlagNEW() remove flag 'NEW' create by inviter");
         FileInterface::Managment::removeFile(pathToFolder + "/NEW" + "_" + MessageFlag::inviterMessage);
     }
 }
 
-std::string Receiver::returnTheOldestMessage()
+std::unique_ptr<PurgeMessage> Receiver::returnTheOldestMessage()
 {
+    log_.function("Receiver::returnTheOldestMessage()");
     if(purgeMessagesStack_.empty())
     {
-        return "";
+        log_.info("Receiver::returnTheOldestMessage() purgeMessageStack is empty");
+        return nullptr;
     }
     else
     {
-        std::string message;
-        message = purgeMessagesStack_.top();
+        std::unique_ptr<PurgeMessage> purgeMessage;
+        purgeMessage = std::make_unique<PurgeMessage>(purgeMessagesStack_.top());
         purgeMessagesStack_.pop();
 
-        return message;
+        log_.info("Receiver::returnTheOldestMessage() purgeMessage returned and pop from purgeMessageStack");
+        return purgeMessage;
     }
 }
 
 bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
 {
+    log_.function("Receiver::endOfMessageToRead()");
     if( MessageFlag::readMessage == messageFlag)
     {
         std::string senderUsername;
         senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::MessageFile::flag);
         if( LocalUser::getLocalUser().getUsername() == senderUsername)
         {
+            log_.info("Receiver::endOfMessageToRead() Message read befory by user, end of reading messages");
             return true;
         }
     }
@@ -104,32 +109,40 @@ bool Receiver::isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFi
     return chatFileContent->size() == 1 && chatFileContent->at(0) == "";
 }
 
-std::string Receiver::purgeMessageFromRaw(std::string messageToPurge)
+std::unique_ptr<PurgeMessage> Receiver::messagePurging(Message& messageToPurge)
 {
-    auto username = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::username);
-    auto message = *FileInterface::Accesor::getRowField(messageToPurge, FileStructure::MessageFile::message);
-    return username + " >> " + message;
+    log_.function("Receiver::messagePurging()");
+    std::unique_ptr<PurgeMessage> purgeMessage= std::make_unique<PurgeMessage>(messageToPurge);
+    return purgeMessage;
 }
 
 void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
-    if (rawMessageToPush != "")
+    log_.function("Receiver::pushPurgeMessageOnStack()");
+    if( "" != rawMessageToPush)
     {
-        std::string purgeMessage;
-        purgeMessage = purgeMessageFromRaw(rawMessageToPush);
-        purgeMessagesStack_.push(purgeMessage);
+        Message message(rawMessageToPush);
+        auto purgeMessage = messagePurging(message);
+        purgeMessagesStack_.push(*purgeMessage);
+    }
+    else
+    {
+        log_.info("Receiver::pushPurgeMessageOnStack() message empty");
     }
 }
 
 bool Receiver::updateSeenFlags()
 {
+    log_.function("Receiver::updateSeenFlags()");
     bool updateFlagStatus;
     if(MessageFlag::inviterMessage == mineMessageUserFlag_)
     {
+        log_.info("Receiver::updateSeenFlags() update flag status for MessageFlag::recipientMessage = 0");
         updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlag::recipientMessage, MessageFlag::readMessage);
     }
     else if(MessageFlag::recipientMessage == mineMessageUserFlag_)
     {
+        log_.info("Receiver::updateSeenFlags() update flag status for MessageFlag::inviterMessage = 0");
         updateFlagStatus = FileInterface::Modification::updateFlagsInFile(chatFileWithPath_, MessageFlag::inviterMessage, MessageFlag::readMessage);
     }
     return updateFlagStatus;

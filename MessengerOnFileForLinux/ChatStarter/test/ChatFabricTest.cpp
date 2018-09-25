@@ -13,6 +13,7 @@ void folderDeleter()
     system(("rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + "*inviterU*").c_str());
 }
 
+/*
 TEST(ChatFileTest, isFolderCreated)
 {
 
@@ -35,7 +36,6 @@ TEST(ChatFileTest, isFileCreated)
     EXPECT_TRUE(isFileExists);
     folderDeleter();
 }
-
 TEST(ChatFileTest, canWeWriteToFile)
 {
     ChatFabric chatFabric;
@@ -72,3 +72,4 @@ TEST(ChatFileTest, canWeCreateFilesInFolder)
     folderDeleter();
 
 }
+*/

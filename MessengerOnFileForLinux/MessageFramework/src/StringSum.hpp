@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-
+#include <Logger.hpp>
+#include <LogSpace.hpp>
 
 class StringSumSquareBrackets
 {
@@ -14,4 +15,6 @@ public:
 
 private:
     std::string sumedString;
+
+    Logger log_ {LogSpace::MessageFramework};
 };
