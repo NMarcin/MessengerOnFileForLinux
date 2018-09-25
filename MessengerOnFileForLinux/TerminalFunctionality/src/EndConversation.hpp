@@ -1,15 +1,16 @@
 #pragma once
 
 #include <TerminalCommand.hpp>
+#include <TerminalFunctionality.hpp>
 
 class EndConversation : public TerminalCommand
 {
 public:
     bool doCommand() override;
 
-    EndConversation(std::string command);
+    EndConversation(std::string command, std::shared_ptr<ChatInformation> chatInfo);
     ~EndConversation();
 
 private:
-    std::string chatFileWithPath_;
+    std::shared_ptr<ChatInformation> chatInfo_;
 };

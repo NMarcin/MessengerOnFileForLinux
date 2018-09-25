@@ -12,7 +12,6 @@
 #include <iostream>
 
 
-
 bool starts_with(const std::string toFind, const std::string ourString);
 
 bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo)
@@ -28,7 +27,7 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
     else if (starts_with(UserCommand::endChat, command) && ChatStatus::conversation == chatStatus_)
     {
          log_.info("TerminalFunctionality::runCommand() endChat command");
-         terminalCommand_ = std::make_unique<EndConversation>(command);
+         terminalCommand_ = std::make_unique<EndConversation>(command, chatInfo);
     }
     else if (starts_with(UserCommand::logout, command))
     {
@@ -39,8 +38,6 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
     {
         log_.info("TerminalFunctionality::runCommand() invite user");
         terminalCommand_ = std::make_unique<InviteSender>(command, chatInfo);
-        //InviteSender inviteSender(command, chatInfo);
-        //return inviteSender.doCommand();
     }
     else
     {

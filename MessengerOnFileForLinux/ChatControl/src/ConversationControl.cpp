@@ -121,17 +121,19 @@ void ConversationControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    auto elapsedTime = std::chrono::milliseconds(20);
+    auto beginTime = std::chrono::system_clock::now();
+    auto newTime = std::chrono::system_clock::now();
 
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        elapsedTime +=  std::chrono::milliseconds(10);
-        if (elapsedTime >= std::chrono::milliseconds(15000))
+        newTime = std::chrono::system_clock::now();
+        auto timePeriod = newTime - beginTime;
+
+        if (timePeriod >= std::chrono::seconds(15))
         {
-            //TODO mawoznia spradz czy jest czat
-            elapsedTime = std::chrono::milliseconds(0);
+            //TODO dalsza obsluga enda
+            log.info("ChatControl::sendMessage looking for END flag");
+            beginTime = std::chrono::system_clock::now();
         }
         if (messageReadyToSend_.empty())
         {
@@ -142,6 +144,8 @@ void ConversationControl::sendMessage()
             sender_->sendMessage(messageReadyToSend_.front());
             messageReadyToSend_.pop();
         }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 }
 
