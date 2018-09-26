@@ -15,7 +15,7 @@ enum class AnswerType
 class ChatRequest
 {
 public:
-    std::string answerForChatRequest(const std::string& , const std::string &decision = "") const;
+    std::string answerForChatRequest(const std::string& senderUsername, const std::string& decision) const;
     std::string sendChatRequest(const std::string& username) const;
 
     ChatRequest();

@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <ncurses.h>
 
 #include <RegisterUser.hpp>
 #include <FileHandling.hpp>

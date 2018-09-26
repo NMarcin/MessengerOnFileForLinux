@@ -18,16 +18,17 @@ void Controler::controlUserAction()
 
         terminalControl_ = std::make_unique<TerminalControl>(ChatStatus::terminal, chatInfo);
         terminalControl_->waitingInTerminal();
+
         TerminalControl::isWaitingForInvitation = false;
         TerminalControl::isInvitationExist = false;
         waitForInvitation.join();
+
         if(not chatInfo->chatPath_.empty())
         {
             log_.info("Controler::controlUserAction() ConversationControl start end");
+
             conversationControl_ = std::make_unique<ConversationControl>(chatInfo);
             conversationControl_->conversation();
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(10000));
             conversationControl_->conversationEpilog();
         }
 

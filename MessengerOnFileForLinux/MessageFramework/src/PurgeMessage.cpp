@@ -20,7 +20,6 @@ PurgeMessage::PurgeMessage(const Message& message)
     log_.function(time_);
     username_ = message.getUsername();
     content_ = message.getContent();
-
 }
 
 bool PurgeMessage::setTime(std::string longTime)

@@ -10,7 +10,7 @@ public:
     bool doCommand() override;
 
     HistoryDowloander(std::string command, std::string chatFileWithPath);
-    ~HistoryDowloander() = default;;
+    ~HistoryDowloander() = default;
 
 private:
     std::string chatFileWithPath_;

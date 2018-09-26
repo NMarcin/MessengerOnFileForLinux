@@ -6,6 +6,7 @@
 #include <FileHandling.hpp>
 #include <TerminalFunctionality.hpp>
 #include <ChatWindow.hpp>
+#include <ConversationControl.hpp>
 
 Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
     : chatInfo_(chatInfo)
@@ -46,8 +47,8 @@ bool Sender::sendMessage(const Message& message) const
 std::string Sender::getMessageFromStdin() const
 {
     log.info("Sender::getMessageFromStdin started");
-
     std::string message;
+
     int ch = wgetch(ChatWindow::getEnterMessageWindow());
     while (ch != '\n')
     {

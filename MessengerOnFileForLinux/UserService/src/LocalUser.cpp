@@ -6,12 +6,12 @@
 LocalUser::LocalUser()
         : User(getenv("USER"))
 {
-    log.info("LoclaUser C-TOR");
+    log_.function("LoclaUser C-TOR");
 }
 
 LocalUser::~LocalUser()
 {
-    log.info("LoclaUser D-TOR");
+    log_.function("LoclaUser D-TOR");
 }
 
 LocalUser & LocalUser::getLocalUser()

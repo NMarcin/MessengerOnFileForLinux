@@ -1,7 +1,6 @@
 #pragma once
 
 #include <TerminalFunctionality.hpp>
-#include <functional>
 #include <TerminalControl.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>

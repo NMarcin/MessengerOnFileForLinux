@@ -24,32 +24,20 @@ void mnurzyns()
 void mwozniak()
 {
 
-
-
     RegisterUser registerUser;
     SignIn signIn;
-    //for ever
-    //{
-        std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
-        //std::thread waitForInvitation(lookForInvitation);
-        registerUser.registerNewUser();
-        clear();
-        refresh();
-        signIn.signInUser();
-        clear();
-        refresh();
-        ConsoleWindow::displayMainWindow();
 
-        Controler controler;
-        controler.controlUserAction();
+    std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
+    registerUser.registerNewUser();
+    clear();
+    refresh();
+    signIn.signInUser();
+    clear();
+    refresh();
+    ConsoleWindow::displayMainWindow();
 
-        //char command[512];
-        //getstr(command);
-        //terminal.runCommand(command);
-
-        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    //}
+    Controler controler;
+    controler.controlUserAction();
 }
 
 enum class Run

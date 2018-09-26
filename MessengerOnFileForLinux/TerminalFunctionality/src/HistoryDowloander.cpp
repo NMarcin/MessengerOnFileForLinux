@@ -1,12 +1,11 @@
 #include <HistoryDowloander.hpp>
-
 #include <GlobalVariables.hpp>
 
 HistoryDowloander::HistoryDowloander(std::string command, std::string chatFileWithPath)
                 : TerminalCommand(command)
                 , chatFileWithPath_(chatFileWithPath)
 {
-    //NOOP
+    log_.function("HistoryDowloander() C-TOR");
 }
 
 bool HistoryDowloander::doCommand()

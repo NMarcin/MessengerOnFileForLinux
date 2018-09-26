@@ -99,7 +99,7 @@ std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile, Acce
 {
     return openFile(pathToFile, FileMode::toRead, accesMode);
 }
-}
+}//namespace
 
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
@@ -122,14 +122,13 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
 
 bool FileInterface::Managment::createFile(const std::string& pathToFile)
 {
-
     if (isFileExist(pathToFile))
     {
-        std::string logInfo = "FileInterface::Managment::createFile started ERROR: " + pathToFile + "File exist!";
+        std::string logInfo = "FileInterface::Managment::createFile() started ERROR: " + pathToFile + "File exist!";
         fileLog(logInfo.c_str(), LogSpace::FileHandling);
         return false;
     }
-    std::string logInfo = "FileInterface::Managment::TWORZE " + pathToFile;
+    std::string logInfo = "FileInterface::Managment::createFile() -> " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
 
     std::string systemCommand = "touch " + pathToFile;
@@ -146,7 +145,7 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile, AccesMode accesMode = AccesMode::withGuardian)
 {
-    std::string logInfo = "FileInterface::Accesor::getFileContent " + pathToFile;
+    std::string logInfo = "FileInterface::Accesor::getFileContent() " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
     std::string folderName = *Accesor::getFolderName(pathToFile);
@@ -225,11 +224,10 @@ std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::st
 
 std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::string& field, const int fieldNumber)
 {
-    fileLog("FileInterface::Accesor::getRowField started from ", LogSpace::FileHandling);
+    fileLog("FileInterface::Accesor::getRowField() started from ", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
 
-    std::string::iterator it;
     for (auto& x : field)
     {
         if ('[' == x)
@@ -247,7 +245,6 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
 std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& pathToFile, const std::string& pattern)
 {
     std::string folderName = *Accesor::getFolderName(pathToFile);
-
     waitForAccess(folderName);
 
     std::string command = "grep '" + pattern + "' " +  pathToFile;
@@ -271,7 +268,7 @@ bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
-    std::string logInfo = "FileInterface::Managment::USUWAM " + pathToFile;
+    std::string logInfo = "FileInterface::Managment::removeFile() -> " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     remove(pathToFile.c_str());
     return ! isFileExist(pathToFile);
@@ -280,7 +277,6 @@ bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
 {
     std::string folderName = *Accesor::getFolderName(pathToFile);
-
     waitForAccess(folderName);
 
     std::string command = "sed -i -e '/" + pattern + "/d' " + pathToFile;

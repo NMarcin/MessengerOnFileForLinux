@@ -80,7 +80,7 @@ void ChatRequestFixture::lookForInvitationGT()
             if (recipent == getenv("USER"))
             {
                 ChatRequest chatRequest;
-                chatRequest.answerForChatRequest(inviter);
+                chatRequest.answerForChatRequest(inviter, "accept");
             }
         }
     }

@@ -1,9 +1,6 @@
 #pragma once
-#include <string>
 #include <memory>
-#include <ncurses.h>
 
-#include <LocalUser.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
@@ -23,5 +20,5 @@ private:
     bool saveUserDataInRegisteredFile() const;
     bool setUserPassword(const std::string & password) const;
 
-    Logger log {LogSpace::UserService};
+    Logger log_ {LogSpace::UserService};
 };

@@ -17,7 +17,7 @@ bool starts_with(const std::string toFind, const std::string ourString);
 
 bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo)
 {
-    log_.function("TerminalFunctionality::runCommand()");
+    log_.function("TerminalFunctionality::runCommand() started");
     log_.function(command);
 
     if (starts_with(UserCommand::historyDowloander, command) && ChatStatus::conversation == chatStatus_)
@@ -47,7 +47,7 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
     }
     else
     {
-        log_.info("TerminalFunctionality::runCommand() command not found");
+        log_.info("TerminalFunctionality::runCommand() command NOT FOUND");
         return false;
     }
 

@@ -1,12 +1,10 @@
 #include <memory>
-#include <vector>
-#include <iostream>
 #include <chrono>
 #include <thread>
 #include <ncurses.h>
-#include <stdio.h>
 
 #include <RegisterUser.hpp>
+#include <LocalUser.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
@@ -16,23 +14,26 @@
 RegisterUser::RegisterUser()
 {
     initscr();
-    log.info("RegisterUser C-TOR");
+    log_.function("RegisterUser C-TOR");
 }
 
 RegisterUser::~RegisterUser()
 {
     endwin();
-    log.info("RegisterUser D-TOR");
+    log_.function("RegisterUser D-TOR");
 }
 
 std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() const
 {
+    log_.function("RegisterUser::askUserForPassword() started");
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
+
     ConsoleWindow::displayRegistrationWindow();
     printw("Enter the password again. ");
     refresh();
     sleep(1);
+
     passwords->back() = enterThePassword();
 
     return passwords;
@@ -40,6 +41,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 
 std::string RegisterUser::enterThePassword() const
 {
+    log_.function("RegisterUser::enterThePassword() started");
     std::string password;
     ConsoleWindow::displayRegistrationWindow();
     printw("Enter the password : ");
@@ -51,12 +53,14 @@ std::string RegisterUser::enterThePassword() const
 
 bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 {
+    log_.function("RegisterUser::comparePasswords() started");
     if(passwords.front() == passwords.back())
     {
+        log_.info("RegisterUser::comparePassword() success");
         return true;
     }
 
-    log.info("RegisterUser::comparePassword ERROR: Passwords are differnet");
+    log_.info("RegisterUser::comparePassword() failure");
     ConsoleWindow::displayRegistrationWindow();
     printw("The passwords are differnet. Enter passwords one more time.");
     refresh();
@@ -67,6 +71,7 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 
 bool RegisterUser::isUserRegistered() const
 {
+    log_.function("RegisterUser::isUserRegistered() started");
     auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, LocalUser::getLocalUser().getUsername());
 
     if (nullptr == userInfo)
@@ -74,24 +79,21 @@ bool RegisterUser::isUserRegistered() const
         return false;
     }
 
-    log.info("RegisterUser::isUserRegistered ERROR: User is registered");
+    log_.info("RegisterUser::isUserRegistered ERROR: User is registered");
     return true;
 }
 
 
 bool RegisterUser::registerNewUser() const
 {
-    log.info("RegisterUser::registerNewUser started");
+    log_.function("RegisterUser::registerNewUser() started");
     if (isUserRegistered())
     {
-        std::cerr << "You already have an account" <<std::endl;
-        log.info("RegisterUser::registerNewUser ERROR: You already have an account");
+        log_.info("RegisterUser::registerNewUser ERROR: You already have an account");
         return false;
     }
 
-
     bool isPasswordSetCorrectly = false;
-
     while (!isPasswordSetCorrectly)
     {
         std::array<std::string, 2> passwords = *askUserForPassword();
@@ -101,33 +103,34 @@ bool RegisterUser::registerNewUser() const
             isPasswordSetCorrectly = setUserPassword(passwords.front());
         }
     }
-    std::cerr <<"DUUPA" << std::endl;
-    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
 
+    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
     while (!isUserDataSavedCorrectly)
     {
         std::this_thread::sleep_for(std::chrono::microseconds(500));
         isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
     }
 
-    log.info("RegisterUser::registerNewUser Registration completed successfully");
+    log_.info("RegisterUser::registerNewUser Registration completed successfully");
     return true;
 }
 
 bool RegisterUser::setUserPassword(const std::string& password) const
 {
+    log_.function("RegisterUser::setUserPassword() started");
+
     SHA1 hashObject;
     hashObject.update(password);
     LocalUser::getLocalUser().setPassword(hashObject.final());
-
     return true;
 }
 
 bool RegisterUser::saveUserDataInRegisteredFile() const
 {
+    log_.function("RegisterUser::saveUserDataInRegisteredFile() started");
+
     StringSumSquareBrackets information;
     information.sum(LocalUser::getLocalUser().getUsername());
     information.sum(LocalUser::getLocalUser().getPassword());
-
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, information.getSumedString());
 }

@@ -1,5 +1,4 @@
 #pragma once
-// DODAC DO CMAKOW TEST
 #include <memory>
 
 #include <TerminalControl.hpp>

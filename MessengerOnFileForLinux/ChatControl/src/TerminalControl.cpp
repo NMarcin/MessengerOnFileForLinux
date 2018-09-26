@@ -3,6 +3,8 @@
 #include <ChatRequest.hpp>
 #include <ConversationControl.hpp>
 #include <GlobalVariables.hpp>
+#include <ConsoleWindow.hpp>
+#include <LocalUser.hpp>
 
 #include <iostream>
 #include <memory>
@@ -28,8 +30,9 @@ bool TerminalControl::isInvitationExist = false;
 
 bool TerminalControl::waitingInTerminal()
 {
-    log_.function("TerminalControl::waitingInTerminal()");
+    clear();
     refresh();
+    ConsoleWindow::displayMainWindow();
     char command[512];
     getstr(command);
     bool commandStatus = terminalFunctionality_.runCommand(std::string(command), chatInfo_);
@@ -67,7 +70,7 @@ bool TerminalControl::startConversationAsRecipient(const std::string& username)
 {
     log_.function("TerminalControl::startConversationAsRecipient()");
     ChatRequest chatRequest;
-    chatFileWithPath_ = chatRequest.answerForChatRequest(username, "dupa");
+    chatFileWithPath_ = chatRequest.answerForChatRequest(username, "accept");
     if(!chatFileWithPath_.empty())
     {
         chatInfo_->chatPath_ = chatFileWithPath_;
@@ -122,6 +125,8 @@ void TerminalControl::lookForInvitation()
                 printw(">> ");
                 refresh();
                 isWaitingForInvitation=false;
+                std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + inviter;
+                FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
             }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(500));

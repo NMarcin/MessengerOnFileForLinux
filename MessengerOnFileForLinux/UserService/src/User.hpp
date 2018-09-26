@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
@@ -20,5 +18,5 @@ private:
     std::string username_;
     std::string password_;
 
-    Logger log {LogSpace::UserService};
+    Logger log_ {LogSpace::UserService};
 };

@@ -72,16 +72,18 @@ void ConversationControl::getMessage()
     while(isThreadsRunning_)
     {
         ChatWindow::displayEnterMessageWindow();
-        auto message = sender_->getMessageToSend();
-        if(message)
+        if (isConversationRunning_)
         {
-            messageReadyToSend_.push(*message);
+            auto message = sender_->getMessageToSend();
+            if(message)
+            {
+                messageReadyToSend_.push(*message);
+            }
+
+            auto ownMessageToDisplay = PurgeMessage(messageReadyToSend_.front());
+            ownMessageToDisplay.messageToShow();
+            messageToDisplay_.push(ownMessageToDisplay);
         }
-
-        auto ownMessageToDisplay = PurgeMessage(messageReadyToSend_.front());
-        ownMessageToDisplay.messageToShow();
-        messageToDisplay_.push(ownMessageToDisplay);
-
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }
@@ -124,23 +126,8 @@ void ConversationControl::reciveMessage()
 void ConversationControl::sendMessage()
 {
     log.info("ChatControl::sendMessage started");
-
-    //auto beginTime = std::chrono::system_clock::now();
-    //auto newTime = std::chrono::system_clock::now();
-
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
-        /*
-        newTime = std::chrono::system_clock::now();
-        auto timePeriod = newTime - beginTime;
-
-        if (timePeriod >= std::chrono::seconds(15))
-        {
-            //TODO dalsza obsluga enda
-            log.info("ChatControl::sendMessage looking for END flag");
-            beginTime = std::chrono::system_clock::now();
-        }
-        */
         if (messageReadyToSend_.empty())
         {
             sleep(1);
