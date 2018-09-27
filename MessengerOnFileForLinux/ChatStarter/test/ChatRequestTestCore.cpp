@@ -7,7 +7,6 @@
 #include <GlobalVariables.hpp>
 
 
-
 ChatRequestFixture::ChatRequestFixture()
 {
     waitForInvitation = std::thread(lookForInvitationGT);
@@ -29,7 +28,6 @@ void ChatRequestFixture::TearDown()
 {
     SignOut signOut;
     signOut.signOutUser();
-    //TODO usunac jak bedzie napisane konczenie rozmowy
     std::string command = "rm -r " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + "*" + user + "*";
     system(command.c_str());
 
@@ -82,9 +80,8 @@ void ChatRequestFixture::lookForInvitationGT()
             if (recipent == getenv("USER"))
             {
                 ChatRequest chatRequest;
-                chatRequest.answerForChatRequest(inviter);
+                chatRequest.answerForChatRequest(inviter, "accept");
             }
         }
     }
 }
-

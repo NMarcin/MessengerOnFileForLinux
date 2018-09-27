@@ -1,6 +1,8 @@
 #include <iostream>
 #include <signal.h>
 #include <algorithm>
+#include <sstream>
+#include <unistd.h>
 
 #include <ChatRequest.hpp>
 #include <User.hpp>
@@ -8,29 +10,36 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include <ChatFabric.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 
 ChatRequest::ChatRequest()
 {
+    log_.function("ChatRequest C-TOR");
     initscr();
-    log.info("ChatRequest C-TOR");
 }
 
 ChatRequest::~ChatRequest()
 {
+    log_.function("ChatRequest D-TOR");
     endwin();
-    log.info("ChatRequest D-TOR");
 }
 
-std::string ChatRequest::answerForChatRequest(const std::string& senderUsername) const//(const int usernamePid) const  // TODO mwozniak string przez sygnal
+std::string ChatRequest::answerForChatRequest(const std::string& senderUsername, const std::string& decision) const
 {
-    log.info("ChatRequest::answerForChatRequest started");
+
+    log_.function("ChatRequest::answerForChatRequest() started");
+    if (decision == "accept") // obejscie problemu z czekaniem w petli
+    {                         // TODO refacotr modulu jak rozwiazemy problem z czekaniem w petli na zaporszenie
+        return sendAnswer(senderUsername, AnswerType::accepted);
+    }
+    return sendAnswer(senderUsername, AnswerType::disaccepted);
+
     std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
     FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
     showInvitation(senderUsername);
-    bool decision = respondOnInvitation();
+    bool decisionStatus = approveChatInvitation();
 
-    if (decision)
+    if (decisionStatus)
     {
         return sendAnswer(senderUsername, AnswerType::accepted);
     }
@@ -38,9 +47,9 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername)
     return sendAnswer(senderUsername, AnswerType::disaccepted);
 }
 
-bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const    // TODO mnurzyns mwozniak po zmianie fora sprawdzic
+bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
 {
-    log.info("ChatRequest::changeUserStatus started");
+    log_.function("ChatRequest::changeUserStatus() started");
 
     auto username = user.getUsername();
     return FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED, username, newStatus, FileStructure::LoggedFile::status);
@@ -49,14 +58,13 @@ bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatu
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
 {
-    log.info("ChatRequest::getChatFolderName started");
+    log_.function("ChatRequest::getChatFolderName() started");
     std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + " | grep " + folderName;
     std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
     std::string logData = "ChatRequest::getChatFolderName -> " + *folderFullName;
-    log.info(logData.c_str());
+    log_.info(logData);
      if (!folderFullName->empty())
      {
-         folderFullName->pop_back(); //usuwanie znaku konca lini
          return folderFullName ;
      }
 
@@ -65,30 +73,26 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 
 std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& username) const
 {
-    log.info("ChatRequest::getUserStatus started");
-    std::unique_ptr<std::vector<std::string>>loggedFileContent = FileInterface::Accesor::getFileContent(ENVIRONMENT_PATH::TO_FILE::LOGGED);
+    log_.function("ChatRequest::getUserStatus() started");
 
-    for (auto x : *loggedFileContent)
+    auto row = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, username);
+    if (row)
     {
-        std::unique_ptr<std::string> usernameToComapre = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::username);
-        if (!username.compare(*usernameToComapre)) //0 when succes
-        {
-            std::unique_ptr<std::string> userStatusToCompare = FileInterface::Accesor::getRowField(x, FileStructure::LoggedFile::status);
-            return userStatusToCompare;
-        }
+        std::unique_ptr<std::string> userStatus = FileInterface::Accesor::getRowField(*row, FileStructure::LoggedFile::status);
+        return userStatus;
     }
 
-    log.info("ChatRequest::getUserStatus ERROR: User is offline or does not exist");
+    log_.info("ChatRequest::getUserStatus() ERROR: User is offline or does not exist");
     printw("User is offline or does not exist.");
     refresh();
-    //std::cerr << "User is offline or does not exist" << std::endl;
+
     return nullptr;
 }
 
 
 bool ChatRequest::isUserActive(const User& user) const
 {
-    log.info("ChatRequest::isUserActive started");
+    log_.function("ChatRequest::isUserActive() started");
     std::unique_ptr<std::string> userStatusToCompare = getUserStatus(user.getUsername());
 
     if (nullptr == userStatusToCompare)
@@ -101,39 +105,38 @@ bool ChatRequest::isUserActive(const User& user) const
         return true;
     }
 
-    log.info("ChatRequest::isUserActive ERROR: User is bussy");
+    log_.info("ChatRequest::isUserActive ERROR: User is bussy");
     printw("User is bussy. Try again later.");
     refresh();
-    //std::cerr << "User is bussy" << std::endl;
+
     return false;
 }
 
-bool ChatRequest::respondOnInvitation() const
+bool ChatRequest::approveChatInvitation() const
 {
-    log.info("ChatRequest::respondOnInvitation started");
+    log_.function("ChatRequest::approveChatInvitation() started");
     std::string decision;
-    //decision = Display::getStringFromMainWindow(); //TODO mwoznia PROBLEM Z UT
-    std::cin >> decision;
-    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);  // TODO mwozniak check tolower on string
+    decision = ConsoleWindow::getStringFromConsoleWindow();
 
+    std::transform(decision.begin(), decision.end(), decision.begin(), ::tolower);
     if ("y" == decision || "yes" == decision)
     {
-        log.info("ChatRequest::respondOnInvitation Invitation accepted");
+        log_.info("ChatRequest::approveChatInvitation Invitation accepted");
         return true;
     }
     else if ("n" == decision || "no" == decision)
     {
-        log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
+        log_.info("ChatRequest::approveChatInvitation() Invitation disaccepted");
         return false;
     }
 
-    log.info("ChatRequest::respondOnInvitation Invitation disaccepted");
-    return false; //TODO mwozniak co jesli wprawdzi inna odpwiedz (może for na 5 iteracji)
+    log_.info("ChatRequest::approveChatInvitation() Invitation disaccepted");
+    return false;
 }
 
 std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
-    log.info("ChatRequest::sendAnswer started");
+    log_.function("ChatRequest::sendAnswer() started");
     std::string folderNameWithoutNumber = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
     std::string folderFullName = *getChatFolderName(folderNameWithoutNumber);
     std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + folderFullName;
@@ -144,29 +147,30 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
     }
     else if (AnswerType::accepted == type)
     {
+        log_.function("ChatRequest::sendAnswer() Invitation accepted");
         FileInterface::Managment::createFile(flagPath + "/ACCEPTED");
         std::string chatFilename = folderNameWithoutNumber;
         return flagPath + "/" + chatFilename;
     }
+    log_.function("ChatRequest::sendAnswer() Invitation dissaccepted");
     return "";
 }
 
 std::string ChatRequest::sendChatRequest(const std::string& username) const
 {
-    log.info("ChatRequest::sendChatRequest started");
+    log_.function("ChatRequest::sendChatRequest() started");
     User receiver(username);
     changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::bussyStatus);
     //^ przez ta linijke są zakomentowane UT
 
-    ChatFabric chatFabric;
-    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
-
-    if (!isUserActive(receiver.getUsername()))  // TODO mwozniak polaczyc z ChatFabric w ifie, usunac !, a else return {}
+    if (!isUserActive(receiver.getUsername()))
     {
         return {};
     }
-    changeUserStatus(receiver.getUsername(), UserStatus::bussyStatus);
 
+    ChatFabric chatFabric;
+    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
+    changeUserStatus(receiver.getUsername(), UserStatus::bussyStatus);
     std::string invitationName = username + "_" + LocalUser::getLocalUser().getUsername();
     FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
 
@@ -186,7 +190,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
 
 void ChatRequest::showInvitation(const std::string& senderUsername) const
 {
-    log.info("ChatRequest::showInvitation started");
+    log_.function("ChatRequest::showInvitation() started");
     clear();
     printw(("You get an invitation to chat form " + senderUsername + "\n").c_str());
     printw("Do you want to chat with this user (y/n)? \n");
@@ -196,7 +200,7 @@ void ChatRequest::showInvitation(const std::string& senderUsername) const
 
 bool ChatRequest::waitForAnswer(const std::string& username) const
 {
-    log.info("ChatRequest::waitForAnswer started");
+    log_.function("ChatRequest::waitForAnswer() started");
     std::string folderName = LocalUser::getLocalUser().getUsername() + "_" + username;
     std::string folderFullName = *getChatFolderName(folderName);
 
@@ -221,7 +225,8 @@ bool ChatRequest::waitForAnswer(const std::string& username) const
         sleep(1);
     }
 
-    log.info("ChatRequest::waitForAnswer ERROR: User has not accepted the invitation");
-    std::cout << "User has not accepted the invitation." << std::endl;
+    log_.info("ChatRequest::waitForAnswer ERROR: User has not accepted the invitation");
+    printw("User has not accepted the invitation.");
+    sleep(1);
     return false;
 }

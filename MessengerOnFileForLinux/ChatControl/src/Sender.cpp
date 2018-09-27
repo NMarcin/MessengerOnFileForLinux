@@ -5,75 +5,84 @@
 #include <LocalUser.hpp>
 #include <FileHandling.hpp>
 #include <TerminalFunctionality.hpp>
+#include <ChatWindow.hpp>
+#include <ConversationControl.hpp>
 
-Sender::Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin)
-    : chatFilenameWithPath_(pathToChatFile),
-      chatFlag_(chatFlag),
-      enterMessageWindow_(subwin)
+Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
+    : chatInfo_(chatInfo)
 {
     log.info("Sender C-TOR");
 }
 
 Sender::~Sender()
 {
-    log.info("Sender D-TOR");
+    log.function("Sender D-TOR");
 }
 
-std::unique_ptr<std::string> Sender::getMessageToSend() const
+std::unique_ptr<Message> Sender::getMessageToSend() const
 {
-    log.info("Sender::getMessageToSend started");
-    std::unique_ptr<std::string> rawMessage = getMessageFromStdin();
-    std::unique_ptr<std::string> messageToSend = prepareMessageToSend(*rawMessage);
-    return messageToSend;
+    log.function("Sender::getMessageToSend() started");
+    std::string rawMessage = getMessageFromStdin();
+    auto messageToSend = prepareMessageToSend(rawMessage);
+    return std::move(messageToSend);
 }
 
-bool Sender::sendMessage(const std::string& message) const
+bool Sender::sendMessage(const Message& message) const
 {
+    log.function("Sender::sendMessage() started");
 
-    bool isMessageSend = FileInterface::Modification::addRow(chatFilenameWithPath_, message);
-
+    bool isMessageSend = FileInterface::Modification::addRow(chatInfo_->chatPath_, message.messageToSave());
     if (isMessageSend)
     {
         setNewMessageFlag();
+        auto sentMessage = message.messageToSave();
+        log.debug("Sender::sendMessage() success. Sent message = ");
+        log.debug(sentMessage);
         return true;
     }
 
-    log.info("Sender::sendMessage ERROR: send message fail");
+    log.info("Sender::sendMessage WARNING: send message fail");
     return false;
 }
 
-std::unique_ptr<std::string> Sender::getMessageFromStdin() const
+std::string Sender::getMessageFromStdin() const
 {
-    log.info("Sender::getMessageFromStdin started");
-    std::unique_ptr<std::string> message = std::make_unique<std::string>();
+    log.function("Sender::getMessageFromStdin() started");
+    std::string message;
 
-    int ch = wgetch(enterMessageWindow_);
-    while ( ch != '\n' )
+    int ch = wgetch(ChatWindow::getEnterMessageWindow());
+    while (ch != '\n')
     {
-        message->push_back( ch );
-        ch = wgetch(enterMessageWindow_);
+        message.push_back(ch);
+        ch = wgetch(ChatWindow::getEnterMessageWindow());
     }
 
     return message;
 }
 
-std::unique_ptr<std::string> Sender::prepareMessageToSend(const std::string& rowMessage) const
+std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
+    log.function("Sender::prepareMessageToSend() started");
     if (isTerminalCommand(rowMessage))
     {
-        log.info("Sender::prepearMessageToSend Message is a terminal command");
-        TerminalFunctionality terminalFunctionality(chatFilenameWithPath_);
-        terminalFunctionality.runCommand(rowMessage);
+        log.info("Sender::prepearMessageToSend() Message is a conversation command");
+        TerminalFunctionality terminalFunctionality(chatInfo_->chatPath_, ChatStatus::conversation);
+        std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
+        terminalFunctionality.runCommand(command, chatInfo_);
+        if("end" == command)
+        {
+            std::string systemMessage = LocalUser::getLocalUser().getUsername() + " LEFT CHAT";
+            return std::make_unique<Message>(chatInfo_->messageFlag_, "SYSTEM" ,systemMessage);
+        }
+        return nullptr;
     }
 
-    std::unique_ptr<std::string> message = std::make_unique<std::string>();
-    *message = "[" + std::to_string(chatFlag_) + "][" + *getActualDateTime() + "][" + LocalUser::getLocalUser().getUsername() + "][" + rowMessage + "]";
-
-    return message;
+    return std::make_unique<Message>(chatInfo_->messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const
 {
+    log.function("Sender::isTerminalCommand() started");
     if (2 > message.size())
     {
         return false;
@@ -88,16 +97,9 @@ bool Sender::isTerminalCommand(const std::string& message) const
 
 bool Sender::setNewMessageFlag() const
 {
-    std::string folderName = *FileInterface::Accesor::getFolderName(chatFilenameWithPath_);
-    bool isNewFlagCreated = FileInterface::Managment::createFile(folderName + "/NEW");
+    log.function("Sender::setNewMessageFlag() started");
+    std::string folderName = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+    std::string messageFlagWithPath = folderName + "/NEW_" + chatInfo_->messageFlag_;
+    bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
-}
-
-std::unique_ptr<std::string> Sender::getActualDateTime() const
-{
-    std::unique_ptr<std::string> dateTime = std::make_unique<std::string>();
-    *dateTime = __DATE__;
-    *dateTime += " | " ;
-    *dateTime += __TIME__;
-    return dateTime;
 }

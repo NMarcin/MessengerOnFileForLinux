@@ -1,8 +1,6 @@
 #pragma once
-#include <LocalUser.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
-
 
 class SignOut
 {
@@ -15,6 +13,6 @@ public:
 private:
     bool removeUserDataFromLoggedFile() const;
 
-    Logger log {LogSpace::UserService};
+    Logger log_ {LogSpace::UserService};
 };
 

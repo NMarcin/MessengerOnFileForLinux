@@ -1,22 +1,20 @@
 #include <LoggingOut.hpp>
-
 #include <SignOut.hpp>
 
 LoggingOut::LoggingOut(std::string command)
                 : TerminalCommand(command)
 {
-    //NOOP
+    log_.function("LoggingOut() C-TOR");
 }
 
-LoggingOut::~LoggingOut()
+bool LoggingOut::doCommand()
 {
-    //NOOP
-}
-
-bool LoggingOut::doCommand() // TODO think about chatHistoryPath, how to get it
-{
+    log_.function("LoggingOut::doCommand() started");
     SignOut signOutLocalUser;
     bool commandStatus = false;
     commandStatus = signOutLocalUser.signOutUser();
-    return commandStatus;
+
+    std::string logData = "LoggingOut::doCommand() done as " + commandStatus;
+    log_.function(logData);
+    exit (EXIT_SUCCESS);
 }

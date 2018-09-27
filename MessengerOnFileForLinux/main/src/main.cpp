@@ -3,13 +3,14 @@
 
 #include <RegisterUser.hpp>
 #include <SignIn.hpp>
-#include <Display.hpp>
+#include <ConsoleWindow.hpp>
 #include <TerminalFunctionality.hpp>
 #include <GlobalVariables.hpp> //lookforInivitation() init function
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
 #include <SignalHandling.hpp>
+#include <Controler.hpp>
 
 #define ever (;;)
 
@@ -23,27 +24,20 @@ void mnurzyns()
 void mwozniak()
 {
 
-    std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
-    std::thread waitForInvitation(lookForInvitation);
-
     RegisterUser registerUser;
     SignIn signIn;
-    TerminalFunctionality terminal;
 
-    for ever
-    {
-        registerUser.registerNewUser();
-        clear();
-        refresh();
-        signIn.signInUser();
-        clear();
-        refresh();
-        Display::displayMainWindow();
-        char command[512];
-        getstr(command);
+    std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
+    registerUser.registerNewUser();
+    clear();
+    refresh();
+    signIn.signInUser();
+    clear();
+    refresh();
+    ConsoleWindow::displayMainWindow();
 
-        terminal.runCommand(command);
-    }
+    Controler controler;
+    controler.controlUserAction();
 }
 
 enum class Run

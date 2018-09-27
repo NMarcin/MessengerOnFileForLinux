@@ -15,7 +15,7 @@ enum class AnswerType
 class ChatRequest
 {
 public:
-    std::string answerForChatRequest(const std::string& ) const;
+    std::string answerForChatRequest(const std::string& senderUsername, const std::string& decision) const;
     std::string sendChatRequest(const std::string& username) const;
 
     ChatRequest();
@@ -26,10 +26,10 @@ private:
     std::unique_ptr<std::string> getChatFolderName(const std::string& folderName) const;
     std::unique_ptr<std::string> getUserStatus(const std::string& username) const;
     bool isUserActive(const User& user) const;
-    bool respondOnInvitation() const;
+    bool approveChatInvitation() const;
     std::string sendAnswer(const std::string& senderUsername, AnswerType type) const;
     void showInvitation(const std::string& senderUsername) const;
     bool waitForAnswer(const std::string& username) const;
 
-    Logger log {LogSpace::ChatFile};
+    Logger log_ {LogSpace::ChatStarter};
 };

@@ -1,7 +1,8 @@
 #!/bin/bash
+rm Logger_default.txt
 
-user[0]=marcin
-user[1]=tomek
+user[0]=mawoznia
+user[1]=oskierko
 user[2]=andrzej
 user[3]=zbyszek
 user[4]=kamil
@@ -17,5 +18,5 @@ fi
 
 for (( i=0; $i < $MAX_USER_COUNT; i++ )) ; do
     new_username=${user[$i]}
-    gnome-terminal -e "bash -c \"USER=$new_username; $RUN_MESSENGER; exec bash\"" 
+    gnome-terminal -e "bash -c \"USER=$new_username; $RUN_MESSENGER; exec bash\""
 done

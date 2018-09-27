@@ -3,29 +3,26 @@
 #include <string>
 #include <ncurses.h>
 
-#include <FileHandling.hpp>     // TODO mwozniak to nie powinno byc tutaj, a w .cpp, nie korzystasz z tego w tym pliku
+#include <Message.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include <TerminalFunctionality.hpp>
 
 class Sender
 {
 public:
-    Sender(const std::string& pathToChatFile, int chatFlag, WINDOW* subwin);
+    Sender(std::shared_ptr<ChatInformation> chatInfo);
     ~Sender();
 
-    std::unique_ptr<std::string> getMessageToSend() const;
-    bool sendMessage(const std::string& message) const;
+    std::unique_ptr<Message> getMessageToSend() const;
+    bool sendMessage(const Message& message) const;
 
 private:
-    std::unique_ptr<std::string> getMessageFromStdin() const;
-    std::unique_ptr<std::string> getActualDateTime() const;
-    std::unique_ptr<std::string> prepareMessageToSend(const std::string& rowMessage) const;
+    std::string getMessageFromStdin() const;
+    std::unique_ptr<Message> prepareMessageToSend(const std::string& rowMessage) const;
     bool isTerminalCommand(const std::string& message) const;
     bool setNewMessageFlag() const;
 
-    std::string chatFilenameWithPath_;
-    int chatFlag_;
-
-    WINDOW* enterMessageWindow_;
-    Logger log {LogSpace::ChatFile};
+    std::shared_ptr<ChatInformation> chatInfo_;
+    Logger log {LogSpace::ChatControl};
 };

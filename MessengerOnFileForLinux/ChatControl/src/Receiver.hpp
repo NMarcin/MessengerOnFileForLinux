@@ -2,33 +2,33 @@
 #include <stack>
 #include <queue>
 #include <string>
-/*
-- pobieramy cały plik
-- blokujemy dostęp do pliku
--
+#include <memory>
 
-- pobieramy od końca pliku linijki które mają odpowiednią flagę na początku
-- uzywamy do tego stosu, bo potem w odwrotnej kolejnosci bedziemy chcieli wrzucac do kolejki
-- nastepnie z tego stosu zabieram po linijce i oprawiamy ja i zwracamy w innej funkcji
-- kolejna funkcja wrzuca oprawiona linijke do naszej kolejki do wyswietlania
-*/
+#include <Logger.hpp>
+#include <LogSpace.hpp>
+#include <PurgeMessage.hpp>
+#include <TerminalFunctionality.hpp>
 
-class Reciver
+
+class Receiver
 {
 public:
-    Reciver(std::string chatFileWithPath, std::string mineMessageUserFlag);      // chatFileWithPath -> do konstruktora
-    ~Reciver();
+    Receiver(std::shared_ptr<ChatInformation> chatInfo);
+    ~Receiver() = default;
 
     bool readMessagesToStack();
-    std::string returnTheOldestMessage();
+    std::unique_ptr<PurgeMessage> returnTheOldestMessage();
 
 private:
     bool updateSeenFlags();
     bool endOfMessageToRead(std::string message, std::string messageFlag);
+    bool isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFileContent);
     void pushPurgeMessageOnStack(std::string rawMessageToPush);
-    std::string purgeMessageFromRaw(std::string rawMessage);
+    std::unique_ptr<PurgeMessage> messagePurging(Message& messageToPurge);
+    void removeFlagNEW();
 
-    const std::string chatFileWithPath_;
-    std::stack<std::string> purgeMessagesStack_;
-    std::string mineMessageUserFlag_;
+    std::shared_ptr<ChatInformation> chatInfo_;
+    std::stack<PurgeMessage> purgeMessagesStack_;
+
+    Logger log_{LogSpace::ChatControl};
 };

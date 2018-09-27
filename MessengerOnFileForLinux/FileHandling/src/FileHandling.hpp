@@ -4,6 +4,11 @@
 #include<string>
 #include<fstream>
 
+enum class AccesMode
+{
+    withGuardian,
+    withoutGuardian
+};
 
 namespace FileInterface
 {
@@ -21,9 +26,8 @@ namespace FileInterface
         std::unique_ptr<std::vector<std::string>> getFilenamesFromFolder(const std::string& pathToDir);
         std::unique_ptr<std::string> getFolderName(const std::string& pathToFile);
         std::unique_ptr<std::string> getRowField(const std::string& field, const int fieldNumber);
-        std::unique_ptr<std::vector<std::string>> getFileContent(const std::string& pathToFile);
+        std::unique_ptr<std::vector<std::string>> getFileContent(const std::string& pathToFile, AccesMode accesMode);
         std::unique_ptr<std::string> getRow(const std::string& pathToFile, const std::string& pattern);
-        //TODO mwozniak getRow i zamienic wszedzie gdzie jest przeszukiwanie pliku na getRow
     }
 
     namespace Managment
@@ -32,6 +36,9 @@ namespace FileInterface
         bool removeFile(const std::string& pathToFile);
         bool isFileExist(const std::string& pathToFile);
     }
+
+    bool lockFolder(const std::string& pathToFolder);
+    bool unlockFolder(const std::string& pathToFolder);
 }
 
 /** wrzucic to gdzie indzie*/

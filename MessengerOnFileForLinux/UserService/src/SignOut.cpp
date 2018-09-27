@@ -1,31 +1,34 @@
 #include <SignOut.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
+#include <LocalUser.hpp>
+
 
 SignOut::SignOut()
 {
-    log.info("SignOut C-TOR");
+    log_.function("SignOut C-TOR");
 }
 
 SignOut::~SignOut()
 {
-    log.info("SignOut D-TOR");
+    log_.function("SignOut D-TOR");
 }
 
 bool SignOut::signOutUser() const
 {
-    log.info("SignOut::signOutUser started");
+    log_.function("SignOut::signOutUser() started");
     bool isUserSignedOut = removeUserDataFromLoggedFile();
     if(isUserSignedOut)
     {
         return true;
     }
 
-    log.info("SignOut::removeUserDataFromLoggedFile ERROR: SignOut failed!");
+    log_.info("SignOut::removeUserDataFromLoggedFile ERROR: SignOut failed!");
     return false;
 }
 
 bool SignOut::removeUserDataFromLoggedFile() const
 {
+    log_.function("SignOut::removeUserDataFromLoggedFile() started");
     return FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, LocalUser::getLocalUser().getUsername());
 }

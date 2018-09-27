@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <chrono>
+#include <thread>
 
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
@@ -11,88 +13,93 @@
 
 namespace
 {
-    enum class FileMode
-    {
-        toWrite,
-        toRead
-    };
+enum class FileMode
+{
+    toWrite,
+    toRead
+};
 
+bool createGuardian(const std::string& pathToFolder)
+{
+    FileInterface::Managment::createFile(pathToFolder + "/GUARD");
+    return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+}
 
-    bool createGuardian(const std::string& pathToFolder)
-    {
-        std::string systemCommand = "touch " + pathToFolder + "/GUARD";
-        system(systemCommand.c_str());
-        return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
-    }
+bool removeGuardian(const std::string& pathToFolder)
+{
+    remove((pathToFolder + "/GUARD").c_str());
+    return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+}
 
-    bool removeGuardian(const std::string& pathToFolder)
-    {
-        std::string command = "rm -r " + pathToFolder + "/GUARD";
-        system(command.c_str());
-        return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
-    }
+bool isGuardianExist(const std::string& pathToFolder)
+{
+    return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
+}
 
-    bool isGuardianExist(const std::string& pathToFolder)
-    {
-        return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
-    }
+void waitForAccess(const std::string& folderName)
+{
+    bool accesToFile = false;
 
-    std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode)
+    while(!accesToFile)
     {
-        fileLog("FileInterface::openFile started in FileMode = " + static_cast<int>(mode), LogSpace::FileHandling);
-        if (!FileInterface::Managment::isFileExist(pathToFile))
+        if (!isGuardianExist(folderName))
         {
-            std::string logInfo = "FileInterface::openFile ERROR: " + pathToFile + " does not exist";
-            fileLog(logInfo.c_str(), LogSpace::FileHandling);
-            return nullptr;
+            createGuardian(folderName);
+            accesToFile = true;
         }
-
-        std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
-
-        bool accesToFile = false;
-
-        while(!accesToFile)
-        {
-            if (!isGuardianExist(folderName))
-            {
-                createGuardian(folderName);
-                accesToFile = true;
-            }
-        }
-
-        std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
-
-        if (FileMode::toRead == mode)
-        {
-            fileToOpen->open(pathToFile, std::ios::in);
-        }
-        else if (FileMode::toWrite == mode)
-        {
-            fileToOpen->open(pathToFile, std::ios::out | std::ios::app);
-        }
-
-        if (fileToOpen->is_open())
-        {
-            return fileToOpen;
-        }
-        else
-        {
-            fileLog("FileInterface::openFile ERROR: is_open() failed", LogSpace::FileHandling);
-            return nullptr;
-        }
-    }
-
-    std::unique_ptr<std::fstream> openFileToWrite(const std::string& pathToFile)
-    {
-        return openFile(pathToFile, FileMode::toWrite);
-    }
-
-    std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile)
-    {
-        return openFile(pathToFile, FileMode::toRead);
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
 }
 
+std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode, AccesMode accesMode = AccesMode::withGuardian)
+{
+    fileLog("FileInterface::openFile started in FileMode = " + static_cast<int>(mode), LogSpace::FileHandling);
+    if (!FileInterface::Managment::isFileExist(pathToFile))
+    {
+        std::string logInfo = "FileInterface::openFile ERROR: " + pathToFile + " does not exist";
+        fileLog(logInfo.c_str(), LogSpace::FileHandling);
+        return nullptr;
+    }
+
+    std::string folderName = *FileInterface::Accesor::getFolderName(pathToFile);
+
+    if(AccesMode::withGuardian == accesMode)
+    {
+        waitForAccess(folderName);
+    }
+
+    std::unique_ptr<std::fstream> fileToOpen= std::make_unique<std::fstream>();
+
+    if (FileMode::toRead == mode)
+    {
+        fileToOpen->open(pathToFile, std::ios::in);
+    }
+    else if (FileMode::toWrite == mode)
+    {
+        fileToOpen->open(pathToFile, std::ios::out | std::ios::app);
+    }
+
+    if (fileToOpen->is_open())
+    {
+        return fileToOpen;
+    }
+    else
+    {
+        fileLog("FileInterface::openFile ERROR: is_open() failed", LogSpace::FileHandling);
+        return nullptr;
+    }
+}
+
+std::unique_ptr<std::fstream> openFileToWrite(const std::string& pathToFile, AccesMode accesMode = AccesMode::withGuardian)
+{
+    return openFile(pathToFile, FileMode::toWrite, accesMode);
+}
+
+std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile, AccesMode accesMode = AccesMode::withGuardian)
+{
+    return openFile(pathToFile, FileMode::toRead, accesMode);
+}
+}//namespace
 
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
@@ -115,12 +122,18 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
 
 bool FileInterface::Managment::createFile(const std::string& pathToFile)
 {
-    std::string logInfo = "FileInterface::Managment::createFile " + pathToFile;
+    if (isFileExist(pathToFile))
+    {
+        std::string logInfo = "FileInterface::Managment::createFile() started ERROR: " + pathToFile + "File exist!";
+        fileLog(logInfo.c_str(), LogSpace::FileHandling);
+        return false;
+    }
+    std::string logInfo = "FileInterface::Managment::createFile() -> " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
+
     std::string systemCommand = "touch " + pathToFile;
-    std::string systemCommand2 = "chmod 777 " + pathToFile;
+    system("umask 777");
     system(systemCommand.c_str());
-    system(systemCommand2.c_str());
 
     if (!isFileExist(pathToFile))
     {
@@ -130,14 +143,14 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
     }
 }
 
-std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile)
+std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile, AccesMode accesMode = AccesMode::withGuardian)
 {
-    std::string logInfo = "FileInterface::Accesor::getFileContent " + pathToFile;
+    std::string logInfo = "FileInterface::Accesor::getFileContent() " + pathToFile;
     fileLog(logInfo.c_str(), LogSpace::FileHandling);
     std::unique_ptr<std::vector<std::string>> fileContent = std::make_unique<std::vector<std::string>>();
     std::string folderName = *Accesor::getFolderName(pathToFile);
 
-    if (std::unique_ptr<std::fstream> file = openFileToRead(pathToFile))
+    if (std::unique_ptr<std::fstream> file = openFileToRead(pathToFile, accesMode))
     {
         while (!file->eof())
         {
@@ -150,11 +163,17 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
     {
         std::string logInfo = "FileInterface::Accesor::getFileContent ERROR: Cannot get acces to "  + pathToFile;
         fileLog(logInfo.c_str(), LogSpace::FileHandling);
-        removeGuardian(folderName);
+        if (AccesMode::withGuardian == accesMode)
+        {
+            removeGuardian(folderName);
+        }
         return nullptr;
     }
 
-    removeGuardian(folderName);
+    if (AccesMode::withGuardian == accesMode)
+    {
+        removeGuardian(folderName);
+    }
 
     return fileContent;
 }
@@ -167,10 +186,15 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
     std::unique_ptr<std::vector<std::string>> filesNames = std::make_unique<std::vector< std::string>>();
     std::string fileName;
 
-    const int lastWhitespaceCharacterASCII = 32;
+    auto it = commandOutput.begin();
     for (auto& x : commandOutput)
     {
-        if (lastWhitespaceCharacterASCII < x )
+        if (commandOutput.end() - 1 == it)
+        {
+            fileName += x;
+            filesNames->push_back(fileName);
+        }
+        else if ('\n' != x)
         {
             fileName += x;
         }
@@ -179,35 +203,31 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFr
             filesNames->push_back(fileName);
             fileName.clear();
         }
+        it++;
     }
-    return filesNames;
 
+    return filesNames;
 }
 
 std::unique_ptr<std::string> FileInterface::Accesor::getFolderName(const std::string& pathToFile)
 {
-    std::string logInfo = "FileInterface::Accesor::getFolderName  from " + pathToFile;
-    fileLog(logInfo.c_str(), LogSpace::FileHandling);
     auto it = pathToFile.end();
 
     while ('/' != *it)
     {
         --it;
     }
-
     std::unique_ptr<std::string> folderName = std::make_unique<std::string>(pathToFile.begin(), it);
-
     return folderName;
 }
 
 
 std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::string& field, const int fieldNumber)
 {
-    fileLog("FileInterface::Accesor::getRowField started from ", LogSpace::FileHandling);
+    fileLog("FileInterface::Accesor::getRowField() started from ", LogSpace::FileHandling);
     int actualFieldNumber = -1;
     std::unique_ptr<std::string> fieldToDownload = std::make_unique<std::string>();
 
-    std::string::iterator it;
     for (auto& x : field)
     {
         if ('[' == x)
@@ -225,21 +245,17 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRowField(const std::stri
 std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& pathToFile, const std::string& pattern)
 {
     std::string folderName = *Accesor::getFolderName(pathToFile);
-    if (isGuardianExist(folderName))
-    {
-        return nullptr;
-    }
+    waitForAccess(folderName);
 
-    createGuardian(folderName);
     std::string command = "grep '" + pattern + "' " +  pathToFile;
     std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+
     removeGuardian(folderName);
+
     if (commandOutput.empty())
     {
         return nullptr;
     }
-
-    commandOutput.pop_back(); //usuwanie znaku konca lini
 
     return std::make_unique<std::string>(commandOutput);
 }
@@ -252,22 +268,16 @@ bool FileInterface::Managment::isFileExist(const std::string& pathToFile)
 
 bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 {
-    std::string command = "rm -r " + pathToFile;
-    system(command.c_str());
-
+    std::string logInfo = "FileInterface::Managment::removeFile() -> " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
+    remove(pathToFile.c_str());
     return ! isFileExist(pathToFile);
 }
 
 bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
 {
     std::string folderName = *Accesor::getFolderName(pathToFile);
-
-    if (isGuardianExist(folderName))
-    {
-        return false;
-    }
-
-    createGuardian(folderName);
+    waitForAccess(folderName);
 
     std::string command = "sed -i -e '/" + pattern + "/d' " + pathToFile;
     std::system(command.c_str());
@@ -280,103 +290,72 @@ bool FileInterface::Modification::removeRow(const std::string& pathToFile, const
 bool FileInterface::Modification::updateRow(const std::string & pathToFile, const std::string & newRow, const std::string & where)
 {
     std::string folderName = *Accesor::getFolderName(pathToFile);
+    waitForAccess(folderName);
 
-    if (isGuardianExist(folderName))
-    {
-        fileLog("FileInterface::Modification::updateRow ERROR: File does not exist", LogSpace::FileHandling);
-        return false;
-    }
-
-    createGuardian(folderName);
-
-    std::string command = "sed -i -e 's/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
-    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
+    std::string command = "sed -i -e '0,/" + where + "/s/.*" + where + ".*/" + newRow + "/g' " + pathToFile;
     std::system(command.c_str());
 
     bool isGuardRemoved = removeGuardian(folderName);
-
     return isGuardRemoved;
 }
 
 bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag)
 {
-    int actualFieldNumber = -1;
-    bool flag = false;
+    std::string command = "sed -i -e '/\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
+    std::system(command.c_str());
 
-    std::string folderName = *Accesor::getFolderName(pathToFile);
-    if (isGuardianExist(folderName))
-    {
-        return false;
-    }
-
-    createGuardian(folderName);
-
-   std::string command = "sed -i -e '/\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
-   std::system(command.c_str());
-
-   removeGuardian(folderName);
-   return true;
+    return true;
 }
 
 bool FileInterface::Modification::updateRowField(const std::string& pathToFile, const std::string& where, const std::string& newField, const int fieldNumber = 0)
 {
     int actualFieldNumber = -1;
-    bool flag = false;
 
     std::string folderName = *Accesor::getFolderName(pathToFile);
-    if (isGuardianExist(folderName))
-    {
-        return false;
-    }
-
-    createGuardian(folderName);
+    waitForAccess(folderName);
 
     std::string command = "grep '" + where + "' " + pathToFile;
     std::string row = ConsolControl::getStdoutFromCommand(command.c_str());
 
-    if (!row.empty())
-    {
-        row.pop_back(); //usuwanie znaku konca lini
-    }
+    std::string rowToUpdate;
+    auto it = row.begin();
+    int oldFieldSize = 0;
 
-    std::unique_ptr< std::string> rowToUpdate = std::make_unique<std::string>();
-    //TODO mwozniak jest to bardzo brzydkie, poprawic ! Ale dziala ;p
-    for (auto &x : row)
+    for (auto& x : row)
     {
-        if ('[' == x)
+        if ('[' == *it)
         {
             ++actualFieldNumber;
         }
-
-        if (actualFieldNumber != fieldNumber)
+        else if (actualFieldNumber == fieldNumber)
         {
-            rowToUpdate -> push_back(x);
+            oldFieldSize++;
         }
-        else
+
+        if (actualFieldNumber == fieldNumber && ']' == *it)
         {
-            if (true == flag)
-                continue;
-
-            rowToUpdate -> push_back('[');
-
-            for (auto& y : newField)
-            {
-                rowToUpdate -> push_back(y);
-            }
-
-            flag = true;
-            rowToUpdate -> push_back(']');
+            rowToUpdate = std::string(row.begin(), it - oldFieldSize) + "[" + newField;
+            rowToUpdate += std::string(it, row.end());
+            break;
         }
+        it++;
     }
 
     removeGuardian(folderName);
-    command = "sed -i -e 's/.*" + where + ".*/" + *rowToUpdate + "/g' " + pathToFile;
-    //cos w stylu sed -i -e '0,/where/s..............
-    //TODO mwozniak ^zeby podmienialo tylko pierwsze znalezione wystapienie
+    command = "sed -i -e '0,/" + where + "/s/.*" + where + ".*/" + rowToUpdate + "/g' " + pathToFile;
     std::system(command.c_str());
-
     return true;
-    //return updateRow(pathToFile,*rowToUpdate,where);
+}
+
+bool FileInterface::lockFolder(const std::string& pathToFolder)
+{
+    waitForAccess(pathToFolder);
+}
+
+bool FileInterface::unlockFolder(const std::string& pathToFolder)
+{
+    Managment::removeFile(pathToFolder + "/GUARD");
+    return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
 
 /** TO NIZEJ GDIZE INDZIEJ*/
@@ -400,5 +379,7 @@ std::string ConsolControl::getStdoutFromCommand(std::string cmd)
         }
         pclose(stream);
     }
+    if (data.size())
+        data.pop_back(); //usuwanie smieci konca linii
     return data;
 }

@@ -5,65 +5,58 @@
 
 #include <HistoryDowloander.hpp>
 #include <LoggingOut.hpp>
-
-#include <ChatControl.hpp>
-#include <Display.hpp>
+#include <InviteSender.hpp>
+#include <GlobalVariables.hpp>
+#include <EndConversation.hpp>
+#include <InviteReceiver.hpp>
+#include <ConsoleWindow.hpp>
 #include <iostream>
 
 
 bool starts_with(const std::string toFind, const std::string ourString);
 
-bool TerminalFunctionality::runCommand(std::string command)
+bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo)
 {
-    if (starts_with(UserCommand::historyDowloander, command))
+    log_.function("TerminalFunctionality::runCommand() started");
+    log_.function(command);
+
+    if (starts_with(UserCommand::historyDowloander, command) && ChatStatus::conversation == chatStatus_)
     {
+        log_.info("TerminalFunctionality::runCommand() historyDowloander command");
         terminalCommand_ = std::make_unique<HistoryDowloander>(command, chatFileWithPath_);
     }
-    else if (starts_with(UserCommand::endChat, command))
+    else if (starts_with(UserCommand::endChat, command) && ChatStatus::conversation == chatStatus_)
     {
-        //TODO konczenie rozmowy
+         log_.info("TerminalFunctionality::runCommand() endChat command");
+         terminalCommand_ = std::make_unique<EndConversation>(command, chatInfo);
     }
     else if (starts_with(UserCommand::logout, command))
     {
+        log_.info("TerminalFunctionality::runCommand() logout command");
         terminalCommand_ = std::make_unique<LoggingOut>(command);
     }
-    else if (starts_with(UserCommand::inviteUser, command)) // TODO mwoznia zastosować schemat polimorfizmu, dodatkowo architektura tego jest zła, ponieważ ChatControl ma istnieć cały czas
+    else if (starts_with(UserCommand::inviteUser, command))
     {
-        auto beginOfUsernameInCommand = command.begin()+7;  // TODO mwoznia 7 is a little bit magic number
-        std::string username = {beginOfUsernameInCommand, command.end()};
-        ChatControl control;
-        control.conversationProlog(username, ChatRole::inviter);
+        log_.info("TerminalFunctionality::runCommand() invite user");
+        terminalCommand_ = std::make_unique<InviteSender>(command, chatInfo);
     }
-    else if (starts_with(UserCommand::help, command))       // TODO mwoznia co to jest? to i ponizsze?
+    else if (starts_with(UserCommand::startConversation, command))
     {
-        Display::displayMainWindow();
-        printw("\n");
-        printw("  PRZYKLADOWE KOMENDY ");
-        refresh();
-        //sleep(2);
-    }
-    else if (starts_with("w", command))
-    {
-        Display::displayMainWindow();
-        while (true)
-        {
-
-        }
+        log_.info("TerminalFunctionality::runCommand() start conversation");
+        terminalCommand_ = std::make_unique<InviteReceiver>(command, chatInfo);
     }
     else
     {
-        return false;   // TODO: kto obsluguje tego, ze nie ma takiej komendy?
+        log_.info("TerminalFunctionality::runCommand() command NOT FOUND");
+        return false;
     }
+
     return terminalCommand_->doCommand();
 }
 
-TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath)
+TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
             : chatFileWithPath_(chatFileWithPath)
-{
-    //NOOP
-}
-
-TerminalFunctionality::~TerminalFunctionality()
+            , chatStatus_(chatStatus)
 {
     //NOOP
 }

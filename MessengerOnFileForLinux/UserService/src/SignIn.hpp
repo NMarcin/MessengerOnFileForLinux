@@ -1,8 +1,6 @@
 #pragma once
-#include <string>
 #include <memory>
 
-#include <LocalUser.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 
@@ -20,5 +18,5 @@ private:
     bool setUserDataInLoggedFile() const;
     std::string enterThePassword() const;
 
-    Logger log {LogSpace::UserService};
+    Logger log_ {LogSpace::UserService};
 };

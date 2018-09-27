@@ -14,12 +14,20 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_UserService}/SignOut.cpp
     ${MODULE_UserService}/RegisterUser.cpp
     ${MODULE_ChatControl}/Sender.cpp
-    ${MODULE_ChatControl}/Display.cpp
+    ${MODULE_DisplayChat}/ConsoleWindow.cpp
     ${MODULE_ChatControl}/Receiver.cpp
-    ${MODULE_ChatControl}/ChatControl.cpp
+    ${MODULE_ChatControl}/ConversationControl.cpp
     ${MODULE_ChatStarter}/ChatFabric.cpp
     ${MODULE_TerminalFunctionality}/TerminalFunctionality.cpp
     ${MODULE_TerminalFunctionality}/TerminalCommand.cpp
+    ${MODULE_ChatControl}/TerminalControl.cpp
     ${MODULE_TerminalFunctionality}/HistoryDowloander.cpp
     ${MODULE_TerminalFunctionality}/LoggingOut.cpp
-    ${MODULE_ChatStarter}/ChatRequest.cpp PARENT_SCOPE)
+    ${MODULE_ChatStarter}/ChatRequest.cpp
+    ${MODULE_MessageFramework}/Message.cpp
+    ${MODULE_MessageFramework}/PurgeMessage.cpp
+    ${MODULE_MessageFramework}/StringSum.cpp
+    ${MODULE_TerminalFunctionality}/InviteSender.cpp
+    ${MODULE_TerminalFunctionality}/InviteReceiver.cpp
+    ${MODULE_TerminalFunctionality}/EndConversation.cpp
+    ${MODULE_DisplayChat}/ChatWindow.cpp PARENT_SCOPE)

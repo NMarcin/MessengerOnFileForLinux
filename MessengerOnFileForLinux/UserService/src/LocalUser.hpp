@@ -14,5 +14,5 @@ private:
     LocalUser(const LocalUser &) = delete;
     LocalUser& operator=(const LocalUser &) = delete;
 
-    Logger log {LogSpace::UserService};
+    Logger log_ {LogSpace::UserService};
 };

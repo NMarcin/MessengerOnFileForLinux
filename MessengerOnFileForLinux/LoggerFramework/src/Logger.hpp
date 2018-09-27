@@ -2,7 +2,7 @@
 
 #include <string>
 
-enum SavingMode
+enum class SavingMode
 {
     fileOnly,
     withConsole
@@ -14,6 +14,10 @@ public:
     Logger(const char* logSpace, SavingMode mode=SavingMode::fileOnly);
     ~Logger();
 
+    void debug(std::string& logData) const;
+    void debug(const char * logData) const;
+    void function(std::string& logData) const;
+    void function(const char * logData) const;
     void info(std::string& logData) const;
     void info(const char * logData) const;
 
