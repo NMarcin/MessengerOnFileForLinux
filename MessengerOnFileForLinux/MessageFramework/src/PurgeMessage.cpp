@@ -3,14 +3,19 @@
 
 std::string PurgeMessage::messageToShow() const
 {
-    log_.function("PurgeMessage::messageToShow()");
+    log_.function("PurgeMessage::messageToShow() started");
     StringSumSquareBrackets fullMessage;
 
     fullMessage.sum(time_);
     fullMessage.sum(username_);
     fullMessage.sum(content_);
 
-    return fullMessage.getSumedString();
+    auto messageToShow = fullMessage.getSumedString();
+
+    log_.function("PurgeMessage::messageToShow() message = ");
+    log_.function(messageToShow);
+
+    return messageToShow;
 }
 
 PurgeMessage::PurgeMessage(const Message& message)
@@ -24,10 +29,7 @@ PurgeMessage::PurgeMessage(const Message& message)
 
 bool PurgeMessage::setTime(std::string longTime)
 {
-    auto z = "PurgeMessage::setTime() TIME = " + longTime;
-    log_.function(z);
+    log_.function("PurgeMessage::setTime() started");
     auto secondPosition = longTime.find_last_of(":");
-    log_.function("PurgeMessage::setTime() KONIEC");
     time_.append(longTime.begin(), longTime.begin() + secondPosition);
-    log_.function("PurgeMessage::setTime() KONIEC111");
 }

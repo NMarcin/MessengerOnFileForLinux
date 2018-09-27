@@ -24,13 +24,13 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , reciveMessageThread_(nullptr)
     , sendMessageFromQueueThread_(nullptr)
 {
-    log.info("ChatControl C-TOR ");
+    log_.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
 }
 
 ConversationControl::~ConversationControl()
 {
-    log.info("ChatControl D-TOR ");
+    log_.function("ChatControl D-TOR ");
 
     if (getMessageToQueueThread_ && reciveMessageThread_)
     {
@@ -42,7 +42,7 @@ ConversationControl::~ConversationControl()
 
 void ConversationControl::conversation()
 {
-    log.info("ChatControl::conversationControl started");
+    log_.function("ChatControl::conversationControl() started");
     std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
     ChatWindow::displayChatWindows();
     startThreads();
@@ -54,7 +54,7 @@ void ConversationControl::conversation()
 
 void ConversationControl::conversationEpilog()
 {
-    log.info("ChatControl::endConversation started");
+    log_.function("ChatControl::endConversation() started");
     stopThreads();
 
     ChatWindow::deleteDisplayMesageWindow();
@@ -68,7 +68,8 @@ void ConversationControl::conversationEpilog()
 
 void ConversationControl::getMessage()
 {
-    log.info("ChatControl::getMessage started");
+    log_.function("ChatControl::getMessage() started");
+
     while(isThreadsRunning_)
     {
         ChatWindow::displayEnterMessageWindow();
@@ -84,6 +85,7 @@ void ConversationControl::getMessage()
             ownMessageToDisplay.messageToShow();
             messageToDisplay_.push(ownMessageToDisplay);
         }
+        log_.debug("ChatControl::getMessage() isConversationRunning_ = false");
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }
@@ -104,7 +106,7 @@ bool ConversationControl::isMessagesToReadExist()
 
 void ConversationControl::reciveMessage()
 {
-    log.info("ChatControl::reciveMessage started");
+    log_.function("ChatControl::reciveMessage() started");
 
     while(isThreadsRunning_)
     {
@@ -125,7 +127,7 @@ void ConversationControl::reciveMessage()
 
 void ConversationControl::sendMessage()
 {
-    log.info("ChatControl::sendMessage started");
+    log_.function("ChatControl::sendMessage() started");
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {
         if (messageReadyToSend_.empty())
@@ -144,6 +146,7 @@ void ConversationControl::sendMessage()
 
 void ConversationControl::startThreads()
 {
+    log_.function("ChatControl::startThreads() started");
     isThreadsRunning_ = true;
 
     getMessageToQueueThread_ = std::make_unique<std::thread>(std::thread([&]()
@@ -164,6 +167,7 @@ void ConversationControl::startThreads()
 
 void ConversationControl::saveMessageToDisplay()
 {
+    log_.function("ChatControl::saveMessageToDisplay() started");
     bool isEndOfMessages = false;
     while(!isEndOfMessages)
     {
@@ -181,5 +185,6 @@ void ConversationControl::saveMessageToDisplay()
 
 void ConversationControl::stopThreads()
 {
+    log_.function("ChatControl::stopThreads() started");
     isThreadsRunning_ = false;
 }

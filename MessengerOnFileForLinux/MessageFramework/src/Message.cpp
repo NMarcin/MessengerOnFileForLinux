@@ -26,7 +26,7 @@ Message::Message(std::string fullMessageInRow)
 
 std::string Message::messageToSave() const
 {
-    log_.function("Message::messageToSave()");
+    log_.function("Message::messageToSave() started");
     StringSumSquareBrackets fullMessage;
 
     fullMessage.sum(messageFlag_);

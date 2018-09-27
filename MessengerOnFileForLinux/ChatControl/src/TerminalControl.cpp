@@ -30,6 +30,7 @@ bool TerminalControl::isInvitationExist = false;
 
 bool TerminalControl::waitingInTerminal()
 {
+    log_.function("TerminalControl::waitingInTerminal() started");
     clear();
     refresh();
     ConsoleWindow::displayMainWindow();
@@ -41,7 +42,7 @@ bool TerminalControl::waitingInTerminal()
 
 bool TerminalControl::startConversation(const std::string& username, ChatRole chatRole)
 {
-    log_.function(("ChatControl::startConversation started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());
+    log_.function(("ChatControl::startConversation() started whit chatRole = " + std::to_string(static_cast<int>(chatRole))).c_str());
     if (ChatRole::inviter == chatRole)
     {
         return startConversationAsInviter(username);
@@ -54,7 +55,7 @@ bool TerminalControl::startConversation(const std::string& username, ChatRole ch
 
 bool TerminalControl::startConversationAsInviter(const std::string& username)
 {
-    log_.function("TerminalControl::startConversationAsInviter()");
+    log_.function("TerminalControl::startConversationAsInviter() started");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.sendChatRequest(username);
     if(!chatFileWithPath_.empty())
@@ -68,7 +69,7 @@ bool TerminalControl::startConversationAsInviter(const std::string& username)
 
 bool TerminalControl::startConversationAsRecipient(const std::string& username)
 {
-    log_.function("TerminalControl::startConversationAsRecipient()");
+    log_.function("TerminalControl::startConversationAsRecipient() started");
     ChatRequest chatRequest;
     chatFileWithPath_ = chatRequest.answerForChatRequest(username, "accept");
     if(!chatFileWithPath_.empty())

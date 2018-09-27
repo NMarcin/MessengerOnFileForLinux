@@ -29,7 +29,7 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername,
 
     log_.function("ChatRequest::answerForChatRequest() started");
     if (decision == "accept") // obejscie problemu z czekaniem w petli
-    {                         // prawdopodobnie do reimplementacji ChatRequest
+    {                         // TODO refacotr modulu jak rozwiazemy problem z czekaniem w petli na zaporszenie
         return sendAnswer(senderUsername, AnswerType::accepted);
     }
     return sendAnswer(senderUsername, AnswerType::disaccepted);

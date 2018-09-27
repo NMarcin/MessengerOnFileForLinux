@@ -41,5 +41,5 @@ private:
     std::queue<PurgeMessage> messageToDisplay_;
     bool isThreadsRunning_;
 
-    Logger log{LogSpace::ChatStarter};
+    Logger log_{LogSpace::ChatStarter};
 };

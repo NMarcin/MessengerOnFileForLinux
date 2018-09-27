@@ -16,7 +16,7 @@ Receiver::Receiver(std::shared_ptr<ChatInformation> chatInfo)
 
 bool Receiver::readMessagesToStack()
 {
-    log_.function("Receiver::readMessagesToStack()");
+    log_.function("Receiver::readMessagesToStack() started");
     auto folder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
     FileInterface::lockFolder(folder);
 
@@ -53,7 +53,7 @@ bool Receiver::readMessagesToStack()
 
 void Receiver::removeFlagNEW()
 {
-    log_.function("Receiver::removeFlagNEW()");
+    log_.function("Receiver::removeFlagNEW() started");
     std::string pathToFolder;
     pathToFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
     if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
@@ -70,7 +70,7 @@ void Receiver::removeFlagNEW()
 
 std::unique_ptr<PurgeMessage> Receiver::returnTheOldestMessage()
 {
-    log_.function("Receiver::returnTheOldestMessage()");
+    log_.function("Receiver::returnTheOldestMessage() started");
     if(purgeMessagesStack_.empty())
     {
         log_.info("Receiver::returnTheOldestMessage() purgeMessageStack is empty");
@@ -89,7 +89,7 @@ std::unique_ptr<PurgeMessage> Receiver::returnTheOldestMessage()
 
 bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
 {
-    log_.function("Receiver::endOfMessageToRead()");
+    log_.function("Receiver::endOfMessageToRead() started");
     if( MessageFlag::readMessage == messageFlag)
     {
         std::string senderUsername;
@@ -110,14 +110,14 @@ bool Receiver::isChatFileEmpty(std::unique_ptr<std::vector<std::string>>& chatFi
 
 std::unique_ptr<PurgeMessage> Receiver::messagePurging(Message& messageToPurge)
 {
-    log_.function("Receiver::messagePurging()");
+    log_.function("Receiver::messagePurging() started ");
     std::unique_ptr<PurgeMessage> purgeMessage= std::make_unique<PurgeMessage>(messageToPurge);
     return purgeMessage;
 }
 
 void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
-    log_.function("Receiver::pushPurgeMessageOnStack()");
+    log_.function("Receiver::pushPurgeMessageOnStack() started");
     if( "" != rawMessageToPush)
     {
         Message message(rawMessageToPush);
@@ -132,7 +132,7 @@ void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 
 bool Receiver::updateSeenFlags()
 {
-    log_.function("Receiver::updateSeenFlags()");
+    log_.function("Receiver::updateSeenFlags() started");
     bool updateFlagStatus;
     if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
     {

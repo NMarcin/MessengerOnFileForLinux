@@ -24,5 +24,5 @@ private:
     bool setNewMessageFlag() const;
 
     std::shared_ptr<ChatInformation> chatInfo_;
-    Logger log {LogSpace::ChatStarter};
+    Logger log {LogSpace::ChatControl};
 };
