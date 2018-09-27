@@ -13,7 +13,7 @@ std::string PurgeMessage::messageToShow() const
     auto messageToShow = fullMessage.getSumedString();
 
     log_.function("PurgeMessage::messageToShow() message = ");
-    log_.function(messageToShow);
+    log_.debug(messageToShow);
 
     return messageToShow;
 }

@@ -13,6 +13,8 @@ void Controler::controlUserAction()
 
     for ever
     {
+        TerminalControl::isWaitingForInvitation = true;
+
         log_.debug("Controler::controlUserAction() Loop begin ");
         log_.debug(("Controler::controlUserAction() isWaitingForInvitation = " + std::to_string(TerminalControl::isWaitingForInvitation)).c_str());
         log_.debug(("Controler::controlUserAction() isInvitationExist = " + std::to_string(TerminalControl::isInvitationExist)).c_str());
