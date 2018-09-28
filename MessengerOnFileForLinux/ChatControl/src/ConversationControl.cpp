@@ -81,8 +81,8 @@ void ConversationControl::getMessage()
                 messageReadyToSend_.push(*message);
             }
 
-            auto ownMessageToDisplay = PurgeMessage(messageReadyToSend_.front());
-            ownMessageToDisplay.messageToShow();
+            PurgeMessage ownMessageToDisplay(messageReadyToSend_.front());
+            //ownMessageToDisplay.messageToShow();
             messageToDisplay_.push(ownMessageToDisplay);
         }
         log_.debug("ChatControl::getMessage() isConversationRunning_ = false");

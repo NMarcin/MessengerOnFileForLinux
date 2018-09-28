@@ -4,6 +4,8 @@
 
 void StringSumSquareBrackets::sum(std::string s)
 {
+    std::string logSum = "StringSumSquareBrackets::sum() started with s = " + s;
+    log_.function(logSum);
     sumedString += "[" + s + "]";
 }
 

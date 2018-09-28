@@ -21,7 +21,7 @@ Message::Message(std::string fullMessageInRow)
     date_.append(        fullMessageInRow.begin() + 4,  fullMessageInRow.begin() + 15 );
     time_.append(        fullMessageInRow.begin() + 18, fullMessageInRow.begin() + 26 );
     username_.append(    fullMessageInRow.begin() + 28, fullMessageInRow.begin() + 36 );
-    content_.append(     fullMessageInRow.begin() + 36, fullMessageInRow.end()   - 1  );
+    content_.append(     fullMessageInRow.begin() + 38, fullMessageInRow.end()   - 1  );
 }
 
 std::string Message::messageToSave() const
