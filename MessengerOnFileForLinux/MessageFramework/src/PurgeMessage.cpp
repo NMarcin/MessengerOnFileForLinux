@@ -21,7 +21,7 @@ std::string PurgeMessage::messageToShow() const
 PurgeMessage::PurgeMessage(const Message& message)
 {
     log_.function("Message C-TOR from Message");
-    time_ = setTime(message.getTime());
+    setTime(message.getTime());
     log_.function(time_);
     username_ = message.getUsername();
     content_ = message.getContent();
@@ -30,6 +30,9 @@ PurgeMessage::PurgeMessage(const Message& message)
 bool PurgeMessage::setTime(std::string longTime)
 {
     log_.function("PurgeMessage::setTime() started");
+    std::string logtime= "PurgeMessage::setTime() longTime = " + longTime;
+    log_.info(logtime);
     auto secondPosition = longTime.find_last_of(":");
     time_.append(longTime.begin(), longTime.begin() + secondPosition);
+    log_.function("PurgeMessage::setTime() ended");
 }
