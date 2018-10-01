@@ -118,6 +118,7 @@ bool FileInterface::Modification::addRow(const std::string& pathToFile, const st
     else
     {
         fileLog("FileInterface::Modification::addRow ERROR: Cannot get file acces", LogSpace::FileHandling);
+        removeGuardian(folderName);
         return false;
     }
 }
