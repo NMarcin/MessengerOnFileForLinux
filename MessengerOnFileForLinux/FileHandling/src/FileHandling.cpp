@@ -107,11 +107,11 @@ std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile, Acce
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
     fileLog(("FileInterface::Modification::addRow Add row to " + pathToFile).c_str(), LogSpace::FileHandling);
+    std::string folderName = *Accesor::getFolderName(pathToFile);
     if (std::unique_ptr<std::fstream> file = openFileToWrite(pathToFile))
     {
         *file << text;
         *file << '\n';
-        std::string folderName = *Accesor::getFolderName(pathToFile);
         removeGuardian(folderName);
         return true;
     }
