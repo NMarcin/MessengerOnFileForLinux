@@ -34,13 +34,11 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
     int folderNumber = getFreeFolderNumber();
     std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
-    //std::string systemCommand2 = "chmod 700 " + newFolderName;
-    std::string systemCommand2 = "chmod 777 " + newFolderName;
+    std::string systemCommand2 = "chmod 700 " + newFolderName;
     bool commandStatus = system(systemCommand.c_str());
     system(systemCommand2.c_str());
-    //systemCommand = "setfacl -m u:" + usernameGuess + ":rwx " + newFolderName;
-    //system(systemCommand.c_str());
-    //TODO mawoznia potwierdzic czy dziala na serwerze
+    systemCommand = "setfacl -m u:" + usernameGuess + ":rwx " + newFolderName;
+    system(systemCommand.c_str());
 
     if(!commandStatus)
     {

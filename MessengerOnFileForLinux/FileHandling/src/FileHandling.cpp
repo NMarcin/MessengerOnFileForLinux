@@ -21,12 +21,14 @@ enum class FileMode
 
 bool createGuardian(const std::string& pathToFolder)
 {
+    fileLog(("FileInterface::createGuardian " + pathToFolder).c_str(), LogSpace::FileHandling);
     FileInterface::Managment::createFile(pathToFolder + "/GUARD");
     return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
 
 bool removeGuardian(const std::string& pathToFolder)
 {
+    fileLog(("FileInterface::createGuardian " + pathToFolder).c_str(), LogSpace::FileHandling);
     remove((pathToFolder + "/GUARD").c_str());
     return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
@@ -39,7 +41,7 @@ bool isGuardianExist(const std::string& pathToFolder)
 void waitForAccess(const std::string& folderName)
 {
     bool accesToFile = false;
-
+    fileLog(("FileInterface::waitForAccess START in FileMode = " + folderName).c_str(), LogSpace::FileHandling);
     while(!accesToFile)
     {
         if (!isGuardianExist(folderName))
@@ -49,6 +51,7 @@ void waitForAccess(const std::string& folderName)
         }
         std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
+    fileLog(("FileInterface::waitForAccess END in FileMode = " + folderName).c_str(), LogSpace::FileHandling);
 }
 
 std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode, AccesMode accesMode = AccesMode::withGuardian)
