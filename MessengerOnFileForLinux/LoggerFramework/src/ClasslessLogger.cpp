@@ -1,4 +1,7 @@
 #include <ClasslessLogger.hpp>
+#include <chrono>
+#include <ctime>
+
 
 void fileLog(const char * logData, const char * logSpace)
 {
@@ -10,7 +13,10 @@ void fileLog(const char * logData, const char * logSpace)
         exit(1);
     }
 
-    fprintf(logFile, "%s %s %s  %s\n", __DATE__, __TIME__, logSpace, logData);
+    auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string timeAsString = ctime(&time);
+    timeAsString.erase(timeAsString.end()-1);
+    fprintf(logFile, "%s %s %s\n", timeAsString.c_str(), logSpace, logData);
 
     fclose(logFile);
 }

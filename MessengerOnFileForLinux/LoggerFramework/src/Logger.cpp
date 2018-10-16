@@ -1,4 +1,6 @@
 #include <iostream>
+#include <chrono>
+#include <ctime>
 
 #include <Logger.hpp>
 
@@ -51,7 +53,10 @@ void Logger::info(const char* logData) const
 
 void Logger::writeToConsole(const char* log) const
 {
-    fprintf(stdout, "\n%s %s %s  %s\n", __DATE__, __TIME__, logSpace_, log);
+    auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string timeAsString = ctime(&time);
+    timeAsString.erase(timeAsString.end()-1);
+    fprintf(stdout, "%s %s  %s\n", timeAsString.c_str(), logSpace_, log);
 }
 
 void Logger::writeToFile(const char* log) const
@@ -64,7 +69,10 @@ void Logger::writeToFile(const char* log) const
         exit(1);
     }
 
-    fprintf(logFile, "%s %s %s  %s\n", __DATE__, __TIME__, logSpace_, log);
+    auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string timeAsString = ctime(&time);
+    timeAsString.erase(timeAsString.end()-1);
+    fprintf(logFile, "%s %s %s\n", timeAsString.c_str(), logSpace_, log);
 
     fclose(logFile);
 }
