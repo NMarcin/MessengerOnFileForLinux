@@ -72,7 +72,7 @@ std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMess
         if("end" == command)
         {
             std::string systemMessage = LocalUser::getLocalUser().getUsername() + " LEFT CHAT";
-            return std::make_unique<Message>(chatInfo_->messageFlag_, "SYSTEM" ,systemMessage);
+            return std::make_unique<Message>(chatInfo_->messageFlag_, "_SYSTEM_" ,systemMessage);
         }
         return nullptr;
     }

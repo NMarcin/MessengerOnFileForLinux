@@ -39,7 +39,6 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
     system(systemCommand2.c_str());
     systemCommand = "setfacl -m u:" + usernameGuess + ":rwx " + newFolderName;
     system(systemCommand.c_str());
-    //TODO mawoznia potwierdzic czy dziala na serwerze
 
     if(!commandStatus)
     {

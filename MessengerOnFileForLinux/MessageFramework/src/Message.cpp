@@ -2,7 +2,10 @@
 #include <string>
 #include <StringSum.hpp>
 #include <GlobalVariables.hpp>
+
 #include <vector>
+#include <chrono>
+#include <ctime>
 
 Message::Message(std::string messageFlag, std::string username, std::string content)
 {
@@ -10,18 +13,18 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
     setMessageFlag(messageFlag);
     username_ = username;
     setContent(content);
-    date_ = __DATE__;
-    time_ += __TIME__;
+    auto x = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    time_ += ctime(&x);
+    time_.erase(time_.end()-1);
 }
 
 Message::Message(std::string fullMessageInRow)
 {
     log_.function("Message C-TOR longString");
     messageFlag_.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
-    date_.append(        fullMessageInRow.begin() + 4,  fullMessageInRow.begin() + 15 );
-    time_.append(        fullMessageInRow.begin() + 18, fullMessageInRow.begin() + 26 );
-    username_.append(    fullMessageInRow.begin() + 28, fullMessageInRow.begin() + 36 );
-    content_.append(     fullMessageInRow.begin() + 36, fullMessageInRow.end()   - 1  );
+    time_.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 28 );
+    username_.append(    fullMessageInRow.begin() + 30, fullMessageInRow.begin() + 38 );
+    content_.append(     fullMessageInRow.begin() + 40, fullMessageInRow.end()   - 1  );
 }
 
 std::string Message::messageToSave() const
@@ -30,7 +33,7 @@ std::string Message::messageToSave() const
     StringSumSquareBrackets fullMessage;
 
     fullMessage.sum(messageFlag_);
-    fullMessage.sum(date_ + " | " + time_);
+    fullMessage.sum(time_);
     fullMessage.sum(username_);
     fullMessage.sum(content_);
 

@@ -36,9 +36,8 @@ private:
     bool setContent(std::string content);
 
     std::string messageFlag_;
-    std::string date_;
 
     Logger log_ {LogSpace::MessageFramework};
 };
 
-// [1][Jul 31 2018 | 09:19:13][mnurzyns][czesc, co u ciebie ?]
+// [1][Tue Oct 16 08:16:55 2018][mnurzyns][czesc, co u ciebie ?]

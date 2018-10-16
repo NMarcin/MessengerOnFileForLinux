@@ -21,12 +21,14 @@ enum class FileMode
 
 bool createGuardian(const std::string& pathToFolder)
 {
+    fileLog(("FileInterface::createGuardian " + pathToFolder).c_str(), LogSpace::FileHandling);
     FileInterface::Managment::createFile(pathToFolder + "/GUARD");
     return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
 
 bool removeGuardian(const std::string& pathToFolder)
 {
+    fileLog(("FileInterface::createGuardian " + pathToFolder).c_str(), LogSpace::FileHandling);
     remove((pathToFolder + "/GUARD").c_str());
     return ! FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
@@ -39,7 +41,7 @@ bool isGuardianExist(const std::string& pathToFolder)
 void waitForAccess(const std::string& folderName)
 {
     bool accesToFile = false;
-
+    fileLog(("FileInterface::waitForAccess START in FileMode = " + folderName).c_str(), LogSpace::FileHandling);
     while(!accesToFile)
     {
         if (!isGuardianExist(folderName))
@@ -49,6 +51,7 @@ void waitForAccess(const std::string& folderName)
         }
         std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
+    fileLog(("FileInterface::waitForAccess END in FileMode = " + folderName).c_str(), LogSpace::FileHandling);
 }
 
 std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode, AccesMode accesMode = AccesMode::withGuardian)
@@ -104,17 +107,18 @@ std::unique_ptr<std::fstream> openFileToRead(const std::string& pathToFile, Acce
 bool FileInterface::Modification::addRow(const std::string& pathToFile, const std::string& text)
 {
     fileLog(("FileInterface::Modification::addRow Add row to " + pathToFile).c_str(), LogSpace::FileHandling);
+    std::string folderName = *Accesor::getFolderName(pathToFile);
     if (std::unique_ptr<std::fstream> file = openFileToWrite(pathToFile))
     {
         *file << text;
         *file << '\n';
-        std::string folderName = *Accesor::getFolderName(pathToFile);
         removeGuardian(folderName);
         return true;
     }
     else
     {
         fileLog("FileInterface::Modification::addRow ERROR: Cannot get file acces", LogSpace::FileHandling);
+        removeGuardian(folderName);
         return false;
     }
 }

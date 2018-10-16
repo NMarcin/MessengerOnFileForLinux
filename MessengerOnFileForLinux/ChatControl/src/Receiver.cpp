@@ -117,7 +117,8 @@ std::unique_ptr<PurgeMessage> Receiver::messagePurging(Message& messageToPurge)
 
 void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 {
-    log_.function("Receiver::pushPurgeMessageOnStack() started");
+    log_.function("Receiver::pushPurgeMessageOnStack() started, rawMessageToPush: ");
+    log_.debug(rawMessageToPush);
     if( "" != rawMessageToPush)
     {
         Message message(rawMessageToPush);
