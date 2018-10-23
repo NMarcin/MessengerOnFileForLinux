@@ -23,7 +23,7 @@ include(CTest)
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GTest REQUIRED)
 find_package (Threads REQUIRED)
-#find_package(Curses REQUIRED)
+find_package(Curses REQUIRED)
 
 
 ################################################################################
