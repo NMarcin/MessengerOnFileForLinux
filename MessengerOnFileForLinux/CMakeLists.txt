@@ -96,7 +96,7 @@ add_subdirectory(UserService/test)
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
+#target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
 
 
 ################################################################################
