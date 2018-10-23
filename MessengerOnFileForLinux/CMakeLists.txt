@@ -11,6 +11,12 @@ set(CMAKE_CXX_FLAGS "-l:libncursesw.a -l:libtinfo.a")
 set (CMAKE_EXE_LINKER_FLAGS "-l:libncursesw.a -l:libtinfo.a")
 add_definitions("-l:libncursesw.a -l:libtinfo.a")
 
+
+add_library(imp_c STATIC IMPORTED)
+   set_property(TARGET imp_c PROPERTY
+                IMPORTED_LOCATION /usr/lib/x86_64-linux-gnu/libncurses.a)
+
+
 # OUTSIDE LIBRARIES
 include(CTest)
 #include_directories(${CURSES_INCLUDE_DIR})
@@ -69,6 +75,7 @@ add_subdirectory(${MODULE_MessageFramework})
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(messenger_binary ncurses)
+target_link_libraries(messenger_binary imp_c)
 
 
 
@@ -91,7 +98,8 @@ add_subdirectory(UserService/test)
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-target_link_libraries(messenger_binary_UT ncurses)
+target_link_libraries(messenger_binary ncurses)
+target_link_libraries(messenger_binary imp_c)
 
 
 ################################################################################
