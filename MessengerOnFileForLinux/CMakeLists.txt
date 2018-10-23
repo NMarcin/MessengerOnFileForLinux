@@ -7,13 +7,17 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_CXX_FLAGS "-l:libncurses.a")
+set(CMAKE_CXX_FLAGS "-lncurses")
 #set (CMAKE_EXE_LINKER_FLAGS "-lncurses -static")
 #add_definitions( "-lncurses -static" )
 
 # OUTSIDE LIBRARIES
+set (CURSES_INCLUDE_DIR /usr/lib/x86_64-linux-gnu/libncurse.a)
+set (CURSES_INCLUDE_DIR /usr/lib/x86_64-linux-gnu/libncurse.a)
+set (CURSES_LIBRARIES /usr/lib/x86_64-linux-gnu/libncurse.a)
+
 include(CTest)
-#include_directories(${CURSES_INCLUDE_DIR})
+include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(/usr/lib/lx86_64-linux-gnu/libform.a)
 find_package(GTest REQUIRED)
@@ -73,7 +77,7 @@ add_subdirectory(${MODULE_MessageFramework})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(messenger_binary ${CURSES_LIBRARIES})
+target_link_libraries(messenger_binary ncurses)
 
 
 
@@ -97,8 +101,6 @@ set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
 target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
-#target_link_libraries(messenger_binary_UT ${SOMELIB})
-
 
 
 ################################################################################
