@@ -74,7 +74,7 @@ add_subdirectory(${MODULE_MessageFramework})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(messenger_binary ncurses)
+#target_link_libraries(messenger_binary ncurses)
 target_link_libraries(messenger_binary imp_c)
 
 
