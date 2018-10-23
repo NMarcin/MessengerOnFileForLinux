@@ -2,14 +2,14 @@
 
 cd /home
 cd $USER
-mkdir messenger
+mkdir -p messenger
 chmod 1777 messenger
 
 cd /var/tmp
-mkdir messenger
+mkdir -p messenger
 chmod 1777 messenger
 cd messenger
-mkdir chats invitations configuration instalation TEST
+mkdir -p chats invitations configuration instalation TEST
 chmod 777 *
 cd configuration
 touch LOGGED REGISTERED

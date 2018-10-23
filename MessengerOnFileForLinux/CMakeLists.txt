@@ -7,6 +7,8 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set (CMAKE_EXE_LINKER_FLAGS "-lncurses -static -ltinfo")
+add_definitions( "-lncurses -static -ltinfo" )
 
 # OUTSIDE LIBRARIES
 include(CTest)
