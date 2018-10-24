@@ -1,4 +1,3 @@
-
 cmake_minimum_required (VERSION 3.5.1)
 project(CMakeBuildTree)
 
@@ -17,9 +16,6 @@ find_package(GTest REQUIRED)
 find_package (Threads REQUIRED)
 find_package(Curses REQUIRED)
 
-
-find_package(PkgConfig REQUIRED)
-pkg_search_module(PKG_OPENCV REQUIRED ncurses)
 
 ################################################################################
 #####                         MODULE DIR SOURCES                           #####
@@ -84,14 +80,11 @@ add_subdirectory(LoggerFramework/test)
 add_subdirectory(ChatStarter/test)
 add_subdirectory(UserService/test)
 
-
 # CMAKE BUILD
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
 target_link_libraries(messenger_binary_UT "-l:libncursesw.a -l:libtinfo.a -l:libform.a")
-
-
 
 ################################################################################
 #####                               VALGIRN                                #####
@@ -103,14 +96,4 @@ if(VALGRIND)
     add_custom_target(valgrind COMMAND "${VALGRIND}" --tool=memcheck  --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=no  $<TARGET_FILE:messenger_binary_UT>)
 endif()
 
-
-#set(CMAKE_CXX_FLAGS "-l:libncursesw.a -l:libtinfo.a")
-#set (CMAKE_EXE_LINKER_FLAGS "-l:libncursesw.a -l:libtinfo.a")
-#add_definitions("-l:libncursesw.a -l:libtinfo.a")
-
-
-#add_library(imp_c STATIC IMPORTED)
-  # set_property(TARGET imp_c PROPERTY             IMPORTED_LOCATION /usr/lib/x86_64-linux-gnu/libncurses.a)
-
-#target_link_libraries(messenger_binary imp_c)
 
