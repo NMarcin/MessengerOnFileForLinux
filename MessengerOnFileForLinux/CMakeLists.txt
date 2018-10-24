@@ -89,7 +89,7 @@ add_subdirectory(UserService/test)
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-target_link_libraries(messenger_binary_UT messenger_binary "-l:libncursesw.a -l:libtinfo.a -l:libform.a")
+target_link_libraries(messenger_binary_UT "-l:libncursesw.a -l:libtinfo.a -l:libform.a")
 
 
 
