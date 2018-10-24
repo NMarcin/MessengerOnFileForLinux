@@ -1,3 +1,4 @@
+
 cmake_minimum_required (VERSION 3.5.1)
 project(CMakeBuildTree)
 
@@ -7,24 +8,18 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_CXX_FLAGS "-l:libncursesw.a -l:libtinfo.a")
-set (CMAKE_EXE_LINKER_FLAGS "-l:libncursesw.a -l:libtinfo.a")
-add_definitions("-l:libncursesw.a -l:libtinfo.a")
-
-
-add_library(imp_c STATIC IMPORTED)
-   set_property(TARGET imp_c PROPERTY
-                IMPORTED_LOCATION /usr/lib/x86_64-linux-gnu/libncurses.a)
-
 
 # OUTSIDE LIBRARIES
 include(CTest)
-#include_directories(${CURSES_INCLUDE_DIR})
+include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GTest REQUIRED)
 find_package (Threads REQUIRED)
 find_package(Curses REQUIRED)
 
+
+find_package(PkgConfig REQUIRED)
+pkg_search_module(PKG_OPENCV REQUIRED ncurses)
 
 ################################################################################
 #####                         MODULE DIR SOURCES                           #####
@@ -74,11 +69,7 @@ add_subdirectory(${MODULE_MessageFramework})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
-#target_link_libraries(messenger_binary ncurses)
-target_link_libraries(messenger_binary imp_c)
-
-
-
+target_link_libraries(messenger_binary "-l:libncursesw.a -l:libtinfo.a -l:libform.a")
 
 ################################################################################
 #####                       MAKE UNIT TESTS CMAKE PART                     #####
@@ -98,8 +89,8 @@ add_subdirectory(UserService/test)
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-target_link_libraries(messenger_binary ncurses)
-target_link_libraries(messenger_binary imp_c)
+target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES} "-static")
+
 
 
 ################################################################################
@@ -111,3 +102,15 @@ if(VALGRIND)
     target_link_libraries(messenger_binary_UT LINK_PUBLIC)
     add_custom_target(valgrind COMMAND "${VALGRIND}" --tool=memcheck  --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=no  $<TARGET_FILE:messenger_binary_UT>)
 endif()
+
+
+#set(CMAKE_CXX_FLAGS "-l:libncursesw.a -l:libtinfo.a")
+#set (CMAKE_EXE_LINKER_FLAGS "-l:libncursesw.a -l:libtinfo.a")
+#add_definitions("-l:libncursesw.a -l:libtinfo.a")
+
+
+#add_library(imp_c STATIC IMPORTED)
+  # set_property(TARGET imp_c PROPERTY             IMPORTED_LOCATION /usr/lib/x86_64-linux-gnu/libncurses.a)
+
+#target_link_libraries(messenger_binary imp_c)
+
