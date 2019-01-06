@@ -66,7 +66,7 @@ add_subdirectory(${MODULE_MessageFramework})
 # CMAKE BUILD
 add_executable(messenger_binary ${SOURCES} ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(messenger_binary "-l:libncursesw.a -l:libtinfo.a -l:libform.a")
+target_link_libraries(messenger_binary ${CURSES_LIBRARIES})
 
 ################################################################################
 #####                       MAKE UNIT TESTS CMAKE PART                     #####
@@ -85,7 +85,7 @@ add_subdirectory(UserService/test)
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-target_link_libraries(messenger_binary_UT "-l:libncursesw.a -l:libtinfo.a -l:libform.a")
+target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
 
 ################################################################################
 #####                               VALGIRN                                #####
