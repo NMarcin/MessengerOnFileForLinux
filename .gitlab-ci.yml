@@ -1,5 +1,6 @@
 image: gcc
 before_script:
+ - pwd
  - apt-get update --yes
  - wget http://www.cmake.org/files/v3.10/cmake-3.10.1.tar.gz
  - tar -xvzf cmake-3.10.1.tar.gz
@@ -33,6 +34,7 @@ build:
     #- git push http://marcinwozniak0:og4c173Nsc4RpiHV4ayw@gitlab.com/marcinwozniak0/messengeronfileforlinux.git HEAD:review
     #- git push origin review 
     # - cd /builds/marcinwozniak0/messengeronfileforlinux/MessengerOnFileForLinux
+    - pwd
     - mkdir build
     - cd build
     - cmake ..
