@@ -33,7 +33,7 @@ build:
  #   - git push origin master
     #- git push http://marcinwozniak0:og4c173Nsc4RpiHV4ayw@gitlab.com/marcinwozniak0/messengeronfileforlinux.git HEAD:review
     #- git push origin review 
-    - cd /builds/NMarcin/messengeronfileforlinux/MessengerOnFileForLinux
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
     - pwd
     - mkdir build
     - cd build
