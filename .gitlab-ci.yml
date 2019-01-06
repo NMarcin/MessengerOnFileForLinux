@@ -16,11 +16,33 @@ before_script:
  - apt-get update
  - apt-get install --yes ncurses-dev
  - apt install --yes libncurses5-dev libncursesw5-dev
-build:
+mwozniakBuild:
   only:
     #- merge_requests
     - master
     - mwozniak
+  script:
+ #   - git config --global user.name "${GITLAB_USER_NAME}"
+ #   - git config --global user.email "${GITLAB_USER_EMAIL}"
+ #   - git checkout master
+ #   - git checkout -b review
+ #   - git merge origin/master
+ #   - echo ${GITLAB_USER_NAME}
+ #   - echo ${PERSONAL_ACCESS_TOKEN}
+ #   - echo ${YOUR_USERNAME}
+ #   - git push origin master
+    #- git push http://marcinwozniak0:og4c173Nsc4RpiHV4ayw@gitlab.com/marcinwozniak0/messengeronfileforlinux.git HEAD:review
+    #- git push origin review 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
+    - pwd
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+mnurzynsBuild:
+  only:
+    #- merge_requests
+    - mnurzyns
   script:
  #   - git config --global user.name "${GITLAB_USER_NAME}"
  #   - git config --global user.email "${GITLAB_USER_EMAIL}"
