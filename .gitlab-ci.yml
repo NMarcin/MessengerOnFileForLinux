@@ -1,64 +1,21 @@
 image: gcc
 before_script:
- - pwd
- - apt-get update --yes
- - wget http://www.cmake.org/files/v3.10/cmake-3.10.1.tar.gz
- - tar -xvzf cmake-3.10.1.tar.gz
- - cd cmake-3.10.1/
- - ./configure
- - make 
- - make install
- - apt-get install --yes libgtest-dev
- - cd /usr/src/gtest
- - cmake CMakeLists.txt
- - make
- - cp *.a /usr/lib
- - apt-get update
- - apt-get install --yes ncurses-dev
- - apt install --yes libncurses5-dev libncursesw5-dev
+ - ./setup_ci.sh
+
 mwozniakBuild:
   only:
-    #- merge_requests
-    - master
     - mwozniak
   script:
- #   - git config --global user.name "${GITLAB_USER_NAME}"
- #   - git config --global user.email "${GITLAB_USER_EMAIL}"
- #   - git checkout master
- #   - git checkout -b review
- #   - git merge origin/master
- #   - echo ${GITLAB_USER_NAME}
- #   - echo ${PERSONAL_ACCESS_TOKEN}
- #   - echo ${YOUR_USERNAME}
- #   - git push origin master
-    #- git push http://marcinwozniak0:og4c173Nsc4RpiHV4ayw@gitlab.com/marcinwozniak0/messengeronfileforlinux.git HEAD:review
-    #- git push origin review 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
-    - pwd
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
+    - ./gcc_ci.sh 
+
 mnurzynsBuild:
   only:
-    #- merge_requests
     - mnurzyns
   script:
- #   - git config --global user.name "${GITLAB_USER_NAME}"
- #   - git config --global user.email "${GITLAB_USER_EMAIL}"
- #   - git checkout master
- #   - git checkout -b review
- #   - git merge origin/master
- #   - echo ${GITLAB_USER_NAME}
- #   - echo ${PERSONAL_ACCESS_TOKEN}
- #   - echo ${YOUR_USERNAME}
- #   - git push origin master
-    #- git push http://marcinwozniak0:og4c173Nsc4RpiHV4ayw@gitlab.com/marcinwozniak0/messengeronfileforlinux.git HEAD:review
-    #- git push origin review 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
-    - pwd
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
+    - ./gcc_ci.sh
 
+masterBuild:
+  only:
+    - master
+  script:
+    - ./gcc_ci.sh
