@@ -1,21 +1,25 @@
 image: gcc
 before_script:
+ - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
  - ./setup_ci.sh
 
 mwozniakBuild:
   only:
     - mwozniak
   script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
 
 mnurzynsBuild:
   only:
     - mnurzyns
   script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
 
 masterBuild:
   only:
     - master
   script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
