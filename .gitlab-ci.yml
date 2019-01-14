@@ -1,14 +1,48 @@
 image: gcc
 before_script:
+ - export TERM=xterm-256color
  - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+ - ./create_enviroment.sh 
  - ./setup_ci.sh
+
+############ MWOZNIAK BUILDS ############
 
 mwozniakBuild:
   only:
     - mwozniak
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh
+
+mwozniakUt:
+  only:
+    - mwozniak
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - ./messenger_binary_UT
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      expire_in: 1 week  
+
+mwozniakValgrind:
+  only:
+    - mwozniak
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - make valgrind
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      expire_in: 1 week
+
+############ MNURZYNS BUILDS ############
 
 mnurzynsBuild:
   only:
@@ -17,9 +51,68 @@ mnurzynsBuild:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
 
+mnurzynsUt:
+  only:
+    - mnurzyns
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - ./messenger_binary_UT
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      expire_in: 1 week  
+
+mnurzynsValgrind:
+  only:
+    - mnurzyns
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - make valgrind
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      expire_in: 1 week
+
+############ MASTER BUILDS ############
+
 masterBuild:
   only:
     - master
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
+
+mwozniakUt:
+  only:
+    - master
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - ./messenger_binary_UT
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      expire_in: 1 week  
+
+mwozniakValgrind:
+  only:
+    - master
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - make valgrind
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      expire_in: 1 week
+

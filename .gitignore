@@ -55,6 +55,7 @@
 *build-MessangerOnFileForLinux*
 *.txt.user*
 *MessengerOnFileForLinux-build*
+*.Logger_default.txt*
 
 # diff / patch
 *.diff

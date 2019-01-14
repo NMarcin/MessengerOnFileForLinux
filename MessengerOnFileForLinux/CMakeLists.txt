@@ -94,7 +94,10 @@ find_program(VALGRIND "valgrind")
 if(VALGRIND)
     message("VALGRIND found in path:" ${VALGRIND})
     target_link_libraries(messenger_binary_UT LINK_PUBLIC)
-    add_custom_target(valgrind COMMAND "${VALGRIND}" --tool=memcheck  --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=no  $<TARGET_FILE:messenger_binary_UT>)
+    add_custom_target(valgrind COMMAND "${VALGRIND}" --tool=memcheck  --leak-check=yes
+        --show-reachable=yes --num-callers=20
+        --track-fds=no --log-file="valgrindOutput.txt"
+        $<TARGET_FILE:messenger_binary_UT>)
 endif()
 
 
