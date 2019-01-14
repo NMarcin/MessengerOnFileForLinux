@@ -88,7 +88,7 @@ masterBuild:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
 
-mwozniakUt:
+masterUt:
   only:
     - master
   script:
@@ -102,7 +102,7 @@ mwozniakUt:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
       expire_in: 1 week  
 
-mwozniakValgrind:
+masterValgrind:
   only:
     - master
   script:

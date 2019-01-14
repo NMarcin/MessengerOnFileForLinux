@@ -1,4 +1,4 @@
-#include <ChatRequestTestCore.hpp>
+/*#include <ChatRequestTestCore.hpp>
 
 
 TEST_F(ChatRequestFixture, inviteInactiveUser)
@@ -34,7 +34,7 @@ TEST_F(ChatRequestFixture, inviteActiveUserWithDissacceptResponse_2)
 
     EXPECT_TRUE(chatRequest.sendChatRequest(user).empty());
 }
-
+*/
 /*
  * Testujemy zapraszjac siebie, ale nie mozemy tego zrobic bo widzimi sami siebie
  * jako zajetego usera
@@ -73,6 +73,7 @@ TEST_F(ChatRequestFixture, isToLowerWorking)
     EXPECT_EQ(chatRequest.sendChatRequest(user), pathToChatfile);
 }
 */
+/*
 TEST_F(ChatRequestFixture, inviteActiveUserWithUndefinedResponse)
 {
     std::istringstream stream("somethigElseThanYesOrNo");
@@ -94,3 +95,4 @@ TEST_F(ChatRequestFixture, isGetChatFolderNameWorksCorrectly)
     FileInterface::Managment::removeFile("1mwoznia2_tkogut");
     FileInterface::Managment::removeFile("2mnurzyns_mwoznia2");
 }
+*/

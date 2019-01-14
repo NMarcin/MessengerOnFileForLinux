@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+/*#include <gtest/gtest.h>
 #include <ncurses.h>
 
 #include <RegisterUser.hpp>
@@ -61,3 +61,4 @@ TEST(RegisterUserTest, isUserCorrectlyAddedRegisterededFile)
     EXPECT_EQ(expectedRow, *rowFromRegisteredFile);
 
 }
+*/

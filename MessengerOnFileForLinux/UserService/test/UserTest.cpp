@@ -26,9 +26,10 @@ TEST(UserTest, isSetPasswordWorksCorretly)
     EXPECT_NE("", user.getPassword());
     EXPECT_EQ("123456789", user.getPassword());
 }
-
+/*
 TEST(LocalUserTest, isLocalUsernameIsCorrect)
 {
     std::string localUsername = getenv("USER");
     EXPECT_EQ(localUsername, LocalUser::getLocalUser().getUsername());
 }
+*/
