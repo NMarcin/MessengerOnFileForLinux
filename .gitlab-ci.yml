@@ -22,7 +22,7 @@ ciBranchBuild#2:
     - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
- when: $LOG=="?d"
+# when: $LOG=="?d"
 
 ciBranchBuild#3:
   only:
