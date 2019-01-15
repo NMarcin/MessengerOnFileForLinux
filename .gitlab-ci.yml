@@ -10,7 +10,21 @@ before_script:
 
 ############ MWOZNIAK BUILDS ############
 
-mwozniakBuild:
+ciBranchBuild#1:
+  only:
+    - ciBranch
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+  when: $LOG=="?r"
+
+ciBranchBuild#2:
+  only:
+    - ciBranch
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+ when: $LOG=="?d"
+
+ciBranchBuild#3:
   only:
     - ciBranch
   script:
