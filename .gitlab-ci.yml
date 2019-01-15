@@ -13,6 +13,7 @@ before_script:
 
 ciBranchBuild#1:
   only:
+    - ciBranch
     variables:
       - $CI_COMMIT_TAG == '?r'
    # - ciBranch
@@ -23,6 +24,7 @@ ciBranchBuild#1:
 
 ciBranchBuild#2:
   only:
+    - ciBranch
     variables:
       - $CI_COMMIT_TAG == '?z'
    # - ciBranch
