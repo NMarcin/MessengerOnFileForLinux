@@ -2,17 +2,46 @@ image: gcc
 before_script:
  - export TERM=xterm-256color
  - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
- - ./create_enviroment.sh 
- - ./setup_ci.sh
+ #- ./create_enviroment.sh 
+ #- ./setup_ci.sh
+ - export LOG=$(git log -1 --pretty=%B)
+ - export LOG=${LOG:0:2}
+ - echo $LOG
 
 ############ MWOZNIAK BUILDS ############
 
 mwozniakBuild:
   only:
-    - mwozniak
+    - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - ./gcc_ci.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 mwozniakUt:
   only:
