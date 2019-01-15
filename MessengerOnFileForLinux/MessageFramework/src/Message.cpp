@@ -2,10 +2,9 @@
 #include <string>
 #include <StringSum.hpp>
 #include <GlobalVariables.hpp>
+#include "DateManagment.hpp"
 
 #include <vector>
-#include <chrono>
-#include <ctime>
 
 Message::Message(std::string messageFlag, std::string username, std::string content)
 {
@@ -13,18 +12,16 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
     setMessageFlag(messageFlag);
     username_ = username;
     setContent(content);
-    auto x = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    time_ += ctime(&x);
-    time_.erase(time_.end()-1);
+    time_ = DataManagment::convertDateToString(DataManagment::getActualDate());
 }
 
 Message::Message(std::string fullMessageInRow)
 {
     log_.function("Message C-TOR longString");
     messageFlag_.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
-    time_.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 28 );
-    username_.append(    fullMessageInRow.begin() + 30, fullMessageInRow.begin() + 38 );
-    content_.append(     fullMessageInRow.begin() + 40, fullMessageInRow.end()   - 1  );
+    time_.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 24 );
+    username_.append(    fullMessageInRow.begin() + 27, fullMessageInRow.begin() + 35 );
+    content_.append(     fullMessageInRow.begin() + 37, fullMessageInRow.end()   - 1  );
 }
 
 std::string Message::messageToSave() const
