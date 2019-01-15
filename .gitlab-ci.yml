@@ -15,7 +15,7 @@ ciBranchBuild#1:
     - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-  when: $LOG=='?r'
+  when: LOG==?r
 
 ciBranchBuild#2:
   only:
