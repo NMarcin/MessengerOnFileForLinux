@@ -16,7 +16,7 @@ ciBranchBuild#1:
     - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-  when: $CI_COMMIT_TAG==true
+  when: $PUBLISH_ARTIFACTS==true
 
 
 
