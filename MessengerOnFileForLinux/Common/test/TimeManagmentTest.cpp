@@ -22,7 +22,21 @@ TEST(ConvertTimeToString, TimeFormatIsCorrect)
 
 TEST(ConvertTimeToString, TimeValueIsCorrect)
 {
-    const auto unixEpochTimeAsString = TimeManagment::convertTimeToString(std::time_t{});
-    std::string expectedTimeValue = "1970-01-01 01:00:00";
-    EXPECT_EQ(unixEpochTimeAsString, expectedTimeValue);
+    constexpr auto day = 9;
+    constexpr auto month = 2;
+    constexpr auto year = 2019;
+    std::tm timePoint =
+    {
+        .tm_sec  = 0,
+        .tm_min  = 0,
+        .tm_hour = 0,
+        .tm_mday = (day),
+        .tm_mon  = (month) - 1,
+        .tm_year = (year) - 1900,
+    };
+    using Time = std::chrono::system_clock;
+    const auto time = Time::from_time_t(std::mktime(&timePoint));
+    const auto timeAsString = TimeManagment::convertTimeToString(Time::to_time_t(time));
+    std::string expectedTimeValue = "2019-02-09 00:00:00";
+    EXPECT_EQ(timeAsString, expectedTimeValue);
 }
