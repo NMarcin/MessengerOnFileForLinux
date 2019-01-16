@@ -3,9 +3,9 @@
 #include <chrono>
 #include <string>
 
-namespace DataManagment
+namespace TimeManagment
 {
     const time_t getActualDate();
-    std::string convertDateToString(const std::time_t&);
+    std::string convertTimeToString(const std::time_t&);
 }
 
