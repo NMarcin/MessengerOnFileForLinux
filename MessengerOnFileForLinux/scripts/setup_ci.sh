@@ -15,3 +15,4 @@ apt-get update
 apt-get install --yes ncurses-dev
 apt install --yes libncurses5-dev libncursesw5-dev
 apt-get install --yes valgrind
+apt-get install --yes libpthread-stubs0-dev
