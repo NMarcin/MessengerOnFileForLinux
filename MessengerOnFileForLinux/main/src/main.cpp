@@ -11,18 +11,18 @@
 #include <LogSpace.hpp>
 #include <SignalHandling.hpp>
 #include <Controler.hpp>
-
+#include <csignal>
 #define ever (;;)
 
 
 void mnurzyns()
 {
-    std::cout << "mnurzyns:\n\n";
-    fileLog("Witamy w logerze!", LogSpace::main);
+
 }
 
 void mwozniak()
 {
+    initscr(); //to musi byc
 
     RegisterUser registerUser;
     SignIn signIn;
@@ -31,10 +31,14 @@ void mwozniak()
     registerUser.registerNewUser();
     clear();
     refresh();
+
     signIn.signInUser();
     clear();
-    refresh();
-    ConsoleWindow::displayMainWindow();
+    refresh();//mawoznia ncourses dziala do momentu glownej petli, potem roznie. Ogolnie prawie
+    //jest mainWindow. Trzeba jeszcze ChatWindow
+    endwin();
+    //std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInMainWindow);
+    //ConsoleWindow::displayMainWindow();
 
     Controler controler;
     controler.controlUserAction();

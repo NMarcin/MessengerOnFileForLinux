@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <ncurses.h>
+#include <csignal>
 
 #include <RegisterUser.hpp>
 #include <LocalUser.hpp>
@@ -10,16 +11,16 @@
 #include <SHA1.hpp>
 #include <ConsoleWindow.hpp>
 #include <StringSum.hpp>
+#include "SignalHandling.hpp"
 
 RegisterUser::RegisterUser()
 {
-    initscr();
+
     log_.function("RegisterUser C-TOR");
 }
 
 RegisterUser::~RegisterUser()
 {
-    endwin();
     log_.function("RegisterUser D-TOR");
 }
 
@@ -86,6 +87,8 @@ bool RegisterUser::isUserRegistered() const
 
 bool RegisterUser::registerNewUser() const
 {
+    std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInRegistrationWindow);
+
     log_.function("RegisterUser::registerNewUser() started");
     if (isUserRegistered())
     {

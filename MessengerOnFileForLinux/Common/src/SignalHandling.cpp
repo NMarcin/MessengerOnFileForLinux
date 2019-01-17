@@ -4,9 +4,11 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
+#include "ConsoleWindow.hpp"
 
 #include <utility>
 #include <cstring>
+#include <ncurses.h>
 
 
 namespace SignalHandling
@@ -65,4 +67,35 @@ void sigintHandlerInChatConsole(int signal)
         exit (EXIT_SUCCESS);
     }
 }
+
+namespace NCoursesSignal
+{
+void resizeHandlerInMainWindow(int signal)
+{
+    //fileLog("Console resize handled in main window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displayMainWindow();
+}
+
+void resizeHandlerInRegistrationWindow(int signal)
+{
+  //  fileLog("Console resize handled in registration window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displayRegistrationWindow();
+}
+
+void resizeHandlerInSignInWindow(int signal)
+{
+   // fileLog("Console resize handled in sign in window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displaySignInWindow();
+}
+
+}//ResizeWindow
 }//SignalHandling

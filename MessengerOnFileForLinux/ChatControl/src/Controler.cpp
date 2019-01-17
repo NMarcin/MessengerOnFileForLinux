@@ -4,11 +4,16 @@
 #include <TerminalControl.hpp>
 #include <GlobalVariables.hpp>
 #include <SignalHandling.hpp>
+#include "ConsoleWindow.hpp"
 
 #define ever (;;)
 
 void Controler::controlUserAction()
 {
+    initscr();
+    ConsoleWindow::displayMainWindow();
+    std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInMainWindow);
+
     log_.function("Controler::controlUserAction() started");
 
     for ever

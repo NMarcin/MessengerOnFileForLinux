@@ -1,25 +1,45 @@
-/*#include <gtest/gtest.h>
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include <ncurses.h>
+#include <memory>
+
 
 #include <RegisterUser.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
 
-RegisterUser registerUser;
+
 SHA1 sha1;
 std::string user = getenv("USER");
 
+using namespace ::testing;
+class MockRegister : public RegisterUser {
+  public:
+    MOCK_CONST_METHOD0(enterThePassword, std::string());
+    //MOCK_CONST_METHOD0(registerNewUser, bool());
+   // MOCK_CONST_METHOD0(isUserRegistered, bool());
+
+};
+
 TEST(RegisterUserTest, registerNewUser)
 {
-    std::istringstream stream("1\n1");
-    std::cin.rdbuf(stream.rdbuf());
+    MockRegister mock;
+    RegisterUser registerUser;
+    std::cerr << "HERE";
+    //std::istringstream stream("1\n1");
+    //std::cin.rdbuf(stream.rdbuf());
+   //EXPECT_CALL(*mock, isUserRegistered()).WillOnce(testing::Return(true));
+    EXPECT_CALL(mock, enterThePassword()).WillOnce(Return(std::string{"1"}));
+    //EXPECT_CALL(*mock, enterThePassword()).WillOnce(Return(std::string{"1"}));
+    std::cerr << "dUPA";
     FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
-
-    EXPECT_TRUE(registerUser.registerNewUser());
+//mock.registerNewUser();
+    registerUser.registerNewUser();
     endwin();
 }
 
+/*
 TEST(RegisterUserTest, registerRegisteredUser)
 {
 
@@ -61,4 +81,5 @@ TEST(RegisterUserTest, isUserCorrectlyAddedRegisterededFile)
     EXPECT_EQ(expectedRow, *rowFromRegisteredFile);
 
 }
+
 */

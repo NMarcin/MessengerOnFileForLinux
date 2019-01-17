@@ -22,6 +22,7 @@ void ConsoleWindow::displayMainWindow()
 
 void ConsoleWindow::displayRegistrationWindow()
 {
+    initscr();
     clear();
     move(0,0);
     printw("Hello ");
@@ -31,7 +32,7 @@ void ConsoleWindow::displayRegistrationWindow()
     refresh();
 }
 
-void ConsoleWindow::displayLoggedWindow()
+void ConsoleWindow::displaySignInWindow()
 {
     clear();
     move(0,0);
