@@ -8,4 +8,4 @@ http://ci-messengeronfileforlinux.bitnamiapp.com/jenkins/
 http://ci-messengeronfileforlinux.bitnamiapp.com/jenkins/view/STABILITY_JOBS/
 
 <b>Next release:</b>
-01.11.2018
+???
