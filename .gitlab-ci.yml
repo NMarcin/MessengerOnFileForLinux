@@ -8,10 +8,11 @@ before_script:
  - apt-get update --yes
  - apt-get install --yes python-setuptools
  - easy_install pip
- - pip install pyyaml
  - apt-get install --yes clang-tidy
  - apt-get install --yes cmake
  - apt-get install --yes libyaml-dev
+ - apt-get install --yes python3-dev
+ - pip install pyyaml
  #- export LOG=${LOG:0:2}
  - CI_COMMIT_TAG=${LOG:0:2}
  - echo $CI_COMMIT_TAG
