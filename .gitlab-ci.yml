@@ -18,7 +18,10 @@ ciBranchBuild#1:
       - $CI_COMMIT_TAG == '?r'
    # - ciBranch
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
+    - mkdir build
+    - cd build
+    - python ../scripts/run-clang-tidy.py
 
 
 
