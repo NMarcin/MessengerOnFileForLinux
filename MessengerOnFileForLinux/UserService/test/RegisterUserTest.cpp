@@ -14,7 +14,7 @@ SHA1 sha1;
 std::string user = getenv("USER");
 
 using namespace ::testing;
-class MockRegister : public RegisterUser {
+class MockRegister : public std::basic_istream{
   public:
     MOCK_CONST_METHOD0(enterThePassword, std::string());
     //MOCK_CONST_METHOD0(registerNewUser, bool());
@@ -25,18 +25,15 @@ class MockRegister : public RegisterUser {
 TEST(RegisterUserTest, registerNewUser)
 {
     MockRegister mock;
-    RegisterUser registerUser;
-    std::cerr << "HERE";
-    //std::istringstream stream("1\n1");
-    //std::cin.rdbuf(stream.rdbuf());
-   //EXPECT_CALL(*mock, isUserRegistered()).WillOnce(testing::Return(true));
-    EXPECT_CALL(mock, enterThePassword()).WillOnce(Return(std::string{"1"}));
-    //EXPECT_CALL(*mock, enterThePassword()).WillOnce(Return(std::string{"1"}));
-    std::cerr << "dUPA";
+
+    EXPECT_CALL(mock, enterThePassword()).Times(2).WillRepeatedly(Return(std::string{"1"}));
+    //EXPECT_CALL(mock, enterThePassword()).Times(2).WillOnce(Return(std::string{"1"})).WillOnce(Return(std::string{"2"}));
+
+    mock.registerNewUser();
     FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
 //mock.registerNewUser();
-    registerUser.registerNewUser();
-    endwin();
+
+    //endwin();
 }
 
 /*

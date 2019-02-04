@@ -15,7 +15,6 @@
 
 RegisterUser::RegisterUser()
 {
-
     log_.function("RegisterUser C-TOR");
 }
 
