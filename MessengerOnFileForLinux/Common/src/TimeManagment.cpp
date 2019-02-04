@@ -1,34 +1,20 @@
 #include "TimeManagment.hpp"
 
-#include <ctime>
-#include <algorithm>
+#include <cstring>
+#include <sstream>
+#include <iomanip>
 
-namespace
+const std::tm* TimeManagment::getLocalTime()
 {
-void removeEmptyCharactersFromTimeEnd(std::string& date)
-{
-   date.pop_back();
-   date.pop_back();
-}
+    const auto time = Time::to_time_t(Time::now());
+    return std::localtime(&time);
 }
 
-namespace TimeManagment
+std::string TimeManagment::convertTimeToString(const std::tm* time)
 {
+    std::ostringstream timeAsString;
+    const std::string timeFormat = "%Y-%m-%d %H:%M:%S";
+    timeAsString << std::put_time(time, timeFormat.c_str());
 
-using Time = std::chrono::system_clock;
-
-const std::time_t getActualDate()
-{
-    return Time::to_time_t(Time::now());
-}
-
-std::string convertTimeToString(const std::time_t& time)
-{
-    auto constexpr theLeastAcceptableTimeBuffer = 21;
-    auto constexpr timeFormat = "%Y-%m-%d %H:%M:%S";
-    std::string timeAsString (theLeastAcceptableTimeBuffer, '\0');
-    std::strftime(timeAsString.data(), timeAsString.size(), timeFormat, std::localtime(&time));
-    removeEmptyCharactersFromTimeEnd(timeAsString);
-    return timeAsString;
-}
+    return timeAsString.str();
 }

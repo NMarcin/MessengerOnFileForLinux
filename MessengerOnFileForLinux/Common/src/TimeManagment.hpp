@@ -5,7 +5,9 @@
 
 namespace TimeManagment
 {
-    const time_t getActualDate();
-    std::string convertTimeToString(const std::time_t&);
-}
+    using Time = std::chrono::system_clock;
 
+    const std::tm* getLocalTime();
+    std::string convertTimeToString(const std::tm* time);
+
+}//TimeManagment

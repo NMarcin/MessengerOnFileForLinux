@@ -12,7 +12,7 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
     setMessageFlag(messageFlag);
     username_ = username;
     setContent(content);
-    time_ = TimeManagment::convertTimeToString(TimeManagment::getActualDate());
+    time_ = TimeManagment::convertTimeToString(TimeManagment::getLocalTime());
 }
 
 Message::Message(std::string fullMessageInRow)
