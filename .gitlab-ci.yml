@@ -6,7 +6,6 @@ before_script:
  #- ./setup_ci.sh
  - export LOG=$(git log -1 --pretty=%B)
  - apt-get update --yes
- - add-apt-repository --yes universe
  - pip install pyyaml
  - apt-get install --yes clang-tidy
  - apt-get install --yes cmake
