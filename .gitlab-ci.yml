@@ -116,3 +116,17 @@ masterValgrind:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
       expire_in: 1 week
 
+masterClang:
+  only:
+    - master
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - python ../scripts/run-clang-tidy.py
+  artifacts:
+      when: on_failure
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/ClangOutput.txt
+      expire_in: 1 week
+

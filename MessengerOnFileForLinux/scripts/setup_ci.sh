@@ -15,3 +15,12 @@ apt-get update
 apt-get install --yes ncurses-dev
 apt install --yes libncurses5-dev libncursesw5-dev
 apt-get install --yes valgrind
+apt-get update --yes
+apt-get install --yes python-setuptools
+easy_install pip
+apt-get install --yes clang
+apt-get install --yes clang-tidy
+apt-get install --yes libyaml-dev
+apt-get install --yes python3-dev
+apt-get install --yes python-dev
+pip install pyyaml
