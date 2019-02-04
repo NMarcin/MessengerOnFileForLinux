@@ -6,6 +6,7 @@ before_script:
  #- ./setup_ci.sh
  - export LOG=$(git log -1 --pretty=%B)
  - apt-get update --yes
+ - apt-get install --yes clang-tidy
  - apt-get install --yes cmake
  #- export LOG=${LOG:0:2}
  - CI_COMMIT_TAG=${LOG:0:2}
