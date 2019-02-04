@@ -5,6 +5,7 @@ before_script:
  #- ./create_enviroment.sh 
  #- ./setup_ci.sh
  - export LOG=$(git log -1 --pretty=%B)
+ - apt-get install --yes cmake
  #- export LOG=${LOG:0:2}
  - CI_COMMIT_TAG=${LOG:0:2}
  - echo $CI_COMMIT_TAG
@@ -19,7 +20,7 @@ ciBranchBuild#1:
    # - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/FileHandling/
-    - g++ main.cpp
+    - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
     - python ../scripts/run-clang-tidy.py
 
 
