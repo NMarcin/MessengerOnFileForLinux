@@ -145,6 +145,8 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
         fileLog(logInfo.c_str(), LogSpace::FileHandling);
         return false;
     }
+
+    return true;
 }
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile, AccesMode accesMode = AccesMode::withGuardian)
