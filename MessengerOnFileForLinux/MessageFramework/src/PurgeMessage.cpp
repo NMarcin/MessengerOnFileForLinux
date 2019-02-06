@@ -33,6 +33,6 @@ bool PurgeMessage::setTime(std::string longTime)
     std::string logtime= "PurgeMessage::setTime() longTime = " + longTime;
     log_.info(logtime);
     auto secondPosition = longTime.find_last_of(":");
-    time_.append(longTime.begin()+12, longTime.begin() + secondPosition);
+    time_.append(longTime.begin()+11, longTime.begin() + secondPosition);
     log_.function("PurgeMessage::setTime() ended");
 }
