@@ -36,7 +36,9 @@ void mwozniak()
     clear();
     refresh();//mawoznia ncourses dziala do momentu glownej petli, potem roznie. Ogolnie prawie
     //jest mainWindow. Trzeba jeszcze ChatWindow
+
     endwin();
+
     //std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInMainWindow);
     //ConsoleWindow::displayMainWindow();
 

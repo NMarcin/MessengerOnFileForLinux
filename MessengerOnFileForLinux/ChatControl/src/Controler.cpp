@@ -12,12 +12,13 @@ void Controler::controlUserAction()
 {
     initscr();
     ConsoleWindow::displayMainWindow();
-    std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInMainWindow);
+
 
     log_.function("Controler::controlUserAction() started");
 
     for ever
     {
+        std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInMainWindow);
         TerminalControl::isWaitingForInvitation = true;
 
         log_.debug("Controler::controlUserAction() Loop begin ");

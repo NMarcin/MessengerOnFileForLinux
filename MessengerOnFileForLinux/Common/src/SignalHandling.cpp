@@ -5,6 +5,7 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include "ConsoleWindow.hpp"
+#include "ChatWindow.hpp"
 
 #include <utility>
 #include <cstring>
@@ -72,7 +73,7 @@ namespace NCoursesSignal
 {
 void resizeHandlerInMainWindow(int signal)
 {
-    //fileLog("Console resize handled in main window", LogSpace::Common);
+    fileLog("Console resize handled in main window", LogSpace::Common);
     endwin();
     refresh();
     clear();
@@ -81,7 +82,7 @@ void resizeHandlerInMainWindow(int signal)
 
 void resizeHandlerInRegistrationWindow(int signal)
 {
-  //  fileLog("Console resize handled in registration window", LogSpace::Common);
+    fileLog("Console resize handled in registration window", LogSpace::Common);
     endwin();
     refresh();
     clear();
@@ -90,11 +91,30 @@ void resizeHandlerInRegistrationWindow(int signal)
 
 void resizeHandlerInSignInWindow(int signal)
 {
-   // fileLog("Console resize handled in sign in window", LogSpace::Common);
+    fileLog("Console resize handled in sign window", LogSpace::Common);
     endwin();
     refresh();
     clear();
     ConsoleWindow::displaySignInWindow();
+}
+
+void resizeHandlerInChatWindow(int signal)
+{
+    /*
+     * Po resizie czyszczone jest okno, i wpadaja dwa puste stringi jak sie chce cos napisac.
+     * Ale wyswietlane sa tylko u nadawcy. U odbiorcy dopiero pojawia sie kolejna wiadmosc.
+     * W glownej petli dalej cos nie bangla do konca
+     */
+
+    fileLog("Console resize handled in chat window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    //ChatWindow::deleteDisplayMesageWindow();
+    //ChatWindow::deleteEnterMesageWindow();
+    ChatWindow::displayChatWindows();
+    ChatWindow::displayEnterMessageWindow();
+    ChatWindow::displayDisplayMessageWindow("");
 }
 
 }//ResizeWindow

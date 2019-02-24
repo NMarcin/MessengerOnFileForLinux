@@ -13,5 +13,6 @@ namespace NCoursesSignal
      void resizeHandlerInMainWindow(int signal);
      void resizeHandlerInRegistrationWindow(int signal);
      void resizeHandlerInSignInWindow(int signal);
+     void resizeHandlerInChatWindow(int signal);
 }
 }

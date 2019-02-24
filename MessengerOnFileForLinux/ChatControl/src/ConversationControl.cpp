@@ -43,7 +43,7 @@ ConversationControl::~ConversationControl()
 void ConversationControl::conversation()
 {
     log_.function("ChatControl::conversationControl() started");
-    std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
+    //std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInChatWindow);
     ChatWindow::displayChatWindows();
     startThreads();
     while (isConversationRunning_)
@@ -69,6 +69,7 @@ void ConversationControl::conversationEpilog()
 void ConversationControl::getMessage()
 {
     log_.function("ChatControl::getMessage() started");
+    //std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInChatWindow);
 
     while(isThreadsRunning_)
     {
@@ -109,6 +110,8 @@ bool ConversationControl::isMessagesToReadExist()
 
 void ConversationControl::reciveMessage()
 {
+    std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInChatWindow);
+
     log_.function("ChatControl::reciveMessage() started");
 
     while(isThreadsRunning_)
@@ -130,6 +133,8 @@ void ConversationControl::reciveMessage()
 
 void ConversationControl::sendMessage()
 {
+    //std::signal(SIGWINCH, SignalHandling::NCoursesSignal::resizeHandlerInChatWindow);
+
     log_.function("ChatControl::sendMessage() started");
     while(isThreadsRunning_ || !messageReadyToSend_.empty())
     {

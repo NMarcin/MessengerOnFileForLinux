@@ -13,29 +13,6 @@
 SHA1 sha1;
 std::string user = getenv("USER");
 
-using namespace ::testing;
-class MockRegister : public std::basic_istream{
-  public:
-    MOCK_CONST_METHOD0(enterThePassword, std::string());
-    //MOCK_CONST_METHOD0(registerNewUser, bool());
-   // MOCK_CONST_METHOD0(isUserRegistered, bool());
-
-};
-
-TEST(RegisterUserTest, registerNewUser)
-{
-    MockRegister mock;
-
-    EXPECT_CALL(mock, enterThePassword()).Times(2).WillRepeatedly(Return(std::string{"1"}));
-    //EXPECT_CALL(mock, enterThePassword()).Times(2).WillOnce(Return(std::string{"1"})).WillOnce(Return(std::string{"2"}));
-
-    mock.registerNewUser();
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
-//mock.registerNewUser();
-
-    //endwin();
-}
-
 /*
 TEST(RegisterUserTest, registerRegisteredUser)
 {
