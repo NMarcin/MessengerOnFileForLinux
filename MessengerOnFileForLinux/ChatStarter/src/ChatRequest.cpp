@@ -93,9 +93,11 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
 bool ChatRequest::isUserActive(const User& user) const
 {
     log_.function("ChatRequest::isUserActive() started");
+    const std::string command = "ps -u " + user.getUsername() + " | grep messenger_bin";
+    const std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
     std::unique_ptr<std::string> userStatusToCompare = getUserStatus(user.getUsername());
 
-    if (nullptr == userStatusToCompare)
+    if (commandOutput.empty() || nullptr == userStatusToCompare)
     {
         return false;
     }

@@ -4,18 +4,16 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
+#include <ClasslessLogger.hpp>
 
 #include <utility>
 #include <cstring>
 
-
 namespace SignalHandling
 {
-
 namespace
 {
-volatile std::sig_atomic_t signalStatus;
-}
+static bool isChatResourcesDealocated = false;
 
 std::string getChatFolderName()
 {
@@ -33,36 +31,55 @@ std::string getChatFolderName()
     return "";
 }
 
-void sigintHandlerInMainConsole(int signal)
+void closeMessegner()
 {
-    fileLog("SIGINT handled in main console", LogSpace::Common);
-    signalStatus = signal;
     SignOut signOut;
     signOut.signOutUser();
     exit (EXIT_SUCCESS);
 }
+}//namespace
 
-void sigintHandlerInChatConsole(int signal)
+void posixSignalHandlerInMainConsole(int signal)
 {
-    fileLog("SIGINT handled in chat console", LogSpace::Common);
-    signalStatus = signal;
-    std::string chatFolderName = getChatFolderName();
-    fileLog(chatFolderName.c_str(), LogSpace::Common);
-
-    if (FileInterface::Managment::isFileExist(ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName + "/END"))
+    const std::string log = "Signal nr=" + std::to_string(signal) + "handled in main console";
+    fileLog(log.c_str(), LogSpace::Common);
+    if (not isChatResourcesDealocated)
     {
-        std::string command = "rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName;
-        system(command.c_str());
-        SignOut signOut;
-        signOut.signOutUser();
-        exit (EXIT_SUCCESS);
+        isChatResourcesDealocated = true;
+        fileLog("Start of remove chat resources", LogSpace::Common);
+        closeMessegner();
     }
-    else
+}
+
+void posixSignalHandlerInChatConsole(int signal)
+{
+    const std::string log = "Signal nr=" + std::to_string(signal) + "handled in chat console";
+    fileLog(log.c_str(), LogSpace::Common);
+
+    if (not isChatResourcesDealocated)
     {
-        FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName + "/END");
-        SignOut signOut;
-        signOut.signOutUser();
-        exit (EXIT_SUCCESS);
+        isChatResourcesDealocated = true;
+        fileLog("Start of remove chat resources", LogSpace::Common);
+        std::string chatFolderName = getChatFolderName();
+        if (FileInterface::Managment::isFileExist(ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName + "/END"))
+        {
+            std::string command = "rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName;
+            system(command.c_str());
+            closeMessegner();
+        }
+        else
+        {
+            FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName + "/END");
+            closeMessegner();
+        }
+    }
+}
+
+void createPosixSignalsHandling(void(*handlingFunction)(int))
+{
+    for (const auto signal : SignalHandling::signalsCausingUnexpectedApplicationEndings)
+    {
+        std::signal(signal, handlingFunction);
     }
 }
 }//SignalHandling

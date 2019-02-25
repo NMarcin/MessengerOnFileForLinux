@@ -1,10 +1,17 @@
 #pragma once
-#include <ClasslessLogger.hpp>
 #include <csignal>
 #include <stdlib.h>
+#include <array>
 
 namespace SignalHandling
 {
-     void sigintHandlerInMainConsole(int signal);
-     void sigintHandlerInChatConsole(int signal);
+     void posixSignalHandlerInMainConsole(int signal);
+     void posixSignalHandlerInChatConsole(int signal);
+     void createPosixSignalsHandling(void(*handlingFunction)(int));
+
+     static constexpr std::array<int, 6> signalsCausingUnexpectedApplicationEndings{SIGINT,
+                                                                                    SIGHUP,
+                                                                                    SIGCONT,
+                                                                                    SIGTERM,
+                                                                                    0};
 }

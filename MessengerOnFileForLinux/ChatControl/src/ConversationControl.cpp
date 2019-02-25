@@ -43,7 +43,7 @@ ConversationControl::~ConversationControl()
 void ConversationControl::conversation()
 {
     log_.function("ChatControl::conversationControl() started");
-    std::signal(SIGINT, SignalHandling::sigintHandlerInChatConsole);
+    SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInChatConsole);
     ChatWindow::displayChatWindows();
     startThreads();
     while (isConversationRunning_)
@@ -110,9 +110,19 @@ bool ConversationControl::isMessagesToReadExist()
 void ConversationControl::reciveMessage()
 {
     log_.function("ChatControl::reciveMessage() started");
+    bool userInactiveDetected = false;
 
     while(isThreadsRunning_)
     {
+        const std::string command = "ps -u " + chatInfo_->interlocutorUsername_ + " | grep messenger_bin";
+        const std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+
+        if (not userInactiveDetected and commandOutput.empty())
+        {
+            userInactiveDetected = true;
+            const std::string information = "_SYSTEM_ Your interlocutor is inactive! You can leve chat\n";
+            ChatWindow::displayDisplayMessageWindow(information);
+        }
         if (!messageToDisplay_.empty())
         {
             ChatWindow::displayDisplayMessageWindow(messageToDisplay_.front().messageToShow() + "\n");

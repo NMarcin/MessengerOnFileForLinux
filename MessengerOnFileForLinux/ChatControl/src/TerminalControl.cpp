@@ -62,6 +62,7 @@ bool TerminalControl::startConversationAsInviter(const std::string& username)
     {
         chatInfo_->chatPath_ = chatFileWithPath_;
         chatInfo_->messageFlag_ = MessageFlag::inviterMessage;
+        chatInfo_->interlocutorUsername_ = username;
         return true;
     }
     return false;
@@ -76,6 +77,7 @@ bool TerminalControl::startConversationAsRecipient(const std::string& username)
     {
         chatInfo_->chatPath_ = chatFileWithPath_;
         chatInfo_->messageFlag_ = MessageFlag::recipientMessage;
+        chatInfo_->interlocutorUsername_ = username;
         return true;
     }
     return false;
