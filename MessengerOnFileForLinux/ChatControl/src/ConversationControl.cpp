@@ -120,7 +120,10 @@ void ConversationControl::reciveMessage()
         if (not userInactiveDetected and commandOutput.empty())
         {
             userInactiveDetected = true;
+            const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
             const std::string information = "_SYSTEM_ Your interlocutor is inactive! You can leve chat\n";
+            FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
+            FileInterface::Managment::createFile(pathToChatFolder + "/END");
             ChatWindow::displayDisplayMessageWindow(information);
         }
         if (!messageToDisplay_.empty())

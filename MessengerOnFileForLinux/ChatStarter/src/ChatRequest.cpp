@@ -99,6 +99,7 @@ bool ChatRequest::isUserActive(const User& user) const
 
     if (commandOutput.empty() || nullptr == userStatusToCompare)
     {
+        FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, user.getUsername());
         return false;
     }
 
