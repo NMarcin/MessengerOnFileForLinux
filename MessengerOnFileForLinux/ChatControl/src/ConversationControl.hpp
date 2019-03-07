@@ -12,6 +12,7 @@
 #include <LogSpace.hpp>
 #include <Message.hpp>
 #include <TerminalFunctionality.hpp>
+#include "UserInactivityDetector.hpp"
 
 class ConversationControl
 {
@@ -25,6 +26,7 @@ public:
 private:
     void getMessage();
     bool isMessagesToReadExist();
+    void handleInterlocutorInactivity() const;
     void reciveMessage();
     void sendMessage();
     void stopThreads();
@@ -40,6 +42,7 @@ private:
     std::queue<Message> messageReadyToSend_;
     std::queue<PurgeMessage> messageToDisplay_;
     bool isThreadsRunning_;
+    UserInactivityDetector userInactivityDetector_;
 
     Logger log_{LogSpace::ChatStarter};
 };

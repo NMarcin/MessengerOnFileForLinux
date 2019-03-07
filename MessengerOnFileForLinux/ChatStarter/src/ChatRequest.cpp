@@ -60,7 +60,7 @@ std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& f
 {
     log_.function("ChatRequest::getChatFolderName() started");
     std::string command= "ls " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + " | grep " + folderName;
-    std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromCommand(command));
+    std::unique_ptr<std::string> folderFullName = std::make_unique<std::string>(ConsolControl::getStdoutFromStartedCommand(command));
     std::string logData = "ChatRequest::getChatFolderName -> " + *folderFullName;
     log_.info(logData);
      if (!folderFullName->empty())
@@ -93,13 +93,18 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
 bool ChatRequest::isUserActive(const User& user) const
 {
     log_.function("ChatRequest::isUserActive() started");
-    const std::string command = "ps -u " + user.getUsername() + " | grep messenger_bin";
-    const std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+
     std::unique_ptr<std::string> userStatusToCompare = getUserStatus(user.getUsername());
 
-    if (commandOutput.empty() || nullptr == userStatusToCompare)
+    UserInactivityDetector userInactivityDetector(user.getUsername()); //TODO mawoznia temportary solution
+    userInactivityDetector.detectUserInactivity();       //it will be romoved in FB_03 in 'accepting and rejecting an invitation' task.
+    if (userInactivityDetector.isUserInactiveDetected()) //UserInactivityDetector will be a member of class like in ChatControl
     {
         FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, user.getUsername());
+        return false;
+    }
+    else if (nullptr == userStatusToCompare)
+    {
         return false;
     }
 

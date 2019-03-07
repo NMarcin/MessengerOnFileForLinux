@@ -77,9 +77,9 @@ void posixSignalHandlerInChatConsole(int signal)
 
 void createPosixSignalsHandling(void(*handlingFunction)(int))
 {
-    for (const auto signal : SignalHandling::signalsCausingUnexpectedApplicationEndings)
+    for (const auto posixSignal : SignalHandling::posixSignalsCausingUnexpectedApplicationEndings)
     {
-        std::signal(signal, handlingFunction);
+        std::signal(posixSignal, handlingFunction);
     }
 }
 }//SignalHandling

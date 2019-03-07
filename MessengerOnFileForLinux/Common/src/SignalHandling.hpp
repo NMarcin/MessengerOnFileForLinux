@@ -9,7 +9,7 @@ namespace SignalHandling
      void posixSignalHandlerInChatConsole(int signal);
      void createPosixSignalsHandling(void(*handlingFunction)(int));
 
-     static constexpr std::array<int, 6> signalsCausingUnexpectedApplicationEndings{SIGINT,
+     static constexpr std::array<int, 6> posixSignalsCausingUnexpectedApplicationEndings{SIGINT,
                                                                                     SIGHUP,
                                                                                     SIGCONT,
                                                                                     SIGTERM,

@@ -1,10 +1,8 @@
-
-#include <ConversationControl.hpp>
-
 #include <chrono>
 #include <thread>
 #include <stdio.h>
 
+#include <ConversationControl.hpp>
 #include <FileHandling.hpp>
 #include <ChatRequest.hpp>
 #include <GlobalVariables.hpp>
@@ -23,6 +21,7 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , getMessageToQueueThread_(nullptr)
     , reciveMessageThread_(nullptr)
     , sendMessageFromQueueThread_(nullptr)
+    , userInactivityDetector_(chatInfo->interlocutorUsername_)
 {
     log_.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
@@ -107,29 +106,31 @@ bool ConversationControl::isMessagesToReadExist()
     }
 }
 
+void ConversationControl::handleInterlocutorInactivity() const
+{
+    const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+    const std::string informationToDisplay = "_SYSTEM_ Your interlocutor is inactive! You can leve chat\n";
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
+    FileInterface::Managment::createFile(pathToChatFolder + "/END");
+    ChatWindow::displayDisplayMessageWindow(informationToDisplay);
+}
+
 void ConversationControl::reciveMessage()
 {
     log_.function("ChatControl::reciveMessage() started");
-    bool userInactiveDetected = false;
 
     while(isThreadsRunning_)
     {
-        const std::string command = "ps -u " + chatInfo_->interlocutorUsername_ + " | grep messenger_bin";
-        const std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+        userInactivityDetector_.detectUserInactivity();
 
-        if (not userInactiveDetected and commandOutput.empty())
-        {
-            userInactiveDetected = true;
-            const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
-            const std::string information = "_SYSTEM_ Your interlocutor is inactive! You can leve chat\n";
-            FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
-            FileInterface::Managment::createFile(pathToChatFolder + "/END");
-            ChatWindow::displayDisplayMessageWindow(information);
-        }
         if (!messageToDisplay_.empty())
         {
             ChatWindow::displayDisplayMessageWindow(messageToDisplay_.front().messageToShow() + "\n");
             messageToDisplay_.pop();
+        }
+        else if (userInactivityDetector_.isUserInactiveDetected())
+        {
+            handleInterlocutorInactivity();
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(30));
