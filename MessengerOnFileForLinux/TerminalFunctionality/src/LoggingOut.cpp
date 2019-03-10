@@ -14,7 +14,7 @@ bool LoggingOut::doCommand()
     bool commandStatus = false;
     commandStatus = signOutLocalUser.signOutUser();
 
-    std::string logData = "LoggingOut::doCommand() done as " + commandStatus;
+    std::string logData = "LoggingOut::doCommand() done as " + std::to_string(commandStatus);
     log_.function(logData);
     exit (EXIT_SUCCESS);
 }
