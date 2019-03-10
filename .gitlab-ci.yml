@@ -18,6 +18,8 @@ before_script:
  - CI_COMMIT_TAG=${LOG:0:2}
  - echo $CI_COMMIT_TAG
  - echo $USER
+ - USER="mawoznia"
+ - echo $USER
 
 
 ############ MNURZYNS BUILDS ############
