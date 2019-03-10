@@ -24,7 +24,7 @@ before_script:
 
 ############ MNURZYNS BUILDS ############
 
-MNURZYNS_BUILD:
+CI_BUILD:
   only:
     - ciBranch
   script:
@@ -37,7 +37,7 @@ MNURZYNS_BUILD:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
       expire_in: 1 week
 
-MNURZYNS_UT:
+CI_UT:
   only:
     - ciBranch
   script:
@@ -51,7 +51,7 @@ MNURZYNS_UT:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
       expire_in: 1 week  
 
-MNURZYNS_VALGRIND:
+CI_VALGRIND:
   only:
     - ciBranch
   script:
@@ -65,7 +65,7 @@ MNURZYNS_VALGRIND:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
       expire_in: 1 week
 
-MNURZYNS_CLANG_TIDY:
+CI_CLANG_TIDY:
   only:
     - ciBranch
   script:
