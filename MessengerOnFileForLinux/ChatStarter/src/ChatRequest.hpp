@@ -5,6 +5,7 @@
 #include <User.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include "UserInactivityDetector.hpp"
 
 enum class AnswerType
 {

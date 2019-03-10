@@ -1,0 +1,2 @@
+set(TEST_FILES ${TEST_FILES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/UserInactivityDetecotrTest.cpp PARENT_SCOPE)

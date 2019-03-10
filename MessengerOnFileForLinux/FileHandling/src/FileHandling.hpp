@@ -44,7 +44,7 @@ namespace FileInterface
 /** wrzucic to gdzie indzie*/
 namespace ConsolControl
 {
-    std::string getStdoutFromCommand(std::string cmd);
+    std::string getStdoutFromStartedCommand(std::string cmd);
 }
 
 

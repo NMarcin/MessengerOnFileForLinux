@@ -55,7 +55,7 @@ std::string ChatFabric::createChatFile(const std::string& chatFolderName, const 
     std::string newChatFileWithPath = chatFolderName + usernameInviter + "_" + usernameGuess;
     bool folderCreating = FileInterface::Managment::createFile(newChatFileWithPath);
 
-    if(!folderCreating)
+    if(folderCreating)
     {
         log_.info("ChatFabric::createChatFile folderCreating done");
         return newChatFileWithPath;

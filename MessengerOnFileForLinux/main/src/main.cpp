@@ -23,11 +23,9 @@ void mnurzyns()
 
 void mwozniak()
 {
-
+    SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInMainConsole);
     RegisterUser registerUser;
     SignIn signIn;
-
-    std::signal(SIGINT, SignalHandling::sigintHandlerInMainConsole);
     registerUser.registerNewUser();
     clear();
     refresh();

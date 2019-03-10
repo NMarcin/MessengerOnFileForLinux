@@ -145,6 +145,8 @@ bool FileInterface::Managment::createFile(const std::string& pathToFile)
         fileLog(logInfo.c_str(), LogSpace::FileHandling);
         return false;
     }
+
+    return true;
 }
 
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent(const std::string& pathToFile, AccesMode accesMode = AccesMode::withGuardian)
@@ -185,7 +187,7 @@ std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFileContent
 std::unique_ptr<std::vector<std::string>> FileInterface::Accesor::getFilenamesFromFolder(const std::string& pathToDir)
 {
     std::string command = "ls " + pathToDir;
-    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+    std::string commandOutput = ConsolControl::getStdoutFromStartedCommand(command);
 
     std::unique_ptr<std::vector<std::string>> filesNames = std::make_unique<std::vector< std::string>>();
     std::string fileName;
@@ -252,7 +254,7 @@ std::unique_ptr<std::string> FileInterface::Accesor::getRow(const std::string& p
     waitForAccess(folderName);
 
     std::string command = "grep '" + pattern + "' " +  pathToFile;
-    std::string commandOutput = ConsolControl::getStdoutFromCommand(command);
+    std::string commandOutput = ConsolControl::getStdoutFromStartedCommand(command);
 
     removeGuardian(folderName);
 
@@ -319,7 +321,7 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     waitForAccess(folderName);
 
     std::string command = "grep '" + where + "' " + pathToFile;
-    std::string row = ConsolControl::getStdoutFromCommand(command.c_str());
+    std::string row = ConsolControl::getStdoutFromStartedCommand(command.c_str());
 
     std::string rowToUpdate;
     auto it = row.begin();
@@ -364,7 +366,7 @@ bool FileInterface::unlockFolder(const std::string& pathToFolder)
 
 /** TO NIZEJ GDIZE INDZIEJ*/
 
-std::string ConsolControl::getStdoutFromCommand(std::string cmd)
+std::string ConsolControl::getStdoutFromStartedCommand(std::string cmd)
 {
     std::string data;
     FILE * stream;
