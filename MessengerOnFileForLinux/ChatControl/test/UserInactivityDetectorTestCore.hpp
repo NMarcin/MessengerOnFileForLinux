@@ -7,7 +7,20 @@
 class UserInactivityDetectorFixture : public ::testing::Test
 {
 public:
-    UserInactivityDetectorFixture() : userInactivityDetector_(getenv("USER")){}
+    std::string getUser()
+    {
+        if(strlen(getenv("USER")))
+        {
+            return getenv("USER");
+        }
+        else
+        {
+            return "root";
+        }
+    }
+
+    UserInactivityDetectorFixture() : userInactivityDetector_(getUser())   {}
+
     void SetUp(){}
     void TearDown(){}
     ~UserInactivityDetectorFixture(){}
