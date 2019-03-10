@@ -57,6 +57,11 @@
 *MessengerOnFileForLinux-build*
 *.Logger_default.txt*
 
+#Doxygen files
+MessengerOnFileForLinux/documentation/documentation.html
+MessengerOnFileForLinux/documentation/html/
+MessengerOnFileForLinux/documentation/latex/
+
 # diff / patch
 *.diff
 *.patch
