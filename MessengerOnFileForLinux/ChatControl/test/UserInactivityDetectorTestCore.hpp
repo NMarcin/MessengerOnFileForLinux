@@ -20,7 +20,7 @@ public:
         else
         {
             std::cout << "TAM" << std::endl;
-            td::cout << getenv("USER") << std::endl;
+            std::cout << getenv("USER") << std::endl;
             return getenv("USER");
         }
     }
