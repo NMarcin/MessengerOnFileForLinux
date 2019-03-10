@@ -7,8 +7,8 @@ https://gitlab.com/NMarcin/MessengerOnFileForLinux/pipelines
 <b>Half-stability release:</b>
 ???
 
-<b>Doxygen documentation:</b>
-https://gitlab.com/NMarcin/MessengerOnFileForLinux/-/jobs/artifacts/master/browse/MessengerOnFileForLinux/documentation/documentatnio.html?job=MASTER_BUILD
+<b>Doxygen documentation available in 1_DOCUMENTATION.html file in:</b>
+https://gitlab.com/NMarcin/MessengerOnFileForLinux/-/jobs/artifacts/master/browse/MessengerOnFileForLinux/documentation/html/?job=MASTER_BUILD
 
 <b>Next release:</b>
 ???
