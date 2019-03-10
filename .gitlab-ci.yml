@@ -13,7 +13,7 @@ MWOZNIAK_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
-artifacts:
+  artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
@@ -69,7 +69,7 @@ MNURZYNS_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
-artifacts:
+  artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
@@ -125,7 +125,7 @@ MASTER_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
-artifacts:
+  artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
