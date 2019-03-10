@@ -40,6 +40,14 @@ execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${clear_enviroment})
 execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${create_enviroment})
 
 ################################################################################
+#####               CREATE DOXYGEN DOCUMENTATION CMAKE PART                #####
+################################################################################
+set(doxygen_config "/documentation/doxygenConfigurationFile.txt")
+execute_process(COMMAND doxygen ${CMAKE_SOURCE_DIR}${doxygen_config})
+execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/documentation/html/index.html
+    ${CMAKE_SOURCE_DIR}/documentation/documentation.html)
+
+################################################################################
 #####                       MAKE BINARY CMAKE PART                         #####
 ################################################################################
 # LIB_SRC
