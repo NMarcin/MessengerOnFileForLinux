@@ -30,6 +30,7 @@ ciBranchBuild#1:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/FileHandling/
     - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
     - python ../scripts/run-clang-tidy.py
+    - bash ../scripts/check_cland-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangTidyOut.txt
 
 
 
