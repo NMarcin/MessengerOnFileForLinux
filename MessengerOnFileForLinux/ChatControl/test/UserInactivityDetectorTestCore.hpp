@@ -21,7 +21,7 @@ public:
         {
             std::cout << "TAM" << std::endl;
             std::cout <<  ":"<<getenv("USER") <<":" << std::endl;
-            return getenv("root");
+            return "root";
         }
     }
 
