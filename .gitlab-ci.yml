@@ -13,12 +13,10 @@ MWOZNIAK_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
-    - mkdir public
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation public/
   artifacts:
       when: always
       paths:
-      - public
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
       expire_in: 1 week
 
 MWOZNIAK_UT:
