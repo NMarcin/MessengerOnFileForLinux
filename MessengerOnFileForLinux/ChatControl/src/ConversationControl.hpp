@@ -26,7 +26,7 @@ public:
 private:
     void getMessage();
     bool isMessagesToReadExist();
-    void handleInterlocutorInactivity() const;
+    void handleInterlocutorInactivity();
     void reciveMessage();
     void sendMessage();
     void stopThreads();

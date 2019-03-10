@@ -1,5 +1,6 @@
 #include <chrono>
 #include <thread>
+#include <mutex>
 #include <stdio.h>
 
 #include <ConversationControl.hpp>
@@ -12,6 +13,7 @@
 #include <ConsoleWindow.hpp>
 #include <PurgeMessage.hpp>
 
+std::once_flag userInactivityWasHandled;
 bool ConversationControl::isConversationRunning_ = false;
 
 ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
@@ -106,13 +108,18 @@ bool ConversationControl::isMessagesToReadExist()
     }
 }
 
-void ConversationControl::handleInterlocutorInactivity() const
+void ConversationControl::handleInterlocutorInactivity()
 {
-    const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
-    const std::string informationToDisplay = "_SYSTEM_ Your interlocutor is inactive! You can leve chat\n";
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
-    FileInterface::Managment::createFile(pathToChatFolder + "/END");
-    ChatWindow::displayDisplayMessageWindow(informationToDisplay);
+    std::call_once(userInactivityWasHandled, [&]()
+    {
+        const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+        const std::string systemMessage = "Your interlocutor is inactive! You can leve chat";
+        Message message(chatInfo_->messageFlag_, "_SYSTEM_", systemMessage);
+        sender_->sendMessage(message);
+        messageToDisplay_.push(message);
+        FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
+        FileInterface::Managment::createFile(pathToChatFolder + "/END");
+    });
 }
 
 void ConversationControl::reciveMessage()
