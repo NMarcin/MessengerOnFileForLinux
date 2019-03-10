@@ -15,6 +15,7 @@ struct ChatInformation //TODO lepsze miejsce na to
 {
     std::string chatPath_ {};
     std::string messageFlag_ {};
+    std::string interlocutorUsername_ {};
 };
 
 class TerminalFunctionality

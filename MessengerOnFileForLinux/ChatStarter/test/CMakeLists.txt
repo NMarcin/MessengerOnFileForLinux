@@ -18,6 +18,7 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_DisplayChat}/ConsoleWindow.cpp
     ${MODULE_ChatControl}/Receiver.cpp
     ${MODULE_ChatControl}/ConversationControl.cpp
+    ${MODULE_ChatControl}/UserInactivityDetector.cpp
     ${MODULE_ChatStarter}/ChatFabric.cpp
     ${MODULE_TerminalFunctionality}/TerminalFunctionality.cpp
     ${MODULE_TerminalFunctionality}/TerminalCommand.cpp

@@ -13,6 +13,12 @@ MWOZNIAK_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      expire_in: 1 week
 
 MWOZNIAK_UT:
   only:
@@ -64,6 +70,12 @@ MNURZYNS_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      expire_in: 1 week
 
 MNURZYNS_UT:
   only:
@@ -115,6 +127,12 @@ MASTER_BUILD:
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      expire_in: 1 week
 
 MASTER_UT:
   only:
@@ -157,4 +175,5 @@ MASTER_CLANG_TIDY:
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/ClangOutput.txt
       expire_in: 1 week
+
 
