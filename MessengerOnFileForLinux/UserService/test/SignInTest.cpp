@@ -1,3 +1,33 @@
+#include <gmock/gmock.h>
+
+class A
+{
+public:
+    virtual void b(){}
+    virtual void c(){b();}
+};
+
+class mock : public A
+{
+public:
+    MOCK_METHOD0(b, void());
+};
+
+class C
+{
+    A a;
+public:
+    C(A &a) : a(a){}
+    void c(){a.b();}
+};
+
+TEST(z,c)
+{
+
+    mock m;
+    EXPECT_CALL(m, b());
+    m.c();
+}
 /*#include <gtest/gtest.h>
 
 #include <SignInTestCore.hpp>
