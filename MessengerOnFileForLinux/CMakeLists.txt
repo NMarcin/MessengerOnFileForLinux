@@ -18,7 +18,7 @@ include(External_GTest.cmake)
 include(CTest)
 include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
-find_package(GTest REQUIRED)
+#find_package(GTest REQUIRED)
 #find_package(Threads REQUIRED)
 find_package(Curses REQUIRED)
 
