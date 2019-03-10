@@ -13,15 +13,15 @@ public:
         if(getenv("USER") =="ciGitlab")
         {
             std::cout << "TUTAJ" << std::endl;
-            std::cout << getenv("USER") << std::endl;
+            std::cout <<  ":"<<getenv("USER") <<":" << std::endl;
             return "root";
 
         }
         else
         {
             std::cout << "TAM" << std::endl;
-            std::cout << getenv("USER") << std::endl;
-            return getenv("USER");
+            std::cout <<  ":"<<getenv("USER") <<":" << std::endl;
+            return getenv("root");
         }
     }
 
