@@ -2,7 +2,9 @@ image: gcc
 before_script:
  - export TERM=xterm-256color
  - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
- - top
+ - top -n 1
+ - whoami
+ - ps -u gitlab-runner
  - ./create_enviroment.sh 
  - ./setup_ci.sh
 
