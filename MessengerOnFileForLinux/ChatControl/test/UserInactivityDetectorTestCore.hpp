@@ -9,13 +9,14 @@ class UserInactivityDetectorFixture : public ::testing::Test
 public:
     std::string getUser()
     {
-        if(strlen(getenv("USER")))
+        if(getenv("USER") =="ciGitlab")
         {
-            return getenv("USER");
+            return "root";
+
         }
         else
         {
-            return "root";
+            return getenv("USER");
         }
     }
 
