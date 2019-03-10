@@ -91,6 +91,7 @@ add_subdirectory(LoggerFramework/test)
 add_subdirectory(ChatStarter/test)
 add_subdirectory(UserService/test)
 add_subdirectory(Common/test)
+add_subdirectory(ChatControl/test)
 
 # CMAKE BUILD
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
