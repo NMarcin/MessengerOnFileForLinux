@@ -17,6 +17,7 @@ before_script:
  #- export LOG=${LOG:0:2}
  - CI_COMMIT_TAG=${LOG:0:2}
  - echo $CI_COMMIT_TAG
+ - echo $USER
 
 
 ############ MNURZYNS BUILDS ############
