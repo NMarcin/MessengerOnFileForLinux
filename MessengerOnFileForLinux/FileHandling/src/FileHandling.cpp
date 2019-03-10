@@ -356,6 +356,7 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 bool FileInterface::lockFolder(const std::string& pathToFolder)
 {
     waitForAccess(pathToFolder);
+    return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
 
 bool FileInterface::unlockFolder(const std::string& pathToFolder)

@@ -51,6 +51,7 @@ bool TerminalControl::startConversation(const std::string& username, ChatRole ch
     {
         return startConversationAsRecipient(username);
     }
+    return false;
 }
 
 bool TerminalControl::startConversationAsInviter(const std::string& username)
