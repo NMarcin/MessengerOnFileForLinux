@@ -4,6 +4,7 @@ before_script:
  - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
  - ./create_enviroment.sh 
  - ./setup_ci.sh
+ - export USER=ciGitlab
 
 ############ MWOZNIAK BUILDS ############
 
