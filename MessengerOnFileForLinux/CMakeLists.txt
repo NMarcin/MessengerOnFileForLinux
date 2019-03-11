@@ -7,19 +7,14 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_C_FLAGS "-lgmock")
 set(CMAKE_CXX_FLAGS "--coverage")
 
 set(BUILD_SHARED_LIBS OFF)
-# OUTSIDE LIBRARIES
 include(External_GTest.cmake)
 include(CTest)
 include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
-find_package(GTest REQUIRED)
-find_package (Threads REQUIRED)
 find_package(Curses REQUIRED)
-
 
 ################################################################################
 #####                         MODULE DIR SOURCES                           #####
@@ -104,11 +99,6 @@ ${GTEST_MAIN_LIBRARY}
 ${GTEST_LIBRARY}
 ${GMOCK_MAIN_LIBRARY}
 ${GMOCK_LIBRARY})
-#target_link_libraries(messenger_binary_UT gmock)
-#target_link_libraries(messenger_binary_UT gtest)
-#target_link_libraries(messenger_binary_UT gtest_main)
-
-
 
 ################################################################################
 #####                               VALGIRN                                #####
@@ -122,5 +112,3 @@ if(VALGRIND)
         --track-fds=no --log-file="valgrindOutput.txt"
         $<TARGET_FILE:messenger_binary_UT>)
 endif()
-
-
