@@ -46,6 +46,8 @@ CI_VALGRIND:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
     - make valgrind
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
