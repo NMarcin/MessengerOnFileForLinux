@@ -24,11 +24,15 @@ public:
             std::cout << "TAM" << std::endl;
             std::cout << user << std::endl;
             std::cout <<  ":"<<getenv("USER") <<":" << std::endl;
-            return "root";
+            return getenv("USER");
         }
     }
 
-    UserInactivityDetectorFixture() : userInactivityDetector_(getUser())   {}
+    UserInactivityDetectorFixture() : userInactivityDetector_(getUser())
+    {
+        std::string command = "../scripts/messenger_binar &";
+        system(command.c_str());
+    }
 
     void SetUp(){}
     void TearDown(){}
