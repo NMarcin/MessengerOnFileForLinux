@@ -30,6 +30,7 @@ public:
 
     UserInactivityDetectorFixture() : userInactivityDetector_(getUser())
     {
+        auto x = new int(5);
         std::string command = "../scripts/messenger_binar &";
         system(command.c_str());
     }
