@@ -18,12 +18,21 @@ std::string getUser()
         return user;
     }
 }
+
+void simulationOfRunningMessengerProcess()
+{
+    const std::string command = "../scripts/messenger_binar &";
+    system(command.c_str());
+}
 }//namespace
 
 class UserInactivityDetectorFixture : public ::testing::Test
 {
 public:
-    UserInactivityDetectorFixture() : userInactivityDetector_(getUser()){}
+    UserInactivityDetectorFixture() : userInactivityDetector_(getUser())
+    {
+        simulationOfRunningMessengerProcess();
+    }
     void SetUp(){}
     void TearDown(){}
     ~UserInactivityDetectorFixture(){}
