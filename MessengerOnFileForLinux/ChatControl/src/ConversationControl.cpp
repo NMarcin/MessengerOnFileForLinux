@@ -1,6 +1,5 @@
 #include <chrono>
 #include <thread>
-#include <mutex>
 #include <stdio.h>
 
 #include <ConversationControl.hpp>
@@ -13,7 +12,6 @@
 #include <ConsoleWindow.hpp>
 #include <PurgeMessage.hpp>
 
-std::once_flag userInactivityWasHandled;
 bool ConversationControl::isConversationRunning_ = false;
 
 ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
@@ -111,7 +109,7 @@ bool ConversationControl::isMessagesToReadExist()
 
 void ConversationControl::handleInterlocutorInactivity()
 {
-    std::call_once(userInactivityWasHandled, [&]()
+    std::call_once(userInactivityWasHandled, [this]()
     {
         const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
         const std::string systemMessage = "Your interlocutor is inactive! You can leve chat";

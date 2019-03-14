@@ -7,10 +7,6 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-<<<<<<< HEAD
-#set(CMAKE_C_FLAGS "-lgmock")
-=======
->>>>>>> 415b7f27a6eb944f4de6d599bbe1c922ba58a5d9
 set(CMAKE_CXX_FLAGS "--coverage")
 #set(CMAKE_CXX_FLAGS "-lpthreads")
 
@@ -19,11 +15,6 @@ set(BUILD_SHARED_LIBS OFF)
 include(External_GTest.cmake)
 include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
-<<<<<<< HEAD
-#find_package(GTest REQUIRED)
-#find_package(Threads REQUIRED)
-=======
->>>>>>> 415b7f27a6eb944f4de6d599bbe1c922ba58a5d9
 find_package(Curses REQUIRED)
 
 ################################################################################
