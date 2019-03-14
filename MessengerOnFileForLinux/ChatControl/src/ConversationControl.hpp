@@ -44,7 +44,7 @@ private:
     std::queue<PurgeMessage> messageToDisplay_;
     bool isThreadsRunning_;
     UserInactivityDetector userInactivityDetector_;
-    std::once_flag userInactivityWasHandled;
+    bool userInactivityWasHandled;
 
 
     Logger log_{LogSpace::ChatStarter};
