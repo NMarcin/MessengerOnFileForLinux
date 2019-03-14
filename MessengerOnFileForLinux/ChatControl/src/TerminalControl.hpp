@@ -12,8 +12,15 @@ public:
     bool waitingInTerminal();
     bool startConversation(const std::string& username, ChatRole chatRole);
     static void lookForInvitation();
+
     TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo);
+    TerminalControl() = delete;
     ~TerminalControl() = default;
+    TerminalControl(TerminalControl &&) = delete;
+    TerminalControl operator=(TerminalControl &&) = delete;
+    TerminalControl(const TerminalControl &) = delete;
+    TerminalControl operator=(const TerminalControl &) = delete;
+
     static bool isWaitingForInvitation;
     static bool isInvitationExist;
 

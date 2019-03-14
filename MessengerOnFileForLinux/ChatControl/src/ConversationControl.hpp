@@ -19,8 +19,15 @@ class ConversationControl
 public:
     void conversation();
     void conversationEpilog();
+
     ConversationControl(std::shared_ptr<ChatInformation> chatInfo);
+    ConversationControl() = delete;
     ~ConversationControl();
+    ConversationControl(ConversationControl &&) = delete;
+    ConversationControl operator=(ConversationControl &&) = delete;
+    ConversationControl(const ConversationControl &) = delete;
+    ConversationControl operator=(const ConversationControl &) = delete;
+
     static bool isConversationRunning_;
 
 private:
