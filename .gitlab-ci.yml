@@ -59,9 +59,8 @@ MWOZNIAK_CLANG_TIDY:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
     - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-    #TODO mnurzyns remove # after removing clang-tidy erros
-    #- cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    #- bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
   artifacts:
       when: always
       paths:
