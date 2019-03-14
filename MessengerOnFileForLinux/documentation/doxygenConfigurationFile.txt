@@ -802,14 +802,11 @@ INPUT                  = ../main/src/ \
 			 ../TerminalFunctionality/src/ \
           		 ../main/test/ \
 			 ../ChatStarter/test/ \
-			 ../DisplayChat/test/ \
 			 ../FileHandling/test/ \
 			 ../UserService/test/ \
 			 ../ChatControl/test/ \
 			 ../Common/test/ \
 			 ../LoggerFramework/test/ \
-			 ../MessageFramework/test/ \
-			 ../TerminalFunctionality/test/ \
 			 ../scripts \
 			 ../../README.md
 

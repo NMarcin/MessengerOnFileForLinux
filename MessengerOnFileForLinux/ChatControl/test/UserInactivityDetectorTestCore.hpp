@@ -9,19 +9,12 @@ namespace
 std::string getUser()
 {
     std::string user = getenv("USER");
-    if(user == "ciGitlab")
-    {
-        return "root";
-    }
-    else
-    {
-        return user;
-    }
+    return (user == "ciGitlab") ? "root" : user;
 }
 
 void simulationOfRunningMessengerProcess()
 {
-    const std::string command = "../scripts/messenger_binar &";
+    const std::string command = "../ChatControl/test/messenger_binar &";
     system(command.c_str());
 }
 }//namespace

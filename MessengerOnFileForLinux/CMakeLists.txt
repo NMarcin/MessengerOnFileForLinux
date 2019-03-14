@@ -11,7 +11,6 @@ set(CMAKE_CXX_FLAGS "--coverage")
 
 set(BUILD_SHARED_LIBS OFF)
 include(External_GTest.cmake)
-include(CTest)
 include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package(Curses REQUIRED)
@@ -41,9 +40,11 @@ execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${create_enviroment})
 #####               CREATE DOXYGEN DOCUMENTATION CMAKE PART                #####
 ################################################################################
 set(doxygen_config "/documentation/doxygenConfigurationFile.txt")
-execute_process(COMMAND doxygen ${CMAKE_SOURCE_DIR}${doxygen_config})
-execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/documentation/html/index.html
-    ${CMAKE_SOURCE_DIR}/documentation/documentation.html)
+if(${SILENT_MOD_OFF})
+    execute_process(COMMAND doxygen ${CMAKE_SOURCE_DIR}${doxygen_config})
+else()
+    execute_process(COMMAND doxygen ${CMAKE_SOURCE_DIR}${doxygen_config}  OUTPUT_QUIET)
+endif()
 
 ################################################################################
 #####                       MAKE BINARY CMAKE PART                         #####
@@ -94,11 +95,10 @@ set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
 target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
-target_link_libraries(messenger_binary_UT
-${GTEST_MAIN_LIBRARY}
-${GTEST_LIBRARY}
-${GMOCK_MAIN_LIBRARY}
-${GMOCK_LIBRARY})
+target_link_libraries(messenger_binary_UT ${GTEST_MAIN_LIBRARY}
+                                          ${GTEST_LIBRARY}
+                                          ${GMOCK_MAIN_LIBRARY}
+                                          ${GMOCK_LIBRARY})
 
 ################################################################################
 #####                               VALGIRN                                #####
