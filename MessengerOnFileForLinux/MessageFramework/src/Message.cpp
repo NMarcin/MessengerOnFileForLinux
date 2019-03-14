@@ -53,6 +53,11 @@ bool Message::setMessageFlag(std::string messageFlag)
         log_.info("Message::setMessageFlag() message read, can not unread");
         return false;
     }
+    else
+    {
+        log_.info("Message::setMessageFlag() messageFlag unknown, error");
+        return false;
+    }
 }
 
 bool Message::setContent(std::string content)

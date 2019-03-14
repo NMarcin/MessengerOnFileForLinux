@@ -7,7 +7,72 @@ before_script:
  - ps -u root
  - ./create_enviroment.sh 
  - ./setup_ci.sh
+ - export USER=ciGitlab
 
+<<<<<<< HEAD
+=======
+############ MWOZNIAK BUILDS ############
+
+MWOZNIAK_BUILD:
+  only:
+    - mwozniak
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      expire_in: 1 week
+
+MWOZNIAK_UT:
+  only:
+    - mwozniak
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - ./messenger_binary_UT
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      expire_in: 1 week  
+
+MWOZNIAK_VALGRIND:
+  only:
+    - mwozniak
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - make valgrind
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      expire_in: 1 week
+
+MWOZNIAK_CLANG_TIDY:
+  only:
+    - mwozniak
+  script:
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - ./gcc_ci.sh 
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    #TODO mnurzyns remove # after removing clang-tidy erros
+    #- cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    #- bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+  artifacts:
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      expire_in: 1 week
+>>>>>>> 415b7f27a6eb944f4de6d599bbe1c922ba58a5d9
 
 ############ MNURZYNS BUILDS ############
 
@@ -61,11 +126,14 @@ CI_CLANG_TIDY:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/ClangOutput.txt
+    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    #TODO mnurzyns remove # after removing clang-tidy erros
+    #- cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    #- bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/ClangOutput.txt
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
       expire_in: 1 week
 
 ############ MASTER BUILDS ############
@@ -105,6 +173,8 @@ MASTER_VALGRIND:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
     - make valgrind
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
@@ -118,11 +188,14 @@ MASTER_CLANG_TIDY:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/ClangOutput.txt
+    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    #TODO mnurzyns remove # after removing clang-tidy erros
+    #- cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    #- bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/ClangOutput.txt
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
       expire_in: 1 week
 
 

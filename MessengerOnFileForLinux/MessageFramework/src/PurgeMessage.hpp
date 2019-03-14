@@ -11,7 +11,7 @@ public:
     ~PurgeMessage() = default;
 
 private:
-    bool setTime(std::string longTime);
+    void setTime(std::string longTime);
 
 
     Logger log_ {LogSpace::MessageFramework};

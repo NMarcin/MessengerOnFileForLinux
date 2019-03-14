@@ -56,7 +56,7 @@ void waitForAccess(const std::string& folderName)
 
 std::unique_ptr<std::fstream> openFile(const std::string& pathToFile, FileMode mode, AccesMode accesMode = AccesMode::withGuardian)
 {
-    fileLog("FileInterface::openFile started in FileMode = " + static_cast<int>(mode), LogSpace::FileHandling);
+    fileLog(("FileInterface::openFile started in FileMode = " + std::to_string(static_cast<int>(mode))).c_str(), LogSpace::FileHandling);
     if (!FileInterface::Managment::isFileExist(pathToFile))
     {
         std::string logInfo = "FileInterface::openFile ERROR: " + pathToFile + " does not exist";
@@ -356,6 +356,7 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
 bool FileInterface::lockFolder(const std::string& pathToFolder)
 {
     waitForAccess(pathToFolder);
+    return FileInterface::Managment::isFileExist(pathToFolder + "/GUARD");
 }
 
 bool FileInterface::unlockFolder(const std::string& pathToFolder)

@@ -106,6 +106,7 @@ bool ConversationControl::isMessagesToReadExist()
     {
         return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::inviterMessage);
     }
+    return false;
 }
 
 void ConversationControl::handleInterlocutorInactivity()

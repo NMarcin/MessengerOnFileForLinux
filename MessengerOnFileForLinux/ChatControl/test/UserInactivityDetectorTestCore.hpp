@@ -5,9 +5,25 @@
 #include "UserInactivityDetector.hpp"
 #include <iostream>
 
+namespace
+{
+std::string getUser()
+{
+    std::string user = getenv("USER");
+    return (user == "ciGitlab") ? "root" : user;
+}
+
+void simulationOfRunningMessengerProcess()
+{
+    const std::string command = "../ChatControl/test/messenger_binar &";
+    system(command.c_str());
+}
+}//namespace
+
 class UserInactivityDetectorFixture : public ::testing::Test
 {
 public:
+<<<<<<< HEAD
     std::string getUser()
     {
         std::string user = getenv("USER");
@@ -35,6 +51,12 @@ public:
         system(command.c_str());
     }
 
+=======
+    UserInactivityDetectorFixture() : userInactivityDetector_(getUser())
+    {
+        simulationOfRunningMessengerProcess();
+    }
+>>>>>>> 415b7f27a6eb944f4de6d599bbe1c922ba58a5d9
     void SetUp(){}
     void TearDown(){}
     ~UserInactivityDetectorFixture(){}
