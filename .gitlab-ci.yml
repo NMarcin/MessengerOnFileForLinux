@@ -9,13 +9,12 @@ before_script:
  - ./setup_ci.sh
  - export USER=ciGitlab
 
-<<<<<<< HEAD
-=======
+
 ############ MWOZNIAK BUILDS ############
 
-MWOZNIAK_BUILD:
+CI_BUILD:
   only:
-    - mwozniak
+    - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh
@@ -26,9 +25,9 @@ MWOZNIAK_BUILD:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
       expire_in: 1 week
 
-MWOZNIAK_UT:
+CI_UT:
   only:
-    - mwozniak
+    - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
@@ -40,9 +39,9 @@ MWOZNIAK_UT:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
       expire_in: 1 week  
 
-MWOZNIAK_VALGRIND:
+CI_VALGRIND:
   only:
-    - mwozniak
+    - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
@@ -56,23 +55,22 @@ MWOZNIAK_VALGRIND:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
       expire_in: 1 week
 
-MWOZNIAK_CLANG_TIDY:
+CI_CLANG_TIDY:
   only:
-    - mwozniak
+    - ciBranch
   script:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
     - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-    #TODO mnurzyns remove # after removing clang-tidy erros
-    #- cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    #- bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
   artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
       expire_in: 1 week
->>>>>>> 415b7f27a6eb944f4de6d599bbe1c922ba58a5d9
+
 
 ############ MNURZYNS BUILDS ############
 
