@@ -52,7 +52,7 @@
 *.autosave
 
 # Others which I find
-*build-MessangerOnFileForLinux*
+*build-MessengerOnFileForLinux*
 *.txt.user*
 *MessengerOnFileForLinux-build*
 *.Logger_default.txt*
