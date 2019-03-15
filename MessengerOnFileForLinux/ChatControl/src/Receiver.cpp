@@ -134,7 +134,7 @@ void Receiver::pushPurgeMessageOnStack(std::string rawMessageToPush)
 bool Receiver::updateSeenFlags()
 {
     log_.function("Receiver::updateSeenFlags() started");
-    bool updateFlagStatus;
+    bool updateFlagStatus = false;
     if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
     {
         log_.info("Receiver::updateSeenFlags() update flag status for MessageFlag::recipientMessage = 0");
