@@ -35,6 +35,7 @@ private:
     void getMessage();
     bool isMessagesToReadExist();
     void handleInterlocutorInactivity();
+    void markUserInactivityAsHandled();
     void reciveMessage();
     void sendMessage();
     void stopThreads();
@@ -50,6 +51,7 @@ private:
     std::queue<Message> messageReadyToSend_;
     std::queue<PurgeMessage> messageToDisplay_;
     bool isThreadsRunning_;
+    bool isUserInactivityWasHandled_;
     UserInactivityDetector userInactivityDetector_;
     std::once_flag userInactivityWasHandled_;
 

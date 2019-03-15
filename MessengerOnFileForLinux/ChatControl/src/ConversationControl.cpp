@@ -22,6 +22,7 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , reciveMessageThread_(nullptr)
     , sendMessageFromQueueThread_(nullptr)
     , userInactivityDetector_(chatInfo->interlocutorUsername_)
+    , isUserInactivityWasHandled_(false)
 {
     log_.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
@@ -109,8 +110,13 @@ bool ConversationControl::isMessagesToReadExist()
 
 void ConversationControl::handleInterlocutorInactivity()
 {
+<<<<<<< HEAD
     std::call_once(userInactivityWasHandled_, [&]()
+=======
+    if(not isUserInactivityWasHandled_)
+>>>>>>> 8446c1fb043e1641222331defbf4852951c35176
     {
+        markUserInactivityAsHandled();
         const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
         const std::string systemMessage = "Your interlocutor is inactive! You can leve chat";
         Message message(chatInfo_->messageFlag_, "_SYSTEM_", systemMessage);
@@ -118,7 +124,12 @@ void ConversationControl::handleInterlocutorInactivity()
         messageToDisplay_.push(message);
         FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
         FileInterface::Managment::createFile(pathToChatFolder + "/END");
-    });
+    }
+}
+
+void ConversationControl::markUserInactivityAsHandled()
+{
+    isUserInactivityWasHandled_ = true;
 }
 
 void ConversationControl::reciveMessage()
