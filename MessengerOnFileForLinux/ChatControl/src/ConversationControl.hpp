@@ -22,8 +22,8 @@ public:
     void conversationEpilog();
 
     ConversationControl(std::shared_ptr<ChatInformation> chatInfo);
-    ConversationControl() = delete;
     ~ConversationControl();
+
     ConversationControl(ConversationControl &&) = delete;
     ConversationControl operator=(ConversationControl &&) = delete;
     ConversationControl(const ConversationControl &) = delete;

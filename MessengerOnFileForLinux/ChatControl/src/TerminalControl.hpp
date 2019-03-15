@@ -14,8 +14,8 @@ public:
     static void lookForInvitation();
 
     TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo);
-    TerminalControl() = delete;
     ~TerminalControl() = default;
+
     TerminalControl(TerminalControl &&) = delete;
     TerminalControl operator=(TerminalControl &&) = delete;
     TerminalControl(const TerminalControl &) = delete;
