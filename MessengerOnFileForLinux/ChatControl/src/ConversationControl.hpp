@@ -5,7 +5,6 @@
 #include <signal.h>
 #include <queue>
 #include <ncurses.h>
-#include <mutex>
 
 #include <Sender.hpp>
 #include <Receiver.hpp>
@@ -53,7 +52,6 @@ private:
     bool isThreadsRunning_;
     bool isUserInactivityWasHandled_;
     UserInactivityDetector userInactivityDetector_;
-    std::once_flag userInactivityWasHandled_;
 
     Logger log_{LogSpace::ChatStarter};
 };

@@ -110,11 +110,7 @@ bool ConversationControl::isMessagesToReadExist()
 
 void ConversationControl::handleInterlocutorInactivity()
 {
-<<<<<<< HEAD
-    std::call_once(userInactivityWasHandled_, [&]()
-=======
     if(not isUserInactivityWasHandled_)
->>>>>>> 8446c1fb043e1641222331defbf4852951c35176
     {
         markUserInactivityAsHandled();
         const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
