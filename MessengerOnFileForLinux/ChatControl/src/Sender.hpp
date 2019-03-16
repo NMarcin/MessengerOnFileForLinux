@@ -12,7 +12,12 @@ class Sender
 {
 public:
     Sender(std::shared_ptr<ChatInformation> chatInfo);
-    ~Sender();
+    ~Sender() = default;
+
+    Sender(Sender &&) = delete;
+    Sender operator=(Sender &&) = delete;
+    Sender(const Sender &) = delete;
+    Sender operator=(const Sender &) = delete;
 
     std::unique_ptr<Message> getMessageToSend() const;
     bool sendMessage(const Message& message) const;

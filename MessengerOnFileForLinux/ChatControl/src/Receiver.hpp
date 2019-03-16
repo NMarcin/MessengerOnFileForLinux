@@ -16,6 +16,11 @@ public:
     Receiver(std::shared_ptr<ChatInformation> chatInfo);
     ~Receiver() = default;
 
+    Receiver(Receiver &&) = delete;
+    Receiver operator=(Receiver &&) = delete;
+    Receiver(const Receiver &) = delete;
+    Receiver operator=(const Receiver &) = delete;
+
     bool readMessagesToStack();
     std::unique_ptr<PurgeMessage> returnTheOldestMessage();
 
