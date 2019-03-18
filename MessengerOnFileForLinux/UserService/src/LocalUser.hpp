@@ -6,14 +6,14 @@
 class LocalUser
 {
 public:
-    static LocalUser & getLocalUser();
+    static LocalUser& getLocalUser();
     const std::string getUsername() const;
     const std::string getPassword() const;
     void setPassword(const std::string& password);
 
 private:
     LocalUser();
-    ~LocalUser();
+    ~LocalUser() = default;
     LocalUser(const LocalUser &) = delete;
     LocalUser& operator=(const LocalUser &) = delete;
 

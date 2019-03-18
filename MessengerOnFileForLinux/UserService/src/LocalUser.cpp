@@ -9,12 +9,7 @@ LocalUser::LocalUser()
     log_.function("LoclaUser C-TOR");
 }
 
-LocalUser::~LocalUser()
-{
-    log_.function("LoclaUser D-TOR");
-}
-
-LocalUser & LocalUser::getLocalUser()
+LocalUser& LocalUser::getLocalUser()
 {
     static LocalUser localUser;
     return localUser;
@@ -28,12 +23,12 @@ const std::string LocalUser::getUsername() const
 
 const std::string LocalUser::getPassword() const
 {
-    log_.function("User::getPassword() started");
+    log_.function("LocalUser::getPassword() started");
     return password_;
 }
 
 void LocalUser::setPassword(const std::string& password)
 {
-    log_.function("User::setPassword() started");
+    log_.function("LocalUser::setPassword() started");
     password_ = password;
 }
