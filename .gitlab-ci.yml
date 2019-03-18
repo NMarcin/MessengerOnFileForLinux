@@ -3,11 +3,10 @@ before_script:
  - export TERM=xterm-256color
  - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
  - export USER=ciGitlab
- - whoami
- - ps -u root
  - ./create_enviroment.sh 
  - ./setup_ci.sh
  - export USER=ciGitlab
+ - gcc --version
 
 
 ############ MWOZNIAK BUILDS ############
