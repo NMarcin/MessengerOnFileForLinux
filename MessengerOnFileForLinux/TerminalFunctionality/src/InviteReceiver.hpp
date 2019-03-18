@@ -13,6 +13,11 @@ public:
     InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo);
     ~InviteReceiver();
 
+    InviteReceiver(InviteReceiver &&) = delete;
+    InviteReceiver operator=(InviteReceiver &&) = delete;
+    InviteReceiver(const InviteReceiver &) = delete;
+    InviteReceiver operator=(const InviteReceiver &) = delete;
+
 private:
     std::string command_;
     std::shared_ptr<ChatInformation> chatInfo_;
