@@ -23,6 +23,10 @@ public:
     Message(std::string messageFlag, std::string username, std::string content);
     Message(std::string fullMessageInRow);
     virtual ~Message() = default;
+    Message(Message &&) = default;
+    Message& operator=(Message &&) = default;
+    Message(const Message &) = default;
+    Message& operator=(const Message &) = default;
 
 protected:
     std::string time_;
