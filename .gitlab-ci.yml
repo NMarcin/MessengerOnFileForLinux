@@ -40,8 +40,11 @@ CI_UT:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/out
       expire_in: 1 week  
+      when: always
+      paths:
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/out
+      expire_in: 1 week 
 
 
 
