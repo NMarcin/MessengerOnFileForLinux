@@ -14,11 +14,6 @@ Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
     log.info("Sender C-TOR");
 }
 
-Sender::~Sender()
-{
-    log.function("Sender D-TOR");
-}
-
 std::unique_ptr<Message> Sender::getMessageToSend() const
 {
     log.function("Sender::getMessageToSend() started");

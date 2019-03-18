@@ -3,16 +3,6 @@
 WINDOW* ChatWindow::displayMessageWindow_ = nullptr;
 WINDOW* ChatWindow::enterMessageWindow_ = nullptr;
 
-ChatWindow::ChatWindow()
-{
-    //NOOP
-}
-
-ChatWindow::~ChatWindow()
-{
-    //NOOP
-}
-
 void ChatWindow::displayChatWindows()
 {
     clear();

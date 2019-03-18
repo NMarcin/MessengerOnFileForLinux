@@ -9,8 +9,13 @@
 class ChatWindow
 {
 public:
-    ChatWindow();
-    ~ChatWindow();
+    ChatWindow() = default;
+    ~ChatWindow() = default;
+
+    ChatWindow(ChatWindow &&) = delete;
+    ChatWindow operator=(ChatWindow &&) = delete;
+    ChatWindow(const ChatWindow &) = delete;
+    ChatWindow operator=(const ChatWindow &) = delete;
 
     static void displayChatWindows();
     static void deleteDisplayMesageWindow();
