@@ -10,6 +10,11 @@ public:
     ChatFabric() = default;
     ~ChatFabric() = default;
 
+    ChatFabric(ChatFabric &&) = delete;
+    ChatFabric operator=(ChatFabric &&) = delete;
+    ChatFabric(const ChatFabric &) = delete;
+    ChatFabric operator=(const ChatFabric &) = delete;
+
     std::string createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const;
 
 private:

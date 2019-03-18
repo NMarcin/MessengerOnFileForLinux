@@ -11,6 +11,11 @@ public:
     UserInactivityDetector(const std::string& username);
     ~UserInactivityDetector() = default;
 
+    UserInactivityDetector(UserInactivityDetector &&) = delete;
+    UserInactivityDetector operator=(UserInactivityDetector &&) = delete;
+    UserInactivityDetector(const UserInactivityDetector &) = delete;
+    UserInactivityDetector operator=(const UserInactivityDetector &) = delete;
+
     void detectUserInactivity();
     bool isUserInactiveDetected() const ;
 

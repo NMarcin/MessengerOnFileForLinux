@@ -9,6 +9,10 @@ public:
 
     PurgeMessage(const Message& message);
     ~PurgeMessage() = default;
+    PurgeMessage(PurgeMessage &&) = default;
+    PurgeMessage& operator=(PurgeMessage &&) = default;
+    PurgeMessage(const PurgeMessage &) = default;
+    PurgeMessage& operator=(const PurgeMessage &) = default;
 
 private:
     void setTime(std::string longTime);

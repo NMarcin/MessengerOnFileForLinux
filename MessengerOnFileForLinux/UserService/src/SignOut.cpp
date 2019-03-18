@@ -4,16 +4,6 @@
 #include <LocalUser.hpp>
 
 
-SignOut::SignOut()
-{
-    log_.function("SignOut C-TOR");
-}
-
-SignOut::~SignOut()
-{
-    log_.function("SignOut D-TOR");
-}
-
 bool SignOut::signOutUser() const
 {
     log_.function("SignOut::signOutUser() started");

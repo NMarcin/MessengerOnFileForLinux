@@ -22,6 +22,11 @@ public:
     ChatRequest();
     ~ChatRequest();
 
+    ChatRequest(ChatRequest &&) = delete;
+    ChatRequest operator=(ChatRequest &&) = delete;
+    ChatRequest(const ChatRequest &) = delete;
+    ChatRequest operator=(const ChatRequest &) = delete;
+
 private:
     bool changeUserStatus(const User& user, const std::string& newStatus) const;
     std::unique_ptr<std::string> getChatFolderName(const std::string& folderName) const;

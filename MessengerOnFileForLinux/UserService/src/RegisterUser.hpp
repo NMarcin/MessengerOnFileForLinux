@@ -12,6 +12,11 @@ public:
     RegisterUser();
     ~RegisterUser();
 
+    RegisterUser(RegisterUser &&) = delete;
+    RegisterUser operator=(RegisterUser &&) = delete;
+    RegisterUser(const RegisterUser &) = delete;
+    RegisterUser operator=(const RegisterUser &) = delete;
+
 private:
     std::unique_ptr<std::array<std::string, 2>> askUserForPassword() const;
     bool comparePasswords(std::array<std::string, 2> passwords) const;
