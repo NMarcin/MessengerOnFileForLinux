@@ -7,12 +7,16 @@ class SignOut
 public:
     bool signOutUser() const;
 
-    SignOut();
-    ~SignOut();
+    SignOut() = default;
+    ~SignOut() = default;
+
+    SignOut(SignOut &&) = delete;
+    SignOut operator=(SignOut &&) = delete;
+    SignOut(const SignOut &) = delete;
+    SignOut operator=(const SignOut &) = delete;
 
 private:
     bool removeUserDataFromLoggedFile() const;
 
     Logger log_ {LogSpace::UserService};
 };
-

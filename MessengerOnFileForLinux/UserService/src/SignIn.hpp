@@ -11,6 +11,11 @@ public:
     SignIn();
     ~SignIn();
 
+    SignIn(SignIn &&) = delete;
+    SignIn operator=(SignIn &&) = delete;
+    SignIn(const SignIn &) = delete;
+    SignIn operator=(const SignIn &) = delete;
+
 private:
     bool isUserLogged() const;
     bool isPasswordCorrect(const std::string& password, const std::string& correctPassword) const;
