@@ -33,7 +33,7 @@ CI_UT:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
     - ./messenger_binary_UT
-    - lcov --capture ../ --output-file coverage.info
+    - lcov --capture --directory .. --output-file coverage.info
     - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
     - genhtml coverageWithoutUnnecessaryFiles.info --output-directory out
   artifacts:
