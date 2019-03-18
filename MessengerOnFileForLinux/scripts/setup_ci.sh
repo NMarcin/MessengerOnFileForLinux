@@ -6,11 +6,6 @@ cd cmake-3.10.1/
 ./configure
 make 
 make install
-apt-get install --yes libgtest-dev
-cd /usr/src/gtest
-cmake CMakeLists.txt
-make
-cp *.a /usr/lib
 apt-get update
 apt-get install --yes ncurses-dev
 apt install --yes libncurses5-dev libncursesw5-dev
@@ -26,3 +21,4 @@ apt-get install --yes python-dev
 pip install pyyaml
 apt-get install --yes doxygen
 apt-get install --yes graphviz
+apt-get install --yes lcov

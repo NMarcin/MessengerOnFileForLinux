@@ -33,43 +33,16 @@ CI_UT:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
     - ./messenger_binary_UT
+    - lcov --capture ../ --output-file coverage.info
+    - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
+    - genhtml coverageWithoutUnnecessaryFiles.info --output-directory out
   artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/out
       expire_in: 1 week  
 
-CI_VALGRIND:
-  only:
-    - ciBranch
-  script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - make valgrind
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
-  artifacts:
-      when: always
-      paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
-      expire_in: 1 week
-
-CI_CLANG_TIDY:
-  only:
-    - ciBranch
-  script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-  artifacts:
-      when: always
-      paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-      expire_in: 1 week
 
 
 ############ MNURZYNS BUILDS ############
