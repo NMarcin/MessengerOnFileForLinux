@@ -6,7 +6,7 @@ make
 cd bin
 ./messenger_binary_UT
 cd ..
-lcov --capture --directory . --output-file coverage.info
-lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o utCoverage.info
-genhtml coverageWithoutUnnecessaryFiles.info --output-directory out
-$1 out/index.html
+lcov --quiet --capture --directory . --output-file coverage.info
+lcov --quiet --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o utCoverage.info
+genhtml --quiet coverageWithoutUnnecessaryFiles.info --output-directory out
+$1 out/index.html &
