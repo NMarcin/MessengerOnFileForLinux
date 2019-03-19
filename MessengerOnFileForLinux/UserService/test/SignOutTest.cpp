@@ -1,4 +1,4 @@
-/*#include <gtest/gtest.h>
+#include <gtest/gtest.h>
 
 #include <SignOut.hpp>
 #include <SignIn.hpp>
@@ -24,4 +24,4 @@ TEST(SignOutTest, isUserSignOutCorrectly)
     rowFromFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, USER);
     EXPECT_TRUE(nullptr == rowFromFile);
 }
-*/
+
