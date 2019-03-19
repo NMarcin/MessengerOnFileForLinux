@@ -12,6 +12,11 @@ public:
     LoggingOut(std::string command);
     ~LoggingOut() = default;
 
+    LoggingOut(LoggingOut &&) = delete;
+    LoggingOut operator=(LoggingOut &&) = delete;
+    LoggingOut(const LoggingOut &) = delete;
+    LoggingOut operator=(const LoggingOut &) = delete;
+
 private:
     Logger log_ {LogSpace::TerminalFunctionality};
 };
