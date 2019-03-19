@@ -1,10 +1,6 @@
 #include <thread>
 
-#include <MessageTestCore.hpp>
-#include <SignIn.hpp>
-#include <SignOut.hpp>
-#include <RegisterUser.hpp>
-#include <GlobalVariables.hpp>
+#include <MessageTestCore.hpp>S
 
 
 MessageFixture::MessageFixture()
