@@ -11,11 +11,6 @@ InviteReceiver::InviteReceiver(std::string command, std::shared_ptr<ChatInformat
     log_.function("InviteReceiver() C-TOR");
 }
 
-InviteReceiver::~InviteReceiver()
-{
-    log_.function("InviteReceiver() D-TOR");
-}
-
 bool InviteReceiver::doCommand()
 {
     log_.function("InviteReceiver()::doCommand() started");

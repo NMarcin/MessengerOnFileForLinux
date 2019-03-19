@@ -27,6 +27,11 @@ public:
     TerminalFunctionality() = default;
     ~TerminalFunctionality() = default;
 
+    TerminalFunctionality(TerminalFunctionality &&) = delete;
+    TerminalFunctionality operator=(TerminalFunctionality &&) = delete;
+    TerminalFunctionality(const TerminalFunctionality &) = delete;
+    TerminalFunctionality operator=(const TerminalFunctionality &) = delete;
+
 private:
     std::unique_ptr<TerminalCommand> terminalCommand_ = nullptr;
     std::string chatFileWithPath_;
