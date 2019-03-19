@@ -9,7 +9,6 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_Common}/SHA1.cpp
     ${MODULE_Common}/SignalHandling.cpp
     ${MODULE_Common}/TimeManagment.cpp
-    ${MODULE_UserService}/User.cpp
     ${MODULE_UserService}/LocalUser.cpp
     ${MODULE_UserService}/SignIn.cpp
     ${MODULE_UserService}/SignOut.cpp

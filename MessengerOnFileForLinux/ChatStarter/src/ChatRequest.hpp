@@ -2,7 +2,6 @@
 #include <string>
 #include <memory>
 
-#include <User.hpp>
 #include <Logger.hpp>
 #include <LogSpace.hpp>
 #include "UserInactivityDetector.hpp"

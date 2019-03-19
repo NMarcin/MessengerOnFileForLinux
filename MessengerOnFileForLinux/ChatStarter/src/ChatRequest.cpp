@@ -5,7 +5,6 @@
 #include <unistd.h>
 
 #include <ChatRequest.hpp>
-#include <User.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
