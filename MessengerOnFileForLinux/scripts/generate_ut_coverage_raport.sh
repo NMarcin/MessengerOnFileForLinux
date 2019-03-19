@@ -8,5 +8,5 @@ cd bin
 cd ..
 lcov --quiet --capture --directory . --output-file coverage.info
 lcov --quiet --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o utCoverage.info
-genhtml --quiet coverageWithoutUnnecessaryFiles.info --output-directory out
+genhtml --quiet utCoverage.info --output-directory out
 $1 out/index.html &
