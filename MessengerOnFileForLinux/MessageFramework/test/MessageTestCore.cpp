@@ -1,6 +1,6 @@
 #include <thread>
 
-#include <MessageTestCore.hpp>S
+#include <MessageTestCore.hpp>
 
 
 MessageFixture::MessageFixture()
