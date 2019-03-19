@@ -81,6 +81,7 @@ target_link_libraries(messenger_binary ${CURSES_LIBRARIES})
 #LIB_TEST
 include_directories(${CMAKE_SOURCE_DIR}/ChatStarter/test)
 include_directories(${CMAKE_SOURCE_DIR}/UserService/test)
+include_directories(${CMAKE_SOURCE_DIR}/MessageFramework/test)
 # TEST
 add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)
@@ -89,6 +90,7 @@ add_subdirectory(ChatStarter/test)
 add_subdirectory(UserService/test)
 add_subdirectory(Common/test)
 add_subdirectory(ChatControl/test)
+add_subdirectory(MessageFramework/test)
 
 # CMAKE BUILD
 set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
