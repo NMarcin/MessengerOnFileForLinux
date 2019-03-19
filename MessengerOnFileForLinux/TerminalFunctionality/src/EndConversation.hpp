@@ -9,7 +9,7 @@ public:
     bool doCommand() override;
 
     EndConversation(std::string command, std::shared_ptr<ChatInformation> chatInfo);
-    ~EndConversation();
+    ~EndConversation() = default;
 
     EndConversation(EndConversation &&) = delete;
     EndConversation operator=(EndConversation &&) = delete;

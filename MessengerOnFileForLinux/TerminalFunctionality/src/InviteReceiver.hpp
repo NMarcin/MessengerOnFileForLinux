@@ -11,7 +11,7 @@ public:
     bool doCommand();
 
     InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo);
-    ~InviteReceiver();
+    ~InviteReceiver() = default;
 
     InviteReceiver(InviteReceiver &&) = delete;
     InviteReceiver operator=(InviteReceiver &&) = delete;
@@ -23,4 +23,3 @@ private:
     std::shared_ptr<ChatInformation> chatInfo_;
     Logger log_ {LogSpace::TerminalFunctionality};
 };
-

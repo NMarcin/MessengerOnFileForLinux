@@ -12,7 +12,6 @@ public:
     HistoryDowloander(std::string command, std::string chatFileWithPath);
     ~HistoryDowloander() = default;
 
-
     HistoryDowloander(HistoryDowloander &&) = delete;
     HistoryDowloander operator=(HistoryDowloander &&) = delete;
     HistoryDowloander(const HistoryDowloander &) = delete;

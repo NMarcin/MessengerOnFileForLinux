@@ -9,11 +9,6 @@ EndConversation::EndConversation(std::string command, std::shared_ptr<ChatInform
     log_.function("EndConversation() C-TOR");
 }
 
-EndConversation::~EndConversation()
-{
-    log_.function("EndConversation() D-TOR");
-}
-
 bool EndConversation::doCommand()
 {
     log_.function("EndConversation::doCommand() start");
