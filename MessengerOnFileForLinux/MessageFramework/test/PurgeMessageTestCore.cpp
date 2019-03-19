@@ -2,7 +2,6 @@
 
 #include <PurgeMessageTestCore.hpp>
 
-
 PurgeMessageFixture::PurgeMessageFixture()
 {
     // to implement

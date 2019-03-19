@@ -2,7 +2,6 @@
 
 #include <MessageTestCore.hpp>
 
-
 MessageFixture::MessageFixture()
 {
     // to implement
