@@ -282,15 +282,26 @@ bool FileInterface::Managment::removeFile(const std::string& pathToFile)
 
 bool FileInterface::Modification::removeRow(const std::string& pathToFile, const std::string& pattern)
 {
+    std::string logInfo = "FileInterface::Modification::removeRow() -> " + pathToFile;
+    fileLog(logInfo.c_str(), LogSpace::FileHandling);
+
+    if (nullptr == Accesor::getRow(pathToFile, pattern))
+    {
+        const std::string logInfo = "FileInterface::Modification::removeRow() -> Attempt to remove unexist row!";
+        fileLog(logInfo.c_str(), LogSpace::FileHandling);
+        return false;
+    }
+
     std::string folderName = *Accesor::getFolderName(pathToFile);
     waitForAccess(folderName);
 
     std::string command = "sed -i -e '/" + pattern + "/d' " + pathToFile;
     std::system(command.c_str());
 
-    bool isGuardRemoved = removeGuardian(folderName);
+    removeGuardian(folderName);
 
-    return isGuardRemoved;
+    const auto isRowRemoved = Accesor::getRow(pathToFile, pattern);
+    return nullptr == isRowRemoved;
 }
 
 bool FileInterface::Modification::updateRow(const std::string & pathToFile, const std::string & newRow, const std::string & where)

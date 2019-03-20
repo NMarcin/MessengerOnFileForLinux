@@ -1,5 +1,5 @@
 set(TEST_SOURCES ${TEST_SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/UserTest.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/LocalUserTest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RegisterUserTest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SignInTest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SignInTestCore.cpp

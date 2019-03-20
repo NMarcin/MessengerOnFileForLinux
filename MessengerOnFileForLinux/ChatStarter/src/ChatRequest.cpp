@@ -5,7 +5,6 @@
 #include <unistd.h>
 
 #include <ChatRequest.hpp>
-#include <User.hpp>
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
@@ -47,13 +46,11 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername,
     return sendAnswer(senderUsername, AnswerType::disaccepted);
 }
 
-bool ChatRequest::changeUserStatus(const User& user, const std::string& newStatus) const
+bool ChatRequest::changeUserStatus(const std::string& username, const std::string& newStatus) const
 {
     log_.function("ChatRequest::changeUserStatus() started");
 
-    auto username = user.getUsername();
     return FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED, username, newStatus, FileStructure::LoggedFile::status);
-
 }
 
 std::unique_ptr<std::string> ChatRequest::getChatFolderName(const std::string& folderName) const
@@ -90,17 +87,17 @@ std::unique_ptr<std::string> ChatRequest::getUserStatus(const std::string& usern
 }
 
 
-bool ChatRequest::isUserActive(const User& user) const
+bool ChatRequest::isUserActive(const std::string& username) const
 {
     log_.function("ChatRequest::isUserActive() started");
 
-    std::unique_ptr<std::string> userStatusToCompare = getUserStatus(user.getUsername());
+    std::unique_ptr<std::string> userStatusToCompare = getUserStatus(username);
 
-    UserInactivityDetector userInactivityDetector(user.getUsername()); //TODO mawoznia temportary solution
+    UserInactivityDetector userInactivityDetector(username); //TODO mawoznia temportary solution
     userInactivityDetector.detectUserInactivity();       //it will be romoved in FB_03 in 'accepting and rejecting an invitation' task.
     if (userInactivityDetector.isUserInactiveDetected()) //UserInactivityDetector will be a member of class like in ChatControl
     {
-        FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, user.getUsername());
+        FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, username);
         return false;
     }
     else if (nullptr == userStatusToCompare)
@@ -164,25 +161,24 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
     return "";
 }
 
-std::string ChatRequest::sendChatRequest(const std::string& username) const
+std::string ChatRequest::sendChatRequest(const std::string& receiverUsername) const
 {
     log_.function("ChatRequest::sendChatRequest() started");
-    User receiver(username);
     changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::bussyStatus);
     //^ przez ta linijke są zakomentowane UT
 
-    if (!isUserActive(receiver.getUsername()))
+    if (!isUserActive(receiverUsername))
     {
         return {};
     }
 
     ChatFabric chatFabric;
-    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiver.getUsername());
-    changeUserStatus(receiver.getUsername(), UserStatus::bussyStatus);
-    std::string invitationName = username + "_" + LocalUser::getLocalUser().getUsername();
+    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiverUsername);
+    changeUserStatus(receiverUsername, UserStatus::bussyStatus);
+    std::string invitationName = receiverUsername + "_" + LocalUser::getLocalUser().getUsername();
     FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
 
-    bool receiverDecision = waitForAnswer(receiver.getUsername());
+    bool receiverDecision = waitForAnswer(receiverUsername);
     if(receiverDecision)
     {
         return chatFileWithPath;
@@ -191,7 +187,7 @@ std::string ChatRequest::sendChatRequest(const std::string& username) const
     auto chatFileFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath);
     FileInterface::Managment::removeFile(chatFileFolder);
     changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::activeStatus);
-    changeUserStatus(receiver.getUsername(), UserStatus::activeStatus);
+    changeUserStatus(receiverUsername, UserStatus::activeStatus);
     return {};
 
 }
