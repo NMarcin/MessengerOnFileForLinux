@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include <StringSum.hpp>
 
-TEST(StringSumTest, sumString)
+TEST(StringSumTest, isStringsAreSummedWithBrackets)
 {
     StringSumSquareBrackets summedString;
-    std::string expectedString = "[This ][string ][is][ summed.]";
+    const std::string expectedString = "[This ][string ][is][ summed.]";
     summedString.sum("This ");
     summedString.sum("string ");
     summedString.sum("is");
