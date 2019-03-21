@@ -30,7 +30,15 @@ TEST_F(MessageFixture, isTimeFromMessageCorrectReturned)
 
 TEST_F(MessageFixture, isUsernameFromMessageCorrectReturned)
 {
-    EXPECT_TRUE(true);
+    Message readMessage(*expectedReadMessage);
+    Message inviterMessage(*expectedInviterMessage);
+    Message recipientMessage(*expectedRecipientMessage);
+
+    std::string expectedUsername = "mnurzyns";
+
+    EXPECT_EQ(expectedUsername, readMessage.getTime());
+    EXPECT_EQ(expectedUsername, inviterMessage.getTime());
+    EXPECT_EQ(expectedUsername, recipientMessage.getTime());
 }
 
 TEST_F(MessageFixture, isContentFromMessageCorrectReturned)
