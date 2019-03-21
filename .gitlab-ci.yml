@@ -6,6 +6,7 @@ before_script:
  - ./create_enviroment.sh 
  - ./setup_ci.sh
  - export USER=ciGitlab
+ - export CXX=/usr/local/bin/g++
  - g++ --version
  - gcov --version
 
