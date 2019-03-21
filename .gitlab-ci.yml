@@ -7,6 +7,7 @@ before_script:
  - ./setup_ci.sh
  - export USER=ciGitlab
  - gcc --version
+ - gcov --version
 
 
 ############ MWOZNIAK BUILDS ############
@@ -33,14 +34,14 @@ CI_UT:
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
     - ./messenger_binary_UT
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
-    #- lcov --capture --directory .. --output-file coverage.info
-    #- lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
-    #- genhtml coverageWithoutUnnecessaryFiles.info --output-directory out
+    - lcov --capture --directory .. --output-file coverage.info
+    - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
+    - genhtml coverageWithoutUnnecessaryFiles.info --output-directory out
   artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      #- /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/out
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/out
       expire_in: 1 week  
 
 
