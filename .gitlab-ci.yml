@@ -1,4 +1,4 @@
-image: gcc:7.3.0
+image: gcc
 before_script:
  - export TERM=xterm-256color
  - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
@@ -6,7 +6,7 @@ before_script:
  - ./create_enviroment.sh 
  - ./setup_ci.sh
  - export USER=ciGitlab
- - gcc --version
+ - g++ --version
  - gcov --version
 
 
