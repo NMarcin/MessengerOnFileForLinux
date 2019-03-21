@@ -19,7 +19,7 @@ Message::Message(std::string fullMessageInRow)
 {
     log_.function("Message C-TOR longString");
     messageFlag_.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
-    time_.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 22 );
+    time_.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 23 );
     username_.append(    fullMessageInRow.begin() + 25, fullMessageInRow.begin() + 33 );
     content_.append(     fullMessageInRow.begin() + 35, fullMessageInRow.end()   - 1  );
 }
@@ -41,11 +41,11 @@ std::string Message::messageToSave() const
 bool Message::setMessageFlag(std::string messageFlag)
 {
     log_.function("Message::setMessageFlag()");
+    messageFlag_ = messageFlag;
     if(MessageFlag::inviterMessage == messageFlag || MessageFlag::recipientMessage == messageFlag)
     {
         std::string logData = "Message::setMessageFlag() messageFlag_ set as " + messageFlag;
         log_.info(logData);
-        messageFlag_ = messageFlag;
         return true;
     }
     else if (MessageFlag::readMessage == messageFlag)
