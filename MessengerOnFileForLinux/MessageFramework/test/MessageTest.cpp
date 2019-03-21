@@ -36,12 +36,22 @@ TEST_F(MessageFixture, isUsernameFromMessageCorrectReturned)
 
     std::string expectedUsername = "mnurzyns";
 
-    EXPECT_EQ(expectedUsername, readMessage.getTime());
-    EXPECT_EQ(expectedUsername, inviterMessage.getTime());
-    EXPECT_EQ(expectedUsername, recipientMessage.getTime());
+    EXPECT_EQ(expectedUsername, readMessage.getUsername());
+    EXPECT_EQ(expectedUsername, inviterMessage.getUsername());
+    EXPECT_EQ(expectedUsername, recipientMessage.getUsername());
 }
 
 TEST_F(MessageFixture, isContentFromMessageCorrectReturned)
 {
-    EXPECT_TRUE(true);
+    Message readMessage(*expectedReadMessage);
+    Message inviterMessage(*expectedInviterMessage);
+    Message recipientMessage(*expectedRecipientMessage);
+
+    std::string expectedReadContent = "test read message";
+    std::string expectedInviterContent = "test inviter message";
+    std::string expectedRecipientContent = "test recipient message";
+
+    EXPECT_EQ(expectedReadContent, readMessage.getContent());
+    EXPECT_EQ(expectedInviterContent, inviterMessage.getContent());
+    EXPECT_EQ(expectedRecipientContent, recipientMessage.getContent());
 }
