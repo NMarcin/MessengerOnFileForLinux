@@ -17,7 +17,15 @@ TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
 
 TEST_F(MessageFixture, isTimeFromMessageCorrectReturned)
 {
-    EXPECT_TRUE(true);
+    Message readMessage(*expectedReadMessage);
+    Message inviterMessage(*expectedInviterMessage);
+    Message recipientMessage(*expectedRecipientMessage);
+
+    std::string expectedTime = "2019-03-21 08:41:30";
+
+    EXPECT_EQ(expectedTime, readMessage.getTime());
+    EXPECT_EQ(expectedTime, inviterMessage.getTime());
+    EXPECT_EQ(expectedTime, recipientMessage.getTime());
 }
 
 TEST_F(MessageFixture, isUsernameFromMessageCorrectReturned)
