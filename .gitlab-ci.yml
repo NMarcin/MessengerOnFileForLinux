@@ -1,211 +1,204 @@
 image: gcc:7.3.0
 before_script:
- - export TERM=xterm-256color
- - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+ - cd ${PROJECT_DIR}/scripts/
  - ./create_enviroment.sh 
  - ./setup_ci.sh
- - export USER=ciGitlab
- - export CXX=/usr/local/bin/g++
 
 ############ MWOZNIAK BUILDS ############
-
 MWOZNIAK_BUILD:
   only:
     - mwozniak
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+    - mv ${PROJECT_DIR}/documentation/html/index.html ${PROJECT_DIR}/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      - ${PROJECT_DIR}/documentation
       expire_in: 1 week
 
 MWOZNIAK_UT:
   only:
     - mwozniak
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - cd ${PROJECT_DIR}/build/bin/
     - ./messenger_binary_UT
     - lcov --capture --directory .. --output-file coverage.info
     - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '/usr/local/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
     - genhtml coverageWithoutUnnecessaryFiles.info --output-directory ../../out
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/1_UtCoverageRaport.html
+    - mv ${PROJECT_DIR}/out/index.html ${PROJECT_DIR}/out/1_UtCoverageRaport.html
 
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      - ${PROJECT_DIR}/build/bin/Logger_default.txt
+      - ${PROJECT_DIR}/out
       expire_in: 1 week  
 
 MWOZNIAK_VALGRIND:
   only:
     - mwozniak
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - cd ${PROJECT_DIR}/build/
     - make valgrind
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      - ${PROJECT_DIR}/build/valgrindOutput.txt
       expire_in: 1 week
 
 MWOZNIAK_CLANG_TIDY:
   only:
     - mwozniak
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    - cd ${PROJECT_DIR}/build/
+    - python ../scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
+    - cd ${PROJECT_DIR}/scripts/
+    - bash check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      - ${PROJECT_DIR}/build/clangOutput.txt
       expire_in: 1 week
 
 ############ MNURZYNS BUILDS ############
-
 MNURZYNS_BUILD:
   only:
     - mnurzyns
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+    - mv ${PROJECT_DIR}/documentation/html/index.html ${PROJECT_DIR}/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      - ${PROJECT_DIR}/documentation
       expire_in: 1 week
 
 MNURZYNS_UT:
   only:
     - mnurzyns
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - cd ${PROJECT_DIR}/build/bin/
     - ./messenger_binary_UT
     - lcov --capture --directory .. --output-file coverage.info
     - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '/usr/local/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
     - genhtml coverageWithoutUnnecessaryFiles.info --output-directory ../../out
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/1_UtCoverageRaport.html
+    - mv ${PROJECT_DIR}/out/index.html ${PROJECT_DIR}/out/1_UtCoverageRaport.html
 
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      - ${PROJECT_DIR}/build/bin/Logger_default.txt
+      - ${PROJECT_DIR}/out
       expire_in: 1 week   
 
 MNURZYNS_VALGRIND:
   only:
     - mnurzyns
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - cd ${PROJECT_DIR}/build/
     - make valgrind
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      - ${PROJECT_DIR}/build/valgrindOutput.txt
       expire_in: 1 week
 
 MNURZYNS_CLANG_TIDY:
   only:
     - mnurzyns
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    - cd ${PROJECT_DIR}/build/
+    - python ../scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
+    - cd ${PROJECT_DIR}/scripts/
+    - bash check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      - ${PROJECT_DIR}/build/clangOutput.txt
       expire_in: 1 week
 
 ############ MASTER BUILDS ############
-
 MASTER_BUILD:
   only:
     - master
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+    - mv ${PROJECT_DIR}/documentation/html/index.html ${PROJECT_DIR}/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      - ${PROJECT_DIR}/documentation
       expire_in: 1 week
 
 MASTER_UT:
   only:
     - master
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
+    - cd ${PROJECT_DIR}/build/bin/
     - ./messenger_binary_UT
     - lcov --capture --directory .. --output-file coverage.info
     - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '/usr/local/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
     - genhtml coverageWithoutUnnecessaryFiles.info --output-directory ../../out
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/1_UtCoverageRaport.html
+    - mv ${PROJECT_DIR}/out/index.html ${PROJECT_DIR}/out/1_UtCoverageRaport.html
 
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      - ${PROJECT_DIR}/build/bin/Logger_default.txt
+      - ${PROJECT_DIR}/out
       expire_in: 1 week  
 
 MASTER_VALGRIND:
   only:
     - master
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
+    - cd ${PROJECT_DIR}/build/
     - make valgrind
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      - ${PROJECT_DIR}/build/valgrindOutput.txt
       expire_in: 1 week
 
 MASTER_CLANG_TIDY:
   only:
     - master
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd ${PROJECT_DIR}/scripts/
     - ./gcc_ci.sh 
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/
-    - python ../scripts/run-clang-tidy.py > /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
-    - bash check_clang-tidy_job_status.sh /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+    - cd ${PROJECT_DIR}/build/
+    - python ../scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
+    - cd ${PROJECT_DIR}/scripts/
+    - bash check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      - ${PROJECT_DIR}/build/clangOutput.txt
       expire_in: 1 week
-
 
