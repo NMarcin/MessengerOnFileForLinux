@@ -12,6 +12,7 @@ before_script:
  - echo "alias msg='/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux'" >> ~/.bashrc 
  - source ~/.bashrc 
  - cat ~/.bashrc 
+ - export MSSG=/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
 
 
 ############ MWOZNIAK BUILDS ############
@@ -20,9 +21,9 @@ CI_BUILD:
   only:
     - ciBranch
   script:
-    - cd msg/scripts/
+    - cd ${MSSG}/scripts/
     - ./gcc_ci.sh
-    - mv msg/documentation/html/index.html msg/documentation/html/1_DOCUMENTATION.html
+    - mv ${MSSG}/documentation/html/index.html msg/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
       paths:
