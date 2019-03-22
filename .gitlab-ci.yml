@@ -9,8 +9,9 @@ before_script:
  - export CXX=/usr/local/bin/g++
  - g++ --version
  - gcov --version
- - echo "alias msg='/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/'" >> ~/.bashrc 
+ - echo "alias msg='/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux'" >> ~/.bashrc 
  - source ~/.bashrc 
+ - cat ~/.bashrc 
 
 
 ############ MWOZNIAK BUILDS ############
