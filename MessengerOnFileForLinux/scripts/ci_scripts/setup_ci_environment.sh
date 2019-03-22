@@ -22,8 +22,4 @@ apt-get install --yes lcov
 easy_install pip
 pip install pyyaml
 
-#EXPORTS
-export USER=ciGitlab
-export CXX=/usr/local/bin/g++
-export PROJECT_DIR=/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
 
