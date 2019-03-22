@@ -11,11 +11,12 @@ apt-get install --yes graphviz
 apt-get install --yes lcov
 apt-get install --yes clang
 apt-get install --yes clang-tidy
+apt-get install --yes libyaml-dev
+apt-get install --yes python3-dev
+apt-get install --yes python-dev
+
 #PYTHON PACKAGES NEEDED FOR CLANG-TIDY
 apt-get update --yes
 apt-get install --yes python-setuptools
 easy_install pip
-apt-get install --yes libyaml-dev
-apt-get install --yes python3-dev
-apt-get install --yes python-dev
 pip install pyyaml
