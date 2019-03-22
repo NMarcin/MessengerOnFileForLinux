@@ -21,3 +21,4 @@ apt-get install --yes python-dev
 pip install pyyaml
 apt-get install --yes doxygen
 apt-get install --yes graphviz
+apt-get install --yes lcov
