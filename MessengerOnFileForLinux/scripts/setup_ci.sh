@@ -1,11 +1,12 @@
 #!/bin/bash
 apt-get update --yes
-wget http://www.cmake.org/files/v3.10/cmake-3.10.1.tar.gz
-tar -xvzf cmake-3.10.1.tar.gz
-cd cmake-3.10.1/
-./configure
-make 
-make install
+#wget http://www.cmake.org/files/v3.10/cmake-3.10.1.tar.gz
+#tar -xvzf cmake-3.10.1.tar.gz
+#cd cmake-3.10.1/
+#./configure
+#make 
+#make install
+apt-get install --yes cmake=3.10*
 apt-get update
 apt-get install --yes ncurses-dev
 apt install --yes libncurses5-dev libncursesw5-dev
