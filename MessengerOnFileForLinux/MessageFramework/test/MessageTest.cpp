@@ -15,6 +15,26 @@ TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
     EXPECT_EQ(*expectedRecipientMessage, recipientMessage.messageToSave());
 }
 
+TEST_F(MessageFixture, isMessageCorrectCreatedFromDeafultCopyCtor)
+{
+    const Message readMessage("[0][2019-03-21 08:41:30][mnurzyns][test read message]");
+    ASSERT_EQ(*expectedReadMessage, readMessage.messageToSave());
+
+    Message copiedMessage = readMessage;
+    EXPECT_EQ(readMessage.messageToSave(), copiedMessage.messageToSave());
+    EXPECT_EQ(*expectedReadMessage, copiedMessage.messageToSave());
+}
+
+TEST_F(MessageFixture, isMessageCorrectCreatedFromDeafultMoveCtor)
+{
+    Message readMessage("[0][2019-03-21 08:41:30][mnurzyns][test read message]");
+    ASSERT_EQ(*expectedReadMessage, readMessage.messageToSave());
+
+    Message movedMessage(std::move(readMessage));
+    EXPECT_NE(readMessage.messageToSave(), movedMessage.messageToSave());
+    EXPECT_EQ(*expectedReadMessage, movedMessage.messageToSave());
+}
+
 TEST_F(MessageFixture, isTimeFromMessageCorrectReturned)
 {
     const Message readMessage(*expectedReadMessage);
