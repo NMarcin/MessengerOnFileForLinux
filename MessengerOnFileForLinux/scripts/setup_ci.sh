@@ -6,7 +6,7 @@ apt-get update --yes
 #./configure
 #make 
 #make install
-apt-get install --yes cmake=3.10*
+apt-get install --yes cmake=3.1*
 apt-get update
 apt-get install --yes ncurses-dev
 apt install --yes libncurses5-dev libncursesw5-dev
