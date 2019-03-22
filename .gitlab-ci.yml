@@ -9,6 +9,8 @@ before_script:
  - export CXX=/usr/local/bin/g++
  - g++ --version
  - gcov --version
+ - echo "alias msg='/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/'" >> ~/.bashrc 
+ - source ~/.bashrc 
 
 
 ############ MWOZNIAK BUILDS ############
@@ -17,9 +19,9 @@ CI_BUILD:
   only:
     - ciBranch
   script:
-    - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/scripts/
+    - cd msg/scripts/
     - ./gcc_ci.sh
-    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation/html/1_DOCUMENTATION.html
+    - mv msg/documentation/html/index.html msg/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
       paths:
