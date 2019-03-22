@@ -1,8 +1,7 @@
 image: gcc:7.3.0
 before_script:
- - cd ${PROJECT_DIR}/scripts/
- - ./create_enviroment.sh 
- - ./setup_ci.sh
+ - ${PROJECT_DIR}/scripts/create_enviroment.sh 
+ - ${PROJECT_DIR}/scripts/ci_scripts/setup_ci_environment.sh
 
 ############ MWOZNIAK BUILDS ############
 MWOZNIAK_BUILD:
