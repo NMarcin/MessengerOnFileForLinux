@@ -13,10 +13,11 @@ apt-get install --yes ncurses-dev\
                       graphviz\
                       lcov\
                       clang\
-                      clang-tidy\
-                      python-setuptools
+                      clang-tidy
                       
-#PYTHON PACKAGES NEEDED FOR CLANG-TIDY                       
+#PYTHON PACKAGES NEEDED FOR CLANG-TIDY  
+apt-get update --yes
+apt-get install --yes python-setuptools
 easy_install pip
 apt-get install --yes libyaml-dev\
                       python3-dev\
