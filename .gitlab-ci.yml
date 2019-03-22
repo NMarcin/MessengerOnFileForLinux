@@ -5,6 +5,7 @@ before_script:
  - ./create_enviroment.sh 
  - ./setup_ci.sh
  - export USER=ciGitlab
+ - export CXX=/usr/local/bin/g++
 
 ############ MWOZNIAK BUILDS ############
 
@@ -29,10 +30,16 @@ MWOZNIAK_UT:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
     - ./messenger_binary_UT
+    - lcov --capture --directory .. --output-file coverage.info
+    - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '/usr/local/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
+    - genhtml coverageWithoutUnnecessaryFiles.info --output-directory ../../out
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/1_UtCoverageRaport.html
+
   artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
       expire_in: 1 week  
 
 MWOZNIAK_VALGRIND:
@@ -90,11 +97,17 @@ MNURZYNS_UT:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
     - ./messenger_binary_UT
+    - lcov --capture --directory .. --output-file coverage.info
+    - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '/usr/local/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
+    - genhtml coverageWithoutUnnecessaryFiles.info --output-directory ../../out
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/1_UtCoverageRaport.html
+
   artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      expire_in: 1 week  
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      expire_in: 1 week   
 
 MNURZYNS_VALGRIND:
   only:
@@ -151,10 +164,16 @@ MASTER_UT:
     - ./gcc_ci.sh 
     - cd /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/
     - ./messenger_binary_UT
+    - lcov --capture --directory .. --output-file coverage.info
+    - lcov --remove coverage.info '*Test*' '/usr/include/*' '/usr/lib/*' '/usr/local/*' '*googletest*' -o coverageWithoutUnnecessaryFiles.info
+    - genhtml coverageWithoutUnnecessaryFiles.info --output-directory ../../out
+    - mv /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/index.html /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out/1_UtCoverageRaport.html
+
   artifacts:
       when: always
       paths:
       - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
+      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
       expire_in: 1 week  
 
 MASTER_VALGRIND:
