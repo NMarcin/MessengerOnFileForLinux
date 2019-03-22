@@ -16,7 +16,7 @@ apt-get install --yes python3-dev
 apt-get install --yes python-dev
 
 #PYTHON PACKAGES NEEDED FOR CLANG-TIDY
-apt-get update --yes
+#apt-get update --yes
 apt-get install --yes python-setuptools
 easy_install pip
 pip install pyyaml
