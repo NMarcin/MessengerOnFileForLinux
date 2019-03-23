@@ -3,7 +3,7 @@ before_script:
  - export USER=ciGitlab
  - export CXX=/usr/local/bin/g++
  - export PROJECT_DIR=/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux
- - ${PROJECT_DIR}/scripts/create_enviroment.sh 
+ - ${PROJECT_DIR}/scripts/local_scripts/create_messenger_enviroment.sh 
  - ${PROJECT_DIR}/scripts/ci_scripts/setup_ci_environment.sh
 
 ############ MWOZNIAK BUILDS ############
@@ -11,8 +11,8 @@ MWOZNIAK_BUILD:
   only:
     - mwozniak
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - mv ${PROJECT_DIR}/documentation/html/index.html ${PROJECT_DIR}/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
@@ -24,8 +24,8 @@ MWOZNIAK_UT:
   only:
     - mwozniak
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/bin/
     - ./messenger_binary_UT
     - ${PROJECT_DIR}/scripts/ci_scripts/generate_ut_coverage_raport_ci.sh
@@ -40,12 +40,11 @@ MWOZNIAK_VALGRIND:
   only:
     - mwozniak
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/
     - make valgrind
-    - cd ${PROJECT_DIR}/scripts/
-    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
+    - bash ${PROJECT_DIR}/scripts/ci_scripts/check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
@@ -56,12 +55,12 @@ MWOZNIAK_CLANG_TIDY:
   only:
     - mwozniak
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/
-    - python ../scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
+    - python ../scripts/local_scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
     - cd ${PROJECT_DIR}/scripts/
-    - bash check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
+    - bash ${PROJECT_DIR}/scripts/ci_scripts/check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
   artifacts:
       when: always
       paths:
@@ -73,8 +72,8 @@ MNURZYNS_BUILD:
   only:
     - mnurzyns
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - mv ${PROJECT_DIR}/documentation/html/index.html ${PROJECT_DIR}/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
@@ -86,8 +85,8 @@ MNURZYNS_UT:
   only:
     - mnurzyns
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/bin/
     - ./messenger_binary_UT
     - ${PROJECT_DIR}/scripts/ci_scripts/generate_ut_coverage_raport_ci.sh
@@ -102,12 +101,11 @@ MNURZYNS_VALGRIND:
   only:
     - mnurzyns
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/
     - make valgrind
-    - cd ${PROJECT_DIR}/scripts/
-    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
+    - bash ${PROJECT_DIR}/scripts/ci_scripts/check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
@@ -118,12 +116,11 @@ MNURZYNS_CLANG_TIDY:
   only:
     - mnurzyns
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/
-    - python ../scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
-    - cd ${PROJECT_DIR}/scripts/
-    - bash check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
+    - python ../scripts/local_scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
+    - bash ${PROJECT_DIR}/scripts/ci_scripts/check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
   artifacts:
       when: always
       paths:
@@ -135,8 +132,8 @@ MASTER_BUILD:
   only:
     - master
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - mv ${PROJECT_DIR}/documentation/html/index.html ${PROJECT_DIR}/documentation/html/1_DOCUMENTATION.html
   artifacts:
       when: always
@@ -148,8 +145,8 @@ MASTER_UT:
   only:
     - master
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/bin/
     - ./messenger_binary_UT
     - ${PROJECT_DIR}/scripts/ci_scripts/generate_ut_coverage_raport_ci.sh
@@ -164,12 +161,11 @@ MASTER_VALGRIND:
   only:
     - master
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/
     - make valgrind
-    - cd ${PROJECT_DIR}/scripts/
-    - bash check_valgrind_job_status.sh ../build/valgrindOutput.txt
+    - bash ${PROJECT_DIR}/scripts/ci_scripts/check_valgrind_job_status.sh ../build/valgrindOutput.txt
   artifacts:
       when: always
       paths:
@@ -180,12 +176,11 @@ MASTER_CLANG_TIDY:
   only:
     - master
   script:
-    - cd ${PROJECT_DIR}/scripts/
-    - ./gcc_ci.sh 
+    - cd ${PROJECT_DIR}/scripts/ci_scripts
+    - compile_messenger_ci.sh
     - cd ${PROJECT_DIR}/build/
-    - python ../scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
-    - cd ${PROJECT_DIR}/scripts/
-    - bash check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
+    - python ../scripts/local_scripts/run-clang-tidy.py > ${PROJECT_DIR}/build/clangOutput.txt
+    - bash ${PROJECT_DIR}/scripts/ci_scripts/check_clang-tidy_job_status.sh ${PROJECT_DIR}/build/clangOutput.txt
   artifacts:
       when: always
       paths:
