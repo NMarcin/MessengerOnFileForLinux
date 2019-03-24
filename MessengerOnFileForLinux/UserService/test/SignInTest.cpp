@@ -1,4 +1,4 @@
-/*#include <gtest/gtest.h>
+#include <gtest/gtest.h>
 
 #include <SignInTestCore.hpp>
 
@@ -64,4 +64,4 @@ TEST_F(SignInTestFixture, isUserCorrectlyAddedToLoggedFile)
     EXPECT_EQ(expectedOutput, *userInfo);
     signOut.signOutUser();
 }
-*/
+
