@@ -18,7 +18,7 @@ MWOZNIAK_BUILD:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      - ${PROJECT_DIR}/documentation
       expire_in: 1 week
 
 MWOZNIAK_UT:
@@ -33,8 +33,8 @@ MWOZNIAK_UT:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      - ${PROJECT_DIR}/build/bin/Logger_default.txt
+      - ${PROJECT_DIR}/out
       expire_in: 1 week  
 
 MWOZNIAK_VALGRIND:
@@ -49,7 +49,7 @@ MWOZNIAK_VALGRIND:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      - ${PROJECT_DIR}/build/valgrindOutput.txt
       expire_in: 1 week
 
 MWOZNIAK_CLANG_TIDY:
@@ -65,7 +65,7 @@ MWOZNIAK_CLANG_TIDY:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      - ${PROJECT_DIR}/build/clangOutput.txt
       expire_in: 1 week
 
 ############ MNURZYNS BUILDS ############
@@ -79,7 +79,7 @@ MNURZYNS_BUILD:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      - ${PROJECT_DIR}/documentation
       expire_in: 1 week
 
 MNURZYNS_UT:
@@ -94,8 +94,8 @@ MNURZYNS_UT:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      - ${PROJECT_DIR}/build/bin/Logger_default.txt
+      - ${PROJECT_DIR}/out
       expire_in: 1 week   
 
 MNURZYNS_VALGRIND:
@@ -110,7 +110,7 @@ MNURZYNS_VALGRIND:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      - ${PROJECT_DIR}/build/valgrindOutput.txt
       expire_in: 1 week
 
 MNURZYNS_CLANG_TIDY:
@@ -125,7 +125,7 @@ MNURZYNS_CLANG_TIDY:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      - ${PROJECT_DIR}/build/clangOutput.txt
       expire_in: 1 week
 
 ############ MASTER BUILDS ############
@@ -139,7 +139,7 @@ MASTER_BUILD:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/documentation
+      - ${PROJECT_DIR}/documentation
       expire_in: 1 week
 
 MASTER_UT:
@@ -154,8 +154,8 @@ MASTER_UT:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/bin/Logger_default.txt
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/out
+      - ${PROJECT_DIR}/build/bin/Logger_default.txt
+      - ${PROJECT_DIR}/out
       expire_in: 1 week  
 
 MASTER_VALGRIND:
@@ -170,7 +170,7 @@ MASTER_VALGRIND:
   artifacts:
       when: always
       paths:
-      - /builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/valgrindOutput.txt
+      - ${PROJECT_DIR}/build/valgrindOutput.txt
       expire_in: 1 week
 
 MASTER_CLANG_TIDY:
@@ -185,6 +185,6 @@ MASTER_CLANG_TIDY:
   artifacts:
       when: always
       paths:
-      -/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux/build/clangOutput.txt
+      - ${PROJECT_DIR}/build/clangOutput.txt
       expire_in: 1 week
 
