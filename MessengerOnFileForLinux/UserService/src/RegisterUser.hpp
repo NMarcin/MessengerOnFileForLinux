@@ -22,8 +22,8 @@ private:
     bool comparePasswords(std::array<std::string, 2> passwords) const;
     bool isUserRegistered() const;
     std::string enterThePassword() const;
-    bool saveUserDataInRegisteredFile() const;
-    bool setUserPassword(const std::string & password) const;
+    bool saveUserDataInRegisteredFile(const std::string& password) const;
+    bool setUserPassword(std::string& password) const;
 
     Logger log_ {LogSpace::UserService};
 };
