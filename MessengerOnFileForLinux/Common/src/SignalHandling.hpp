@@ -14,4 +14,13 @@ namespace SignalHandling
                                                                                     SIGCONT,
                                                                                     SIGTERM,
                                                                                     0};
-}
+
+
+namespace NCurses
+{
+     void resizeHandlerInMainWindow(int signal);
+     void resizeHandlerInRegistrationWindow(int signal);
+     void resizeHandlerInSignInWindow(int signal);
+     void resizeHandlerInChatWindow(int signal);
+} //NCurses
+} //SignalHandling
