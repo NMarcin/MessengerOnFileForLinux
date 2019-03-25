@@ -31,7 +31,7 @@ void ConsoleWindow::displayRegistrationWindow()
     refresh();
 }
 
-void ConsoleWindow::displayLoggedWindow()
+void ConsoleWindow::displaySignInWindow()
 {
     clear();
     move(0,0);

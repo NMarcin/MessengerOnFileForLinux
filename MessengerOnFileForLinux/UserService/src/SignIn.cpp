@@ -28,7 +28,7 @@ std::string SignIn::enterThePassword() const
     log_.function("SignIn::enterThePassword() started");
     std::string password;
 
-    ConsoleWindow::displayLoggedWindow();
+    ConsoleWindow::displaySignInWindow();
     printw("Enter the password : ");
     refresh();
 
@@ -106,7 +106,7 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
         return true;
     }
 
-    ConsoleWindow::displayLoggedWindow();
+    ConsoleWindow::displaySignInWindow();
     printw("Incorrect password. Enter password again.");
     refresh();
     sleep(1);

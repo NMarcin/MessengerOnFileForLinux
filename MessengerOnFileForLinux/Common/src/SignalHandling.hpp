@@ -18,9 +18,9 @@ namespace SignalHandling
 
 namespace NCurses
 {
-     void resizeHandlerInMainWindow(int signal);
-     void resizeHandlerInRegistrationWindow(int signal);
-     void resizeHandlerInSignInWindow(int signal);
-     void resizeHandlerInChatWindow(int signal);
+     void resizeHandlerInMainWindow(int);
+     void resizeHandlerInRegistrationWindow(int);
+     void resizeHandlerInSignInWindow(int);
+     void resizeHandlerInChatWindow(int);
 } //NCurses
 } //SignalHandling

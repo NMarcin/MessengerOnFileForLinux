@@ -87,7 +87,7 @@ void createPosixSignalsHandling(void(*handlingFunction)(int))
 
 namespace NCurses
 {
-void resizeHandlerInMainWindow(int signal)
+void resizeHandlerInMainWindow(int)
 {
     fileLog("Console resize handled in main window", LogSpace::Common);
     endwin();
@@ -96,7 +96,7 @@ void resizeHandlerInMainWindow(int signal)
     ConsoleWindow::displayMainWindow();
 }
 
-void resizeHandlerInRegistrationWindow(int signal)
+void resizeHandlerInRegistrationWindow(int)
 {
     fileLog("Console resize handled in registration window", LogSpace::Common);
     endwin();
@@ -105,16 +105,16 @@ void resizeHandlerInRegistrationWindow(int signal)
     ConsoleWindow::displayRegistrationWindow();
 }
 
-void resizeHandlerInSignInWindow(int signal)
+void resizeHandlerInSignInWindow(int)
 {
     fileLog("Console resize handled in sign window", LogSpace::Common);
     endwin();
     refresh();
     clear();
-    ConsoleWindow::displayMainWindow();
+    ConsoleWindow::displaySignInWindow();
 }
 
-void resizeHandlerInChatWindow(int signal)
+void resizeHandlerInChatWindow(int)
 {
     fileLog("Console resize handled in chat window", LogSpace::Common);
     endwin();
