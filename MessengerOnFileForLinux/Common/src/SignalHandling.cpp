@@ -93,6 +93,7 @@ void resizeHandlerInMainWindow(int)
     endwin();
     refresh();
     clear();
+    initscr();
     ConsoleWindow::displayMainWindow();
 }
 

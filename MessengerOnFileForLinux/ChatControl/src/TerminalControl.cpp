@@ -5,10 +5,11 @@
 #include <GlobalVariables.hpp>
 #include <ConsoleWindow.hpp>
 #include <LocalUser.hpp>
+#include "SignalHandling.hpp"
 
 #include <iostream>
 #include <memory>
-
+#include <csignal>
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -30,6 +31,7 @@ bool TerminalControl::isInvitationExist = false;
 
 bool TerminalControl::waitingInTerminal()
 {
+    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInMainWindow);
     log_.function("TerminalControl::waitingInTerminal() started");
     clear();
     refresh();

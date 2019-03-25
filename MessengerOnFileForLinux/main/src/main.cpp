@@ -25,14 +25,13 @@ void mwozniak()
 {
     SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInMainConsole);
     RegisterUser registerUser;
-    SignIn signIn;
     registerUser.registerNewUser();
     clear();
     refresh();
+    SignIn signIn;
     signIn.signInUser();
     clear();
     refresh();
-    ConsoleWindow::displayMainWindow();
 
     Controler controler;
     controler.controlUserAction();

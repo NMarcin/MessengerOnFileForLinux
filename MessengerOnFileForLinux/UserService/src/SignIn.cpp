@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <ncurses.h>
+#include <csignal>
 
 #include <LocalUser.hpp>
 #include <SHA1.hpp>
@@ -10,10 +11,12 @@
 #include <GlobalVariables.hpp>
 #include <ConsoleWindow.hpp>
 #include <StringSum.hpp>
+#include "SignalHandling.hpp"
 
 SignIn::SignIn()
 {
     initscr();
+    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInSignInWindow);
     log_.function("SignIn C-TOR");
 }
 
