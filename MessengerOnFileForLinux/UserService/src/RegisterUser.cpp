@@ -93,23 +93,24 @@ bool RegisterUser::registerNewUser() const
         return false;
     }
 
-    std::array<std::string, 2> passwords;
+    constexpr int numberOfPasswordEntries = 2;
+    std::array<std::string, numberOfPasswordEntries> providedPasswords;
     bool isPasswordSetCorrectly = false;
     while (!isPasswordSetCorrectly)
     {
-        passwords = *askUserForPassword();
+        providedPasswords = *askUserForPassword();
 
-        if (comparePasswords(passwords))
+        if (comparePasswords(providedPasswords))
         {
-            isPasswordSetCorrectly = setUserPassword(passwords.front());
+            isPasswordSetCorrectly = setUserPassword(providedPasswords.front());
         }
     }
 
-    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile(passwords.front());
+    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile(providedPasswords.front());
     while (!isUserDataSavedCorrectly)
     {
         std::this_thread::sleep_for(std::chrono::microseconds(500));
-        isUserDataSavedCorrectly = saveUserDataInRegisteredFile(passwords.front());
+        isUserDataSavedCorrectly = saveUserDataInRegisteredFile(providedPasswords.front());
     }
 
     log_.info("RegisterUser::registerNewUser Registration completed successfully");
