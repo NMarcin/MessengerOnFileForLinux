@@ -44,16 +44,42 @@ void ConsoleWindow::displaySignInWindow()
 
 std::string ConsoleWindow::getStringFromConsoleWindow()
 {
-    std::string input;
-    nocbreak();
-    echo();
-    int ch = getch();
-    while ( ch != '\n' )
+    std::string output;
+    char enteredCharacter;
+    while (enteredCharacter != '\n')
     {
-        input.push_back( ch );
-        ch = getch();
+        constexpr int firstAsciiCharacter = 0;
+        constexpr int lastAsciiCharacter = 127;
+        constexpr int delInAsciiCode = 127;
+
+        enteredCharacter = getch();
+
+        if (firstAsciiCharacter <= enteredCharacter and
+            lastAsciiCharacter >= enteredCharacter and
+            '\n' != enteredCharacter)
+        {
+            if (delInAsciiCode == enteredCharacter)
+            {
+                deleteLastEnteredCharacter();
+            }
+            else
+            {
+                output += enteredCharacter;
+            }
+        }
     }
-    return input;
+    return output;
+}
+
+void ConsoleWindow::deleteLastEnteredCharacter()
+{
+    constexpr int deleteCharacterLenght = 3;
+    int cursorPositionX = 0, cursorPositionY = 0;
+
+    getyx(stdscr, cursorPositionY, cursorPositionX);
+    cursorPositionX -= deleteCharacterLenght;
+    mvprintw(cursorPositionY, cursorPositionX, std::string(deleteCharacterLenght, ' ').c_str());
+    move(cursorPositionY, cursorPositionX);
 }
 
 void ConsoleWindow::updateTerminalSize()

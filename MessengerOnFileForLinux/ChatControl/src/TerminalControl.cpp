@@ -31,14 +31,13 @@ bool TerminalControl::isInvitationExist = false;
 
 bool TerminalControl::waitingInTerminal()
 {
-    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInMainWindow);
     log_.function("TerminalControl::waitingInTerminal() started");
+    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInMainWindow);
     clear();
     refresh();
     ConsoleWindow::displayMainWindow();
-    char command[512];
-    getstr(command);
-    bool commandStatus = terminalFunctionality_.runCommand(std::string(command), chatInfo_);
+    const std::string command = ConsoleWindow::getStringFromConsoleWindow();
+    bool commandStatus = terminalFunctionality_.runCommand(command, chatInfo_);
     return commandStatus;
 }
 

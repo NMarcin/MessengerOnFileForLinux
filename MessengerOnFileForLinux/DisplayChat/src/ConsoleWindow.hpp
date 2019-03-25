@@ -16,5 +16,6 @@ namespace ConsoleWindow
     void displayRegistrationWindow();
     void displaySignInWindow();
     void updateTerminalSize();
+    void deleteLastEnteredCharacter();
     std::string getStringFromConsoleWindow();
 }
