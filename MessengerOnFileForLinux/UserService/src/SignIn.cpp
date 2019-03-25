@@ -29,12 +29,9 @@ SignIn::~SignIn()
 std::string SignIn::enterThePassword() const
 {
     log_.function("SignIn::enterThePassword() started");
-    std::string password;
-
     ConsoleWindow::displaySignInWindow();
-    printw("Enter the password : ");
-    refresh();
 
+    std::string password;
     std::cin >> password;
     return password;
 }

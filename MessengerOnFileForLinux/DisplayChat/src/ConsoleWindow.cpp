@@ -26,8 +26,9 @@ void ConsoleWindow::displayRegistrationWindow()
     move(0,0);
     printw("Hello ");
     printw(getenv("USER"));
-    printw(". You are using messenger first time. You need create account.");
+    printw(". You are using messenger first time. You need create account. Enter your password twice.");
     move(2,0);
+    printw("Enter the password : ");
     refresh();
 }
 
@@ -39,6 +40,7 @@ void ConsoleWindow::displaySignInWindow()
     printw(getenv("USER"));
     printw(". If you want use messenger, you need to log in.");
     move(2,0);
+    printw("Enter the password : ");
     refresh();
 }
 
