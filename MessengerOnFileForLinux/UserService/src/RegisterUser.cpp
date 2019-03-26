@@ -93,44 +93,46 @@ bool RegisterUser::registerNewUser() const
         return false;
     }
 
+    constexpr int numberOfPasswordEntries = 2;
+    std::array<std::string, numberOfPasswordEntries> providedPasswords;
     bool isPasswordSetCorrectly = false;
     while (!isPasswordSetCorrectly)
     {
-        std::array<std::string, 2> passwords = *askUserForPassword();
+        providedPasswords = *askUserForPassword();
 
-        if (comparePasswords(passwords))
+        if (comparePasswords(providedPasswords))
         {
-            isPasswordSetCorrectly = setUserPassword(passwords.front());
+            isPasswordSetCorrectly = setUserPassword(providedPasswords.front());
         }
     }
 
-    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
+    bool isUserDataSavedCorrectly = saveUserDataInRegisteredFile(providedPasswords.front());
     while (!isUserDataSavedCorrectly)
     {
         std::this_thread::sleep_for(std::chrono::microseconds(500));
-        isUserDataSavedCorrectly = saveUserDataInRegisteredFile();
+        isUserDataSavedCorrectly = saveUserDataInRegisteredFile(providedPasswords.front());
     }
 
     log_.info("RegisterUser::registerNewUser Registration completed successfully");
     return true;
 }
 
-bool RegisterUser::setUserPassword(const std::string& password) const
+bool RegisterUser::setUserPassword(std::string& password) const
 {
     log_.function("RegisterUser::setUserPassword() started");
 
     SHA1 hashObject;
     hashObject.update(password);
-    LocalUser::getLocalUser().setPassword(hashObject.final());
+    password = hashObject.final();
     return true;
 }
 
-bool RegisterUser::saveUserDataInRegisteredFile() const
+bool RegisterUser::saveUserDataInRegisteredFile(const std::string& password) const
 {
     log_.function("RegisterUser::saveUserDataInRegisteredFile() started");
 
     StringSumSquareBrackets information;
     information.sum(LocalUser::getLocalUser().getUsername());
-    information.sum(LocalUser::getLocalUser().getPassword());
+    information.sum(password);
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, information.getSumedString());
 }

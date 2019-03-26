@@ -1,5 +1,6 @@
 image: gcc:7.3.0
 before_script:
+ - export TERM=xterm-256color
  - export USER=ciGitlab
  - export CXX=/usr/local/bin/g++
  - export PROJECT_DIR=/builds/NMarcin/MessengerOnFileForLinux/MessengerOnFileForLinux

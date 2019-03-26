@@ -1,4 +1,4 @@
-/*#include <gtest/gtest.h>
+#include <gtest/gtest.h>
 
 #include <SignInTestCore.hpp>
 
@@ -21,7 +21,7 @@ TEST_F(SignInTestFixture, signInUnregisteredUser)
     EXPECT_TRUE(signIn.signInUser());
     std::string rowBuff = *FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
     signOut.signOutUser();
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, user);
     EXPECT_FALSE(signIn.signInUser());
     FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, rowBuff);
 }
@@ -64,4 +64,4 @@ TEST_F(SignInTestFixture, isUserCorrectlyAddedToLoggedFile)
     EXPECT_EQ(expectedOutput, *userInfo);
     signOut.signOutUser();
 }
-*/
+
