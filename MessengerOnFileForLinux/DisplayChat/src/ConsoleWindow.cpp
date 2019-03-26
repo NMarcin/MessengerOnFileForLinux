@@ -47,7 +47,7 @@ void ConsoleWindow::displaySignInWindow()
 std::string ConsoleWindow::getStringFromConsoleWindow()
 {
     std::string output;
-    char enteredCharacter;
+    char enteredCharacter{};
     while (enteredCharacter != '\n')
     {
         constexpr int firstAsciiCharacter = 0;
