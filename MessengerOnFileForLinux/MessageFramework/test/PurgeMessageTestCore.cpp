@@ -2,22 +2,9 @@
 
 #include <PurgeMessageTestCore.hpp>
 
-PurgeMessageFixture::PurgeMessageFixture()
-{
-    // to implement
-}
-
 void PurgeMessageFixture::SetUp()
 {
-        // to implement
-}
-
-void PurgeMessageFixture::TearDown()
-{
-    // to implement
-}
-
-PurgeMessageFixture::~PurgeMessageFixture()
-{
-    // to implement
+    expectedPurgeMessage = std::make_unique<std::string>("[08:41][mnurzyns][test message]");
+    message = std::make_unique<Message>("[0][2019-03-21 08:41:30][mnurzyns][test message]");
+    ASSERT_EQ(message->messageToSave(), "[0][2019-03-21 08:41:30][mnurzyns][test message]");
 }

@@ -6,9 +6,11 @@
 class PurgeMessageFixture : public ::testing::Test
 {
 public:
-    PurgeMessageFixture();
+    PurgeMessageFixture() = default;
     void SetUp();
-    void TearDown();
-    ~PurgeMessageFixture();
+    void TearDown() {}
+    ~PurgeMessageFixture() = default;
 
+    std::unique_ptr<std::string> expectedPurgeMessage;
+    std::unique_ptr<Message> message;
 };
