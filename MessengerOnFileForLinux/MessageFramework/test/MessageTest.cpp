@@ -99,4 +99,19 @@ TEST_F(MessageFixture, isContentFromMessageCorrectReturned)
     EXPECT_EQ(expectedReadContent, readMessage.getContent());
     EXPECT_EQ(expectedInviterContent, inviterMessage.getContent());
     EXPECT_EQ(expectedRecipientContent, recipientMessage.getContent());
+ }
+
+
+TEST_F(MessageFixture, isIncorrectedMessageFlagDoesNotProvideErrors)
+{
+    const Message message("[p][2019-03-21 08:41:30][mnurzyns][test message]");
+
+    EXPECT_EQ("[p][2019-03-21 08:41:30][mnurzyns][test message]", message.messageToSave());
+}
+
+TEST_F(MessageFixture, isIncorrectedContentDoesNotProvideErrors)
+{
+    const Message message("[0][2019-03-21 08:41:30][mnurzyns][//end]");
+
+    EXPECT_EQ("//end", message.getContent());
 }
