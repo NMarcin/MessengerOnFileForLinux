@@ -5,13 +5,17 @@
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
 {
-         const std::regex regexReadMessage("\\[0]\\[([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test read message]");
-      const std::regex regexInviterMessage("\\[1]\\[([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test inviter message]");
-    const std::regex regexRecipientMessage("\\[2]\\[([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test recipient message]");
+         const std::regex regexReadMessage("\\[0]\\[20([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test read message]");
+      const std::regex regexInviterMessage("\\[1]\\[20([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test inviter message]");
+    const std::regex regexRecipientMessage("\\[2]\\[20([0-9]{2})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test recipient message]");
 
     std::smatch matcherRead;
     std::smatch matcherInviter;
     std::smatch matcherRecipient;
+
+    Message readMessage("0", "mnurzyns", "test read message");
+    Message inviterMessage("1", "mnurzyns", "test inviter message");
+    Message recipientMessage("2", "mnurzyns", "test recipient message");
 
     const std::string strReadMessage = readMessage.messageToSave();
     const std::string strInviterMessage = inviterMessage.messageToSave();
