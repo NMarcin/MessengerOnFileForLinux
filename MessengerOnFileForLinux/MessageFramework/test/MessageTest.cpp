@@ -21,10 +21,6 @@ TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
     const std::string strInviterMessage = inviterMessage.messageToSave();
     const std::string strRecipientMessage = recipientMessage.messageToSave();
 
-    std::cout << strReadMessage << std::endl;
-    std::cout << strInviterMessage << std::endl;
-    std::cout << strRecipientMessage << std::endl;
-
     EXPECT_TRUE(std::regex_match(strReadMessage, matcherRead, regexReadMessage));
     EXPECT_TRUE(std::regex_match(strInviterMessage, matcherInviter, regexInviterMessage));
     EXPECT_TRUE(std::regex_match(strRecipientMessage, matcherRecipient, regexRecipientMessage));
@@ -32,12 +28,9 @@ TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromFullMessageInRow)
 {
-    const Message readMessage("[0][2019-03-21 08:41:30][mnurzyns][test read message]");
-    const Message inviterMessage("[1][2019-03-21 08:41:30][mnurzyns][test inviter message]");
-    const Message recipientMessage("[2][2019-03-21 08:41:30][mnurzyns][test recipient message]");
-    EXPECT_EQ(*expectedReadMessage, readMessage.messageToSave());
-    EXPECT_EQ(*expectedInviterMessage, inviterMessage.messageToSave());
-    EXPECT_EQ(*expectedRecipientMessage, recipientMessage.messageToSave());
+    comparingExpectedMessageWithCreatedFromFullString(*expectedReadMessage);
+    comparingExpectedMessageWithCreatedFromFullString(*expectedInviterMessage);
+    comparingExpectedMessageWithCreatedFromFullString(*expectedRecipientMessage);
 }
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromDeafultCopyCtor)
@@ -62,44 +55,24 @@ TEST_F(MessageFixture, isMessageCorrectCreatedFromDeafultMoveCtor)
 
 TEST_F(MessageFixture, isTimeFromMessageCorrectReturned)
 {
-    const Message readMessage(*expectedReadMessage);
-    const Message inviterMessage(*expectedInviterMessage);
-    const Message recipientMessage(*expectedRecipientMessage);
-
-    const std::string expectedTime = "2019-03-21 08:41:30";
-
-    EXPECT_EQ(expectedTime, readMessage.getTime());
-    EXPECT_EQ(expectedTime, inviterMessage.getTime());
-    EXPECT_EQ(expectedTime, recipientMessage.getTime());
+    comparingExpectedTimeWithTimeFromMessage(*expectedReadMessage);
+    comparingExpectedTimeWithTimeFromMessage(*expectedInviterMessage);
+    comparingExpectedTimeWithTimeFromMessage(*expectedRecipientMessage);
 }
 
 TEST_F(MessageFixture, isUsernameFromMessageCorrectReturned)
 {
-    const Message readMessage(*expectedReadMessage);
-    const Message inviterMessage(*expectedInviterMessage);
-    const Message recipientMessage(*expectedRecipientMessage);
-
-    const std::string expectedUsername = "mnurzyns";
-
-    EXPECT_EQ(expectedUsername, readMessage.getUsername());
-    EXPECT_EQ(expectedUsername, inviterMessage.getUsername());
-    EXPECT_EQ(expectedUsername, recipientMessage.getUsername());
+    comparingExpectedUsernameWithUsernameFromMessage(*expectedReadMessage);
+    comparingExpectedUsernameWithUsernameFromMessage(*expectedInviterMessage);
+    comparingExpectedUsernameWithUsernameFromMessage(*expectedRecipientMessage);
 }
 
 TEST_F(MessageFixture, isContentFromMessageCorrectReturned)
 {
-    const Message readMessage(*expectedReadMessage);
-    const Message inviterMessage(*expectedInviterMessage);
-    const Message recipientMessage(*expectedRecipientMessage);
-
-    const std::string expectedReadContent = "test read message";
-    const std::string expectedInviterContent = "test inviter message";
-    const std::string expectedRecipientContent = "test recipient message";
-
-    EXPECT_EQ(expectedReadContent, readMessage.getContent());
-    EXPECT_EQ(expectedInviterContent, inviterMessage.getContent());
-    EXPECT_EQ(expectedRecipientContent, recipientMessage.getContent());
- }
+    comparingExpectedContentWithContentFromMessage(*expectedReadMessage, "read");
+    comparingExpectedContentWithContentFromMessage(*expectedInviterMessage, "inviter");
+    comparingExpectedContentWithContentFromMessage(*expectedRecipientMessage, "recipient");
+}
 
 
 TEST_F(MessageFixture, isIncorrectedMessageFlagDoesNotProvideErrors)

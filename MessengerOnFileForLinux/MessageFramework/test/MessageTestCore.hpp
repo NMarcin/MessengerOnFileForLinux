@@ -12,7 +12,12 @@ public:
     void TearDown() {};
     ~MessageFixture() = default;
 
-        std::unique_ptr<std::string> expectedReadMessage;
-        std::unique_ptr<std::string> expectedInviterMessage;
-        std::unique_ptr<std::string> expectedRecipientMessage;
+    void comparingExpectedMessageWithCreatedFromFullString(std::string expectedMessage);
+    void comparingExpectedTimeWithTimeFromMessage(std::string expectedMessage);
+    void comparingExpectedUsernameWithUsernameFromMessage(std::string expectedMessage);
+    void comparingExpectedContentWithContentFromMessage(std::string expectedMessage, std::string messageKind);
+
+    std::unique_ptr<std::string> expectedReadMessage;
+    std::unique_ptr<std::string> expectedInviterMessage;
+    std::unique_ptr<std::string> expectedRecipientMessage;
 };
