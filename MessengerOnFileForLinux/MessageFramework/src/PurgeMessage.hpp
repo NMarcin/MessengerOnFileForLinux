@@ -2,7 +2,7 @@
 
 #include <Message.hpp>
 
-class PurgeMessage : public Message
+class PurgeMessage : protected Message
 {
 public:
     std::string messageToShow() const;
