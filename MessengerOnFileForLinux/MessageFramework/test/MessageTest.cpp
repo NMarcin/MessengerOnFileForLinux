@@ -1,11 +1,32 @@
 #include <MessageTestCore.hpp>
-
-TEST_F(MessageFixture, isMessageCorrectCreatedFromFullMessageInRow)
-{
-    EXPECT_TRUE(true);
-}
+#include <regex>
+#include <cstring>
+#include <iostream>
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
+{
+         const std::regex regexReadMessage("\\[0]\\[([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test read message]");
+      const std::regex regexInviterMessage("\\[1]\\[([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test inviter message]");
+    const std::regex regexRecipientMessage("\\[2]\\[([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})]\\[mnurzyns]\\[test recipient message]");
+
+    std::smatch matcherRead;
+    std::smatch matcherInviter;
+    std::smatch matcherRecipient;
+
+    const std::string strReadMessage = readMessage.messageToSave();
+    const std::string strInviterMessage = inviterMessage.messageToSave();
+    const std::string strRecipientMessage = recipientMessage.messageToSave();
+
+    std::cout << strReadMessage << std::endl;
+    std::cout << strInviterMessage << std::endl;
+    std::cout << strRecipientMessage << std::endl;
+
+    EXPECT_TRUE(std::regex_match(strReadMessage, matcherRead, regexReadMessage));
+    EXPECT_TRUE(std::regex_match(strInviterMessage, matcherInviter, regexInviterMessage));
+    EXPECT_TRUE(std::regex_match(strRecipientMessage, matcherRecipient, regexRecipientMessage));
+}
+
+TEST_F(MessageFixture, isMessageCorrectCreatedFromFullMessageInRow)
 {
     const Message readMessage("[0][2019-03-21 08:41:30][mnurzyns][test read message]");
     const Message inviterMessage("[1][2019-03-21 08:41:30][mnurzyns][test inviter message]");
