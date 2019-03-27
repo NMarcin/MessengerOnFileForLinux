@@ -2,7 +2,7 @@
 rm Logger_default.txt
 
 user[0]=mawoznia
-user[1]=oskierko
+user[1]=mnurzyns
 user[2]=andrzej
 user[3]=zbyszek
 user[4]=kamil
