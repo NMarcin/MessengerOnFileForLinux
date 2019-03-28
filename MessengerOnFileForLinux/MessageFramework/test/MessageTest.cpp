@@ -28,50 +28,50 @@ TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromFullMessageInRow)
 {
-    comparingExpectedMessageWithCreatedFromFullString(*expectedReadMessage);
-    comparingExpectedMessageWithCreatedFromFullString(*expectedInviterMessage);
-    comparingExpectedMessageWithCreatedFromFullString(*expectedRecipientMessage);
+    comparingExpectedMessageWithCreatedFromFullString(*_expectedReadMessage);
+    comparingExpectedMessageWithCreatedFromFullString(*_expectedInviterMessage);
+    comparingExpectedMessageWithCreatedFromFullString(*_expectedRecipientMessage);
 }
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromDeafultCopyCtor)
 {
     const Message readMessage("[0][2019-03-21 08:41:30][mnurzyns][test read message]");
-    ASSERT_EQ(*expectedReadMessage, readMessage.messageToSave());
+    ASSERT_EQ(*_expectedReadMessage, readMessage.messageToSave());
 
     Message copiedMessage = readMessage;
     EXPECT_EQ(readMessage.messageToSave(), copiedMessage.messageToSave());
-    EXPECT_EQ(*expectedReadMessage, copiedMessage.messageToSave());
+    EXPECT_EQ(*_expectedReadMessage, copiedMessage.messageToSave());
 }
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromDeafultMoveCtor)
 {
     Message readMessage("[0][2019-03-21 08:41:30][mnurzyns][test read message]");
-    ASSERT_EQ(*expectedReadMessage, readMessage.messageToSave());
+    ASSERT_EQ(*_expectedReadMessage, readMessage.messageToSave());
 
     Message movedMessage(std::move(readMessage));
     EXPECT_NE(readMessage.messageToSave(), movedMessage.messageToSave());
-    EXPECT_EQ(*expectedReadMessage, movedMessage.messageToSave());
+    EXPECT_EQ(*_expectedReadMessage, movedMessage.messageToSave());
 }
 
 TEST_F(MessageFixture, isTimeFromMessageCorrectReturned)
 {
-    comparingExpectedTimeWithTimeFromMessage(*expectedReadMessage);
-    comparingExpectedTimeWithTimeFromMessage(*expectedInviterMessage);
-    comparingExpectedTimeWithTimeFromMessage(*expectedRecipientMessage);
+    comparingExpectedTimeWithTimeFromMessage(*_expectedReadMessage);
+    comparingExpectedTimeWithTimeFromMessage(*_expectedInviterMessage);
+    comparingExpectedTimeWithTimeFromMessage(*_expectedRecipientMessage);
 }
 
 TEST_F(MessageFixture, isUsernameFromMessageCorrectReturned)
 {
-    comparingExpectedUsernameWithUsernameFromMessage(*expectedReadMessage);
-    comparingExpectedUsernameWithUsernameFromMessage(*expectedInviterMessage);
-    comparingExpectedUsernameWithUsernameFromMessage(*expectedRecipientMessage);
+    comparingExpectedUsernameWithUsernameFromMessage(*_expectedReadMessage);
+    comparingExpectedUsernameWithUsernameFromMessage(*_expectedInviterMessage);
+    comparingExpectedUsernameWithUsernameFromMessage(*_expectedRecipientMessage);
 }
 
 TEST_F(MessageFixture, isContentFromMessageCorrectReturned)
 {
-    comparingExpectedContentWithContentFromMessage(*expectedReadMessage, "read");
-    comparingExpectedContentWithContentFromMessage(*expectedInviterMessage, "inviter");
-    comparingExpectedContentWithContentFromMessage(*expectedRecipientMessage, "recipient");
+    comparingExpectedContentWithContentFromMessage(*_expectedReadMessage, "read");
+    comparingExpectedContentWithContentFromMessage(*_expectedInviterMessage, "inviter");
+    comparingExpectedContentWithContentFromMessage(*_expectedRecipientMessage, "recipient");
 }
 
 
