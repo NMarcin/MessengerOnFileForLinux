@@ -17,7 +17,7 @@ public:
     void comparingExpectedUsernameWithUsernameFromMessage(std::string expectedMessage);
     void comparingExpectedContentWithContentFromMessage(std::string expectedMessage, std::string messageKind);
 
-    std::unique_ptr<std::string> expectedReadMessage;
-    std::unique_ptr<std::string> expectedInviterMessage;
-    std::unique_ptr<std::string> expectedRecipientMessage;
+    std::unique_ptr<std::string> _expectedReadMessage;
+    std::unique_ptr<std::string> _expectedInviterMessage;
+    std::unique_ptr<std::string> _expectedRecipientMessage;
 };

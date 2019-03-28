@@ -11,6 +11,6 @@ public:
     void TearDown() {}
     ~PurgeMessageFixture() = default;
 
-    std::unique_ptr<std::string> expectedPurgeMessage;
-    std::unique_ptr<Message> message;
+    std::unique_ptr<std::string> _expectedPurgeMessage;
+    std::unique_ptr<Message> _message;
 };
