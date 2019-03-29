@@ -47,20 +47,20 @@ void ConsoleWindow::displaySignInWindow()
 std::string ConsoleWindow::getStringFromConsoleWindow()
 {
     std::string output;
-    char enteredCharacter{};
-    while (enteredCharacter != '\n')
+    char enteredCharacter {};
+    while ('\n' != enteredCharacter)
     {
-        constexpr int firstAsciiCharacter = 0;
-        constexpr int lastAsciiCharacter = 127;
-        constexpr int delInAsciiCode = 127;
+        constexpr int firstCharacterInAsciiCode = 0;
+        constexpr int lastCharacterInAsciiCode = 127;
+        constexpr int delCharacterInAsciiCode = 127;
 
         enteredCharacter = getch();
 
-        if (firstAsciiCharacter <= enteredCharacter and
-            lastAsciiCharacter >= enteredCharacter and
+        if (firstCharacterInAsciiCode <= enteredCharacter and
+            lastCharacterInAsciiCode >= enteredCharacter and
             '\n' != enteredCharacter)
         {
-            if (delInAsciiCode == enteredCharacter)
+            if (delCharacterInAsciiCode == enteredCharacter)
             {
                 deleteLastEnteredCharacter();
             }
@@ -76,7 +76,8 @@ std::string ConsoleWindow::getStringFromConsoleWindow()
 void ConsoleWindow::deleteLastEnteredCharacter()
 {
     constexpr int deleteCharacterLenght = 3;
-    int cursorPositionX = 0, cursorPositionY = 0;
+    int cursorPositionX = 0;
+    int cursorPositionY = 0;
 
     getyx(stdscr, cursorPositionY, cursorPositionX);
     cursorPositionX -= deleteCharacterLenght;
