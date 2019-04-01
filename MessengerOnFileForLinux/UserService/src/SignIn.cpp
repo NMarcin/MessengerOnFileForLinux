@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <ncurses.h>
+#include <csignal>
 
 #include <LocalUser.hpp>
 #include <SHA1.hpp>
@@ -10,10 +11,12 @@
 #include <GlobalVariables.hpp>
 #include <ConsoleWindow.hpp>
 #include <StringSum.hpp>
+#include "SignalHandling.hpp"
 
 SignIn::SignIn()
 {
     initscr();
+    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInSignInWindow);
     log_.function("SignIn C-TOR");
 }
 
@@ -26,12 +29,9 @@ SignIn::~SignIn()
 std::string SignIn::enterThePassword() const
 {
     log_.function("SignIn::enterThePassword() started");
+    ConsoleWindow::displaySignInWindow();
+
     std::string password;
-
-    ConsoleWindow::displayLoggedWindow();
-    printw("Enter the password : ");
-    refresh();
-
     std::cin >> password;
     return password;
 }
@@ -106,7 +106,7 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
         return true;
     }
 
-    ConsoleWindow::displayLoggedWindow();
+    ConsoleWindow::displaySignInWindow();
     printw("Incorrect password. Enter password again.");
     refresh();
     sleep(1);

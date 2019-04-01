@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <ncurses.h>
+#include <csignal>
 
 #include <RegisterUser.hpp>
 #include <LocalUser.hpp>
@@ -10,10 +11,12 @@
 #include <SHA1.hpp>
 #include <ConsoleWindow.hpp>
 #include <StringSum.hpp>
+#include "SignalHandling.hpp"
 
 RegisterUser::RegisterUser()
 {
     initscr();
+    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInRegistrationWindow);
     log_.function("RegisterUser C-TOR");
 }
 
@@ -28,12 +31,6 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
     log_.function("RegisterUser::askUserForPassword() started");
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
-
-    ConsoleWindow::displayRegistrationWindow();
-    printw("Enter the password again. ");
-    refresh();
-    sleep(1);
-
     passwords->back() = enterThePassword();
 
     return passwords;
@@ -42,10 +39,9 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 std::string RegisterUser::enterThePassword() const
 {
     log_.function("RegisterUser::enterThePassword() started");
-    std::string password;
     ConsoleWindow::displayRegistrationWindow();
-    printw("Enter the password : ");
-    refresh();
+
+    std::string password;
     std::cin >> password;
     return password;
 }
