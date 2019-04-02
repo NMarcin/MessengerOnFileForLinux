@@ -1,5 +1,3 @@
-#include <thread>
-
 #include <PurgeMessageTestCore.hpp>
 
 void PurgeMessageFixture::SetUp()
