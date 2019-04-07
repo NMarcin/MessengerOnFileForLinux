@@ -5,5 +5,5 @@
 class InformationPrinter
 {
 public:
-    virtual void printInformation(const std::string&) const = 0;
+    void printInformation(const std::string&) const;
 };
