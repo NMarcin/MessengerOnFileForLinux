@@ -30,7 +30,7 @@ SignIn::~SignIn()
 std::string SignIn::enterThePassword() const
 {
     log_.function("SignIn::enterThePassword() started");
-    ConsoleWindow::displaySignInWindow();
+    _informationPrinter.printSignInWindow();
 
     std::string password;
     std::cin >> password;
@@ -107,10 +107,8 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
         return true;
     }
 
-    ConsoleWindow::displaySignInWindow();
-    printw("Incorrect password. Enter password again.");
-    refresh();
-    sleep(1);
+    _informationPrinter.printSignInWindow();
+    _informationPrinter.printInformation("Incorrect password. Enter password again.");
 
     log_.info("SignIn::isPasswordCorrect WARNING: Incorect password");
     return false;
