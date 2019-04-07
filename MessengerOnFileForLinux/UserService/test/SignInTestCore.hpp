@@ -20,4 +20,5 @@ public:
     SignIn signIn;
     SignOut signOut;
     RegisterUser registerUser;
+    InformationPrinter informationPrinter;
 };

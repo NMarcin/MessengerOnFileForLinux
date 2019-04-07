@@ -1,6 +1,7 @@
 #include <SignInTestCore.hpp>
 
 SignInTestFixture::SignInTestFixture()
+    : signIn(informationPrinter)
 {
     //NOOP
 }

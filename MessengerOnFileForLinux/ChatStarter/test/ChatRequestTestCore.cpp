@@ -5,7 +5,7 @@
 #include <SignOut.hpp>
 #include <RegisterUser.hpp>
 #include <GlobalVariables.hpp>
-
+#include "InformationPrinter.hpp"
 
 ChatRequestFixture::ChatRequestFixture()
 {
@@ -20,7 +20,8 @@ void ChatRequestFixture::SetUp()
     RegisterUser registerUser;
     registerUser.registerNewUser();
 
-    SignIn signIn;
+    InformationPrinter informationPrinter;
+    SignIn signIn(informationPrinter);
     signIn.signInUser();
 }
 

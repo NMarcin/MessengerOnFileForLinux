@@ -13,7 +13,8 @@
 #include <StringSum.hpp>
 #include "SignalHandling.hpp"
 
-SignIn::SignIn()
+SignIn::SignIn(const InformationPrinter& informationPrinter)
+    : _informationPrinter(informationPrinter)
 {
     initscr();
     std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInSignInWindow);

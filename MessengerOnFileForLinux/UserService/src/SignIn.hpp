@@ -3,14 +3,16 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include "InformationPrinter.hpp"
 
 class SignIn
 {
 public:
     bool signInUser() const;
-    SignIn();
+    SignIn(const InformationPrinter&);
     ~SignIn();
 
+    SignIn() = delete;
     SignIn(SignIn &&) = delete;
     SignIn operator=(SignIn &&) = delete;
     SignIn(const SignIn &) = delete;
@@ -23,5 +25,6 @@ private:
     bool setUserDataInLoggedFile() const;
     std::string enterThePassword() const;
 
+    const InformationPrinter& _informationPrinter;
     Logger log_ {LogSpace::UserService};
 };
