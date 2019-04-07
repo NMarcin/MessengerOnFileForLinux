@@ -40,7 +40,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 std::string RegisterUser::enterThePassword() const
 {
     log_.function("RegisterUser::enterThePassword() started");
-    ConsoleWindow::displayRegistrationWindow();
+    _informationPrinter.printRegistrationWindow();
 
     std::string password;
     std::cin >> password;
@@ -58,10 +58,9 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
     }
 
     log_.info("RegisterUser::comparePassword() failure");
-    ConsoleWindow::displayRegistrationWindow();
-    printw("The passwords are differnet. Enter passwords one more time.");
-    refresh();
-    sleep(1);
+    _informationPrinter.printRegistrationWindow();
+    _informationPrinter.printInformation("The passwords are differnet. Enter passwords one more time.");
+
     return false;
 }
 
