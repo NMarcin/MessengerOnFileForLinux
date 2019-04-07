@@ -18,18 +18,18 @@ RegisterUser::RegisterUser(const InformationPrinter& informationPrinter)
 {
     initscr();
     std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInRegistrationWindow);
-    log_.function("RegisterUser C-TOR");
+    _log.function("RegisterUser C-TOR");
 }
 
 RegisterUser::~RegisterUser()
 {
     endwin();
-    log_.function("RegisterUser D-TOR");
+    _log.function("RegisterUser D-TOR");
 }
 
 std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() const
 {
-    log_.function("RegisterUser::askUserForPassword() started");
+    _log.function("RegisterUser::askUserForPassword() started");
     std::unique_ptr<std::array<std::string, 2>> passwords = std::make_unique<std::array<std::string, 2>>();
     passwords->front() = enterThePassword();
     passwords->back() = enterThePassword();
@@ -39,7 +39,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 
 std::string RegisterUser::enterThePassword() const
 {
-    log_.function("RegisterUser::enterThePassword() started");
+    _log.function("RegisterUser::enterThePassword() started");
     _informationPrinter.printRegistrationWindow();
 
     std::string password;
@@ -50,14 +50,14 @@ std::string RegisterUser::enterThePassword() const
 
 bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 {
-    log_.function("RegisterUser::comparePasswords() started");
+    _log.function("RegisterUser::comparePasswords() started");
     if(passwords.front() == passwords.back())
     {
-        log_.info("RegisterUser::comparePassword() success");
+        _log.info("RegisterUser::comparePassword() success");
         return true;
     }
 
-    log_.info("RegisterUser::comparePassword() failure");
+    _log.info("RegisterUser::comparePassword() failure");
     _informationPrinter.printRegistrationWindow();
     _informationPrinter.printInformation("The passwords are differnet. Enter passwords one more time.");
 
@@ -67,7 +67,7 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 
 bool RegisterUser::isUserRegistered() const
 {
-    log_.function("RegisterUser::isUserRegistered() started");
+    _log.function("RegisterUser::isUserRegistered() started");
     auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, LocalUser::getLocalUser().getUsername());
 
     if (nullptr == userInfo)
@@ -75,17 +75,17 @@ bool RegisterUser::isUserRegistered() const
         return false;
     }
 
-    log_.info("RegisterUser::isUserRegistered ERROR: User is registered");
+    _log.info("RegisterUser::isUserRegistered ERROR: User is registered");
     return true;
 }
 
 
 bool RegisterUser::registerNewUser() const
 {
-    log_.function("RegisterUser::registerNewUser() started");
+    _log.function("RegisterUser::registerNewUser() started");
     if (isUserRegistered())
     {
-        log_.info("RegisterUser::registerNewUser ERROR: You already have an account");
+        _log.info("RegisterUser::registerNewUser ERROR: You already have an account");
         return false;
     }
 
@@ -109,13 +109,13 @@ bool RegisterUser::registerNewUser() const
         isUserDataSavedCorrectly = saveUserDataInRegisteredFile(providedPasswords.front());
     }
 
-    log_.info("RegisterUser::registerNewUser Registration completed successfully");
+    _log.info("RegisterUser::registerNewUser Registration completed successfully");
     return true;
 }
 
 bool RegisterUser::setUserPassword(std::string& password) const
 {
-    log_.function("RegisterUser::setUserPassword() started");
+    _log.function("RegisterUser::setUserPassword() started");
 
     SHA1 hashObject;
     hashObject.update(password);
@@ -125,7 +125,7 @@ bool RegisterUser::setUserPassword(std::string& password) const
 
 bool RegisterUser::saveUserDataInRegisteredFile(const std::string& password) const
 {
-    log_.function("RegisterUser::saveUserDataInRegisteredFile() started");
+    _log.function("RegisterUser::saveUserDataInRegisteredFile() started");
 
     StringSumSquareBrackets information;
     information.sum(LocalUser::getLocalUser().getUsername());

@@ -25,8 +25,8 @@ public:
     static WINDOW* getDisplayMessageWindow();
     static WINDOW* getEnterMessageWindow();
 
-    static WINDOW* displayMessageWindow_;
-    static WINDOW* enterMessageWindow_;
+    static WINDOW* _displayMessageWindow;
+    static WINDOW* _enterMessageWindow;
 
 
 };

@@ -22,8 +22,8 @@ public:
     void info(const char * logData) const;
 
 private:
-    SavingMode savingMode_;
-    const char* logSpace_;
+    SavingMode _savingMode;
+    const char* _logSpace;
 
     void writeToFile(const char* log) const;
     void writeToConsole(const char* log) const;

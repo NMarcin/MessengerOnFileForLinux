@@ -11,26 +11,26 @@
 
 std::string ChatFabric::createChatStructure(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    log_.function("ChatFabric::createChatStructure() started");
+    _log.function("ChatFabric::createChatStructure() started");
     std::string chatFolderName = createChatFolder(usernameInviter, usernameGuess);
     if(!chatFolderName.empty())
     {
         std::string chatFileWithPath = createChatFile(chatFolderName, usernameInviter, usernameGuess);
         if(!chatFileWithPath.empty())
         {
-            log_.info(("ChatFabric::createChatStructure succes, chatFileWithPath:" + chatFileWithPath).c_str());
+            _log.info(("ChatFabric::createChatStructure succes, chatFileWithPath:" + chatFileWithPath).c_str());
             return chatFileWithPath;
         }
-        log_.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
+        _log.info("ChatFabric::createChatStructure ERROR: createChatFile failed.");
         return {};
    }
-    log_.info("ChatFabric::createChatStructure ERROR: createChatFolder failed");
+    _log.info("ChatFabric::createChatStructure ERROR: createChatFolder failed");
     return {};
 }
 
 std::string ChatFabric::createChatFolder(const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    log_.function("ChatFabric::createChatFolder() started");
+    _log.function("ChatFabric::createChatFolder() started");
     int folderNumber = getFreeFolderNumber();
     std::string newFolderName = ENVIRONMENT_PATH::TO_FOLDER::CHATS + std::to_string(folderNumber) + usernameInviter + "_" + usernameGuess + "/";
     std::string systemCommand = "mkdir " + newFolderName;
@@ -42,31 +42,31 @@ std::string ChatFabric::createChatFolder(const std::string& usernameInviter, con
 
     if(!commandStatus)
     {
-        log_.info(("ChatFabric::createChatFolder succes, folderName: " + newFolderName).c_str());
+        _log.info(("ChatFabric::createChatFolder succes, folderName: " + newFolderName).c_str());
         return newFolderName;
     }
-    log_.info("ChatFabric::createChatFolder commandStatus failure");
+    _log.info("ChatFabric::createChatFolder commandStatus failure");
     return {};
 }
 
 std::string ChatFabric::createChatFile(const std::string& chatFolderName, const std::string& usernameInviter, const std::string& usernameGuess) const
 {
-    log_.function("ChatFabric::createChatFile() started");
+    _log.function("ChatFabric::createChatFile() started");
     std::string newChatFileWithPath = chatFolderName + usernameInviter + "_" + usernameGuess;
     bool folderCreating = FileInterface::Managment::createFile(newChatFileWithPath);
 
     if(folderCreating)
     {
-        log_.info("ChatFabric::createChatFile folderCreating done");
+        _log.info("ChatFabric::createChatFile folderCreating done");
         return newChatFileWithPath;
     }
-    log_.info("ChatFabric::createChatFile folderCreating failure");
+    _log.info("ChatFabric::createChatFile folderCreating failure");
     return {};
 }
 
 std::vector<int> ChatFabric::getBusyNumbers() const
 {
-    log_.function("ChatFabric::getBusyNumbers() started");
+    _log.function("ChatFabric::getBusyNumbers() started");
     std::vector<std::string> filesInPath = *FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::CHATS); // daje mi wektor
     std::vector<int> busyNumbers;
 
@@ -80,7 +80,7 @@ std::vector<int> ChatFabric::getBusyNumbers() const
 
 int ChatFabric::findMissingNumber(std::vector<int>& busyNumbers_) const
 {
-    log_.function("ChatFabric::findMissingNumber() started");
+    _log.function("ChatFabric::findMissingNumber() started");
     std::vector<int> busyNumbers = busyNumbers_;
     std::sort(busyNumbers.begin(), busyNumbers.end());
 
@@ -98,7 +98,7 @@ int ChatFabric::findMissingNumber(std::vector<int>& busyNumbers_) const
 
 int ChatFabric::getFreeFolderNumber() const
 {
-    log_.function("ChatFabric::getFreeFolderNumber() started");
+    _log.function("ChatFabric::getFreeFolderNumber() started");
     std::vector<int> busyNumbers = getBusyNumbers();
     if(busyNumbers.empty())
     {

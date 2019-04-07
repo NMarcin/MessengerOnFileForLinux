@@ -29,9 +29,9 @@ public:
     Message& operator=(const Message &) = default;
 
 protected:
-    std::string time_;
-    std::string username_;
-    std::string content_;
+    std::string _time;
+    std::string _username;
+    std::string _content;
 
     Message() = default;
 
@@ -39,9 +39,9 @@ private:
     bool setMessageFlag(std::string messageFlag);
     bool setContent(std::string content);
 
-    std::string messageFlag_;
+    std::string _messageFlag;
 
-    Logger log_ {LogSpace::MessageFramework};
+    Logger _log {LogSpace::MessageFramework};
 };
 
 // [1][Tue Oct 16 08:16:55 2018][mnurzyns][czesc, co u ciebie ?]

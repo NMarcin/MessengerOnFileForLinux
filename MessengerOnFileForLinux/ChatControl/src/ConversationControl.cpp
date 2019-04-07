@@ -15,34 +15,34 @@
 bool ConversationControl::isConversationRunning_ = false;
 
 ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
-    : chatInfo_(chatInfo)
-    , sender_(std::make_unique<Sender>(chatInfo))
-    , receiver_(std::make_unique<Receiver>(chatInfo))
-    , getMessageToQueueThread_(nullptr)
-    , reciveMessageThread_(nullptr)
-    , sendMessageFromQueueThread_(nullptr)
-    , userInactivityDetector_(chatInfo->interlocutorUsername_)
-    , isUserInactivityWasHandled_(false)
+    : _chatInfo(chatInfo)
+    , _sender(std::make_unique<Sender>(chatInfo))
+    , _receiver(std::make_unique<Receiver>(chatInfo))
+    , _getMessageToQueueThread(nullptr)
+    , _reciveMessageThread(nullptr)
+    , _sendMessageFromQueueThread(nullptr)
+    , _userInactivityDetector(chatInfo->_interlocutorUsername)
+    , _isUserInactivityWasHandled(false)
 {
-    log_.function("ChatControl C-TOR ");
+    _log.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
 }
 
 ConversationControl::~ConversationControl()
 {
-    log_.function("ChatControl D-TOR ");
+    _log.function("ChatControl D-TOR ");
 
-    if (getMessageToQueueThread_ && reciveMessageThread_)
+    if (_getMessageToQueueThread && _reciveMessageThread)
     {
-        getMessageToQueueThread_->join();
-        reciveMessageThread_->join();
-        sendMessageFromQueueThread_->join();
+        _getMessageToQueueThread->join();
+        _reciveMessageThread->join();
+        _sendMessageFromQueueThread->join();
     }
 }
 
 void ConversationControl::conversation()
 {
-    log_.function("ChatControl::conversationControl() started");
+    _log.function("ChatControl::conversationControl() started");
     SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInChatConsole);
     ChatWindow::displayChatWindows();
     startThreads();
@@ -54,7 +54,7 @@ void ConversationControl::conversation()
 
 void ConversationControl::conversationEpilog()
 {
-    log_.function("ChatControl::endConversation() started");
+    _log.function("ChatControl::endConversation() started");
     stopThreads();
 
     ChatWindow::deleteDisplayMesageWindow();
@@ -68,40 +68,40 @@ void ConversationControl::conversationEpilog()
 
 void ConversationControl::getMessage()
 {
-    log_.function("ChatControl::getMessage() started");
+    _log.function("ChatControl::getMessage() started");
 
-    while(isThreadsRunning_)
+    while(_isThreadsRunning)
     {
         ChatWindow::displayEnterMessageWindow();
         if (isConversationRunning_)
         {
-            auto message = sender_->getMessageToSend();
+            auto message = _sender->getMessageToSend();
             if(message)
             {
-                messageReadyToSend_.push(*message);
+                _messageReadyToSend.push(*message);
             }
             else
             {
                 continue;
             }
 
-            PurgeMessage ownMessageToDisplay(messageReadyToSend_.front());
-            messageToDisplay_.push(ownMessageToDisplay);
+            PurgeMessage ownMessageToDisplay(_messageReadyToSend.front());
+            _messageToDisplay.push(ownMessageToDisplay);
         }
-        log_.debug("ChatControl::getMessage() isConversationRunning_ = false");
+        _log.debug("ChatControl::getMessage() isConversationRunning_ = false");
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }
 
 bool ConversationControl::isMessagesToReadExist()
 {
-    auto chatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+    auto chatFolder = *FileInterface::Accesor::getFolderName(_chatInfo->_chatPath);
 
-    if(MessageFlag::inviterMessage == chatInfo_->messageFlag_)
+    if(MessageFlag::inviterMessage == _chatInfo->_messageFlag)
     {
         return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::recipientMessage);
     }
-    else if(MessageFlag::recipientMessage == chatInfo_->messageFlag_)
+    else if(MessageFlag::recipientMessage == _chatInfo->_messageFlag)
     {
         return FileInterface::Managment::isFileExist(chatFolder + "/NEW_" + MessageFlag::inviterMessage);
     }
@@ -110,38 +110,38 @@ bool ConversationControl::isMessagesToReadExist()
 
 void ConversationControl::handleInterlocutorInactivity()
 {
-    if(not isUserInactivityWasHandled_)
+    if(not _isUserInactivityWasHandled)
     {
         markUserInactivityAsHandled();
-        const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
+        const std::string pathToChatFolder = *FileInterface::Accesor::getFolderName(_chatInfo->_chatPath);
         const std::string systemMessage = "Your interlocutor is inactive! You can leve chat";
-        Message message(chatInfo_->messageFlag_, "_SYSTEM_", systemMessage);
-        sender_->sendMessage(message);
-        messageToDisplay_.push(message);
-        FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, chatInfo_->interlocutorUsername_);
+        Message message(_chatInfo->_messageFlag, "_SYSTEM_", systemMessage);
+        _sender->sendMessage(message);
+        _messageToDisplay.push(message);
+        FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, _chatInfo->_interlocutorUsername);
         FileInterface::Managment::createFile(pathToChatFolder + "/END");
     }
 }
 
 void ConversationControl::markUserInactivityAsHandled()
 {
-    isUserInactivityWasHandled_ = true;
+    _isUserInactivityWasHandled = true;
 }
 
 void ConversationControl::reciveMessage()
 {
-    log_.function("ChatControl::reciveMessage() started");
+    _log.function("ChatControl::reciveMessage() started");
 
-    while(isThreadsRunning_)
+    while(_isThreadsRunning)
     {
-        userInactivityDetector_.detectUserInactivity();
+        _userInactivityDetector.detectUserInactivity();
 
-        if (!messageToDisplay_.empty())
+        if (!_messageToDisplay.empty())
         {
-            ChatWindow::displayDisplayMessageWindow(messageToDisplay_.front().messageToShow() + "\n");
-            messageToDisplay_.pop();
+            ChatWindow::displayDisplayMessageWindow(_messageToDisplay.front().messageToShow() + "\n");
+            _messageToDisplay.pop();
         }
-        else if (userInactivityDetector_.isUserInactiveDetected())
+        else if (_userInactivityDetector.isUserInactiveDetected())
         {
             handleInterlocutorInactivity();
         }
@@ -149,7 +149,7 @@ void ConversationControl::reciveMessage()
         std::this_thread::sleep_for(std::chrono::milliseconds(30));
         if (isMessagesToReadExist())
         {
-            receiver_->readMessagesToStack();
+            _receiver->readMessagesToStack();
             saveMessageToDisplay();
         }
     }
@@ -157,17 +157,17 @@ void ConversationControl::reciveMessage()
 
 void ConversationControl::sendMessage()
 {
-    log_.function("ChatControl::sendMessage() started");
-    while(isThreadsRunning_ || !messageReadyToSend_.empty())
+    _log.function("ChatControl::sendMessage() started");
+    while(_isThreadsRunning || !_messageReadyToSend.empty())
     {
-        if (messageReadyToSend_.empty())
+        if (_messageReadyToSend.empty())
         {
             sleep(1);
         }
         else
         {
-            sender_->sendMessage(messageReadyToSend_.front());
-            messageReadyToSend_.pop();
+            _sender->sendMessage(_messageReadyToSend.front());
+            _messageReadyToSend.pop();
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
@@ -176,20 +176,20 @@ void ConversationControl::sendMessage()
 
 void ConversationControl::startThreads()
 {
-    log_.function("ChatControl::startThreads() started");
-    isThreadsRunning_ = true;
+    _log.function("ChatControl::startThreads() started");
+    _isThreadsRunning = true;
 
-    getMessageToQueueThread_ = std::make_unique<std::thread>(std::thread([&]()
+    _getMessageToQueueThread = std::make_unique<std::thread>(std::thread([&]()
     {
         getMessage();
     }));
 
-    reciveMessageThread_ = std::make_unique<std::thread>(std::thread([&]()
+    _reciveMessageThread = std::make_unique<std::thread>(std::thread([&]()
     {
         reciveMessage();
     }));
 
-    sendMessageFromQueueThread_ = std::make_unique<std::thread>(std::thread([&]()
+    _sendMessageFromQueueThread = std::make_unique<std::thread>(std::thread([&]()
     {
         sendMessage();
     }));
@@ -197,24 +197,24 @@ void ConversationControl::startThreads()
 
 void ConversationControl::saveMessageToDisplay()
 {
-    log_.function("ChatControl::saveMessageToDisplay() started");
+    _log.function("ChatControl::saveMessageToDisplay() started");
     bool isEndOfMessages = false;
     while(!isEndOfMessages)
     {
-        auto message = receiver_->returnTheOldestMessage();
+        auto message = _receiver->returnTheOldestMessage();
         if(nullptr == message)
         {
             isEndOfMessages = true;
         }
         else
         {
-            messageToDisplay_.push(*message);
+            _messageToDisplay.push(*message);
         }
     }
 }
 
 void ConversationControl::stopThreads()
 {
-    log_.function("ChatControl::stopThreads() started");
-    isThreadsRunning_ = false;
+    _log.function("ChatControl::stopThreads() started");
+    _isThreadsRunning = false;
 }

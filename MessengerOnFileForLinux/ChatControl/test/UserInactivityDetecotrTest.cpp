@@ -5,13 +5,13 @@
 
 TEST_F(UserInactivityDetectorFixture, isUserInactiveDetectedIsSetToFalseInCtor)
 {
-    EXPECT_FALSE(userInactivityDetector_.isUserInactiveDetected());
+    EXPECT_FALSE(_userInactivityDetector.isUserInactiveDetected());
 }
 
 TEST_F(UserInactivityDetectorFixture, isUserInactiveDetectedReturnsFalseWhenUserHasActiveApplicationProcess)
 {
-    userInactivityDetector_.detectUserInactivity();
-    EXPECT_FALSE(userInactivityDetector_.isUserInactiveDetected());
+    _userInactivityDetector.detectUserInactivity();
+    EXPECT_FALSE(_userInactivityDetector.isUserInactiveDetected());
 }
 
 TEST(UserInactivityDetectorTest, isUserInactiveDetectedOfNonExistigUserReturnsTrue)

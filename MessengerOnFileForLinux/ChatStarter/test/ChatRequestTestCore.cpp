@@ -9,12 +9,12 @@
 
 ChatRequestFixture::ChatRequestFixture()
 {
-    waitForInvitation = std::thread(lookForInvitationGT);
+    _waitForInvitation = std::thread(lookForInvitationGT);
 }
 
 void ChatRequestFixture::SetUp()
 {
-    isMessengerRunnigTest = true;
+    _isMessengerRunnigTest = true;
     std::istringstream stream("1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
     InformationPrinter informationPrinter;
@@ -29,23 +29,23 @@ void ChatRequestFixture::TearDown()
 {
     SignOut signOut;
     signOut.signOutUser();
-    std::string command = "rm -r " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + "*" + user + "*";
+    std::string command = "rm -r " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + "*" + _user + "*";
     system(command.c_str());
 
 }
 
 ChatRequestFixture::~ChatRequestFixture()
 {
-    isMessengerRunnigTest = false;
-    waitForInvitation.join();
+    _isMessengerRunnigTest = false;
+    _waitForInvitation.join();
     sleep(1);
 }
 
-int ChatRequestFixture::isMessengerRunnigTest = true;
+int ChatRequestFixture::_isMessengerRunnigTest = true;
 
 void ChatRequestFixture::lookForInvitationGT()
 {
-    while (isMessengerRunnigTest)
+    while (_isMessengerRunnigTest)
     {
         auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS);
         if (0 == invitationsFolderContent->size())

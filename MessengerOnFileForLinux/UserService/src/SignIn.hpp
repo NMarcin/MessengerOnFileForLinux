@@ -26,5 +26,5 @@ private:
     std::string enterThePassword() const;
 
     const InformationPrinter& _informationPrinter;
-    Logger log_ {LogSpace::UserService};
+    Logger _log {LogSpace::UserService};
 };

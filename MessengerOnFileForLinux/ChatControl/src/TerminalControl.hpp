@@ -28,11 +28,11 @@ private:
     bool startConversationAsInviter(const std::string& username);
     bool startConversationAsRecipient(const std::string& username);
 
-    std::string chatFileWithPath_;
-    std::string messageFlag_;
-    TerminalFunctionality terminalFunctionality_;
-    ChatStatus chatStatus_;
-    std::shared_ptr<ChatInformation> chatInfo_;
+    std::string _chatFileWithPath;
+    std::string _messageFlag;
+    TerminalFunctionality _terminalFunctionality;
+    ChatStatus _chatStatus;
+    std::shared_ptr<ChatInformation> _chatInfo;
 
-    Logger log_{LogSpace::ChatControl};
+    Logger _log{LogSpace::ChatControl};
 };

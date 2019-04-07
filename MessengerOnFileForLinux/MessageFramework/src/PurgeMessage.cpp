@@ -3,36 +3,36 @@
 
 std::string PurgeMessage::messageToShow() const
 {
-    log_.function("PurgeMessage::messageToShow() started");
+    _log.function("PurgeMessage::messageToShow() started");
     StringSumSquareBrackets fullMessage;
 
-    fullMessage.sum(time_);
-    fullMessage.sum(username_);
-    fullMessage.sum(content_);
+    fullMessage.sum(_time);
+    fullMessage.sum(_username);
+    fullMessage.sum(_content);
 
     auto messageToShow = fullMessage.getSumedString();
 
-    log_.function("PurgeMessage::messageToShow() message = ");
-    log_.debug(messageToShow);
+    _log.function("PurgeMessage::messageToShow() message = ");
+    _log.debug(messageToShow);
 
     return messageToShow;
 }
 
 PurgeMessage::PurgeMessage(const Message& message)
 {
-    log_.function("Message C-TOR from Message");
+    _log.function("Message C-TOR from Message");
     setTime(message.getTime());
-    log_.function(time_);
-    username_ = message.getUsername();
-    content_ = message.getContent();
+    _log.function(_time);
+    _username = message.getUsername();
+    _content = message.getContent();
 }
 
 void PurgeMessage::setTime(std::string longTime)
 {
-    log_.function("PurgeMessage::setTime() started");
+    _log.function("PurgeMessage::setTime() started");
     std::string logtime= "PurgeMessage::setTime() longTime = " + longTime;
-    log_.info(logtime);
+    _log.info(logtime);
     auto secondPosition = longTime.find_last_of(":");
-    time_.append(longTime.begin()+11, longTime.begin() + secondPosition);
-    log_.function("PurgeMessage::setTime() ended");
+    _time.append(longTime.begin()+11, longTime.begin() + secondPosition);
+    _log.function("PurgeMessage::setTime() ended");
 }

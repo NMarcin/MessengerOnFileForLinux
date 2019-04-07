@@ -9,14 +9,14 @@
 #include <ConversationControl.hpp>
 
 Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
-    : chatInfo_(chatInfo)
+    : _chatInfo(chatInfo)
 {
-    log.info("Sender C-TOR");
+    _log.info("Sender C-TOR");
 }
 
 std::unique_ptr<Message> Sender::getMessageToSend() const
 {
-    log.function("Sender::getMessageToSend() started");
+    _log.function("Sender::getMessageToSend() started");
     std::string rawMessage = getMessageFromStdin();
     auto messageToSend = prepareMessageToSend(rawMessage);
     return std::move(messageToSend);
@@ -24,25 +24,25 @@ std::unique_ptr<Message> Sender::getMessageToSend() const
 
 bool Sender::sendMessage(const Message& message) const
 {
-    log.function("Sender::sendMessage() started");
+    _log.function("Sender::sendMessage() started");
 
-    bool isMessageSend = FileInterface::Modification::addRow(chatInfo_->chatPath_, message.messageToSave());
+    bool isMessageSend = FileInterface::Modification::addRow(_chatInfo->_chatPath, message.messageToSave());
     if (isMessageSend)
     {
         setNewMessageFlag();
         auto sentMessage = message.messageToSave();
-        log.debug("Sender::sendMessage() success. Sent message = ");
-        log.debug(sentMessage);
+        _log.debug("Sender::sendMessage() success. Sent message = ");
+        _log.debug(sentMessage);
         return true;
     }
 
-    log.info("Sender::sendMessage WARNING: send message fail");
+    _log.info("Sender::sendMessage WARNING: send message fail");
     return false;
 }
 
 std::string Sender::getMessageFromStdin() const
 {
-    log.function("Sender::getMessageFromStdin() started");
+    _log.function("Sender::getMessageFromStdin() started");
     std::string message;
 
     int ch = wgetch(ChatWindow::getEnterMessageWindow());
@@ -57,27 +57,27 @@ std::string Sender::getMessageFromStdin() const
 
 std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMessage) const
 {
-    log.function("Sender::prepareMessageToSend() started");
+    _log.function("Sender::prepareMessageToSend() started");
     if (isTerminalCommand(rowMessage))
     {
-        log.info("Sender::prepearMessageToSend() Message is a conversation command");
-        TerminalFunctionality terminalFunctionality(chatInfo_->chatPath_, ChatStatus::conversation);
+        _log.info("Sender::prepearMessageToSend() Message is a conversation command");
+        TerminalFunctionality terminalFunctionality(_chatInfo->_chatPath, ChatStatus::conversation);
         std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
-        terminalFunctionality.runCommand(command, chatInfo_);
+        terminalFunctionality.runCommand(command, _chatInfo);
         if("end" == command)
         {
             std::string systemMessage = LocalUser::getLocalUser().getUsername() + " LEFT CHAT";
-            return std::make_unique<Message>(chatInfo_->messageFlag_, "_SYSTEM_" ,systemMessage);
+            return std::make_unique<Message>(_chatInfo->_messageFlag, "_SYSTEM_" ,systemMessage);
         }
         return nullptr;
     }
 
-    return std::make_unique<Message>(chatInfo_->messageFlag_, LocalUser::getLocalUser().getUsername(), rowMessage);
+    return std::make_unique<Message>(_chatInfo->_messageFlag, LocalUser::getLocalUser().getUsername(), rowMessage);
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const
 {
-    log.function("Sender::isTerminalCommand() started");
+    _log.function("Sender::isTerminalCommand() started");
     if (2 > message.size())
     {
         return false;
@@ -92,9 +92,9 @@ bool Sender::isTerminalCommand(const std::string& message) const
 
 bool Sender::setNewMessageFlag() const
 {
-    log.function("Sender::setNewMessageFlag() started");
-    std::string folderName = *FileInterface::Accesor::getFolderName(chatInfo_->chatPath_);
-    std::string messageFlagWithPath = folderName + "/NEW_" + chatInfo_->messageFlag_;
+    _log.function("Sender::setNewMessageFlag() started");
+    std::string folderName = *FileInterface::Accesor::getFolderName(_chatInfo->_chatPath);
+    std::string messageFlagWithPath = folderName + "/NEW_" + _chatInfo->_messageFlag;
     bool isNewFlagCreated = FileInterface::Managment::createFile(messageFlagWithPath);
     return isNewFlagCreated;
 }

@@ -28,6 +28,6 @@ private:
     bool isTerminalCommand(const std::string& message) const;
     bool setNewMessageFlag() const;
 
-    std::shared_ptr<ChatInformation> chatInfo_;
-    Logger log {LogSpace::ChatControl};
+    std::shared_ptr<ChatInformation> _chatInfo;
+    Logger _log {LogSpace::ChatControl};
 };

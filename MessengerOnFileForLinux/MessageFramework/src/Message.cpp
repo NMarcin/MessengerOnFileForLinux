@@ -8,31 +8,31 @@
 
 Message::Message(std::string messageFlag, std::string username, std::string content)
 {
-    log_.function("Message C-TOR string x3");
+    _log.function("Message C-TOR string x3");
     setMessageFlag(messageFlag);
-    username_ = username;
+    _username = username;
     setContent(content);
-    time_ = TimeManagment::convertTimeToString(TimeManagment::getLocalTime());
+    _time = TimeManagment::convertTimeToString(TimeManagment::getLocalTime());
 }
 
 Message::Message(std::string fullMessageInRow)
 {
-    log_.function("Message C-TOR longString");
-    messageFlag_.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
-    time_.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 23 );
-    username_.append(    fullMessageInRow.begin() + 25, fullMessageInRow.begin() + 33 );
-    content_.append(     fullMessageInRow.begin() + 35, fullMessageInRow.end()   - 1  );
+    _log.function("Message C-TOR longString");
+    _messageFlag.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
+    _time.append(        fullMessageInRow.begin() + 4, fullMessageInRow.begin() + 23 );
+    _username.append(    fullMessageInRow.begin() + 25, fullMessageInRow.begin() + 33 );
+    _content.append(     fullMessageInRow.begin() + 35, fullMessageInRow.end()   - 1  );
 }
 
 std::string Message::messageToSave() const
 {
-    log_.function("Message::messageToSave() started");
+    _log.function("Message::messageToSave() started");
     StringSumSquareBrackets fullMessage;
 
-    fullMessage.sum(messageFlag_);
-    fullMessage.sum(time_);
-    fullMessage.sum(username_);
-    fullMessage.sum(content_);
+    fullMessage.sum(_messageFlag);
+    fullMessage.sum(_time);
+    fullMessage.sum(_username);
+    fullMessage.sum(_content);
 
     return fullMessage.getSumedString();
 }
@@ -40,58 +40,58 @@ std::string Message::messageToSave() const
 
 bool Message::setMessageFlag(std::string messageFlag)
 {
-    log_.function("Message::setMessageFlag()");
-    messageFlag_ = messageFlag;
+    _log.function("Message::setMessageFlag()");
+    _messageFlag = messageFlag;
     if(MessageFlag::inviterMessage == messageFlag || MessageFlag::recipientMessage == messageFlag)
     {
         std::string logData = "Message::setMessageFlag() messageFlag_ set as " + messageFlag;
-        log_.info(logData);
+        _log.info(logData);
         return true;
     }
     else if (MessageFlag::readMessage == messageFlag)
     {
-        log_.info("Message::setMessageFlag() message read, can not unread");
+        _log.info("Message::setMessageFlag() message read, can not unread");
         return false;
     }
     else
     {
-        log_.info("Message::setMessageFlag() messageFlag unknown, error");
+        _log.info("Message::setMessageFlag() messageFlag unknown, error");
         return false;
     }
 }
 
 bool Message::setContent(std::string content)
 {
-    log_.function("Message::setContent()");
+    _log.function("Message::setContent()");
     int firstLetter = 1;
     int secondLetter = 2;
     if(content[firstLetter] != '/' && content[secondLetter] != '/')
     {
-        content_ = content;
-        log_.info("Message::setMessageFlag() content of message set");
+        _content = content;
+        _log.info("Message::setMessageFlag() content of message set");
         return true;
     }
     else
     {
-        log_.info("Message::setMessageFlag() it's not message, it's terminal command");
+        _log.info("Message::setMessageFlag() it's not message, it's terminal command");
         return false;
     }
 }
 
 std::string Message::getTime() const
 {
-    log_.function("Message::getTime()");
-    return time_;
+    _log.function("Message::getTime()");
+    return _time;
 }
 
 std::string Message::getUsername() const
 {
-    log_.function("Message::getUsername()");
-    return username_;
+    _log.function("Message::getUsername()");
+    return _username;
 }
 
 std::string Message::getContent() const
 {
-    log_.function("Message::getContent()");
-    return content_;
+    _log.function("Message::getContent()");
+    return _content;
 }

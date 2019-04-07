@@ -41,17 +41,17 @@ private:
     void startThreads();
     void saveMessageToDisplay();
 
-    std::unique_ptr<std::thread> getMessageToQueueThread_;
-    std::unique_ptr<std::thread> sendMessageFromQueueThread_;
-    std::unique_ptr<std::thread> reciveMessageThread_;
-    std::unique_ptr<Receiver> receiver_;
-    std::unique_ptr<Sender> sender_;
-    std::shared_ptr<ChatInformation> chatInfo_;
-    std::queue<Message> messageReadyToSend_;
-    std::queue<PurgeMessage> messageToDisplay_;
-    bool isThreadsRunning_;
-    bool isUserInactivityWasHandled_;
-    UserInactivityDetector userInactivityDetector_;
+    std::unique_ptr<std::thread> _getMessageToQueueThread;
+    std::unique_ptr<std::thread> _sendMessageFromQueueThread;
+    std::unique_ptr<std::thread> _reciveMessageThread;
+    std::unique_ptr<Receiver> _receiver;
+    std::unique_ptr<Sender> _sender;
+    std::shared_ptr<ChatInformation> _chatInfo;
+    std::queue<Message> _messageReadyToSend;
+    std::queue<PurgeMessage> _messageToDisplay;
+    bool _isThreadsRunning;
+    bool _isUserInactivityWasHandled;
+    UserInactivityDetector _userInactivityDetector;
 
-    Logger log_{LogSpace::ChatStarter};
+    Logger _log{LogSpace::ChatStarter};
 };
