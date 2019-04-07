@@ -17,10 +17,10 @@ void ChatRequestFixture::SetUp()
     isMessengerRunnigTest = true;
     std::istringstream stream("1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    RegisterUser registerUser;
+    InformationPrinter informationPrinter;
+    RegisterUser registerUser(informationPrinter);
     registerUser.registerNewUser();
 
-    InformationPrinter informationPrinter;
     SignIn signIn(informationPrinter);
     signIn.signInUser();
 }

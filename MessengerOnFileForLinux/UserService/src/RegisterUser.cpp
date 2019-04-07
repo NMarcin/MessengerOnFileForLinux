@@ -13,7 +13,8 @@
 #include <StringSum.hpp>
 #include "SignalHandling.hpp"
 
-RegisterUser::RegisterUser()
+RegisterUser::RegisterUser(const InformationPrinter& informationPrinter)
+    : _informationPrinter(informationPrinter)
 {
     initscr();
     std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInRegistrationWindow);

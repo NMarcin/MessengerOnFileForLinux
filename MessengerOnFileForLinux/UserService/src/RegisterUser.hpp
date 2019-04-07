@@ -3,15 +3,17 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
+#include "InformationPrinter.hpp"
 
 class RegisterUser
 {
 public:
     bool registerNewUser() const;
 
-    RegisterUser();
+    RegisterUser(const InformationPrinter&);
     ~RegisterUser();
 
+    RegisterUser() = delete;
     RegisterUser(RegisterUser &&) = delete;
     RegisterUser operator=(RegisterUser &&) = delete;
     RegisterUser(const RegisterUser &) = delete;
@@ -24,6 +26,8 @@ private:
     std::string enterThePassword() const;
     bool saveUserDataInRegisteredFile(const std::string& password) const;
     bool setUserPassword(std::string& password) const;
+
+    const InformationPrinter& _informationPrinter;
 
     Logger log_ {LogSpace::UserService};
 };

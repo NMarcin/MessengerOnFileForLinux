@@ -2,6 +2,7 @@
 
 SignInTestFixture::SignInTestFixture()
     : signIn(informationPrinter)
+    , registerUser(informationPrinter)
 {
     //NOOP
 }

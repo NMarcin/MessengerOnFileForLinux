@@ -25,7 +25,7 @@ void mwozniak()
 {
     SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInMainConsole);
     InformationPrinter informationPrinter;
-    RegisterUser registerUser;
+    RegisterUser registerUser(informationPrinter);
     registerUser.registerNewUser();
     clear();
     refresh();
