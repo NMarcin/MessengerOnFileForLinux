@@ -7,6 +7,7 @@
 #include <RegisterUser.hpp>
 #include <SignIn.hpp>
 #include <SignOut.hpp>
+#include "InformationPrinterStub.hpp"
 
 class SignInTestFixture : public ::testing::Test
 {
@@ -20,5 +21,5 @@ public:
     SignIn signIn;
     SignOut signOut;
     RegisterUser registerUser;
-    InformationPrinter informationPrinter;
+    InformationPrinterStub informationPrinter;
 };

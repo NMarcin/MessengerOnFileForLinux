@@ -5,8 +5,8 @@
 class InformationPrinter
 {
 public:
-    void printInformation(const std::string&) const;
-    void printMainWindow() const;
-    void printRegistrationWindow() const;
-    void printSignInWindow() const;
+    virtual void printInformation(const std::string&) const;
+    virtual void printMainWindow() const;
+    virtual void printRegistrationWindow() const;
+    virtual void printSignInWindow() const;
 };
