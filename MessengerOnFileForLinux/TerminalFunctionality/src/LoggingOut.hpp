@@ -18,5 +18,5 @@ public:
     LoggingOut operator=(const LoggingOut &) = delete;
 
 private:
-    Logger log_ {LogSpace::TerminalFunctionality};
+    Logger _log {LogSpace::TerminalFunctionality};
 };

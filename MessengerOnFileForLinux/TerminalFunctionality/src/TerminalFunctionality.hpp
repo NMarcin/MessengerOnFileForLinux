@@ -13,9 +13,9 @@ enum class ChatStatus
 
 struct ChatInformation //TODO lepsze miejsce na to
 {
-    std::string chatPath_ {};
-    std::string messageFlag_ {};
-    std::string interlocutorUsername_ {};
+    std::string _chatPath {};
+    std::string _messageFlag {};
+    std::string _interlocutorUsername {};
 };
 
 class TerminalFunctionality
@@ -33,9 +33,9 @@ public:
     TerminalFunctionality operator=(const TerminalFunctionality &) = delete;
 
 private:
-    std::unique_ptr<TerminalCommand> terminalCommand_ = nullptr;
-    std::string chatFileWithPath_;
-    ChatStatus chatStatus_;
+    std::unique_ptr<TerminalCommand> _terminalCommand = nullptr;
+    std::string _chatFileWithPath;
+    ChatStatus _chatStatus;
 
-    Logger log_ {LogSpace::TerminalFunctionality};
+    Logger _log {LogSpace::TerminalFunctionality};
 };

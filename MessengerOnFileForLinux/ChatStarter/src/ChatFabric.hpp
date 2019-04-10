@@ -24,5 +24,5 @@ private:
     std::vector<int> getBusyNumbers() const;
     int findMissingNumber(std::vector<int>& busyNumbers_) const;
 
-    Logger log_ {LogSpace::ChatStarter};
+    Logger _log {LogSpace::ChatStarter};
 };

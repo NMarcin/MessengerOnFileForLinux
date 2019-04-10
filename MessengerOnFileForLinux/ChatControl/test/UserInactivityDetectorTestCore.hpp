@@ -22,7 +22,7 @@ void simulationOfRunningMessengerProcess()
 class UserInactivityDetectorFixture : public ::testing::Test
 {
 public:
-    UserInactivityDetectorFixture() : userInactivityDetector_(getUser())
+    UserInactivityDetectorFixture() : _userInactivityDetector(getUser())
     {
         simulationOfRunningMessengerProcess();
     }
@@ -30,5 +30,5 @@ public:
     void TearDown(){}
     ~UserInactivityDetectorFixture(){}
 
-    UserInactivityDetector userInactivityDetector_;
+    UserInactivityDetector _userInactivityDetector;
 };

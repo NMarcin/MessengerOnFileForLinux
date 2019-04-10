@@ -18,7 +18,7 @@ private:
     void setTime(std::string longTime);
 
 
-    Logger log_ {LogSpace::MessageFramework};
+    Logger _log {LogSpace::MessageFramework};
 };
 
 // [09:19][tomek]: czesc, co u ciebie ?

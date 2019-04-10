@@ -4,9 +4,9 @@
 #include <FileHandling.hpp>
 
 LocalUser::LocalUser()
-    : username_(getenv("USER"))
+    : _username(getenv("USER"))
 {
-    log_.function("LoclaUser C-TOR");
+    _log.function("LoclaUser C-TOR");
 }
 
 LocalUser& LocalUser::getLocalUser()
@@ -17,6 +17,6 @@ LocalUser& LocalUser::getLocalUser()
 
 const std::string LocalUser::getUsername() const
 {
-    log_.function("LocalUser::getUsername() started");
-    return username_;
+    _log.function("LocalUser::getUsername() started");
+    return _username;
 }

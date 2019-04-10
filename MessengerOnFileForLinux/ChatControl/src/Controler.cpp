@@ -9,37 +9,37 @@
 
 void Controler::controlUserAction()
 {
-    log_.function("Controler::controlUserAction() started");
+    _log.function("Controler::controlUserAction() started");
 
     for ever
     {
         TerminalControl::isWaitingForInvitation = true;
 
-        log_.debug("Controler::controlUserAction() Loop begin ");
-        log_.debug(("Controler::controlUserAction() isWaitingForInvitation = " + std::to_string(TerminalControl::isWaitingForInvitation)).c_str());
-        log_.debug(("Controler::controlUserAction() isInvitationExist = " + std::to_string(TerminalControl::isInvitationExist)).c_str());
+        _log.debug("Controler::controlUserAction() Loop begin ");
+        _log.debug(("Controler::controlUserAction() isWaitingForInvitation = " + std::to_string(TerminalControl::isWaitingForInvitation)).c_str());
+        _log.debug(("Controler::controlUserAction() isInvitationExist = " + std::to_string(TerminalControl::isInvitationExist)).c_str());
 
-        std::thread waitForInvitation(terminalControl_->lookForInvitation);
+        std::thread waitForInvitation(_terminalControl->lookForInvitation);
         std::shared_ptr<ChatInformation> chatInfo = std::make_shared<ChatInformation>();
-        terminalControl_ = std::make_unique<TerminalControl>(ChatStatus::terminal, chatInfo);
-        terminalControl_->waitingInTerminal();
+        _terminalControl = std::make_unique<TerminalControl>(ChatStatus::terminal, chatInfo);
+        _terminalControl->waitingInTerminal();
 
-        log_.debug("Controler::controlUserAction() waitingInTerminal finished");
+        _log.debug("Controler::controlUserAction() waitingInTerminal finished");
 
         TerminalControl::isWaitingForInvitation = false;
         TerminalControl::isInvitationExist = false;
         waitForInvitation.join();
 
-        log_.debug(("Controler::controlUserAction() isWaitingForInvitation = " + std::to_string(TerminalControl::isWaitingForInvitation)).c_str());
-        log_.debug(("Controler::controlUserAction() isInvitationExist = " + std::to_string(TerminalControl::isInvitationExist)).c_str());
+        _log.debug(("Controler::controlUserAction() isWaitingForInvitation = " + std::to_string(TerminalControl::isWaitingForInvitation)).c_str());
+        _log.debug(("Controler::controlUserAction() isInvitationExist = " + std::to_string(TerminalControl::isInvitationExist)).c_str());
 
-        if(not chatInfo->chatPath_.empty())
+        if(not chatInfo->_chatPath.empty())
         {
-            log_.info("Controler::controlUserAction() ConversationControl START()");
-            conversationControl_ = std::make_unique<ConversationControl>(chatInfo);
-            conversationControl_->conversation();
-            conversationControl_->conversationEpilog();
-            log_.info("Controler::controlUserAction() ConversationControl END()");
+            _log.info("Controler::controlUserAction() ConversationControl START()");
+            _conversationControl = std::make_unique<ConversationControl>(chatInfo);
+            _conversationControl->conversation();
+            _conversationControl->conversationEpilog();
+            _log.info("Controler::controlUserAction() ConversationControl END()");
         }
     }
 }

@@ -22,9 +22,9 @@ public:
 private: 
     bool isUserInactive() const;
 
-    const std::string username_;
-    bool isUserInactiveDetected_;
+    const std::string _username;
+    bool _isUserInactiveDetected;
 
-    Logger log_{LogSpace::ChatControl};
+    Logger _log{LogSpace::ChatControl};
 };
 
