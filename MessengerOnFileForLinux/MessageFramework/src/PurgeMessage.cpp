@@ -27,7 +27,7 @@ PurgeMessage::PurgeMessage(const Message& message)
     content_ = message.getContent();
 }
 
-void PurgeMessage::setTime(std::string longTime)
+void PurgeMessage::setTime(const std::string& longTime)
 {
     log_.function("PurgeMessage::setTime() started");
     std::string logtime= "PurgeMessage::setTime() longTime = " + longTime;

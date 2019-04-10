@@ -8,7 +8,7 @@
 class InviteReceiver : public TerminalCommand
 {
 public:
-    bool doCommand();
+    bool doCommand() const override;
 
     InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo);
     ~InviteReceiver() = default;

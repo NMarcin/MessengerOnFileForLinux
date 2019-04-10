@@ -4,12 +4,12 @@
 class TerminalCommand
 {
 public:
-    virtual bool doCommand() = 0;
+    virtual bool doCommand() const = 0;
 
     TerminalCommand(std::string command);
     virtual ~TerminalCommand() = default;
 
 private:
-    std::string commandName_;
-    std::string command_;
+    const std::string commandName_;
+    const std::string command_;
 };

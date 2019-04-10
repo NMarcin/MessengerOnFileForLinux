@@ -15,7 +15,7 @@ public:
     PurgeMessage& operator=(const PurgeMessage &) = default;
 
 private:
-    void setTime(std::string longTime);
+    void setTime(const std::string& longTime);
 
 
     Logger log_ {LogSpace::MessageFramework};

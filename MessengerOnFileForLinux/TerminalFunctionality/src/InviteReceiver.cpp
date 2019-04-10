@@ -3,15 +3,15 @@
 
 #include <ConversationControl.hpp>
 
-InviteReceiver::InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo) :
-    TerminalCommand(command)
-  , command_(command)
-  , chatInfo_(chatInfo)
+InviteReceiver::InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo)
+    : TerminalCommand(command)
+    , command_(command)
+    , chatInfo_(chatInfo)
 {
     log_.function("InviteReceiver() C-TOR");
 }
 
-bool InviteReceiver::doCommand()
+bool InviteReceiver::doCommand() const
 {
     log_.function("InviteReceiver()::doCommand() started");
     if (TerminalControl::isInvitationExist)

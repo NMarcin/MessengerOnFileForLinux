@@ -6,7 +6,7 @@
 
 #include <vector>
 
-Message::Message(std::string messageFlag, std::string username, std::string content)
+Message::Message(const std::string& messageFlag, const std::string& username, const std::string& content)
 {
     log_.function("Message C-TOR string x3");
     setMessageFlag(messageFlag);
@@ -15,7 +15,7 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
     time_ = TimeManagment::convertTimeToString(TimeManagment::getLocalTime());
 }
 
-Message::Message(std::string fullMessageInRow)
+Message::Message(const std::string& fullMessageInRow)
 {
     log_.function("Message C-TOR longString");
     messageFlag_.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
@@ -37,8 +37,7 @@ std::string Message::messageToSave() const
     return fullMessage.getSumedString();
 }
 
-
-bool Message::setMessageFlag(std::string messageFlag)
+bool Message::setMessageFlag(const std::string& messageFlag)
 {
     log_.function("Message::setMessageFlag()");
     messageFlag_ = messageFlag;
@@ -60,7 +59,7 @@ bool Message::setMessageFlag(std::string messageFlag)
     }
 }
 
-bool Message::setContent(std::string content)
+bool Message::setContent(const std::string& content)
 {
     log_.function("Message::setContent()");
     int firstLetter = 1;

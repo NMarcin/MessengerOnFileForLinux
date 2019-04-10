@@ -8,7 +8,7 @@
 class InviteSender : public TerminalCommand
 {
 public:
-    bool doCommand();
+    bool doCommand() const;
 
     InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo);
     ~InviteSender();
@@ -23,4 +23,3 @@ private:
     std::shared_ptr<ChatInformation> chatInfo_;
     Logger log_ {LogSpace::TerminalFunctionality};
 };
-

@@ -2,12 +2,12 @@
 #include <SignOut.hpp>
 
 LoggingOut::LoggingOut(std::string command)
-                : TerminalCommand(command)
+    : TerminalCommand(command)
 {
     log_.function("LoggingOut() C-TOR");
 }
 
-bool LoggingOut::doCommand()
+bool LoggingOut::doCommand() const
 {
     log_.function("LoggingOut::doCommand() started");
     SignOut signOutLocalUser;

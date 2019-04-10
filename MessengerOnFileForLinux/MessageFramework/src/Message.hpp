@@ -20,8 +20,8 @@ public:
     std::string getUsername() const;
     std::string getContent() const;
 
-    Message(std::string messageFlag, std::string username, std::string content);
-    Message(std::string fullMessageInRow);
+    Message(const std::string& messageFlag, const std::string& username, const std::string& content);
+    Message(const std::string& fullMessageInRow);
     virtual ~Message() = default;
     Message(Message &&) = default;
     Message& operator=(Message &&) = default;
@@ -36,8 +36,8 @@ protected:
     Message() = default;
 
 private:
-    bool setMessageFlag(std::string messageFlag);
-    bool setContent(std::string content);
+    bool setMessageFlag(const std::string& messageFlag);
+    bool setContent(const std::string& content);
 
     std::string messageFlag_;
 
