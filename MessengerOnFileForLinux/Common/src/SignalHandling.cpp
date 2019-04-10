@@ -5,6 +5,8 @@
 #include <GlobalVariables.hpp>
 #include <LocalUser.hpp>
 #include <ClasslessLogger.hpp>
+#include "ConsoleWindow.hpp"
+#include "ChatWindow.hpp"
 
 #include <utility>
 #include <cstring>
@@ -82,4 +84,46 @@ void createPosixSignalsHandling(void(*handlingFunction)(int))
         std::signal(posixSignal, handlingFunction);
     }
 }
+
+namespace NCurses
+{
+void resizeHandlerInMainWindow(int)
+{
+    fileLog("Console resize handled in main window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    initscr();
+    ConsoleWindow::displayMainWindow();
+}
+
+void resizeHandlerInRegistrationWindow(int)
+{
+    fileLog("Console resize handled in registration window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displayRegistrationWindow();
+}
+
+void resizeHandlerInSignInWindow(int)
+{
+    fileLog("Console resize handled in sign window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displaySignInWindow();
+}
+
+void resizeHandlerInChatWindow(int)
+{
+    fileLog("Console resize handled in chat window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ChatWindow::displayChatWindows();
+    ChatWindow::displayEnterMessageWindow();
+    ChatWindow::displayDisplayMessageWindow("");
+}
+}//NCurses
 }//SignalHandling

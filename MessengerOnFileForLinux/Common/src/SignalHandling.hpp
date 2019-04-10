@@ -19,4 +19,12 @@ static constexpr std::array<int, NUMBER_OF_HANLING_POSIX_SIGNALS> posixSignalsCa
                                                                                                                   SIGCONT,
                                                                                                                   SIGTERM,
                                                                                                                   0};
-}
+
+namespace NCurses
+{
+void resizeHandlerInMainWindow(int);
+void resizeHandlerInRegistrationWindow(int);
+void resizeHandlerInSignInWindow(int);
+void resizeHandlerInChatWindow(int);
+} //NCurses
+} //SignalHandling

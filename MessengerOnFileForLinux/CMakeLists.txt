@@ -31,8 +31,8 @@ set(MODULE_MessageFramework         ${CMAKE_SOURCE_DIR}/MessageFramework/src)
 ################################################################################
 #####                       CREATE ENVIRONMENT CMAKE PART                  #####
 ################################################################################
-set(clear_enviroment "/scripts/clear_enviroment.sh")
-set(create_enviroment "/scripts/create_enviroment.sh")
+set(clear_enviroment "/scripts/local_scripts/clear_enviroment.sh")
+set(create_enviroment "/scripts/local_scripts/create_messenger_enviroment.sh")
 execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${clear_enviroment})
 execute_process(COMMAND sh ${CMAKE_SOURCE_DIR}${create_enviroment})
 
