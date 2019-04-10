@@ -2,6 +2,7 @@
 #include <ConversationControl.hpp>
 #include <FileHandling.hpp>
 
+
 EndConversation::EndConversation(std::string command, std::shared_ptr<ChatInformation> chatInfo) :
     TerminalCommand(command)
   , _chatInfo(chatInfo)
@@ -9,7 +10,7 @@ EndConversation::EndConversation(std::string command, std::shared_ptr<ChatInform
     _log.function("EndConversation() C-TOR");
 }
 
-bool EndConversation::doCommand()
+bool EndConversation::doCommand() const
 {
     _log.function("EndConversation::doCommand() start");
 

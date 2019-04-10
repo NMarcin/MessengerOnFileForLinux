@@ -6,7 +6,7 @@
 class EndConversation : public TerminalCommand
 {
 public:
-    bool doCommand() override;
+    bool doCommand() const override;
 
     EndConversation(std::string command, std::shared_ptr<ChatInformation> chatInfo);
     ~EndConversation() = default;

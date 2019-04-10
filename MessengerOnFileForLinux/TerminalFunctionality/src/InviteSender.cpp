@@ -3,10 +3,11 @@
 
 #include <ConversationControl.hpp>
 
-InviteSender::InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo) :
-    TerminalCommand(command)
-  , _command(command)
-  , _chatInfo(chatInfo)
+
+InviteSender::InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo)
+    : TerminalCommand(command)
+    , _command(command)
+    , _chatInfo(chatInfo)
 {
     _log.function("InviteSender() C-TOR");
 }
@@ -16,7 +17,7 @@ InviteSender::~InviteSender()
     _log.function("InviteSender() D-TOR");
 }
 
-bool InviteSender::doCommand()
+bool InviteSender::doCommand() const
 {
     _log.function("InviteSender()::doCommand() started");
 

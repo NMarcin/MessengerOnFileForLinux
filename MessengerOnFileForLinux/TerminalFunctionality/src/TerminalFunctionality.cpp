@@ -12,8 +12,17 @@
 #include <ConsoleWindow.hpp>
 #include <iostream>
 
-
+namespace
+{
 bool starts_with(const std::string toFind, const std::string ourString);
+} // namespace
+
+TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
+    : _chatFileWithPath(chatFileWithPath)
+    , _chatStatus(chatStatus)
+{
+    //NOOP
+}
 
 bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo)
 {
@@ -54,15 +63,8 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
     return _terminalCommand->doCommand();
 }
 
-TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
-            : _chatFileWithPath(chatFileWithPath)
-            , _chatStatus(chatStatus)
+namespace
 {
-    //NOOP
-}
-
-
-
 // waiting for GCC with C++20 support, function similar to it will be avaible in string class
 bool starts_with(const std::string starter, const std::string ourString)
 {
@@ -80,3 +82,4 @@ bool starts_with(const std::string starter, const std::string ourString)
     }
     return true;
 }
+} // namespace

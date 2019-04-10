@@ -89,7 +89,7 @@ bool RegisterUser::registerNewUser() const
         return false;
     }
 
-    constexpr int numberOfPasswordEntries = 2;
+    static constexpr int numberOfPasswordEntries = 2;
     std::array<std::string, numberOfPasswordEntries> providedPasswords;
     bool isPasswordSetCorrectly = false;
     while (!isPasswordSetCorrectly)

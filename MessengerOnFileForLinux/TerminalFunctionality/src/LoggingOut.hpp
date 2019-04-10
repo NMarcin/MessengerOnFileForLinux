@@ -7,7 +7,7 @@
 class LoggingOut : public TerminalCommand
 {
 public:
-    bool doCommand() override;
+    bool doCommand() const override;
 
     LoggingOut(std::string command);
     ~LoggingOut() = default;
