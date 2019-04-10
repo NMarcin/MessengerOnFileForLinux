@@ -71,7 +71,12 @@ add_subdirectory(${MODULE_Common})
 add_subdirectory(${MODULE_DisplayChat})
 add_subdirectory(${MODULE_MessageFramework})
 # CMAKE BUILD
-add_executable(messenger_binary ${SOURCES} ${MAIN})
+
+
+add_library(source_objects OBJECT ${SOURCES})
+
+
+add_executable(messenger_binary $<TARGET_OBJECTS:source_objects> ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(messenger_binary ${CURSES_LIBRARIES})
 
@@ -96,7 +101,7 @@ add_subdirectory(MessageFramework/test)
 add_subdirectory(TerminalFunctionality/test)
 
 # CMAKE BUILD
-set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
+set(TEST_BINARY_FILES $<TARGET_OBJECTS:source_objects> ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
 target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
