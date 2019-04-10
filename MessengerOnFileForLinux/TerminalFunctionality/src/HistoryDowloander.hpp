@@ -18,7 +18,7 @@ public:
     HistoryDowloander operator=(const HistoryDowloander &) = delete;
 
 private:
-    std::string chatFileWithPath_;
+    std::string _chatFileWithPath;
 
-    Logger log_ {LogSpace::TerminalFunctionality};
+    Logger _log {LogSpace::TerminalFunctionality};
 };

@@ -17,6 +17,6 @@ public:
     EndConversation operator=(const EndConversation &) = delete;
 
 private:
-    std::shared_ptr<ChatInformation> chatInfo_;
-    Logger log_ {LogSpace::TerminalFunctionality};
+    std::shared_ptr<ChatInformation> _chatInfo;
+    Logger _log {LogSpace::TerminalFunctionality};
 };

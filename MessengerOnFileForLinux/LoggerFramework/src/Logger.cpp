@@ -5,8 +5,8 @@
 #include <Logger.hpp>
 
 Logger::Logger(const char* logSpace, SavingMode mode)
-                : savingMode_(mode)
-                , logSpace_(logSpace)
+                : _savingMode(mode)
+                , _logSpace(logSpace)
 {
     //NOOP
 }
@@ -45,7 +45,7 @@ void Logger::info(const char* logData) const
 {
     writeToFile(logData);
 
-	if (SavingMode::withConsole == savingMode_)
+    if (SavingMode::withConsole == _savingMode)
     {
         writeToConsole(logData);
     }
@@ -56,7 +56,7 @@ void Logger::writeToConsole(const char* log) const
     auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::string timeAsString = ctime(&time);
     timeAsString.erase(timeAsString.end()-1);
-    fprintf(stdout, "%s %s  %s\n", timeAsString.c_str(), logSpace_, log);
+    fprintf(stdout, "%s %s  %s\n", timeAsString.c_str(), _logSpace, log);
 }
 
 void Logger::writeToFile(const char* log) const
@@ -72,7 +72,7 @@ void Logger::writeToFile(const char* log) const
     auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::string timeAsString = ctime(&time);
     timeAsString.erase(timeAsString.end()-1);
-    fprintf(logFile, "%s %s %s\n", timeAsString.c_str(), logSpace_, log);
+    fprintf(logFile, "%s %s %s\n", timeAsString.c_str(), _logSpace, log);
 
     fclose(logFile);
 }

@@ -10,6 +10,6 @@ public:
     virtual ~TerminalCommand() = default;
 
 private:
-    const std::string commandName_;
-    const std::string command_;
+    std::string _commandName;
+    std::string _command;
 };

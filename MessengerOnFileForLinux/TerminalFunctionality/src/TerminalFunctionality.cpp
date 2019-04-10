@@ -15,52 +15,52 @@
 namespace
 {
 bool starts_with(const std::string toFind, const std::string ourString);
-}
+} // namespace
 
 TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
-    : chatFileWithPath_(chatFileWithPath)
-    , chatStatus_(chatStatus)
+    : _chatFileWithPath(chatFileWithPath)
+    , _chatStatus(chatStatus)
 {
     //NOOP
 }
 
 bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo)
 {
-    log_.function("TerminalFunctionality::runCommand() started");
-    log_.function(command);
+    _log.function("TerminalFunctionality::runCommand() started");
+    _log.function(command);
 
-    if (starts_with(UserCommand::historyDowloander, command) && ChatStatus::conversation == chatStatus_)
+    if (starts_with(UserCommand::historyDowloander, command) && ChatStatus::conversation == _chatStatus)
     {
-        log_.info("TerminalFunctionality::runCommand() historyDowloander command");
-        terminalCommand_ = std::make_unique<HistoryDowloander>(command, chatFileWithPath_);
+        _log.info("TerminalFunctionality::runCommand() historyDowloander command");
+        _terminalCommand = std::make_unique<HistoryDowloander>(command, _chatFileWithPath);
     }
-    else if (starts_with(UserCommand::endChat, command) && ChatStatus::conversation == chatStatus_)
+    else if (starts_with(UserCommand::endChat, command) && ChatStatus::conversation == _chatStatus)
     {
-         log_.info("TerminalFunctionality::runCommand() endChat command");
-         terminalCommand_ = std::make_unique<EndConversation>(command, chatInfo);
+         _log.info("TerminalFunctionality::runCommand() endChat command");
+         _terminalCommand = std::make_unique<EndConversation>(command, chatInfo);
     }
     else if (starts_with(UserCommand::logout, command))
     {
-        log_.info("TerminalFunctionality::runCommand() logout command");
-        terminalCommand_ = std::make_unique<LoggingOut>(command);
+        _log.info("TerminalFunctionality::runCommand() logout command");
+        _terminalCommand = std::make_unique<LoggingOut>(command);
     }
     else if (starts_with(UserCommand::inviteUser, command))
     {
-        log_.info("TerminalFunctionality::runCommand() invite user");
-        terminalCommand_ = std::make_unique<InviteSender>(command, chatInfo);
+        _log.info("TerminalFunctionality::runCommand() invite user");
+        _terminalCommand = std::make_unique<InviteSender>(command, chatInfo);
     }
     else if (starts_with(UserCommand::startConversation, command))
     {
-        log_.info("TerminalFunctionality::runCommand() start conversation");
-        terminalCommand_ = std::make_unique<InviteReceiver>(command, chatInfo);
+        _log.info("TerminalFunctionality::runCommand() start conversation");
+        _terminalCommand = std::make_unique<InviteReceiver>(command, chatInfo);
     }
     else
     {
-        log_.info("TerminalFunctionality::runCommand() command NOT FOUND");
+        _log.info("TerminalFunctionality::runCommand() command NOT FOUND");
         return false;
     }
 
-    return terminalCommand_->doCommand();
+    return _terminalCommand->doCommand();
 }
 
 namespace
@@ -82,4 +82,4 @@ bool starts_with(const std::string starter, const std::string ourString)
     }
     return true;
 }
-}
+} // namespace

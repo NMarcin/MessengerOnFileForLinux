@@ -22,8 +22,8 @@ public:
 
 
 private:
-    std::unique_ptr<TerminalControl> terminalControl_;
-    std::unique_ptr<ConversationControl> conversationControl_;
+    std::unique_ptr<TerminalControl> _terminalControl;
+    std::unique_ptr<ConversationControl> _conversationControl;
 
-    Logger log_{LogSpace::ChatControl};
+    Logger _log{LogSpace::ChatControl};
 };

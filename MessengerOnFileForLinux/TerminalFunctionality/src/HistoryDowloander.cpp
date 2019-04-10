@@ -3,18 +3,18 @@
 
 HistoryDowloander::HistoryDowloander(std::string command, std::string chatFileWithPath)
     : TerminalCommand(command)
-    , chatFileWithPath_(chatFileWithPath)
+    , _chatFileWithPath(chatFileWithPath)
 {
-    log_.function("HistoryDowloander() C-TOR");
+    _log.function("HistoryDowloander() C-TOR");
 }
 
 bool HistoryDowloander::doCommand() const
 {
-    log_.function("HistoryDowloander::doCommand()");
-    std::string systemCommand = "cp " + chatFileWithPath_ + " " + ENVIRONMENT_PATH::TO_FOLDER::USER;
+    _log.function("HistoryDowloander::doCommand()");
+    std::string systemCommand = "cp " + _chatFileWithPath + " " + ENVIRONMENT_PATH::TO_FOLDER::USER;
     bool commandStatus = system(systemCommand.c_str());
 
     std::string logData = "HistoryDowloander::doCommand() done as " + std::to_string(commandStatus);
-    log_.function(logData);
+    _log.function(logData);
     return commandStatus;
 }

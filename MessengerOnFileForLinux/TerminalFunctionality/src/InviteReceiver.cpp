@@ -3,23 +3,24 @@
 
 #include <ConversationControl.hpp>
 
+
 InviteReceiver::InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo)
     : TerminalCommand(command)
-    , command_(command)
-    , chatInfo_(chatInfo)
+    , _command(command)
+    , _chatInfo(chatInfo)
 {
-    log_.function("InviteReceiver() C-TOR");
+    _log.function("InviteReceiver() C-TOR");
 }
 
 bool InviteReceiver::doCommand() const
 {
-    log_.function("InviteReceiver()::doCommand() started");
+    _log.function("InviteReceiver()::doCommand() started");
     if (TerminalControl::isInvitationExist)
     {
-        std::string usernameInCommand = std::string{command_.begin()+6, command_.end()};
-        TerminalControl terminalControl(ChatStatus::terminal, chatInfo_);
+        std::string usernameInCommand = std::string{_command.begin()+6, _command.end()};
+        TerminalControl terminalControl(ChatStatus::terminal, _chatInfo);
         return terminalControl.startConversation(usernameInCommand, ChatRole::recipient);
     }
-    log_.info("InviteReceiver()::doCommand() WARNING: Try to start conversation without invitation");
+    _log.info("InviteReceiver()::doCommand() WARNING: Try to start conversation without invitation");
     return false;
 }

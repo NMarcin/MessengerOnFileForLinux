@@ -5,8 +5,10 @@
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <SHA1.hpp>
+#include "InformationPrinterStub.hpp"
 
-RegisterUser registerUser;
+InformationPrinterStub informationPrinter;
+RegisterUser registerUser(informationPrinter);
 SHA1 sha1;
 std::string user = getenv("USER");
 

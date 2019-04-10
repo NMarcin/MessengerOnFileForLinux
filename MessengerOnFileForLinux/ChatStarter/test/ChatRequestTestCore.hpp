@@ -15,11 +15,10 @@ public:
     void TearDown();
     ~ChatRequestFixture();
 
-    static int isMessengerRunnigTest;
+    static int _isMessengerRunnigTest;
     static void lookForInvitationGT();
-    ChatRequest chatRequest;
-    std::thread waitForInvitation;
-    std::string user = getenv("USER");
-    std::string chatFolderNameWithoutNumber = user + "_" + user;
-    std::string pathToChatfile = ENVIRONMENT_PATH::TO_FOLDER::CHATS + "0" + chatFolderNameWithoutNumber + "/" + chatFolderNameWithoutNumber;
+    std::thread _waitForInvitation;
+    std::string _user = getenv("USER");
+    std::string _chatFolderNameWithoutNumber = _user + "_" + _user;
+    std::string _pathToChatfile = ENVIRONMENT_PATH::TO_FOLDER::CHATS + "0" + _chatFolderNameWithoutNumber + "/" + _chatFolderNameWithoutNumber;
 };

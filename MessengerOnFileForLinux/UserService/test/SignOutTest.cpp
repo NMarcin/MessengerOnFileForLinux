@@ -6,10 +6,10 @@
 TEST_F(SignOutTestFixture, isUserSignOutReturnTrueWhenUserIsLogged)
 {
     signInUser();
-    EXPECT_TRUE(signOut.signOutUser());
+    EXPECT_TRUE(_signOut.signOutUser());
 }
 
 TEST_F(SignOutTestFixture, isUserSignOutReturnFalseWhenUserIsNotLogged)
 {
-    EXPECT_FALSE(signOut.signOutUser());
+    EXPECT_FALSE(_signOut.signOutUser());
 }

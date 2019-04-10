@@ -32,8 +32,8 @@ private:
     std::unique_ptr<PurgeMessage> messagePurging(Message& messageToPurge);
     void removeFlagNEW();
 
-    std::shared_ptr<ChatInformation> chatInfo_;
-    std::stack<PurgeMessage> purgeMessagesStack_;
+    std::shared_ptr<ChatInformation> _chatInfo;
+    std::stack<PurgeMessage> _purgeMessagesStack;
 
-    Logger log_{LogSpace::ChatControl};
+    Logger _log{LogSpace::ChatControl};
 };

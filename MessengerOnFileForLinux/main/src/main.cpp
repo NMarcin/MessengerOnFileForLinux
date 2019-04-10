@@ -24,11 +24,12 @@ void mnurzyns()
 void mwozniak()
 {
     SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInMainConsole);
-    RegisterUser registerUser;
+    InformationPrinter informationPrinter;
+    RegisterUser registerUser(informationPrinter);
     registerUser.registerNewUser();
     clear();
     refresh();
-    SignIn signIn;
+    SignIn signIn(informationPrinter);
     signIn.signInUser();
     clear();
     refresh();

@@ -18,5 +18,5 @@ public:
 private:
     bool removeUserDataFromLoggedFile() const;
 
-    Logger log_ {LogSpace::UserService};
+    Logger _log {LogSpace::UserService};
 };

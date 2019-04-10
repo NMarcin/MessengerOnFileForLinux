@@ -36,5 +36,5 @@ private:
     void showInvitation(const std::string& senderUsername) const;
     bool waitForAnswer(const std::string& username) const;
 
-    Logger log_ {LogSpace::ChatStarter};
+    Logger _log {LogSpace::ChatStarter};
 };

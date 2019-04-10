@@ -18,7 +18,7 @@ public:
     std::string getSumedString() const;
 
 private:
-    std::string sumedString;
+    std::string _sumedString;
 
-    Logger log_ {LogSpace::MessageFramework};
+    Logger _log {LogSpace::MessageFramework};
 };

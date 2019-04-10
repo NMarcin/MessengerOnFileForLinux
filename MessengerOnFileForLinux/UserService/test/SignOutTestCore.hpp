@@ -21,5 +21,5 @@ public:
         FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, rowInLoggedFile);
     }
 
-    SignOut signOut;
+    SignOut _signOut;
 };
