@@ -1,4 +1,4 @@
-set(TEST_SOURCES ${TEST_SOURCES}
+set(TEST_FILES ${TEST_FILES}
     ${CMAKE_CURRENT_SOURCE_DIR}/LocalUserTest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RegisterUserTest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SignInTest.cpp
