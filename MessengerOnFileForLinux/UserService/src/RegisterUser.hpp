@@ -3,14 +3,14 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
-#include "InformationPrinter.hpp"
+#include "NcursesPrintToMainWindowOperationWrapper.hpp"
 
 class RegisterUser
 {
 public:
     bool registerNewUser() const;
 
-    RegisterUser(const InformationPrinter&);
+    RegisterUser(const NcursesPrintOperationWrapper&);
     ~RegisterUser();
 
     RegisterUser() = delete;
@@ -27,7 +27,7 @@ private:
     bool saveUserDataInRegisteredFile(const std::string& password) const;
     bool setUserPassword(std::string& password) const;
 
-    const InformationPrinter& _informationPrinter;
+    const NcursesPrintOperationWrapper& _ncursesPrintOperationWrapper;
 
     Logger _log {LogSpace::UserService};
 };

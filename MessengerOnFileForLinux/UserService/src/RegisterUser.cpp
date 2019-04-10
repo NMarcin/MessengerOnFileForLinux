@@ -13,8 +13,8 @@
 #include <StringSum.hpp>
 #include "SignalHandling.hpp"
 
-RegisterUser::RegisterUser(const InformationPrinter& informationPrinter)
-    : _informationPrinter(informationPrinter)
+RegisterUser::RegisterUser(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper)
+    : _ncursesPrintOperationWrapper(ncursesPrintOperationWrapper)
 {
     initscr();
     std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInRegistrationWindow);
@@ -40,7 +40,7 @@ std::unique_ptr<std::array<std::string, 2>> RegisterUser::askUserForPassword() c
 std::string RegisterUser::enterThePassword() const
 {
     _log.function("RegisterUser::enterThePassword() started");
-    _informationPrinter.printRegistrationWindow();
+    _ncursesPrintOperationWrapper.printRegistrationWindow();
 
     std::string password;
     std::cin >> password;
@@ -58,8 +58,8 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
     }
 
     _log.info("RegisterUser::comparePassword() failure");
-    _informationPrinter.printRegistrationWindow();
-    _informationPrinter.printInformation("The passwords are differnet. Enter passwords one more time.");
+    _ncursesPrintOperationWrapper.printRegistrationWindow();
+    _ncursesPrintOperationWrapper.printInformationIntoMainWindow("The passwords are differnet. Enter passwords one more time.");
 
     return false;
 }

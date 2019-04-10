@@ -5,7 +5,6 @@
 #include <SignIn.hpp>
 #include <ConsoleWindow.hpp>
 #include <TerminalFunctionality.hpp>
-#include <GlobalVariables.hpp> //lookforInivitation() init function
 #include <Logger.hpp>
 #include <ClasslessLogger.hpp>
 #include <LogSpace.hpp>
@@ -24,7 +23,7 @@ void mnurzyns()
 void mwozniak()
 {
     SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInMainConsole);
-    InformationPrinter informationPrinter;
+    NcursesPrintToMainWindowOperationWrapper informationPrinter;
     RegisterUser registerUser(informationPrinter);
     registerUser.registerNewUser();
     clear();

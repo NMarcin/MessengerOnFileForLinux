@@ -83,6 +83,7 @@ include_directories(${CMAKE_SOURCE_DIR}/ChatStarter/test)
 include_directories(${CMAKE_SOURCE_DIR}/UserService/test)
 include_directories(${CMAKE_SOURCE_DIR}/MessageFramework/test)
 include_directories(${CMAKE_SOURCE_DIR}/TerminalFunctionality/test)
+include_directories(${CMAKE_SOURCE_DIR}/DisplayChat/test)
 # TEST
 add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)

@@ -15,7 +15,7 @@ set(TEST_SOURCES ${TEST_SOURCES}
     ${MODULE_UserService}/RegisterUser.cpp
     ${MODULE_ChatControl}/Sender.cpp
     ${MODULE_DisplayChat}/ConsoleWindow.cpp
-    ${MODULE_DisplayChat}/InformationPrinter.cpp
+    ${MODULE_DisplayChat}/NcursesPrintToMainWindowOperationWrapper.cpp
     ${MODULE_ChatControl}/Receiver.cpp
     ${MODULE_ChatControl}/ConversationControl.cpp
     ${MODULE_ChatControl}/UserInactivityDetector.cpp

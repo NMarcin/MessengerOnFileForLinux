@@ -1,11 +1,14 @@
 #include <thread>
+#include <gtest/gtest.h>
 
 #include <ChatRequestTestCore.hpp>
 #include <SignIn.hpp>
 #include <SignOut.hpp>
 #include <RegisterUser.hpp>
 #include <GlobalVariables.hpp>
-#include "InformationPrinter.hpp"
+#include "NcursesPrintOperationWrapperMock.hpp"
+
+using namespace ::testing;
 
 ChatRequestFixture::ChatRequestFixture()
 {
@@ -17,11 +20,11 @@ void ChatRequestFixture::SetUp()
     _isMessengerRunnigTest = true;
     std::istringstream stream("1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    InformationPrinter informationPrinter;
-    RegisterUser registerUser(informationPrinter);
+    NiceMock<NcursesPrintOperationWrapperMock> _ncursesPrintOperationWrapperMock;
+    RegisterUser registerUser(_ncursesPrintOperationWrapperMock);
     registerUser.registerNewUser();
 
-    SignIn signIn(informationPrinter);
+    SignIn signIn(_ncursesPrintOperationWrapperMock);
     signIn.signInUser();
 }
 

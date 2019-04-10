@@ -1,10 +1,13 @@
 #include <SignInTestCore.hpp>
 
 SignInTestFixture::SignInTestFixture()
-    : _signIn(_informationPrinter)
-    , _registerUser(_informationPrinter)
+    : _signIn(_ncursesPrintOperationWrapperMock)
+    , _registerUser(_ncursesPrintOperationWrapperMock)
 {
-    //NOOP
+    EXPECT_CALL(_ncursesPrintOperationWrapperMock, printInformationIntoMainWindow(_)).WillRepeatedly(Return());
+    EXPECT_CALL(_ncursesPrintOperationWrapperMock, printMainWindow()).WillRepeatedly(Return());
+    EXPECT_CALL(_ncursesPrintOperationWrapperMock, printRegistrationWindow()).WillRepeatedly(Return());
+    EXPECT_CALL(_ncursesPrintOperationWrapperMock, printSignInWindow()).WillRepeatedly(Return());
 }
 
 SignInTestFixture::~SignInTestFixture()

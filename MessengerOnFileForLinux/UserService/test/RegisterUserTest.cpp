@@ -1,65 +1,51 @@
-#include <gtest/gtest.h>
-#include <ncurses.h>
+#include "RegisterUserTestCore.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
 
-#include <RegisterUser.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
-#include <SHA1.hpp>
-#include "InformationPrinterStub.hpp"
-
-InformationPrinterStub informationPrinter;
-RegisterUser registerUser(informationPrinter);
-SHA1 sha1;
-std::string user = getenv("USER");
-
-TEST(RegisterUserTest, registerNewUser)
+TEST_F(RegisterUserTestFixture, registerNewUser)
 {
     std::istringstream stream("1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,_user);
 
-    EXPECT_TRUE(registerUser.registerNewUser());
-    endwin();
+    EXPECT_TRUE(_registerUser.registerNewUser());
 }
 
-TEST(RegisterUserTest, registerRegisteredUser)
+TEST_F(RegisterUserTestFixture, registerRegisteredUser)
 {
-
     std::istringstream stream("1\n1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,_user);
 
-    EXPECT_TRUE(registerUser.registerNewUser());
-    EXPECT_FALSE(registerUser.registerNewUser());
+    EXPECT_TRUE(_registerUser.registerNewUser());
+    EXPECT_FALSE(_registerUser.registerNewUser());
 
 }
 
-TEST(RegisterUserTest, registerUserWithDifferentPasswords)
+TEST_F(RegisterUserTestFixture, registerUserWithDifferentPasswords)
 {
-
     std::istringstream stream("1\n0\n2\n1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,_user);
 
-    EXPECT_TRUE(registerUser.registerNewUser());
+    EXPECT_TRUE(_registerUser.registerNewUser());
 
 }
 
-TEST(RegisterUserTest, isUserCorrectlyAddedRegisterededFile)
+TEST_F(RegisterUserTestFixture, isUserCorrectlyAddedRegisterededFile)
 {
-
     std::istringstream stream("1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    sha1.update("1");
-    std::string hashedPassword = sha1.final();
+    _sha1.update("1");
+    std::string hashedPassword = _sha1.final();
 
-    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
-    auto rowFromRegisteredFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
+    FileInterface::Modification::removeRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,_user);
+    auto rowFromRegisteredFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,_user);
     EXPECT_EQ(nullptr, rowFromRegisteredFile);
 
-    registerUser.registerNewUser();
-    rowFromRegisteredFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,user);
-    std::string expectedRow = "[" + user +"][" + hashedPassword + "]";
+    _registerUser.registerNewUser();
+    rowFromRegisteredFile = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED ,_user);
+    std::string expectedRow = "[" + _user +"][" + hashedPassword + "]";
     EXPECT_EQ(expectedRow, *rowFromRegisteredFile);
 
 }
