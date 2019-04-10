@@ -106,6 +106,13 @@ target_link_libraries(messenger_binary_UT ${GTEST_MAIN_LIBRARY}
                                           ${GMOCK_LIBRARY})
 
 ################################################################################
+#####                      SET COMPILATION ORDER                           #####
+##### 1.messenger_binary                                                   #####
+##### 2.messenger_binary_UT                                                #####
+################################################################################
+add_dependencies(messenger_binary_UT messenger_binary)
+
+################################################################################
 #####                               VALGIRN                                #####
 ################################################################################
 find_program(VALGRIND "valgrind")
