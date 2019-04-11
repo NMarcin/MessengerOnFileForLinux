@@ -19,10 +19,10 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , _sender(std::make_unique<Sender>(chatInfo))
     , _receiver(std::make_unique<Receiver>(chatInfo))
     , _getMessageToQueueThread(nullptr)
-    , _reciveMessageThread(nullptr)
     , _sendMessageFromQueueThread(nullptr)
-    , _userInactivityDetector(chatInfo->_interlocutorUsername)
+    , _reciveMessageThread(nullptr)
     , _isUserInactivityWasHandled(false)
+    , _userInactivityDetector(chatInfo->_interlocutorUsername)
 {
     _log.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
