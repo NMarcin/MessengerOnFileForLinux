@@ -6,7 +6,7 @@
 class TerminalFunctionalityFixture : public ::testing::Test
 {
 public:
-    TerminalFunctionalityFixture();;
+    TerminalFunctionalityFixture();
     void SetUp();
     void TearDown();
     ~TerminalFunctionalityFixture();
