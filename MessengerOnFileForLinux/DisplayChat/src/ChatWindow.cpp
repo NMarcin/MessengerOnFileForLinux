@@ -38,8 +38,7 @@ WINDOW* ChatWindow::getEnterMessageWindow()
 
 void ChatWindow::displayEnterMessageWindow()
 {
-    int sizeX, sizeY;
-    getmaxyx(stdscr, sizeY, sizeX);
+    int sizeX = getmaxx(stdscr);
     wclear(_enterMessageWindow);
     wprintw(_enterMessageWindow, std::string(sizeX, '-').c_str());
     mvwprintw(_enterMessageWindow, 2, 1, ">> ");
