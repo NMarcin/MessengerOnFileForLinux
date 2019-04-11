@@ -83,7 +83,7 @@ include_directories(${CMAKE_SOURCE_DIR}/UserService/test)
 include_directories(${CMAKE_SOURCE_DIR}/MessageFramework/test)
 include_directories(${CMAKE_SOURCE_DIR}/TerminalFunctionality/test)
 include_directories(${CMAKE_SOURCE_DIR}/DisplayChat/test)
-#TEST
+# TEST
 add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
@@ -101,12 +101,15 @@ add_subdirectory(TerminalFunctionality/test)
 add_library(source_objects OBJECT ${SOURCES})
 
 # messenger_binary
-add_executable(messenger_binary $<TARGET_OBJECTS:source_objects> ${MAIN})
+add_executable(messenger_binary $<TARGET_OBJECTS:source_objects>
+                                ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT}
                                         ${CURSES_LIBRARIES})
 
 # messenger_binary_UT
-set(TEST_BINARY_FILES $<TARGET_OBJECTS:source_objects> ${TEST_FILES} ${MAIN_TEST})
+set(TEST_BINARY_FILES $<TARGET_OBJECTS:source_objects>
+                      ${TEST_FILES}
+                      ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
 target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES}
                                           ${GTEST_MAIN_LIBRARY}
@@ -116,8 +119,8 @@ target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES}
 
 ################################################################################
 #####                      SET COMPILATION ORDER                           #####
-##### 2.messenger_binary                                                   #####
-##### 3.messenger_binary_UT                                                #####
+##### 1.messenger_binary                                                   #####
+##### 2.messenger_binary_UT                                                #####
 ################################################################################
 add_dependencies(messenger_binary_UT messenger_binary)
 
