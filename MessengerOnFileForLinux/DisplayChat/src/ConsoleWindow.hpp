@@ -4,8 +4,8 @@
 #include <ncurses.h>
 #include <atomic>
 
-#include <Logger.hpp>
-#include <LogSpace.hpp>
+#include "Logger.hpp"
+#include "LogSpace.hpp"
 
 namespace ConsoleWindow
 {

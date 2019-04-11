@@ -1,4 +1,4 @@
-#include <ChatWindow.hpp>
+#include "ChatWindow.hpp"
 
 WINDOW* ChatWindow::_displayMessageWindow = nullptr;
 WINDOW* ChatWindow::_enterMessageWindow = nullptr;

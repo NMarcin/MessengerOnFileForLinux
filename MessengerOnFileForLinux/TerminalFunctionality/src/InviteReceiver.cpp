@@ -1,7 +1,6 @@
-#include <InviteReceiver.hpp>
-#include <TerminalControl.hpp>
-
-#include <ConversationControl.hpp>
+#include "InviteReceiver.hpp"
+#include "TerminalControl.hpp"
+#include "ConversationControl.hpp"
 
 InviteReceiver::InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo) :
     TerminalCommand(command)

@@ -1,15 +1,16 @@
 #include <thread>
 #include <ncurses.h>
+#include <iostream>
 
-#include <RegisterUser.hpp>
-#include <SignIn.hpp>
-#include <ConsoleWindow.hpp>
-#include <TerminalFunctionality.hpp>
-#include <Logger.hpp>
-#include <ClasslessLogger.hpp>
-#include <LogSpace.hpp>
-#include <SignalHandling.hpp>
-#include <Controler.hpp>
+#include "RegisterUser.hpp"
+#include "SignIn.hpp"
+#include "ConsoleWindow.hpp"
+#include "TerminalFunctionality.hpp"
+#include "Logger.hpp"
+#include "ClasslessLogger.hpp"
+#include "LogSpace.hpp"
+#include "SignalHandling.hpp"
+#include "Controler.hpp"
 
 #define ever (;;)
 

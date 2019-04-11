@@ -6,12 +6,12 @@
 #include <queue>
 #include <ncurses.h>
 
-#include <Sender.hpp>
-#include <Receiver.hpp>
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <Message.hpp>
-#include <TerminalFunctionality.hpp>
+#include "Sender.hpp"
+#include "Receiver.hpp"
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "Message.hpp"
+#include "TerminalFunctionality.hpp"
 #include "UserInactivityDetector.hpp"
 
 class ConversationControl

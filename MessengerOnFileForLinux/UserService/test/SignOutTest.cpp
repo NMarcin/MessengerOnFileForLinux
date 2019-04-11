@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <SignOut.hpp>
+#include "SignOut.hpp"
 #include "SignOutTestCore.hpp"
 
 TEST_F(SignOutTestFixture, isUserSignOutReturnTrueWhenUserIsLogged)

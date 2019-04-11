@@ -1,10 +1,11 @@
 #pragma once
 
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <TerminalFunctionality.hpp>
 #include <memory>
-#include <Message.hpp>
+
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "TerminalFunctionality.hpp"
+#include "Message.hpp"
 
 class TerminalControl
 {

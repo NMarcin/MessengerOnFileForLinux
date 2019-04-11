@@ -1,12 +1,9 @@
-#include <iostream>
-
-#include <ConsoleWindow.hpp>
-#include <GlobalVariables.hpp>
-#include <TerminalControl.hpp>
-
 #include <thread>
 #include <chrono>
 
+#include "ConsoleWindow.hpp"
+#include "GlobalVariables.hpp"
+#include "TerminalControl.hpp"
 
 void ConsoleWindow::displayMainWindow()
 {

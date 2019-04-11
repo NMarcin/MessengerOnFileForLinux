@@ -6,11 +6,10 @@
 #include <unistd.h>
 #include <chrono>
 #include <thread>
-#include <algorithm>
 
-#include <ClasslessLogger.hpp>
-#include <LogSpace.hpp>
-#include <FileHandling.hpp>
+#include "ClasslessLogger.hpp"
+#include "LogSpace.hpp"
+#include "FileHandling.hpp"
 
 namespace
 {

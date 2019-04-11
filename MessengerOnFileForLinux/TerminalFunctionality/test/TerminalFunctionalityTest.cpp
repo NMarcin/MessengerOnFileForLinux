@@ -1,4 +1,4 @@
-#include <TerminalFunctionalityTestCore.hpp>
+#include "TerminalFunctionalityTestCore.hpp"
 
 TEST_F(TerminalFunctionalityFixture, isTrueisTrue)
 {

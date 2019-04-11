@@ -1,10 +1,10 @@
-#include <Message.hpp>
 #include <string>
-#include <StringSum.hpp>
-#include <GlobalVariables.hpp>
-#include "TimeManagment.hpp"
-
 #include <vector>
+
+#include "Message.hpp"
+#include "StringSum.hpp"
+#include "GlobalVariables.hpp"
+#include "TimeManagment.hpp"
 
 Message::Message(std::string messageFlag, std::string username, std::string content)
 {

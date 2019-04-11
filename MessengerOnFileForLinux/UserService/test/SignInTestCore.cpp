@@ -1,4 +1,4 @@
-#include <SignInTestCore.hpp>
+#include "SignInTestCore.hpp"
 
 SignInTestFixture::SignInTestFixture()
     : _signIn(_ncursesPrintOperationWrapperMock)

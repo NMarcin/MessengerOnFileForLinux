@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include <LocalUser.hpp>
-#include <FileHandling.hpp>
+#include "LocalUser.hpp"
+#include "FileHandling.hpp"
 
 LocalUser::LocalUser()
     : _username(getenv("USER"))

@@ -1,9 +1,10 @@
 #pragma once
 #include <memory>
 #include <string>
-#include <TerminalCommand.hpp>
-#include <Logger.hpp>
-#include <LogSpace.hpp>
+
+#include "TerminalCommand.hpp"
+#include "Logger.hpp"
+#include "LogSpace.hpp"
 
 enum class ChatStatus
 {

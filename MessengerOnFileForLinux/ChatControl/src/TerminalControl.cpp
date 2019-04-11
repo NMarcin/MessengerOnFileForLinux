@@ -1,11 +1,11 @@
-#include<TerminalControl.hpp>
-
-#include <ChatRequest.hpp>
-#include <ConversationControl.hpp>
-#include <GlobalVariables.hpp>
-#include <ConsoleWindow.hpp>
-#include <LocalUser.hpp>
+#include"TerminalControl.hpp"
+#include "ChatRequest.hpp"
+#include "ConversationControl.hpp"
+#include "GlobalVariables.hpp"
+#include "ConsoleWindow.hpp"
+#include "LocalUser.hpp"
 #include "SignalHandling.hpp"
+#include "FileHandling.hpp"
 
 #include <iostream>
 #include <memory>
@@ -93,7 +93,7 @@ void TerminalControl::lookForInvitation()
         auto invitationsFolderContent = FileInterface::Accesor::getFilenamesFromFolder(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS);
         if (0 == invitationsFolderContent->size())
         {
-            sleep(1);
+            std::this_thread::sleep_for(std::chrono::seconds(1));
             continue;
         }
         for(auto invitation : *invitationsFolderContent)

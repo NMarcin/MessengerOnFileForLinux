@@ -1,15 +1,16 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include <Message.hpp>
 #include <memory>
+
+#include "Message.hpp"
 
 class MessageFixture : public ::testing::Test
 {
 public:
     MessageFixture() = default;
     void SetUp();
-    void TearDown() {};
+    void TearDown() {}
     ~MessageFixture() = default;
 
     void comparingExpectedMessageWithCreatedFromFullString(std::string expectedMessage);

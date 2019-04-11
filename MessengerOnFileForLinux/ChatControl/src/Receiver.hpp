@@ -4,11 +4,10 @@
 #include <string>
 #include <memory>
 
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <PurgeMessage.hpp>
-#include <TerminalFunctionality.hpp>
-
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "PurgeMessage.hpp"
+#include "TerminalFunctionality.hpp"
 
 class Receiver
 {

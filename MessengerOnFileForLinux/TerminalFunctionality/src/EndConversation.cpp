@@ -1,6 +1,6 @@
-#include <EndConversation.hpp>
-#include <ConversationControl.hpp>
-#include <FileHandling.hpp>
+#include "EndConversation.hpp"
+#include "ConversationControl.hpp"
+#include "FileHandling.hpp"
 
 EndConversation::EndConversation(std::string command, std::shared_ptr<ChatInformation> chatInfo) :
     TerminalCommand(command)

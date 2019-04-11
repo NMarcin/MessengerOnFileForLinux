@@ -4,13 +4,13 @@
 #include <ncurses.h>
 #include <csignal>
 
-#include <LocalUser.hpp>
-#include <SHA1.hpp>
-#include <SignIn.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
-#include <ConsoleWindow.hpp>
-#include <StringSum.hpp>
+#include "LocalUser.hpp"
+#include "SHA1.hpp"
+#include "SignIn.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
+#include "ConsoleWindow.hpp"
+#include "StringSum.hpp"
 #include "SignalHandling.hpp"
 
 SignIn::SignIn(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper)

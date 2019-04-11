@@ -2,15 +2,15 @@
 #include <thread>
 #include <stdio.h>
 
-#include <ConversationControl.hpp>
-#include <FileHandling.hpp>
-#include <ChatRequest.hpp>
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
-#include <SignalHandling.hpp>
-#include <ChatWindow.hpp>
-#include <ConsoleWindow.hpp>
-#include <PurgeMessage.hpp>
+#include "ConversationControl.hpp"
+#include "FileHandling.hpp"
+#include "ChatRequest.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
+#include "SignalHandling.hpp"
+#include "ChatWindow.hpp"
+#include "ConsoleWindow.hpp"
+#include "PurgeMessage.hpp"
 
 bool ConversationControl::isConversationRunning_ = false;
 
@@ -162,7 +162,7 @@ void ConversationControl::sendMessage()
     {
         if (_messageReadyToSend.empty())
         {
-            sleep(1);
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         else
         {

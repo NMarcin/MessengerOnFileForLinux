@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Message.hpp>
+#include "Message.hpp"
 
 class PurgeMessage : protected Message
 {
@@ -16,7 +16,6 @@ public:
 
 private:
     void setTime(std::string longTime);
-
 
     Logger _log {LogSpace::MessageFramework};
 };

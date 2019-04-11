@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include <TerminalFunctionality.hpp>
+#include "TerminalFunctionality.hpp"
 
 class TerminalFunctionalityFixture : public ::testing::Test
 {

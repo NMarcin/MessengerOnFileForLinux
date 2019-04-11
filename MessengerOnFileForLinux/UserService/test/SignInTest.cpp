@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <SignInTestCore.hpp>
+#include "SignInTestCore.hpp"
 
 TEST_F(SignInTestFixture, signInLoggedUser)
 {

@@ -1,5 +1,5 @@
-#include <LoggingOut.hpp>
-#include <SignOut.hpp>
+#include "LoggingOut.hpp"
+#include "SignOut.hpp"
 
 LoggingOut::LoggingOut(std::string command)
                 : TerminalCommand(command)

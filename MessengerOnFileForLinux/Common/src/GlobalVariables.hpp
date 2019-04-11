@@ -1,11 +1,5 @@
 #pragma once
 
-#include <unistd.h>
-#include <exception>
-
-#include <TerminalControl.hpp>
-#include <FileHandling.hpp>
-
 static const std::string pathh = "/var/tmp/";
 //static const std::string pathh = "/home/";
 

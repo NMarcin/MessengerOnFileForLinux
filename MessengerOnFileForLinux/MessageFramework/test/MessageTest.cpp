@@ -1,7 +1,7 @@
-#include <MessageTestCore.hpp>
 #include <regex>
 #include <cstring>
-#include <iostream>
+
+#include "MessageTestCore.hpp"
 
 TEST_F(MessageFixture, isMessageCorrectCreatedFromParameters)
 {
@@ -73,7 +73,6 @@ TEST_F(MessageFixture, isContentFromMessageCorrectReturned)
     comparingExpectedContentWithContentFromMessage(*_expectedInviterMessage, "inviter");
     comparingExpectedContentWithContentFromMessage(*_expectedRecipientMessage, "recipient");
 }
-
 
 TEST_F(MessageFixture, isIncorrectedMessageFlagDoesNotProvideErrors)
 {

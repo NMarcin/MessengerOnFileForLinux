@@ -1,6 +1,4 @@
-#include <StringSum.hpp>
-
-
+#include "StringSum.hpp"
 
 void StringSumSquareBrackets::sum(std::string s)
 {

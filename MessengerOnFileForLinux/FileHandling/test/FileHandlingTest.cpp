@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
 
 const std::string filename = "test.txt";
 const std::string testPath = ENVIRONMENT_PATH::TO_FOLDER::TEST;

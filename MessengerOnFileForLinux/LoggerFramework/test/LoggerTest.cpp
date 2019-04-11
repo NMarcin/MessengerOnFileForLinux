@@ -1,12 +1,9 @@
 #include <gtest/gtest.h>
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <ClasslessLogger.hpp>
-
-#include <FileHandling.hpp>
 #include <fstream>
-
-
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "ClasslessLogger.hpp"
+#include "FileHandling.hpp"
 
 TEST(LoggerFrameworkTest, logFileCreation)
 {
