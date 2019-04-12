@@ -14,7 +14,7 @@
 
 namespace
 {
-bool starts_with(const std::string toFind, const std::string ourString);
+bool starts_with(const std::string& starter, const std::string& ourString);
 } // namespace
 
 TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
@@ -24,10 +24,9 @@ TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatS
     //NOOP
 }
 
-bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo)
+bool TerminalFunctionality::runCommand(const std::string& command, std::shared_ptr<ChatInformation> chatInfo)
 {
     _log.function("TerminalFunctionality::runCommand() started");
-    _log.function(command);
 
     if (starts_with(UserCommand::historyDowloander, command) && ChatStatus::conversation == _chatStatus)
     {
@@ -66,7 +65,7 @@ bool TerminalFunctionality::runCommand(std::string command, std::shared_ptr<Chat
 namespace
 {
 // waiting for GCC with C++20 support, function similar to it will be avaible in string class
-bool starts_with(const std::string starter, const std::string ourString)
+bool starts_with(const std::string& starter, const std::string& ourString)
 {
     auto iteratorOurString = ourString.begin();
     for(auto letter : starter)
