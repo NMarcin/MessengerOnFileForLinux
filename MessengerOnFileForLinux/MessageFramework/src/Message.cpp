@@ -6,7 +6,7 @@
 #include "GlobalVariables.hpp"
 #include "TimeManagment.hpp"
 
-Message::Message(std::string messageFlag, std::string username, std::string content)
+Message::Message(const std::string& messageFlag, const std::string& username, const std::string& content)
 {
     _log.function("Message C-TOR string x3");
     setMessageFlag(messageFlag);
@@ -15,7 +15,7 @@ Message::Message(std::string messageFlag, std::string username, std::string cont
     _time = TimeManagment::convertTimeToString(TimeManagment::getLocalTime());
 }
 
-Message::Message(std::string fullMessageInRow)
+Message::Message(const std::string& fullMessageInRow)
 {
     _log.function("Message C-TOR longString");
     _messageFlag.append( fullMessageInRow.begin() + 1,  fullMessageInRow.begin() + 2  );
@@ -37,8 +37,7 @@ std::string Message::messageToSave() const
     return fullMessage.getSumedString();
 }
 
-
-bool Message::setMessageFlag(std::string messageFlag)
+bool Message::setMessageFlag(const std::string& messageFlag)
 {
     _log.function("Message::setMessageFlag()");
     _messageFlag = messageFlag;
@@ -60,7 +59,7 @@ bool Message::setMessageFlag(std::string messageFlag)
     }
 }
 
-bool Message::setContent(std::string content)
+bool Message::setContent(const std::string& content)
 {
     _log.function("Message::setContent()");
     int firstLetter = 1;

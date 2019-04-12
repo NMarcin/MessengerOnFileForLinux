@@ -2,13 +2,13 @@
 #include "GlobalVariables.hpp"
 
 HistoryDowloander::HistoryDowloander(std::string command, std::string chatFileWithPath)
-                : TerminalCommand(command)
-                , _chatFileWithPath(chatFileWithPath)
+    : TerminalCommand(command)
+    , _chatFileWithPath(chatFileWithPath)
 {
     _log.function("HistoryDowloander() C-TOR");
 }
 
-bool HistoryDowloander::doCommand()
+bool HistoryDowloander::doCommand() const
 {
     _log.function("HistoryDowloander::doCommand()");
     std::string systemCommand = "cp " + _chatFileWithPath + " " + ENVIRONMENT_PATH::TO_FOLDER::USER;

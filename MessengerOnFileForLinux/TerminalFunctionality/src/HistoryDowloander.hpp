@@ -7,7 +7,7 @@
 class HistoryDowloander : public TerminalCommand
 {
 public:
-    bool doCommand() override;
+    bool doCommand() const override;
 
     HistoryDowloander(std::string command, std::string chatFileWithPath);
     ~HistoryDowloander() = default;

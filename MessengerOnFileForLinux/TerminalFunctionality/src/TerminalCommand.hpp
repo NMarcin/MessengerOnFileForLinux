@@ -5,12 +5,12 @@
 class TerminalCommand
 {
 public:
-    virtual bool doCommand() = 0;
+    virtual bool doCommand() const = 0;
 
     TerminalCommand(std::string command);
     virtual ~TerminalCommand() = default;
 
-private:
+protected:
     std::string _commandName;
     std::string _command;
 };

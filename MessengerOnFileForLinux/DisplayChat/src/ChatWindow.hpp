@@ -27,6 +27,4 @@ public:
 
     static WINDOW* _displayMessageWindow;
     static WINDOW* _enterMessageWindow;
-
-
 };

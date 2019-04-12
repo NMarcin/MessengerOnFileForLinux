@@ -13,8 +13,8 @@ public:
     StringSumSquareBrackets(const StringSumSquareBrackets &) = default;
     StringSumSquareBrackets& operator=(const StringSumSquareBrackets &) = default;
 
-    void sum(std::string s);
-    std::string getSumedString();
+    void sum(const std::string& s);
+    std::string getSumedString() const;
 
 private:
     std::string _sumedString;
