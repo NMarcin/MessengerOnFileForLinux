@@ -19,7 +19,7 @@ std::unique_ptr<Message> Sender::getMessageToSend() const
     _log.function("Sender::getMessageToSend() started");
     std::string rawMessage = getMessageFromStdin();
     auto messageToSend = prepareMessageToSend(rawMessage);
-    return std::move(messageToSend);
+    return messageToSend;
 }
 
 bool Sender::sendMessage(const Message& message) const
