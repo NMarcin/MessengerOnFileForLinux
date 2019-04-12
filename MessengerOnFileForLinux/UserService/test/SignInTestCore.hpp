@@ -1,15 +1,17 @@
 #pragma once
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <FileHandling.hpp>
 #include <GlobalVariables.hpp>
 #include <RegisterUser.hpp>
 #include <SignIn.hpp>
 #include <SignOut.hpp>
-#include "InformationPrinterStub.hpp"
+#include "NcursesPrintOperationWrapperMock.hpp"
 
-class SignInTestFixture : public ::testing::Test
+using namespace ::testing;
+class SignInTestFixture : public Test
 {
 public:
     SignInTestFixture();
@@ -21,5 +23,5 @@ public:
     SignIn _signIn;
     SignOut _signOut;
     RegisterUser _registerUser;
-    InformationPrinterStub _informationPrinter;
+    NiceMock<NcursesPrintOperationWrapperMock> _ncursesPrintOperationWrapperMock;
 };

@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.5.1)
-project(CMakeBuildTree)
+project(MessengerOnFileForLinux)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,8 +8,8 @@ set(LIBRARY_OUTPUT_PATH build/)
 set(BINARY_OUTPUT_PATH build/)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(CMAKE_CXX_FLAGS "--coverage")
-
 set(BUILD_SHARED_LIBS OFF)
+
 include(External_GTest.cmake)
 include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
@@ -70,20 +70,17 @@ add_subdirectory(${MODULE_TerminalFunctionality})
 add_subdirectory(${MODULE_Common})
 add_subdirectory(${MODULE_DisplayChat})
 add_subdirectory(${MODULE_MessageFramework})
-# CMAKE BUILD
-add_executable(messenger_binary ${SOURCES} ${MAIN})
-target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(messenger_binary ${CURSES_LIBRARIES})
 
 ################################################################################
 #####                       MAKE UNIT TESTS CMAKE PART                     #####
 ################################################################################
-#LIB_TEST
+# LIB_TEST
 include_directories(${CMAKE_SOURCE_DIR}/ChatStarter/test)
 include_directories(${CMAKE_SOURCE_DIR}/UserService/test)
 include_directories(${CMAKE_SOURCE_DIR}/MessageFramework/test)
 include_directories(${CMAKE_SOURCE_DIR}/TerminalFunctionality/test)
-# TEST
+include_directories(${CMAKE_SOURCE_DIR}/DisplayChat/test)
+#TEST
 add_subdirectory(main/test)
 add_subdirectory(FileHandling/test)
 add_subdirectory(LoggerFramework/test)
@@ -94,18 +91,35 @@ add_subdirectory(ChatControl/test)
 add_subdirectory(MessageFramework/test)
 add_subdirectory(TerminalFunctionality/test)
 
-# CMAKE BUILD
-set(TEST_BINARY_FILES ${TEST_SOURCES} ${TEST_FILES} ${MAIN_TEST})
+
+################################################################################
+#####                  LINKING AND BUILD EXECUTALBE PART                   #####
+################################################################################
+add_library(source_objects OBJECT ${SOURCES})
+
+# messenger_binary
+add_executable(messenger_binary $<TARGET_OBJECTS:source_objects> ${MAIN})
+target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT}
+                                        ${CURSES_LIBRARIES})
+
+# messenger_binary_UT
+set(TEST_BINARY_FILES $<TARGET_OBJECTS:source_objects> ${TEST_FILES} ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
-target_link_libraries(messenger_binary_UT ${GTEST_LIBRARIES} pthread)
-target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES})
-target_link_libraries(messenger_binary_UT ${GTEST_MAIN_LIBRARY}
+target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES}
+                                          ${GTEST_MAIN_LIBRARY}
                                           ${GTEST_LIBRARY}
                                           ${GMOCK_MAIN_LIBRARY}
                                           ${GMOCK_LIBRARY})
 
 ################################################################################
-#####                               VALGIRN                                #####
+#####                      SET COMPILATION ORDER                           #####
+##### 2.messenger_binary                                                   #####
+##### 3.messenger_binary_UT                                                #####
+################################################################################
+add_dependencies(messenger_binary_UT messenger_binary)
+
+################################################################################
+#####                              VALGRIND                                #####
 ################################################################################
 find_program(VALGRIND "valgrind")
 if(VALGRIND)

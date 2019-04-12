@@ -3,13 +3,13 @@
 
 #include <Logger.hpp>
 #include <LogSpace.hpp>
-#include "InformationPrinter.hpp"
+#include "NcursesPrintToMainWindowOperationWrapper.hpp"
 
 class SignIn
 {
 public:
     bool signInUser() const;
-    SignIn(const InformationPrinter&);
+    SignIn(const NcursesPrintOperationWrapper&);
     ~SignIn();
 
     SignIn() = delete;
@@ -25,6 +25,6 @@ private:
     bool setUserDataInLoggedFile() const;
     std::string enterThePassword() const;
 
-    const InformationPrinter& _informationPrinter;
+    const NcursesPrintOperationWrapper& _ncursesPrintOperationWrapper;
     Logger _log {LogSpace::UserService};
 };

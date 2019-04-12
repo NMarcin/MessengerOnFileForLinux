@@ -13,8 +13,8 @@
 #include <StringSum.hpp>
 #include "SignalHandling.hpp"
 
-SignIn::SignIn(const InformationPrinter& informationPrinter)
-    : _informationPrinter(informationPrinter)
+SignIn::SignIn(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper)
+    : _ncursesPrintOperationWrapper(ncursesPrintOperationWrapper)
 {
     initscr();
     std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInSignInWindow);
@@ -30,7 +30,7 @@ SignIn::~SignIn()
 std::string SignIn::enterThePassword() const
 {
     _log.function("SignIn::enterThePassword() started");
-    _informationPrinter.printSignInWindow();
+    _ncursesPrintOperationWrapper.printSignInWindow();
 
     std::string password;
     std::cin >> password;
@@ -107,8 +107,8 @@ bool SignIn::isPasswordCorrect(const std::string& password, const std::string& c
         return true;
     }
 
-    _informationPrinter.printSignInWindow();
-    _informationPrinter.printInformation("Incorrect password. Enter password again.");
+    _ncursesPrintOperationWrapper.printSignInWindow();
+    _ncursesPrintOperationWrapper.printInformationIntoMainWindow("Incorrect password. Enter password again.");
 
     _log.info("SignIn::isPasswordCorrect WARNING: Incorect password");
     return false;
