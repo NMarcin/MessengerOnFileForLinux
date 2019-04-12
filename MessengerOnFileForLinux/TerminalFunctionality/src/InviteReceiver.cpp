@@ -6,7 +6,6 @@
 
 InviteReceiver::InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo)
     : TerminalCommand(command)
-    , _command(command)
     , _chatInfo(chatInfo)
 {
     _log.function("InviteReceiver() C-TOR");

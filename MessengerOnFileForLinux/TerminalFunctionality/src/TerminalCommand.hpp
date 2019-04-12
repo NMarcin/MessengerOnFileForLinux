@@ -9,7 +9,7 @@ public:
     TerminalCommand(std::string command);
     virtual ~TerminalCommand() = default;
 
-private:
+protected:
     std::string _commandName;
     std::string _command;
 };

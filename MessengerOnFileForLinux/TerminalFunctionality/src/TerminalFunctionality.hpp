@@ -21,7 +21,7 @@ struct ChatInformation //TODO lepsze miejsce na to
 class TerminalFunctionality
 {
 public:
-    bool runCommand(std::string command, std::shared_ptr<ChatInformation> chatInfo = nullptr);
+    bool runCommand(const std::string& command, std::shared_ptr<ChatInformation> chatInfo = nullptr);
 
     TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus);
     TerminalFunctionality() = default;
