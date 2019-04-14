@@ -19,7 +19,7 @@ static constexpr auto informationToDisplayDuringRegistration =
 class NcursesPrintToMainWindowOperationWrapper : public NcursesPrintOperationWrapper
 {
 public:
-    void printInformationIntoMainWindow(const std::string&) const override;
+    void printInformationIntoMainWindow(const std::string& informationToPrint) const override;
     void printMainWindow() const override;
     void printRegistrationWindow() const override;
     void printSignInWindow() const override;

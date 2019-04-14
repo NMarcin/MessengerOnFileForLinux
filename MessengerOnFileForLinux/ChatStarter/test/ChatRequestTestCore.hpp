@@ -1,11 +1,11 @@
 #pragma once
 
 #include <gtest/gtest.h>
-
-#include <ChatRequest.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
 #include <thread>
+
+#include "ChatRequest.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
 
 class ChatRequestFixture : public ::testing::Test
 {

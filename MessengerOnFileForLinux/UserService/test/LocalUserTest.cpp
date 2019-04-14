@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <LocalUser.hpp>
+#include "LocalUser.hpp"
 
 TEST(LocalUserTest, isLocalUsernameIsCorrect)
 {

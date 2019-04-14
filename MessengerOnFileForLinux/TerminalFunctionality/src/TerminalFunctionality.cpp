@@ -1,16 +1,12 @@
-#include <TerminalFunctionality.hpp>
-
-
-#include <UserCommand.hpp>
-
-#include <HistoryDowloander.hpp>
-#include <LoggingOut.hpp>
-#include <InviteSender.hpp>
-#include <GlobalVariables.hpp>
-#include <EndConversation.hpp>
-#include <InviteReceiver.hpp>
-#include <ConsoleWindow.hpp>
-#include <iostream>
+#include "TerminalFunctionality.hpp"
+#include "UserCommand.hpp"
+#include "HistoryDowloander.hpp"
+#include "LoggingOut.hpp"
+#include "InviteSender.hpp"
+#include "GlobalVariables.hpp"
+#include "EndConversation.hpp"
+#include "InviteReceiver.hpp"
+#include "ConsoleWindow.hpp"
 
 namespace
 {

@@ -7,9 +7,9 @@
 #include <chrono>
 #include <thread>
 
-#include <ClasslessLogger.hpp>
-#include <LogSpace.hpp>
-#include <FileHandling.hpp>
+#include "ClasslessLogger.hpp"
+#include "LogSpace.hpp"
+#include "FileHandling.hpp"
 
 namespace
 {
@@ -318,7 +318,7 @@ bool FileInterface::Modification::updateRow(const std::string & pathToFile, cons
 
 bool FileInterface::Modification::updateFlagsInFile(const std::string& pathToFile, const std::string& flagToReplace, const std::string& newFlag)
 {
-    std::string command = "sed -i -e '/\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
+    std::string command = "sed -i -e '/\\[" + flagToReplace + "]/{s/" + flagToReplace + "/" + newFlag + "/}' " + pathToFile;
     std::system(command.c_str());
 
     return true;
@@ -335,10 +335,9 @@ bool FileInterface::Modification::updateRowField(const std::string& pathToFile, 
     std::string row = ConsolControl::getStdoutFromStartedCommand(command.c_str());
 
     std::string rowToUpdate;
-    auto it = row.begin();
     int oldFieldSize = 0;
 
-    for (auto& x : row)
+    for (auto it = row.begin(); it != row.end();)
     {
         if ('[' == *it)
         {

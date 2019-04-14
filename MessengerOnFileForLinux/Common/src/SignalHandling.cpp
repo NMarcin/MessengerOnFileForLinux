@@ -1,10 +1,10 @@
-#include <SignalHandling.hpp>
-#include <SignOut.hpp>
-#include <ConversationControl.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
-#include <ClasslessLogger.hpp>
+#include "SignalHandling.hpp"
+#include "SignOut.hpp"
+#include "ConversationControl.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
+#include "ClasslessLogger.hpp"
 #include "ConsoleWindow.hpp"
 #include "ChatWindow.hpp"
 

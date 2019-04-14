@@ -6,12 +6,12 @@
 #include <queue>
 #include <ncurses.h>
 
-#include <Sender.hpp>
-#include <Receiver.hpp>
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <Message.hpp>
-#include <TerminalFunctionality.hpp>
+#include "Sender.hpp"
+#include "Receiver.hpp"
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "Message.hpp"
+#include "TerminalFunctionality.hpp"
 #include "UserInactivityDetector.hpp"
 
 class ConversationControl
@@ -41,12 +41,12 @@ private:
     void startThreads();
     void saveMessageToDisplay();
 
+    std::shared_ptr<ChatInformation> _chatInfo;
+    std::unique_ptr<Sender> _sender;
+    std::unique_ptr<Receiver> _receiver;
     std::unique_ptr<std::thread> _getMessageToQueueThread;
     std::unique_ptr<std::thread> _sendMessageFromQueueThread;
     std::unique_ptr<std::thread> _reciveMessageThread;
-    std::unique_ptr<Receiver> _receiver;
-    std::unique_ptr<Sender> _sender;
-    std::shared_ptr<ChatInformation> _chatInfo;
     std::queue<Message> _messageReadyToSend;
     std::queue<PurgeMessage> _messageToDisplay;
     bool _isThreadsRunning;

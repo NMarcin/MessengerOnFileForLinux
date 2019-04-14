@@ -4,12 +4,12 @@
 #include <sstream>
 #include <unistd.h>
 
-#include <ChatRequest.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
-#include <ChatFabric.hpp>
-#include <ConsoleWindow.hpp>
+#include "ChatRequest.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
+#include "ChatFabric.hpp"
+#include "ConsoleWindow.hpp"
 
 ChatRequest::ChatRequest()
 {

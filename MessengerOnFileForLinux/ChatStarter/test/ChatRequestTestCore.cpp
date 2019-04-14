@@ -1,11 +1,11 @@
 #include <thread>
 #include <gtest/gtest.h>
 
-#include <ChatRequestTestCore.hpp>
-#include <SignIn.hpp>
-#include <SignOut.hpp>
-#include <RegisterUser.hpp>
-#include <GlobalVariables.hpp>
+#include "ChatRequestTestCore.hpp"
+#include "SignIn.hpp"
+#include "SignOut.hpp"
+#include "RegisterUser.hpp"
+#include "GlobalVariables.hpp"
 #include "NcursesPrintOperationWrapperMock.hpp"
 
 using namespace ::testing;

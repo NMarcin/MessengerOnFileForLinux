@@ -1,12 +1,12 @@
 #include <chrono>
 
-#include <Sender.hpp>
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
-#include <FileHandling.hpp>
-#include <TerminalFunctionality.hpp>
-#include <ChatWindow.hpp>
-#include <ConversationControl.hpp>
+#include "Sender.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
+#include "FileHandling.hpp"
+#include "TerminalFunctionality.hpp"
+#include "ChatWindow.hpp"
+#include "ConversationControl.hpp"
 
 Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
     : _chatInfo(chatInfo)
@@ -19,7 +19,7 @@ std::unique_ptr<Message> Sender::getMessageToSend() const
     _log.function("Sender::getMessageToSend() started");
     std::string rawMessage = getMessageFromStdin();
     auto messageToSend = prepareMessageToSend(rawMessage);
-    return std::move(messageToSend);
+    return messageToSend;
 }
 
 bool Sender::sendMessage(const Message& message) const

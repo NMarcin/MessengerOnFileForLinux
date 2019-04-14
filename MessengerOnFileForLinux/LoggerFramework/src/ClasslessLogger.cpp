@@ -1,7 +1,7 @@
-#include <ClasslessLogger.hpp>
+#include "ClasslessLogger.hpp"
 #include <chrono>
 #include <ctime>
-
+#include <iostream>
 
 void fileLog(const char * logData, const char * logSpace)
 {

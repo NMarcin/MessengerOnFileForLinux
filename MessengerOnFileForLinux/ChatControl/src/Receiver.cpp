@@ -1,12 +1,11 @@
-#include <Receiver.hpp>
+#include "Receiver.hpp"
+#include "PurgeMessage.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
+#include "FileHandling.hpp"
 
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
-#include <FileHandling.hpp>
-#include <iostream>
 #include <thread>
 #include <chrono>
-#include <PurgeMessage.hpp>
 
 Receiver::Receiver(std::shared_ptr<ChatInformation> chatInfo)
                 : _chatInfo(chatInfo)

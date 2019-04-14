@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include <StringSum.hpp>
+
+#include "StringSum.hpp"
 
 TEST(StringSumTest, isStringsAreSummedWithBrackets)
 {

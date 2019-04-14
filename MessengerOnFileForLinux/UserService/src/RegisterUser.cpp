@@ -4,13 +4,13 @@
 #include <ncurses.h>
 #include <csignal>
 
-#include <RegisterUser.hpp>
-#include <LocalUser.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
-#include <SHA1.hpp>
-#include <ConsoleWindow.hpp>
-#include <StringSum.hpp>
+#include "RegisterUser.hpp"
+#include "LocalUser.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
+#include "SHA1.hpp"
+#include "ConsoleWindow.hpp"
+#include "StringSum.hpp"
 #include "SignalHandling.hpp"
 
 RegisterUser::RegisterUser(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper)

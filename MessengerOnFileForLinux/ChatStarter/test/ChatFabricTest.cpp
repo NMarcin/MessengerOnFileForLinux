@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include <ChatFabric.hpp>
+#include "ChatFabric.hpp"
 #include <string>
 
-#include <GlobalVariables.hpp>
-#include <FileHandling.hpp>
+#include "GlobalVariables.hpp"
+#include "FileHandling.hpp"
 
 std::string chatPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + "0inviterU_receiver/";
 std::string fileName = "inviterU_receiver";

@@ -1,5 +1,5 @@
-#include <HistoryDowloander.hpp>
-#include <GlobalVariables.hpp>
+#include "HistoryDowloander.hpp"
+#include "GlobalVariables.hpp"
 
 HistoryDowloander::HistoryDowloander(std::string command, std::string chatFileWithPath)
     : TerminalCommand(command)

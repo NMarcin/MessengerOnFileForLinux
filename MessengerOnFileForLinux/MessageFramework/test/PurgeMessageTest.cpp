@@ -1,7 +1,7 @@
-#include <PurgeMessageTestCore.hpp>
 #include <regex>
 #include <cstring>
-#include <iostream>
+
+#include "PurgeMessageTestCore.hpp"
 
 TEST_F(PurgeMessageFixture, isPurgeMessageCorrectCreatedFromMessage)
 {

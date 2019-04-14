@@ -2,15 +2,15 @@
 #include <thread>
 #include <stdio.h>
 
-#include <ConversationControl.hpp>
-#include <FileHandling.hpp>
-#include <ChatRequest.hpp>
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
-#include <SignalHandling.hpp>
-#include <ChatWindow.hpp>
-#include <ConsoleWindow.hpp>
-#include <PurgeMessage.hpp>
+#include "ConversationControl.hpp"
+#include "FileHandling.hpp"
+#include "ChatRequest.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
+#include "SignalHandling.hpp"
+#include "ChatWindow.hpp"
+#include "ConsoleWindow.hpp"
+#include "PurgeMessage.hpp"
 
 bool ConversationControl::isConversationRunning_ = false;
 
@@ -19,10 +19,10 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , _sender(std::make_unique<Sender>(chatInfo))
     , _receiver(std::make_unique<Receiver>(chatInfo))
     , _getMessageToQueueThread(nullptr)
-    , _reciveMessageThread(nullptr)
     , _sendMessageFromQueueThread(nullptr)
-    , _userInactivityDetector(chatInfo->_interlocutorUsername)
+    , _reciveMessageThread(nullptr)
     , _isUserInactivityWasHandled(false)
+    , _userInactivityDetector(chatInfo->_interlocutorUsername)
 {
     _log.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
@@ -162,7 +162,7 @@ void ConversationControl::sendMessage()
     {
         if (_messageReadyToSend.empty())
         {
-            sleep(1);
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         else
         {

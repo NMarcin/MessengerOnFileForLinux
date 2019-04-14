@@ -1,7 +1,7 @@
-#include <SignOut.hpp>
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
-#include <LocalUser.hpp>
+#include "SignOut.hpp"
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
+#include "LocalUser.hpp"
 
 
 bool SignOut::signOutUser() const

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <TerminalCommand.hpp>
-#include <TerminalFunctionality.hpp>
+#include "TerminalCommand.hpp"
+#include "TerminalFunctionality.hpp"
 
 class EndConversation : public TerminalCommand
 {

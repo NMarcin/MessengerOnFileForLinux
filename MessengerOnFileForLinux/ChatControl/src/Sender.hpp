@@ -3,10 +3,10 @@
 #include <string>
 #include <ncurses.h>
 
-#include <Message.hpp>
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <TerminalFunctionality.hpp>
+#include "Message.hpp"
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "TerminalFunctionality.hpp"
 
 class Sender
 {

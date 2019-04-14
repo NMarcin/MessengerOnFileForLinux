@@ -1,9 +1,9 @@
 // dodac do cmakow
 
-#include <Controler.hpp>
-#include <TerminalControl.hpp>
-#include <GlobalVariables.hpp>
-#include <SignalHandling.hpp>
+#include "Controler.hpp"
+#include "TerminalControl.hpp"
+#include "GlobalVariables.hpp"
+#include "SignalHandling.hpp"
 
 #define ever (;;)
 

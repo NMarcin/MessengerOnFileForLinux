@@ -1,4 +1,4 @@
-#include <PurgeMessageTestCore.hpp>
+#include "PurgeMessageTestCore.hpp"
 
 void PurgeMessageFixture::SetUp()
 {

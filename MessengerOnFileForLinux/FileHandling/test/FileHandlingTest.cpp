@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 
-#include <FileHandling.hpp>
-#include <GlobalVariables.hpp>
+#include "FileHandling.hpp"
+#include "GlobalVariables.hpp"
 
 const std::string filename = "test.txt";
 const std::string testPath = ENVIRONMENT_PATH::TO_FOLDER::TEST;
@@ -249,7 +249,7 @@ TEST(FileHandlingTest, updateFlagsInFile)
 
     FileInterface::Modification::updateFlagsInFile(testPath + filename, "3", "10");
 
-    std::array<std::string, 3> expectedRow{"[mwoznia][10][33]", "[tomek][10][2]", "[mwoznia][10][3]"};
+    std::array<std::string, 3> expectedRow {{"[mwoznia][10][33]", "[tomek][10][2]", "[mwoznia][10][3]"}};
     std::fstream file(testPath + filename);
     std::string updatedRow;
 

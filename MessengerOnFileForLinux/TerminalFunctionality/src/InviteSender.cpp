@@ -1,7 +1,6 @@
-#include <InviteSender.hpp>
-#include <TerminalControl.hpp>
-
-#include <ConversationControl.hpp>
+#include "InviteSender.hpp"
+#include "TerminalControl.hpp"
+#include "ConversationControl.hpp"
 
 
 InviteSender::InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo)

@@ -1,8 +1,8 @@
-#include <iostream>
 #include <chrono>
 #include <ctime>
+#include <iostream>
 
-#include <Logger.hpp>
+#include "Logger.hpp"
 
 Logger::Logger(const char* logSpace, SavingMode mode)
                 : _savingMode(mode)

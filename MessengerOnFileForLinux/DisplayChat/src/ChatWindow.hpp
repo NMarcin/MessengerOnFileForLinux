@@ -2,9 +2,9 @@
 
 #include <ncurses.h>
 #include <string>
-#include <Logger.hpp>
-#include <LogSpace.hpp>
-#include <ClasslessLogger.hpp>
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+#include "ClasslessLogger.hpp"
 
 class ChatWindow
 {

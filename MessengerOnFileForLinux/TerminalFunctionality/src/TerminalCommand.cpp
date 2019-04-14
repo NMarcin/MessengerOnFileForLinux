@@ -1,4 +1,4 @@
-#include <TerminalCommand.hpp>
+#include "TerminalCommand.hpp"
 
 TerminalCommand::TerminalCommand(std::string command)
     : _command(command)

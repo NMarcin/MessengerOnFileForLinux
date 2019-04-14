@@ -3,9 +3,9 @@
 #include <iostream>
 #include <algorithm>
 
-#include <ChatFabric.hpp>
-#include <GlobalVariables.hpp>
-#include <FileHandling.hpp>
+#include "ChatFabric.hpp"
+#include "GlobalVariables.hpp"
+#include "FileHandling.hpp"
 
 
 
@@ -104,9 +104,9 @@ int ChatFabric::getFreeFolderNumber() const
     {
         return 0;
     }
-    else if(busyNumbers.back()+1 == busyNumbers.size())
+    else if(busyNumbers.back() + 1u  == busyNumbers.size())
     {
-        return busyNumbers.back()+1;
+        return busyNumbers.back() + 1;
     }
     else
     {
