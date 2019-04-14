@@ -19,7 +19,6 @@ public:
     InviteSender operator=(const InviteSender &) = delete;
 
 private:
-    std::string _command;
     std::shared_ptr<ChatInformation> _chatInfo;
     Logger _log {LogSpace::TerminalFunctionality};
 };
