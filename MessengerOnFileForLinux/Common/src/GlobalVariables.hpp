@@ -5,6 +5,8 @@ namespace
 static const std::string path = "/var/tmp/";
 }//namespace
 
+static const std::string LOCAL_USER = getenv("USER");
+
 namespace ENVIRONMENT_PATH
 {
 namespace TO_FILE
