@@ -68,7 +68,7 @@ bool RegisterUser::comparePasswords(std::array<std::string, 2> passwords) const
 bool RegisterUser::isUserRegistered() const
 {
     _log.function("RegisterUser::isUserRegistered() started");
-    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, LocalUser::getLocalUser().getUsername());
+    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, LOCAL_USER);
 
     if (nullptr == userInfo)
     {
@@ -128,7 +128,7 @@ bool RegisterUser::saveUserDataInRegisteredFile(const std::string& password) con
     _log.function("RegisterUser::saveUserDataInRegisteredFile() started");
 
     StringSumSquareBrackets information;
-    information.sum(LocalUser::getLocalUser().getUsername());
+    information.sum(LOCAL_USER);
     information.sum(password);
     return FileInterface::Modification::addRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, information.getSumedString());
 }

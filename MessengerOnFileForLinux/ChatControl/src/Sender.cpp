@@ -66,13 +66,13 @@ std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMess
         terminalFunctionality.runCommand(command, _chatInfo);
         if("end" == command)
         {
-            std::string systemMessage = LocalUser::getLocalUser().getUsername() + " LEFT CHAT";
+            std::string systemMessage = LOCAL_USER + " LEFT CHAT";
             return std::make_unique<Message>(_chatInfo->_messageFlag, "_SYSTEM_" ,systemMessage);
         }
         return nullptr;
     }
 
-    return std::make_unique<Message>(_chatInfo->_messageFlag, LocalUser::getLocalUser().getUsername(), rowMessage);
+    return std::make_unique<Message>(_chatInfo->_messageFlag, LOCAL_USER, rowMessage);
 }
 
 bool Sender::isTerminalCommand(const std::string& message) const

@@ -33,7 +33,7 @@ std::string ChatRequest::answerForChatRequest(const std::string& senderUsername,
     }
     return sendAnswer(senderUsername, AnswerType::disaccepted);
 
-    std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + senderUsername;
+    std::string invitationName =  LOCAL_USER + "_" + senderUsername;
     FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
     showInvitation(senderUsername);
     bool decisionStatus = approveChatInvitation();
@@ -142,7 +142,7 @@ bool ChatRequest::approveChatInvitation() const
 std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerType type) const
 {
     _log.function("ChatRequest::sendAnswer() started");
-    std::string folderNameWithoutNumber = senderUsername + "_" + LocalUser::getLocalUser().getUsername();
+    std::string folderNameWithoutNumber = senderUsername + "_" + LOCAL_USER;
     std::string folderFullName = *getChatFolderName(folderNameWithoutNumber);
     std::string flagPath = ENVIRONMENT_PATH::TO_FOLDER::CHATS + folderFullName;
 
@@ -164,7 +164,7 @@ std::string ChatRequest::sendAnswer(const std::string& senderUsername, AnswerTyp
 std::string ChatRequest::sendChatRequest(const std::string& receiverUsername) const
 {
     _log.function("ChatRequest::sendChatRequest() started");
-    changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::bussyStatus);
+    changeUserStatus(LOCAL_USER, UserStatus::bussyStatus);
     //^ przez ta linijke są zakomentowane UT
 
     if (!isUserActive(receiverUsername))
@@ -173,9 +173,9 @@ std::string ChatRequest::sendChatRequest(const std::string& receiverUsername) co
     }
 
     ChatFabric chatFabric;
-    std::string chatFileWithPath = chatFabric.createChatStructure(LocalUser::getLocalUser().getUsername(), receiverUsername);
+    std::string chatFileWithPath = chatFabric.createChatStructure(LOCAL_USER, receiverUsername);
     changeUserStatus(receiverUsername, UserStatus::bussyStatus);
-    std::string invitationName = receiverUsername + "_" + LocalUser::getLocalUser().getUsername();
+    std::string invitationName = receiverUsername + "_" + LOCAL_USER;
     FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
 
     bool receiverDecision = waitForAnswer(receiverUsername);
@@ -186,7 +186,7 @@ std::string ChatRequest::sendChatRequest(const std::string& receiverUsername) co
 
     auto chatFileFolder = *FileInterface::Accesor::getFolderName(chatFileWithPath);
     FileInterface::Managment::removeFile(chatFileFolder);
-    changeUserStatus(LocalUser::getLocalUser().getUsername(), UserStatus::activeStatus);
+    changeUserStatus(LOCAL_USER, UserStatus::activeStatus);
     changeUserStatus(receiverUsername, UserStatus::activeStatus);
     return {};
 
@@ -205,7 +205,7 @@ void ChatRequest::showInvitation(const std::string& senderUsername) const
 bool ChatRequest::waitForAnswer(const std::string& username) const
 {
     _log.function("ChatRequest::waitForAnswer() started");
-    std::string folderName = LocalUser::getLocalUser().getUsername() + "_" + username;
+    std::string folderName = LOCAL_USER + "_" + username;
     std::string folderFullName = *getChatFolderName(folderName);
 
     const int timeToWaitForAnswer = 20;

@@ -62,7 +62,7 @@ void ConversationControl::conversationEpilog()
     ConsoleWindow::displayMainWindow();
 
     const std::string userActiveStatus = "0";
-    const std::string username = LocalUser::getLocalUser().getUsername();
+    const std::string username = LOCAL_USER;
     FileInterface::Modification::updateRowField(ENVIRONMENT_PATH::TO_FILE::LOGGED, username, userActiveStatus, FileStructure::LoggedFile::status);
 }
 

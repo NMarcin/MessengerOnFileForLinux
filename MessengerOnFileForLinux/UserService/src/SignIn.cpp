@@ -86,7 +86,7 @@ bool SignIn::isUserLogged() const
 {
     _log.function("SignIn::isUserLogged() started");
 
-    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, LocalUser::getLocalUser().getUsername());
+    auto userInfo = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::LOGGED, LOCAL_USER);
     if(nullptr == userInfo)
     {
         return false;
@@ -118,7 +118,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 {
     _log.function("SignIn::getPasswordFromDatabase() started");
 
-    std::string username = LocalUser::getLocalUser().getUsername();
+    std::string username = LOCAL_USER;
     auto row = FileInterface::Accesor::getRow(ENVIRONMENT_PATH::TO_FILE::REGISTERED, username);
 
     if (row)
@@ -134,7 +134,7 @@ std::unique_ptr<std::string> SignIn::getPasswordFromDatabase() const
 bool SignIn::setUserDataInLoggedFile() const
 {
     _log.function("SignIn::setUserDataInLoggedFile() started");
-    std::string user = LocalUser::getLocalUser().getUsername();
+    std::string user = LOCAL_USER;
 
     StringSumSquareBrackets information;
     information.sum(user);
