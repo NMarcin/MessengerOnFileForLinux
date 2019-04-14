@@ -4,7 +4,6 @@
 #include <ncurses.h>
 #include <csignal>
 
-#include "LocalUser.hpp"
 #include "SHA1.hpp"
 #include "SignIn.hpp"
 #include "FileHandling.hpp"

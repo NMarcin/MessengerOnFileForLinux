@@ -3,7 +3,6 @@
 #include "ConversationControl.hpp"
 #include "GlobalVariables.hpp"
 #include "ConsoleWindow.hpp"
-#include "LocalUser.hpp"
 #include "SignalHandling.hpp"
 #include "FileHandling.hpp"
 

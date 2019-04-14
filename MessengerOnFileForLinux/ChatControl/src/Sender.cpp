@@ -2,7 +2,6 @@
 
 #include "Sender.hpp"
 #include "GlobalVariables.hpp"
-#include "LocalUser.hpp"
 #include "FileHandling.hpp"
 #include "TerminalFunctionality.hpp"
 #include "ChatWindow.hpp"

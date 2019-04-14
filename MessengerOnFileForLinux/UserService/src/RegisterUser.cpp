@@ -5,7 +5,6 @@
 #include <csignal>
 
 #include "RegisterUser.hpp"
-#include "LocalUser.hpp"
 #include "FileHandling.hpp"
 #include "GlobalVariables.hpp"
 #include "SHA1.hpp"

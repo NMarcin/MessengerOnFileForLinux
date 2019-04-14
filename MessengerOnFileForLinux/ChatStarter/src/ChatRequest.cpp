@@ -7,7 +7,6 @@
 #include "ChatRequest.hpp"
 #include "FileHandling.hpp"
 #include "GlobalVariables.hpp"
-#include "LocalUser.hpp"
 #include "ChatFabric.hpp"
 #include "ConsoleWindow.hpp"
 

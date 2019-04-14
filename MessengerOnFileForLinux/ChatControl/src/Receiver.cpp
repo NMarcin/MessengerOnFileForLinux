@@ -1,7 +1,6 @@
 #include "Receiver.hpp"
 #include "PurgeMessage.hpp"
 #include "GlobalVariables.hpp"
-#include "LocalUser.hpp"
 #include "FileHandling.hpp"
 
 #include <thread>
