@@ -119,10 +119,13 @@ target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES}
 
 ################################################################################
 #####                      SET COMPILATION ORDER                           #####
-##### 1.messenger_binary                                                   #####
-##### 2.messenger_binary_UT                                                #####
+##### 1.source_objects                                                     #####
+##### 2.messenger_binary                                                   #####
+##### 3.googletest                                                         #####
+##### 4.messenger_binary_UT                                                #####
 ################################################################################
 add_dependencies(messenger_binary_UT messenger_binary)
+add_dependencies(googletest messenger_binary)
 
 ################################################################################
 #####                              VALGRIND                                #####
