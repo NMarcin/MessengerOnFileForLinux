@@ -1,25 +1,29 @@
 #pragma once
 
-static const std::string pathh = "/var/tmp/";
-//static const std::string pathh = "/home/";
+namespace
+{
+static const std::string path = "/var/tmp/";
+}//namespace
+
+static const std::string LOCAL_USER = getenv("USER");
 
 namespace ENVIRONMENT_PATH
 {
 namespace TO_FILE
 {
-static const std::string REGISTERED= pathh + "messenger/configuration/REGISTERED";
-static const std::string LOGGED = pathh + "messenger/configuration/LOGGED";
+static const std::string REGISTERED= path + "messenger/configuration/REGISTERED";
+static const std::string LOGGED = path + "messenger/configuration/LOGGED";
 }//TO_FILE
 
 namespace TO_FOLDER
 {
 static const std::string HOME = getenv("HOME");
 static const std::string USER = HOME + "/messenger/";
-static const std::string CHATS = pathh + "messenger/chats/";
-static const std::string INVITATIONS = pathh + "messenger/invitations/";
-static const std::string INSTALL = pathh + "messenger/installation/";
+static const std::string CHATS = path + "messenger/chats/";
+static const std::string INVITATIONS = path + "messenger/invitations/";
+static const std::string INSTALL = path + "messenger/installation/";
 
-static const std::string TEST = pathh + "messenger/TEST/";
+static const std::string TEST = path + "messenger/TEST/";
 }//TO FOLDER
 }//ENVIRONMENT_PATH
 

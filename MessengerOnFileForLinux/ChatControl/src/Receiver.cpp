@@ -1,7 +1,6 @@
 #include "Receiver.hpp"
 #include "PurgeMessage.hpp"
 #include "GlobalVariables.hpp"
-#include "LocalUser.hpp"
 #include "FileHandling.hpp"
 
 #include <thread>
@@ -93,7 +92,7 @@ bool Receiver::endOfMessageToRead(std::string message, std::string messageFlag)
     {
         std::string senderUsername;
         senderUsername = *FileInterface::Accesor::getRowField(message, FileStructure::MessageFile::flag);
-        if( LocalUser::getLocalUser().getUsername() == senderUsername)
+        if(LOCAL_USER == senderUsername)
         {
             _log.info("Receiver::endOfMessageToRead() Message read befory by user, end of reading messages");
             return true;

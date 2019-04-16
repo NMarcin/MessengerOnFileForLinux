@@ -3,7 +3,6 @@
 #include "ConversationControl.hpp"
 #include "GlobalVariables.hpp"
 #include "ConsoleWindow.hpp"
-#include "LocalUser.hpp"
 #include "SignalHandling.hpp"
 #include "FileHandling.hpp"
 
@@ -130,7 +129,7 @@ void TerminalControl::lookForInvitation()
                 printw(">> ");
                 refresh();
                 isWaitingForInvitation=false;
-                std::string invitationName =  LocalUser::getLocalUser().getUsername() + "_" + inviter;
+                std::string invitationName =  LOCAL_USER + "_" + inviter;
                 FileInterface::Managment::removeFile(ENVIRONMENT_PATH::TO_FOLDER::INVITATIONS + invitationName);
             }
         }
