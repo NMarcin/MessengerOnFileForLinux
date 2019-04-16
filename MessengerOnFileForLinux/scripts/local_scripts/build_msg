@@ -1,0 +1,16 @@
+#!/bin/bash
+
+case $1 in
+  --cmake-only | -cm) cmake .. ;;
+  --make-only | -mk) make ;;
+  --clear | -cl) cd ../build; rm -rf *;;
+  --unit-test |-ut) cmake ..; make; ./bin/messenger_binary_UT;;	
+  --full | -f) cmake  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..; make; make valgrind; python ../scripts/local_scripts/run-clang-tidy.py ;;
+  --help | -h) 	echo '=== To use script go to */MessengerOnFileForLinux/build ===';
+	       	echo '-cm / --cmake-only -> generate only CMake files';
+	       	echo '-mk / --make-only  -> build without creating/updating CMake files';
+		echo '-cl / --clear      -> clear */build directory';
+		echo '-ut / --unit-test  -> build and run UT';
+		echo '-f  / --full       -> generate CMake files, build binary, run valgrind on UT and run clang-tidy';;
+  *) cmake ..; make
+esac
