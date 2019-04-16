@@ -98,16 +98,16 @@ add_subdirectory(TerminalFunctionality/test)
 ################################################################################
 #####                  LINKING AND BUILD EXECUTALBE PART                   #####
 ################################################################################
-add_library(source_objects OBJECT ${SOURCES})
+add_library(source_objects_lib OBJECT ${SOURCES})
 
 # messenger_binary
-add_executable(messenger_binary $<TARGET_OBJECTS:source_objects>
+add_executable(messenger_binary $<TARGET_OBJECTS:source_objects_lib>
                                 ${MAIN})
 target_link_libraries (messenger_binary ${CMAKE_THREAD_LIBS_INIT}
                                         ${CURSES_LIBRARIES})
 
 # messenger_binary_UT
-set(TEST_BINARY_FILES $<TARGET_OBJECTS:source_objects>
+set(TEST_BINARY_FILES $<TARGET_OBJECTS:source_objects_lib>
                       ${TEST_FILES}
                       ${MAIN_TEST})
 add_executable(messenger_binary_UT ${TEST_BINARY_FILES})
@@ -119,7 +119,7 @@ target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES}
 
 ################################################################################
 #####                      SET COMPILATION ORDER                           #####
-##### 1.source_objects                                                     #####
+##### 1.source_objects_lib                                                     #####
 ##### 2.messenger_binary                                                   #####
 ##### 3.googletest                                                         #####
 ##### 4.messenger_binary_UT                                                #####
