@@ -18,6 +18,10 @@ include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package(Curses REQUIRED)
 
+if(${GTEST_ONLY})
+    return()
+endif()
+
 ################################################################################
 #####                         MODULE DIR SOURCES                           #####
 ################################################################################
@@ -119,7 +123,7 @@ target_link_libraries(messenger_binary_UT ${CURSES_LIBRARIES}
 
 ################################################################################
 #####                      SET COMPILATION ORDER                           #####
-##### 1.source_objects_lib                                                     #####
+##### 1.source_objects_lib                                                 #####
 ##### 2.messenger_binary                                                   #####
 ##### 3.googletest                                                         #####
 ##### 4.messenger_binary_UT                                                #####
