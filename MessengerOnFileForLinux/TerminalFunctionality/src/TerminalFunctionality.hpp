@@ -5,7 +5,7 @@
 #include "TerminalCommand.hpp"
 #include "Logger.hpp"
 #include "LogSpace.hpp"
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "NcursesPrintOperationWrapper.hpp"
 
 enum class ChatStatus

@@ -1,4 +1,4 @@
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "SignOut.hpp"
 #include "ConversationControl.hpp"
 #include "FileHandling.hpp"

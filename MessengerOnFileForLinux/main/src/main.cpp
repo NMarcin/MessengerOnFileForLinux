@@ -9,7 +9,7 @@
 #include "Logger.hpp"
 #include "ClasslessLogger.hpp"
 #include "LogSpace.hpp"
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "Controler.hpp"
 
 #define ever (;;)

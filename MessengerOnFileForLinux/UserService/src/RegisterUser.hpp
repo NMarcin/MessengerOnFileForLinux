@@ -4,7 +4,7 @@
 #include "Logger.hpp"
 #include "LogSpace.hpp"
 #include "NcursesPrintToMainWindowOperationWrapper.hpp"
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 
 class RegisterUser
 {

@@ -6,7 +6,7 @@
 #include "LogSpace.hpp"
 #include "TerminalFunctionality.hpp"
 #include "Message.hpp"
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "NcursesPrintOperationWrapper.hpp"
 
 class TerminalControl

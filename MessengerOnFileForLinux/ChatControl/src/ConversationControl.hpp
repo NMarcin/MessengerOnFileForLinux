@@ -13,7 +13,7 @@
 #include "Message.hpp"
 #include "TerminalFunctionality.hpp"
 #include "UserInactivityDetector.hpp"
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "NcursesPrintOperationWrapper.hpp"
 
 class ConversationControl
