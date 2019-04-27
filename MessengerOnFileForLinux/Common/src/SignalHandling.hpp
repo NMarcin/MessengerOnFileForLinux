@@ -3,22 +3,44 @@
 #include <stdlib.h>
 #include <array>
 
+#include "NcursesPrintOperationWrapper.hpp"
+#include "Logger.hpp"
+#include "LogSpace.hpp"
+
 namespace
 {
 static constexpr int NUMBER_OF_HANLING_POSIX_SIGNALS = 5;
 }
-
-namespace SignalHandling
-{
-void posixSignalHandlerInMainConsole(int signal);
-void posixSignalHandlerInChatConsole(int signal);
-void createPosixSignalsHandling(void(*handlingFunction)(int));
 
 static constexpr std::array<int, NUMBER_OF_HANLING_POSIX_SIGNALS> posixSignalsCausingUnexpectedApplicationEndings{SIGINT,
                                                                                                                   SIGHUP,
                                                                                                                   SIGCONT,
                                                                                                                   SIGTERM,
                                                                                                                   0};
+
+class SignalHandler
+{
+public:
+    SignalHandler(const NcursesPrintOperationWrapper& nCursesPrintOperationWrapper);
+
+    void posixSignalHandlerInMainConsole(int signal);
+    void posixSignalHandlerInChatConsole(int signal);
+    void createPosixSignalsHandling(void(*handlingFunction)(int));
+    void terminalResizeHandlerInMainWindow(int);
+    void terminalResizeHandlerInRegistrationWindow(int);
+    void terminalResizeHandlerInSignInWindow(int);
+    void terminalResizeHandlerInChatWindow(int);
+
+private:
+    const NcursesPrintOperationWrapper& _nCursesPrintOperationWrapper;
+};
+
+
+namespace SignalHandling
+{
+void posixSignalHandlerInMainConsole(int signal);
+void posixSignalHandlerInChatConsole(int signal);
+void createPosixSignalsHandling(void(*handlingFunction)(int));
 
 namespace NCurses
 {

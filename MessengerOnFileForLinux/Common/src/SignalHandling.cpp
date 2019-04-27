@@ -10,8 +10,6 @@
 #include <utility>
 #include <cstring>
 
-namespace SignalHandling
-{
 namespace
 {
 static bool isChatResourcesDealocated = false;
@@ -40,6 +38,95 @@ void closeMessegner()
 }
 }//namespace
 
+SignalHandler::SignalHandler(const NcursesPrintOperationWrapper& nCursesPrintOperationWrapper)
+    : _nCursesPrintOperationWrapper(nCursesPrintOperationWrapper)
+{}
+
+void SignalHandler::posixSignalHandlerInMainConsole(int signal)
+{
+    const std::string log = "Signal nr=" + std::to_string(signal) + "handled in main console";
+    fileLog(log.c_str(), LogSpace::Common);
+    if (not isChatResourcesDealocated)
+    {
+        isChatResourcesDealocated = true;
+        fileLog("Start of remove chat resources", LogSpace::Common);
+        closeMessegner();
+    }
+}
+
+void SignalHandler::posixSignalHandlerInChatConsole(int signal)
+{
+    const std::string log = "Signal nr=" + std::to_string(signal) + "handled in chat console";
+    fileLog(log.c_str(), LogSpace::Common);
+
+    if (not isChatResourcesDealocated)
+    {
+        isChatResourcesDealocated = true;
+        fileLog("Start of remove chat resources", LogSpace::Common);
+        std::string chatFolderName = getChatFolderName();
+        if (FileInterface::Managment::isFileExist(ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName + "/END"))
+        {
+            std::string command = "rm -rf " + ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName;
+            system(command.c_str());
+            closeMessegner();
+        }
+        else
+        {
+            FileInterface::Managment::createFile(ENVIRONMENT_PATH::TO_FOLDER::CHATS + chatFolderName + "/END");
+            closeMessegner();
+        }
+    }
+}
+
+void SignalHandler::createPosixSignalsHandling(void(*handlingFunction)(int))
+{
+    for (const auto posixSignal : posixSignalsCausingUnexpectedApplicationEndings)
+    {
+        std::signal(posixSignal, handlingFunction);
+    }
+}
+
+void SignalHandler::terminalResizeHandlerInMainWindow(int)
+{
+    fileLog("Console resize handled in main window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    initscr();
+    ConsoleWindow::displayMainWindow();
+}
+
+void SignalHandler::terminalResizeHandlerInRegistrationWindow(int)
+{
+    fileLog("Console resize handled in registration window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displayRegistrationWindow();
+}
+
+void SignalHandler::terminalResizeHandlerInSignInWindow(int)
+{
+    fileLog("Console resize handled in sign window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ConsoleWindow::displaySignInWindow();
+}
+
+void SignalHandler::terminalResizeHandlerInChatWindow(int)
+{
+    fileLog("Console resize handled in chat window", LogSpace::Common);
+    endwin();
+    refresh();
+    clear();
+    ChatWindow::displayChatWindows();
+    ChatWindow::displayEnterMessageWindow();
+    ChatWindow::displayDisplayMessageWindow("");
+}
+
+namespace SignalHandling
+{
 void posixSignalHandlerInMainConsole(int signal)
 {
     const std::string log = "Signal nr=" + std::to_string(signal) + "handled in main console";
@@ -78,7 +165,7 @@ void posixSignalHandlerInChatConsole(int signal)
 
 void createPosixSignalsHandling(void(*handlingFunction)(int))
 {
-    for (const auto posixSignal : SignalHandling::posixSignalsCausingUnexpectedApplicationEndings)
+    for (const auto posixSignal : posixSignalsCausingUnexpectedApplicationEndings)
     {
         std::signal(posixSignal, handlingFunction);
     }
