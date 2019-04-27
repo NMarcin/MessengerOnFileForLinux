@@ -63,8 +63,8 @@ std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMess
         _log.info("Sender::prepearMessageToSend() Message is a conversation command");
 
         NcursesPrintToMainWindowOperationWrapper wrapper;
-        SignalHandler signalHandler(wrapper);
-        TerminalFunctionality terminalFunctionality(_chatInfo->_chatPath, ChatStatus::conversation, signalHandler);
+        SignalHandler signalHandler;
+        TerminalFunctionality terminalFunctionality(_chatInfo->_chatPath, ChatStatus::conversation, signalHandler, wrapper);
         std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
         terminalFunctionality.runCommand(command, _chatInfo);
         if("end" == command)

@@ -24,7 +24,7 @@ void mnurzyns()
 void mwozniak()
 {
     NcursesPrintToMainWindowOperationWrapper informationPrinter;
-    SignalHandler signalHandler(informationPrinter);
+    SignalHandler signalHandler;
     signalHandler.createPosixSignalsHandling(signalHandler.posixSignalHandlerInMainConsole);
     RegisterUser registerUser(informationPrinter, signalHandler);
     registerUser.registerNewUser();
@@ -35,7 +35,7 @@ void mwozniak()
     clear();
     refresh();
 
-    Controler controler(signalHandler);
+    Controler controler(signalHandler, informationPrinter);
     controler.controlUserAction();
 }
 

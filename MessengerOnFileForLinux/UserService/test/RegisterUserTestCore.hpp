@@ -12,8 +12,7 @@ class RegisterUserTestFixture : public Test
 {
 public:
     RegisterUserTestFixture()
-        : _signalHandler(_ncursesPrintOperationWrapperMock)
-        , _registerUser(_ncursesPrintOperationWrapperMock, _signalHandler)
+        : _registerUser(_ncursesPrintOperationWrapperMock, _signalHandler)
     {
         EXPECT_CALL(_ncursesPrintOperationWrapperMock, printInformationIntoMainWindow(_)).WillRepeatedly(Return());
         EXPECT_CALL(_ncursesPrintOperationWrapperMock, printMainWindow()).WillRepeatedly(Return());

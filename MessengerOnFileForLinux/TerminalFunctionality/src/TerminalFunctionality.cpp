@@ -15,17 +15,21 @@ bool starts_with(const std::string& starter, const std::string& ourString);
 
 TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath,
                                              ChatStatus chatStatus,
-                                             const SignalHandler& signalHandler)
+                                             const SignalHandler& signalHandler,
+                                             const NcursesPrintOperationWrapper& informationPrinter)
     : _chatFileWithPath(chatFileWithPath)
     , _chatStatus(chatStatus)
     , _signalHandler(signalHandler)
+    , _informationPrinter(informationPrinter)
 {
     //NOOP
 }
 
-TerminalFunctionality::TerminalFunctionality(const SignalHandler& signalHandler)
+TerminalFunctionality::TerminalFunctionality(const SignalHandler& signalHandler,
+                                             const NcursesPrintOperationWrapper& informationPrinter)
 
     : _signalHandler(signalHandler)
+    , _informationPrinter(informationPrinter)
 {}
 
 bool TerminalFunctionality::runCommand(const std::string& command, std::shared_ptr<ChatInformation> chatInfo)
@@ -50,12 +54,12 @@ bool TerminalFunctionality::runCommand(const std::string& command, std::shared_p
     else if (starts_with(UserCommand::inviteUser, command))
     {
         _log.info("TerminalFunctionality::runCommand() invite user");
-        _terminalCommand = std::make_unique<InviteSender>(command, chatInfo, _signalHandler);
+        _terminalCommand = std::make_unique<InviteSender>(command, chatInfo, _signalHandler, _informationPrinter);
     }
     else if (starts_with(UserCommand::startConversation, command))
     {
         _log.info("TerminalFunctionality::runCommand() start conversation");
-        _terminalCommand = std::make_unique<InviteReceiver>(command, chatInfo, _signalHandler);
+        _terminalCommand = std::make_unique<InviteReceiver>(command, chatInfo, _signalHandler, _informationPrinter);
     }
     else
     {

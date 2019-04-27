@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <array>
 
-#include "NcursesPrintOperationWrapper.hpp"
+#include "NcursesPrintToMainWindowOperationWrapper.hpp"
 #include "Logger.hpp"
 #include "LogSpace.hpp"
 
@@ -20,8 +20,6 @@ static constexpr std::array<int, NUMBER_OF_HANLING_POSIX_SIGNALS> posixSignalsCa
 class SignalHandler
 {
 public:
-    SignalHandler(const NcursesPrintOperationWrapper& nCursesPrintOperationWrapper);
-
     static void posixSignalHandlerInMainConsole(int signal);
     static void posixSignalHandlerInChatConsole(int signal);
     static void createPosixSignalsHandling(void(*handlingFunction)(int));
@@ -31,6 +29,6 @@ public:
     static void terminalResizeHandlerInChatWindow(int);
 
 private:
-    const NcursesPrintOperationWrapper& _nCursesPrintOperationWrapper;
+    static NcursesPrintToMainWindowOperationWrapper _nCursesPrintOperationWrapper;
 };
 

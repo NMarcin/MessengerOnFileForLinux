@@ -6,6 +6,7 @@
 #include "Logger.hpp"
 #include "LogSpace.hpp"
 #include "SignalHandling.hpp"
+#include "NcursesPrintOperationWrapper.hpp"
 
 enum class ChatStatus
 {
@@ -25,8 +26,12 @@ class TerminalFunctionality
 public:
     bool runCommand(const std::string& command, std::shared_ptr<ChatInformation> chatInfo = nullptr);
 
-    TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus, const SignalHandler& _signalHandler);
-    TerminalFunctionality( const SignalHandler& _signalHandler);
+    TerminalFunctionality(std::string chatFileWithPath,
+                          ChatStatus chatStatus,
+                          const SignalHandler& _signalHandler,
+                          const NcursesPrintOperationWrapper& informationPrinter);
+    TerminalFunctionality(const SignalHandler& _signalHandler,
+                          const NcursesPrintOperationWrapper& informationPrinter);
     ~TerminalFunctionality() = default;
 
     TerminalFunctionality(TerminalFunctionality &&) = delete;
@@ -39,6 +44,7 @@ private:
     std::string _chatFileWithPath;
     ChatStatus _chatStatus;
     const SignalHandler& _signalHandler;
+    const NcursesPrintOperationWrapper& _informationPrinter;
 
     Logger _log {LogSpace::TerminalFunctionality};
 };

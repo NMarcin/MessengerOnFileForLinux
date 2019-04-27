@@ -21,7 +21,7 @@ void ChatRequestFixture::SetUp()
     std::istringstream stream("1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
     NiceMock<NcursesPrintOperationWrapperMock> ncursesPrintOperationWrapperMock;
-    SignalHandler signalHandler(ncursesPrintOperationWrapperMock);
+    SignalHandler signalHandler;
     RegisterUser registerUser(ncursesPrintOperationWrapperMock, signalHandler);
     registerUser.registerNewUser();
 

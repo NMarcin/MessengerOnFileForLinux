@@ -14,6 +14,7 @@
 #include "TerminalFunctionality.hpp"
 #include "UserInactivityDetector.hpp"
 #include "SignalHandling.hpp"
+#include "NcursesPrintOperationWrapper.hpp"
 
 class ConversationControl
 {
@@ -21,7 +22,9 @@ public:
     void conversation();
     void conversationEpilog();
 
-    ConversationControl(std::shared_ptr<ChatInformation> chatInfo, const SignalHandler& signalHandler);
+    ConversationControl(std::shared_ptr<ChatInformation> chatInfo,
+                        const SignalHandler& signalHandler,
+                        const NcursesPrintOperationWrapper& informationPrinter);
     ~ConversationControl();
 
     ConversationControl(ConversationControl &&) = delete;
@@ -54,6 +57,7 @@ private:
     bool _isUserInactivityWasHandled;
     UserInactivityDetector _userInactivityDetector;
     const SignalHandler& _signalHandler;
+    const NcursesPrintOperationWrapper& _informationPrinter;
 
     Logger _log{LogSpace::ChatStarter};
 };

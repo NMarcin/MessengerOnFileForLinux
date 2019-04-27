@@ -1,8 +1,7 @@
 #include "SignInTestCore.hpp"
 
 SignInTestFixture::SignInTestFixture()
-    : _signalHandler(_ncursesPrintOperationWrapperMock)
-    , _signIn(_ncursesPrintOperationWrapperMock, _signalHandler)
+    : _signIn(_ncursesPrintOperationWrapperMock, _signalHandler)
     , _registerUser(_ncursesPrintOperationWrapperMock, _signalHandler)
 {
     EXPECT_CALL(_ncursesPrintOperationWrapperMock, printInformationIntoMainWindow(_)).WillRepeatedly(Return());

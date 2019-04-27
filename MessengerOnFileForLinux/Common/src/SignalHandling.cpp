@@ -38,9 +38,7 @@ void closeMessegner()
 }
 }//namespace
 
-SignalHandler::SignalHandler(const NcursesPrintOperationWrapper& nCursesPrintOperationWrapper)
-    : _nCursesPrintOperationWrapper(nCursesPrintOperationWrapper)
-{}
+NcursesPrintToMainWindowOperationWrapper SignalHandler::_nCursesPrintOperationWrapper{};
 
 void SignalHandler::posixSignalHandlerInMainConsole(int signal)
 {
@@ -93,7 +91,7 @@ void SignalHandler::terminalResizeHandlerInMainWindow(int)
     refresh();
     clear();
     initscr();
-    ConsoleWindow::displayMainWindow();
+    _nCursesPrintOperationWrapper.printMainWindow();
 }
 
 void SignalHandler::terminalResizeHandlerInRegistrationWindow(int)
@@ -102,7 +100,7 @@ void SignalHandler::terminalResizeHandlerInRegistrationWindow(int)
     endwin();
     refresh();
     clear();
-    ConsoleWindow::displayRegistrationWindow();
+    _nCursesPrintOperationWrapper.printRegistrationWindow();
 }
 
 void SignalHandler::terminalResizeHandlerInSignInWindow(int)
@@ -111,7 +109,7 @@ void SignalHandler::terminalResizeHandlerInSignInWindow(int)
     endwin();
     refresh();
     clear();
-    ConsoleWindow::displaySignInWindow();
+    _nCursesPrintOperationWrapper.printSignInWindow();
 }
 
 void SignalHandler::terminalResizeHandlerInChatWindow(int)

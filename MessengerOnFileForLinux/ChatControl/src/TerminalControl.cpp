@@ -19,11 +19,13 @@
 
 TerminalControl::TerminalControl(ChatStatus chatStatus,
                                  std::shared_ptr<ChatInformation> chatInfo,
-                                 const SignalHandler& signalHandler)
+                                 const SignalHandler& signalHandler,
+                                 const NcursesPrintOperationWrapper& informationPrinter)
                                 : _chatStatus(chatStatus)
                                 , _chatInfo(chatInfo)
                                 , _signalHandler(signalHandler)
-                                , _terminalFunctionality(_signalHandler)
+                                , _informationPrinter(informationPrinter)
+                                , _terminalFunctionality(_signalHandler, _informationPrinter)
 {
     // NOOP
 }
@@ -37,7 +39,7 @@ bool TerminalControl::waitingInTerminal()
     std::signal(SIGWINCH, _signalHandler.terminalResizeHandlerInMainWindow);
     clear();
     refresh();
-    ConsoleWindow::displayMainWindow();
+    _informationPrinter.printMainWindow();
     const std::string command = ConsoleWindow::getStringFromConsoleWindow();
     bool commandStatus = _terminalFunctionality.runCommand(command, _chatInfo);
     return commandStatus;

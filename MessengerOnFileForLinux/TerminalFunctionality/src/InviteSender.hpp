@@ -4,13 +4,17 @@
 #include "TerminalControl.hpp"
 #include "Logger.hpp"
 #include "LogSpace.hpp"
+#include "NcursesPrintOperationWrapper.hpp"
 
 class InviteSender : public TerminalCommand
 {
 public:
     bool doCommand() const;
 
-    InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo, const SignalHandler& signalHandler);
+    InviteSender(std::string command,
+                 std::shared_ptr<ChatInformation> chatInfo,
+                 const SignalHandler& signalHandler,
+                 const NcursesPrintOperationWrapper& informationPrinter);
     ~InviteSender();
 
     InviteSender(InviteSender &&) = delete;
@@ -21,6 +25,7 @@ public:
 private:
     std::shared_ptr<ChatInformation> _chatInfo;
     const SignalHandler& _signalHandler;
+    const NcursesPrintOperationWrapper& _informationPrinter;
 
     Logger _log {LogSpace::TerminalFunctionality};
 };
