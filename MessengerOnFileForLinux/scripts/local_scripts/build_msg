@@ -20,7 +20,13 @@ for arg in "$@"
                               cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DGTEST_ONLY='' ..;\ 
                               python ../scripts/local_scripts/run-clang-tidy.py ;;
   	  --valgrind | -v) make valgrind ;;
-  	  --clear | -cl) rm -rf *;;
+  	  --clear | -cl) cd ..; cd build;
+			 if [ $? -eq 0 ]; then
+    			 	rm -rf *;
+			 else
+    			 	echo Your BUILD_PATH is not correct! Set this variable again;
+			 fi;;
+
   	  --unit-test |-ut) cmake ..; make; ./bin/messenger_binary_UT ;;	
   	  --full | -f) cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..; make;\ 
 		       make valgrind;\ 
