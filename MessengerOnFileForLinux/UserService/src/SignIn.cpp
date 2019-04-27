@@ -10,13 +10,14 @@
 #include "GlobalVariables.hpp"
 #include "ConsoleWindow.hpp"
 #include "StringSum.hpp"
-#include "SignalHandling.hpp"
 
-SignIn::SignIn(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper)
+SignIn::SignIn(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper,
+               const SignalHandler& signalHandler)
     : _ncursesPrintOperationWrapper(ncursesPrintOperationWrapper)
+    , _signalHandler(signalHandler)
 {
     initscr();
-    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInSignInWindow);
+    std::signal(SIGWINCH, signalHandler.terminalResizeHandlerInSignInWindow);
     _log.function("SignIn C-TOR");
 }
 

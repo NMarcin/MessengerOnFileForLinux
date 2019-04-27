@@ -23,19 +23,19 @@ class SignalHandler
 public:
     SignalHandler(const NcursesPrintOperationWrapper& nCursesPrintOperationWrapper);
 
-    void posixSignalHandlerInMainConsole(int signal);
-    void posixSignalHandlerInChatConsole(int signal);
-    void createPosixSignalsHandling(void(*handlingFunction)(int));
-    void terminalResizeHandlerInMainWindow(int);
-    void terminalResizeHandlerInRegistrationWindow(int);
-    void terminalResizeHandlerInSignInWindow(int);
-    void terminalResizeHandlerInChatWindow(int);
+    static void posixSignalHandlerInMainConsole(int signal);
+    static void posixSignalHandlerInChatConsole(int signal);
+    static void createPosixSignalsHandling(void(*handlingFunction)(int));
+    static void terminalResizeHandlerInMainWindow(int);
+    static void terminalResizeHandlerInRegistrationWindow(int);
+    static void terminalResizeHandlerInSignInWindow(int);
+    static void terminalResizeHandlerInChatWindow(int);
 
 private:
     const NcursesPrintOperationWrapper& _nCursesPrintOperationWrapper;
 };
 
-
+/*
 namespace SignalHandling
 {
 void posixSignalHandlerInMainConsole(int signal);
@@ -50,3 +50,4 @@ void resizeHandlerInSignInWindow(int);
 void resizeHandlerInChatWindow(int);
 } //NCurses
 } //SignalHandling
+*/

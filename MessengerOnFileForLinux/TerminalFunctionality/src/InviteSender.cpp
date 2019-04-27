@@ -3,8 +3,11 @@
 #include "ConversationControl.hpp"
 
 
-InviteSender::InviteSender(std::string command, std::shared_ptr<ChatInformation> chatInfo)
+InviteSender::InviteSender(std::string command,
+                           std::shared_ptr<ChatInformation> chatInfo,
+                           const SignalHandler& signalHandler)
     : TerminalCommand(command)
+    , _signalHandler(signalHandler)
 {
     _log.function("InviteSender() C-TOR");
 }
@@ -22,6 +25,6 @@ bool InviteSender::doCommand() const
     std::string logInfo = "Invite send to: " + usernameInCommand;
     _log.info(logInfo);
 
-    TerminalControl terminalControl(ChatStatus::terminal, _chatInfo);
+    TerminalControl terminalControl(ChatStatus::terminal, _chatInfo, _signalHandler);
     return terminalControl.startConversation(usernameInCommand, ChatRole::inviter);
 }

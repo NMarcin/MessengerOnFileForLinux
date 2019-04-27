@@ -4,12 +4,13 @@
 #include "Logger.hpp"
 #include "LogSpace.hpp"
 #include "NcursesPrintToMainWindowOperationWrapper.hpp"
+#include "SignalHandling.hpp"
 
 class SignIn
 {
 public:
     bool signInUser() const;
-    SignIn(const NcursesPrintOperationWrapper&);
+    SignIn(const NcursesPrintOperationWrapper&, const SignalHandler& signalHandler);
     ~SignIn();
 
     SignIn() = delete;
@@ -26,5 +27,6 @@ private:
     std::string enterThePassword() const;
 
     const NcursesPrintOperationWrapper& _ncursesPrintOperationWrapper;
+    const SignalHandler& _signalHandler;
     Logger _log {LogSpace::UserService};
 };

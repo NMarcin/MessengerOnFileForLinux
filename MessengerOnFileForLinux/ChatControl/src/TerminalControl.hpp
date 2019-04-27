@@ -6,6 +6,7 @@
 #include "LogSpace.hpp"
 #include "TerminalFunctionality.hpp"
 #include "Message.hpp"
+#include "SignalHandling.hpp"
 
 class TerminalControl
 {
@@ -14,7 +15,7 @@ public:
     bool startConversation(const std::string& username, ChatRole chatRole);
     static void lookForInvitation();
 
-    TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo);
+    TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo, const SignalHandler& signalHandler);
     ~TerminalControl() = default;
 
     TerminalControl(TerminalControl &&) = delete;
@@ -31,9 +32,10 @@ private:
 
     std::string _chatFileWithPath;
     std::string _messageFlag;
-    TerminalFunctionality _terminalFunctionality;
     ChatStatus _chatStatus;
     std::shared_ptr<ChatInformation> _chatInfo;
+    const SignalHandler& _signalHandler;
+    TerminalFunctionality _terminalFunctionality;
 
     Logger _log{LogSpace::ChatControl};
 };

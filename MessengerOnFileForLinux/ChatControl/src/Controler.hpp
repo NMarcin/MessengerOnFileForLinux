@@ -5,14 +5,14 @@
 #include "ConversationControl.hpp"
 #include "Logger.hpp"
 #include "LogSpace.hpp"
-
+#include "SignalHandling.hpp"
 
 class Controler
 {
 public:
     void controlUserAction();
 
-    Controler() = default;
+    Controler(const SignalHandler& signalHandler);
     ~Controler() = default;
 
     Controler(Controler &&) = delete;
@@ -24,6 +24,7 @@ public:
 private:
     std::unique_ptr<TerminalControl> _terminalControl;
     std::unique_ptr<ConversationControl> _conversationControl;
+    const SignalHandler& _signalHandler;
 
     Logger _log{LogSpace::ChatControl};
 };

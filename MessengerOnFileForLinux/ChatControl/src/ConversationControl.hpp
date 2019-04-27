@@ -13,6 +13,7 @@
 #include "Message.hpp"
 #include "TerminalFunctionality.hpp"
 #include "UserInactivityDetector.hpp"
+#include "SignalHandling.hpp"
 
 class ConversationControl
 {
@@ -20,7 +21,7 @@ public:
     void conversation();
     void conversationEpilog();
 
-    ConversationControl(std::shared_ptr<ChatInformation> chatInfo);
+    ConversationControl(std::shared_ptr<ChatInformation> chatInfo, const SignalHandler& signalHandler);
     ~ConversationControl();
 
     ConversationControl(ConversationControl &&) = delete;
@@ -52,6 +53,7 @@ private:
     bool _isThreadsRunning;
     bool _isUserInactivityWasHandled;
     UserInactivityDetector _userInactivityDetector;
+    const SignalHandler& _signalHandler;
 
     Logger _log{LogSpace::ChatStarter};
 };

@@ -6,14 +6,14 @@
 #include "FileHandling.hpp"
 #include "ChatRequest.hpp"
 #include "GlobalVariables.hpp"
-#include "SignalHandling.hpp"
 #include "ChatWindow.hpp"
 #include "ConsoleWindow.hpp"
 #include "PurgeMessage.hpp"
 
 bool ConversationControl::isConversationRunning_ = false;
 
-ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
+ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo,
+                                         const SignalHandler& signalHandler)
     : _chatInfo(chatInfo)
     , _sender(std::make_unique<Sender>(chatInfo))
     , _receiver(std::make_unique<Receiver>(chatInfo))
@@ -22,6 +22,7 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , _reciveMessageThread(nullptr)
     , _isUserInactivityWasHandled(false)
     , _userInactivityDetector(chatInfo->_interlocutorUsername)
+    , _signalHandler(signalHandler)
 {
     _log.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
@@ -42,7 +43,7 @@ ConversationControl::~ConversationControl()
 void ConversationControl::conversation()
 {
     _log.function("ChatControl::conversationControl() started");
-    SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInChatConsole);
+    _signalHandler.createPosixSignalsHandling(_signalHandler.posixSignalHandlerInChatConsole);
     ChatWindow::displayChatWindows();
     startThreads();
     while (isConversationRunning_)

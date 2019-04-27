@@ -124,7 +124,7 @@ void SignalHandler::terminalResizeHandlerInChatWindow(int)
     ChatWindow::displayEnterMessageWindow();
     ChatWindow::displayDisplayMessageWindow("");
 }
-
+/*
 namespace SignalHandling
 {
 void posixSignalHandlerInMainConsole(int signal)
@@ -213,3 +213,4 @@ void resizeHandlerInChatWindow(int)
 }
 }//NCurses
 }//SignalHandling
+*/

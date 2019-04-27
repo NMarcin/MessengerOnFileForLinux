@@ -13,12 +13,20 @@ namespace
 bool starts_with(const std::string& starter, const std::string& ourString);
 } // namespace
 
-TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus)
+TerminalFunctionality::TerminalFunctionality(std::string chatFileWithPath,
+                                             ChatStatus chatStatus,
+                                             const SignalHandler& signalHandler)
     : _chatFileWithPath(chatFileWithPath)
     , _chatStatus(chatStatus)
+    , _signalHandler(signalHandler)
 {
     //NOOP
 }
+
+TerminalFunctionality::TerminalFunctionality(const SignalHandler& signalHandler)
+
+    : _signalHandler(signalHandler)
+{}
 
 bool TerminalFunctionality::runCommand(const std::string& command, std::shared_ptr<ChatInformation> chatInfo)
 {
@@ -42,12 +50,12 @@ bool TerminalFunctionality::runCommand(const std::string& command, std::shared_p
     else if (starts_with(UserCommand::inviteUser, command))
     {
         _log.info("TerminalFunctionality::runCommand() invite user");
-        _terminalCommand = std::make_unique<InviteSender>(command, chatInfo);
+        _terminalCommand = std::make_unique<InviteSender>(command, chatInfo, _signalHandler);
     }
     else if (starts_with(UserCommand::startConversation, command))
     {
         _log.info("TerminalFunctionality::runCommand() start conversation");
-        _terminalCommand = std::make_unique<InviteReceiver>(command, chatInfo);
+        _terminalCommand = std::make_unique<InviteReceiver>(command, chatInfo, _signalHandler);
     }
     else
     {

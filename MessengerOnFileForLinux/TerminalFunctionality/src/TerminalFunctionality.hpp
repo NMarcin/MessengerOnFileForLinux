@@ -5,6 +5,7 @@
 #include "TerminalCommand.hpp"
 #include "Logger.hpp"
 #include "LogSpace.hpp"
+#include "SignalHandling.hpp"
 
 enum class ChatStatus
 {
@@ -24,8 +25,8 @@ class TerminalFunctionality
 public:
     bool runCommand(const std::string& command, std::shared_ptr<ChatInformation> chatInfo = nullptr);
 
-    TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus);
-    TerminalFunctionality() = default;
+    TerminalFunctionality(std::string chatFileWithPath, ChatStatus chatStatus, const SignalHandler& _signalHandler);
+    TerminalFunctionality( const SignalHandler& _signalHandler);
     ~TerminalFunctionality() = default;
 
     TerminalFunctionality(TerminalFunctionality &&) = delete;
@@ -37,6 +38,7 @@ private:
     std::unique_ptr<TerminalCommand> _terminalCommand = nullptr;
     std::string _chatFileWithPath;
     ChatStatus _chatStatus;
+    const SignalHandler& _signalHandler;
 
     Logger _log {LogSpace::TerminalFunctionality};
 };

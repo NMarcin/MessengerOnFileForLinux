@@ -6,6 +6,7 @@
 #include "TerminalFunctionality.hpp"
 #include "ChatWindow.hpp"
 #include "ConversationControl.hpp"
+#include "NcursesPrintToMainWindowOperationWrapper.hpp"
 
 Sender::Sender(std::shared_ptr<ChatInformation> chatInfo)
     : _chatInfo(chatInfo)
@@ -60,7 +61,10 @@ std::unique_ptr<Message> Sender::prepareMessageToSend(const std::string& rowMess
     if (isTerminalCommand(rowMessage))
     {
         _log.info("Sender::prepearMessageToSend() Message is a conversation command");
-        TerminalFunctionality terminalFunctionality(_chatInfo->_chatPath, ChatStatus::conversation);
+
+        NcursesPrintToMainWindowOperationWrapper wrapper;
+        SignalHandler signalHandler(wrapper);
+        TerminalFunctionality terminalFunctionality(_chatInfo->_chatPath, ChatStatus::conversation, signalHandler);
         std::string command = std::string{rowMessage.begin()+2, rowMessage.end()};
         terminalFunctionality.runCommand(command, _chatInfo);
         if("end" == command)

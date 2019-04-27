@@ -4,13 +4,14 @@
 #include "Logger.hpp"
 #include "LogSpace.hpp"
 #include "NcursesPrintToMainWindowOperationWrapper.hpp"
+#include "SignalHandling.hpp"
 
 class RegisterUser
 {
 public:
     bool registerNewUser() const;
 
-    RegisterUser(const NcursesPrintOperationWrapper&);
+    RegisterUser(const NcursesPrintOperationWrapper&, const SignalHandler&);
     ~RegisterUser();
 
     RegisterUser() = delete;
@@ -28,6 +29,7 @@ private:
     bool setUserPassword(std::string& password) const;
 
     const NcursesPrintOperationWrapper& _ncursesPrintOperationWrapper;
+    const SignalHandler& _signalHandler;
 
     Logger _log {LogSpace::UserService};
 };

@@ -10,7 +10,7 @@ class InviteReceiver : public TerminalCommand
 public:
     bool doCommand() const override;
 
-    InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo);
+    InviteReceiver(std::string command, std::shared_ptr<ChatInformation> chatInfo, const SignalHandler& signalHandler);
     ~InviteReceiver() = default;
 
     InviteReceiver(InviteReceiver &&) = delete;
@@ -20,5 +20,7 @@ public:
 
 private:
     std::shared_ptr<ChatInformation> _chatInfo;
+    const SignalHandler& _signalHandler;
+
     Logger _log {LogSpace::TerminalFunctionality};
 };
