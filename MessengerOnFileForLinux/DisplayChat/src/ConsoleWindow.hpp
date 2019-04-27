@@ -15,7 +15,7 @@ namespace ConsoleWindow
     void displayMainWindow();
     void displayRegistrationWindow();
     void displaySignInWindow();
-    void updateTerminalSize();
     void deleteLastEnteredCharacter();
     std::string getStringFromConsoleWindow();
+    bool isCharacterInCorrectRange(const char character);
 }

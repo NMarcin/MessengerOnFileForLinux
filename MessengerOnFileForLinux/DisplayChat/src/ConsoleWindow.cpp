@@ -5,6 +5,12 @@
 #include "GlobalVariables.hpp"
 #include "TerminalControl.hpp"
 
+namespace
+{
+constexpr int firstAsciiCharacter = 0;
+constexpr int lastAsciiCharacter = 127;
+}//namespace
+
 void ConsoleWindow::displayMainWindow()
 {
     clear();
@@ -47,15 +53,11 @@ std::string ConsoleWindow::getStringFromConsoleWindow()
     char enteredCharacter {};
     while ('\n' != enteredCharacter)
     {
-        constexpr int firstCharacterInAsciiCode = 0;
-        constexpr int lastCharacterInAsciiCode = 127;
         constexpr int delCharacterInAsciiCode = 127;
 
         enteredCharacter = getch();
 
-        if (firstCharacterInAsciiCode <= enteredCharacter and
-            lastCharacterInAsciiCode >= enteredCharacter and
-            '\n' != enteredCharacter)
+        if (isCharacterInCorrectRange(enteredCharacter))
         {
             if (delCharacterInAsciiCode == enteredCharacter)
             {
@@ -70,23 +72,21 @@ std::string ConsoleWindow::getStringFromConsoleWindow()
     return output;
 }
 
+bool ConsoleWindow::isCharacterInCorrectRange(const char character)
+{
+    return firstAsciiCharacter <= character and
+           lastAsciiCharacter >= character and
+           '\n' != character;
+}
+
 void ConsoleWindow::deleteLastEnteredCharacter()
 {
-    constexpr int deleteCharacterLenght = 3;
+    constexpr int delCharacterLenght = 3;
     int cursorPositionX = 0;
     int cursorPositionY = 0;
 
     getyx(stdscr, cursorPositionY, cursorPositionX);
-    cursorPositionX -= deleteCharacterLenght;
-    mvprintw(cursorPositionY, cursorPositionX, std::string(deleteCharacterLenght, ' ').c_str());
+    cursorPositionX -= delCharacterLenght;
+    mvprintw(cursorPositionY, cursorPositionX, std::string(delCharacterLenght, ' ').c_str());
     move(cursorPositionY, cursorPositionX);
-}
-
-void ConsoleWindow::updateTerminalSize()
-{
-    while(not TerminalControl::isInvitationExist)
-    {
-        getmaxyx(stdscr, ConsoleWindow::terminalSizeY, ConsoleWindow::terminalSizeX);
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-    }
 }
