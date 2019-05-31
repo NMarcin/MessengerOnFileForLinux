@@ -19,7 +19,8 @@ public:
     void TearDown();
     ~SignInTestFixture();
 
-    const std::string _user = getenv("USER");
+    const std::string _user = getenv("USER");    
+    SignalHandler _signalHandler;
     SignIn _signIn;
     SignOut _signOut;
     RegisterUser _registerUser;

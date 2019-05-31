@@ -3,9 +3,14 @@
 #include "Controler.hpp"
 #include "TerminalControl.hpp"
 #include "GlobalVariables.hpp"
-#include "SignalHandling.hpp"
 
 #define ever (;;)
+
+
+Controler::Controler(const SignalHandler& signalHandler, const NcursesPrintOperationWrapper& informationPrinter)
+    : _signalHandler(signalHandler)
+    , _informationPrinter(informationPrinter)
+{}
 
 void Controler::controlUserAction()
 {
@@ -21,7 +26,7 @@ void Controler::controlUserAction()
 
         std::thread waitForInvitation(_terminalControl->lookForInvitation);
         std::shared_ptr<ChatInformation> chatInfo = std::make_shared<ChatInformation>();
-        _terminalControl = std::make_unique<TerminalControl>(ChatStatus::terminal, chatInfo);
+        _terminalControl = std::make_unique<TerminalControl>(ChatStatus::terminal, chatInfo, _signalHandler, _informationPrinter);
         _terminalControl->waitingInTerminal();
 
         _log.debug("Controler::controlUserAction() waitingInTerminal finished");
@@ -36,7 +41,7 @@ void Controler::controlUserAction()
         if(not chatInfo->_chatPath.empty())
         {
             _log.info("Controler::controlUserAction() ConversationControl START()");
-            _conversationControl = std::make_unique<ConversationControl>(chatInfo);
+            _conversationControl = std::make_unique<ConversationControl>(chatInfo, _signalHandler, _informationPrinter);
             _conversationControl->conversation();
             _conversationControl->conversationEpilog();
             _log.info("Controler::controlUserAction() ConversationControl END()");

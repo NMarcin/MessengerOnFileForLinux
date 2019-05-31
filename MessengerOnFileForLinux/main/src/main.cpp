@@ -9,7 +9,7 @@
 #include "Logger.hpp"
 #include "ClasslessLogger.hpp"
 #include "LogSpace.hpp"
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "Controler.hpp"
 
 #define ever (;;)
@@ -23,18 +23,19 @@ void mnurzyns()
 
 void mwozniak()
 {
-    SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInMainConsole);
     NcursesPrintToMainWindowOperationWrapper informationPrinter;
-    RegisterUser registerUser(informationPrinter);
+    SignalHandler signalHandler;
+    signalHandler.createPosixSignalsHandling(signalHandler.posixSignalHandlerInMainConsole);
+    RegisterUser registerUser(informationPrinter, signalHandler);
     registerUser.registerNewUser();
     clear();
     refresh();
-    SignIn signIn(informationPrinter);
+    SignIn signIn(informationPrinter, signalHandler);
     signIn.signInUser();
     clear();
     refresh();
 
-    Controler controler;
+    Controler controler(signalHandler, informationPrinter);
     controler.controlUserAction();
 }
 

@@ -9,13 +9,7 @@
 
 namespace ConsoleWindow
 {
-    static std::atomic<int> terminalSizeX;
-    static std::atomic<int> terminalSizeY;
-
-    void displayMainWindow();
-    void displayRegistrationWindow();
-    void displaySignInWindow();
-    void updateTerminalSize();
     void deleteLastEnteredCharacter();
     std::string getStringFromConsoleWindow();
+    bool isCharacterInCorrectRange(const char character);
 }

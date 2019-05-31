@@ -10,13 +10,14 @@
 #include "SHA1.hpp"
 #include "ConsoleWindow.hpp"
 #include "StringSum.hpp"
-#include "SignalHandling.hpp"
 
-RegisterUser::RegisterUser(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper)
+RegisterUser::RegisterUser(const NcursesPrintOperationWrapper& ncursesPrintOperationWrapper,
+                           const SignalHandler& signalHandler)
     : _ncursesPrintOperationWrapper(ncursesPrintOperationWrapper)
+    , _signalHandler(signalHandler)
 {
     initscr();
-    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInRegistrationWindow);
+    std::signal(SIGWINCH, _signalHandler.terminalResizeHandlerInRegistrationWindow);
     _log.function("RegisterUser C-TOR");
 }
 

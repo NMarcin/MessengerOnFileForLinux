@@ -6,14 +6,15 @@
 #include "FileHandling.hpp"
 #include "ChatRequest.hpp"
 #include "GlobalVariables.hpp"
-#include "SignalHandling.hpp"
 #include "ChatWindow.hpp"
 #include "ConsoleWindow.hpp"
 #include "PurgeMessage.hpp"
 
 bool ConversationControl::isConversationRunning_ = false;
 
-ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo)
+ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatInfo,
+                                         const SignalHandler& signalHandler,
+                                         const NcursesPrintOperationWrapper& informationPrinter)
     : _chatInfo(chatInfo)
     , _sender(std::make_unique<Sender>(chatInfo))
     , _receiver(std::make_unique<Receiver>(chatInfo))
@@ -22,6 +23,8 @@ ConversationControl::ConversationControl(std::shared_ptr<ChatInformation> chatIn
     , _reciveMessageThread(nullptr)
     , _isUserInactivityWasHandled(false)
     , _userInactivityDetector(chatInfo->_interlocutorUsername)
+    , _signalHandler(signalHandler)
+    , _informationPrinter(informationPrinter)
 {
     _log.function("ChatControl C-TOR ");
     isConversationRunning_ = true;
@@ -42,7 +45,7 @@ ConversationControl::~ConversationControl()
 void ConversationControl::conversation()
 {
     _log.function("ChatControl::conversationControl() started");
-    SignalHandling::createPosixSignalsHandling(SignalHandling::posixSignalHandlerInChatConsole);
+    _signalHandler.createPosixSignalsHandling(_signalHandler.posixSignalHandlerInChatConsole);
     ChatWindow::displayChatWindows();
     startThreads();
     while (isConversationRunning_)
@@ -58,7 +61,7 @@ void ConversationControl::conversationEpilog()
 
     ChatWindow::deleteDisplayMesageWindow();
     ChatWindow::deleteEnterMesageWindow();
-    ConsoleWindow::displayMainWindow();
+    _informationPrinter.printMainWindow();
 
     const std::string userActiveStatus = "0";
     const std::string username = LOCAL_USER;

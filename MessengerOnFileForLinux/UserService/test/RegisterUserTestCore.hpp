@@ -12,7 +12,7 @@ class RegisterUserTestFixture : public Test
 {
 public:
     RegisterUserTestFixture()
-        : _registerUser(_ncursesPrintOperationWrapperMock)
+        : _registerUser(_ncursesPrintOperationWrapperMock, _signalHandler)
     {
         EXPECT_CALL(_ncursesPrintOperationWrapperMock, printInformationIntoMainWindow(_)).WillRepeatedly(Return());
         EXPECT_CALL(_ncursesPrintOperationWrapperMock, printMainWindow()).WillRepeatedly(Return());
@@ -21,6 +21,7 @@ public:
     }
 
     NiceMock<NcursesPrintOperationWrapperMock> _ncursesPrintOperationWrapperMock;
+    SignalHandler _signalHandler;
     RegisterUser _registerUser;
     SHA1 _sha1;
     std::string _user = getenv("USER");

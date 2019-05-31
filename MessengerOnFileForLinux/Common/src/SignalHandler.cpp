@@ -1,4 +1,4 @@
-#include "SignalHandling.hpp"
+#include "SignalHandler.hpp"
 #include "SignOut.hpp"
 #include "ConversationControl.hpp"
 #include "FileHandling.hpp"
@@ -10,8 +10,6 @@
 #include <utility>
 #include <cstring>
 
-namespace SignalHandling
-{
 namespace
 {
 static bool isChatResourcesDealocated = false;
@@ -40,7 +38,9 @@ void closeMessegner()
 }
 }//namespace
 
-void posixSignalHandlerInMainConsole(int signal)
+NcursesPrintToMainWindowOperationWrapper SignalHandler::_nCursesPrintOperationWrapper{};
+
+void SignalHandler::posixSignalHandlerInMainConsole(int signal)
 {
     const std::string log = "Signal nr=" + std::to_string(signal) + "handled in main console";
     fileLog(log.c_str(), LogSpace::Common);
@@ -52,7 +52,7 @@ void posixSignalHandlerInMainConsole(int signal)
     }
 }
 
-void posixSignalHandlerInChatConsole(int signal)
+void SignalHandler::posixSignalHandlerInChatConsole(int signal)
 {
     const std::string log = "Signal nr=" + std::to_string(signal) + "handled in chat console";
     fileLog(log.c_str(), LogSpace::Common);
@@ -76,45 +76,43 @@ void posixSignalHandlerInChatConsole(int signal)
     }
 }
 
-void createPosixSignalsHandling(void(*handlingFunction)(int))
+void SignalHandler::createPosixSignalsHandling(void(*handlingFunction)(int))
 {
-    for (const auto posixSignal : SignalHandling::posixSignalsCausingUnexpectedApplicationEndings)
+    for (const auto posixSignal : posixSignalsCausingUnexpectedApplicationEndings)
     {
         std::signal(posixSignal, handlingFunction);
     }
 }
 
-namespace NCurses
-{
-void resizeHandlerInMainWindow(int)
+void SignalHandler::terminalResizeHandlerInMainWindow(int)
 {
     fileLog("Console resize handled in main window", LogSpace::Common);
     endwin();
     refresh();
     clear();
     initscr();
-    ConsoleWindow::displayMainWindow();
+    _nCursesPrintOperationWrapper.printMainWindow();
 }
 
-void resizeHandlerInRegistrationWindow(int)
+void SignalHandler::terminalResizeHandlerInRegistrationWindow(int)
 {
     fileLog("Console resize handled in registration window", LogSpace::Common);
     endwin();
     refresh();
     clear();
-    ConsoleWindow::displayRegistrationWindow();
+    _nCursesPrintOperationWrapper.printRegistrationWindow();
 }
 
-void resizeHandlerInSignInWindow(int)
+void SignalHandler::terminalResizeHandlerInSignInWindow(int)
 {
     fileLog("Console resize handled in sign window", LogSpace::Common);
     endwin();
     refresh();
     clear();
-    ConsoleWindow::displaySignInWindow();
+    _nCursesPrintOperationWrapper.printSignInWindow();
 }
 
-void resizeHandlerInChatWindow(int)
+void SignalHandler::terminalResizeHandlerInChatWindow(int)
 {
     fileLog("Console resize handled in chat window", LogSpace::Common);
     endwin();
@@ -124,5 +122,3 @@ void resizeHandlerInChatWindow(int)
     ChatWindow::displayEnterMessageWindow();
     ChatWindow::displayDisplayMessageWindow("");
 }
-}//NCurses
-}//SignalHandling

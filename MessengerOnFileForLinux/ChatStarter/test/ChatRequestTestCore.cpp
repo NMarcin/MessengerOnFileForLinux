@@ -20,11 +20,12 @@ void ChatRequestFixture::SetUp()
     _isMessengerRunnigTest = true;
     std::istringstream stream("1\n1\n1");
     std::cin.rdbuf(stream.rdbuf());
-    NiceMock<NcursesPrintOperationWrapperMock> _ncursesPrintOperationWrapperMock;
-    RegisterUser registerUser(_ncursesPrintOperationWrapperMock);
+    NiceMock<NcursesPrintOperationWrapperMock> ncursesPrintOperationWrapperMock;
+    SignalHandler signalHandler;
+    RegisterUser registerUser(ncursesPrintOperationWrapperMock, signalHandler);
     registerUser.registerNewUser();
 
-    SignIn signIn(_ncursesPrintOperationWrapperMock);
+    SignIn signIn(ncursesPrintOperationWrapperMock, signalHandler);
     signIn.signInUser();
 }
 

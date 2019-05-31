@@ -3,7 +3,6 @@
 #include "ConversationControl.hpp"
 #include "GlobalVariables.hpp"
 #include "ConsoleWindow.hpp"
-#include "SignalHandling.hpp"
 #include "FileHandling.hpp"
 
 #include <iostream>
@@ -18,9 +17,15 @@
 #include <sstream>
 
 
-TerminalControl::TerminalControl(ChatStatus chatStatus, std::shared_ptr<ChatInformation> chatInfo)
+TerminalControl::TerminalControl(ChatStatus chatStatus,
+                                 std::shared_ptr<ChatInformation> chatInfo,
+                                 const SignalHandler& signalHandler,
+                                 const NcursesPrintOperationWrapper& informationPrinter)
                                 : _chatStatus(chatStatus)
                                 , _chatInfo(chatInfo)
+                                , _signalHandler(signalHandler)
+                                , _informationPrinter(informationPrinter)
+                                , _terminalFunctionality(_signalHandler, _informationPrinter)
 {
     // NOOP
 }
@@ -31,10 +36,10 @@ bool TerminalControl::isInvitationExist = false;
 bool TerminalControl::waitingInTerminal()
 {
     _log.function("TerminalControl::waitingInTerminal() started");
-    std::signal(SIGWINCH, SignalHandling::NCurses::resizeHandlerInMainWindow);
+    std::signal(SIGWINCH, _signalHandler.terminalResizeHandlerInMainWindow);
     clear();
     refresh();
-    ConsoleWindow::displayMainWindow();
+    _informationPrinter.printMainWindow();
     const std::string command = ConsoleWindow::getStringFromConsoleWindow();
     bool commandStatus = _terminalFunctionality.runCommand(command, _chatInfo);
     return commandStatus;
